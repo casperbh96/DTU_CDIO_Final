@@ -2,7 +2,7 @@ package DataAccess.test;
 
 import DataAccess.dao.DAO_Resource;
 import DataAccess.dto.ResourceDTO;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DAO_ResourceTest {
     DAO_Resource dao = new DAO_Resource();
 
-    @Test
+    @org.junit.Test
     void getIngredientsAll() {
         try{
             System.out.println(dao.readAllResources());
