@@ -52,7 +52,7 @@ public class DAO_Resource implements main.java.dal.I_DAL_Resource {
 
             while (resultSet.next()) {
                 ResourceDTO ress = new ResourceDTO();
-                ress.setIngredientId(resultSet.getInt("ingredientId"));
+                ress.setIngredientId(resultSet.getInt("idRaavare"));
                 ress.setName(resultSet.getString("name"));
                 resourceList.add(ress);
             }

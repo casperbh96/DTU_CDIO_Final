@@ -1,7 +1,7 @@
 package DataAccess.dto;
 
 public class ResourceDTO {
-    int ingredientId;
+    int idRaavare;
     String name;
 //      boolean active;
 //      boolean reOrder;
@@ -16,10 +16,10 @@ public class ResourceDTO {
 //    }
 
     public int getIngredientId() {
-        return ingredientId;
+        return idRaavare;
     }
     public void setIngredientId(int ingredientId) {
-        this.ingredientId = ingredientId;
+        this.idRaavare = ingredientId;
     }
 
     public String getName() {
