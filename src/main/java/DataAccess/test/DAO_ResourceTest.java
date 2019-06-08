@@ -21,6 +21,5 @@ public class DAO_ResourceTest {
         catch(SQLException ex){
             ex.printStackTrace();
         }
-
     }
 }
