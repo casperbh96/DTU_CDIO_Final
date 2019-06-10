@@ -3,20 +3,27 @@ package DataAccess.dto;
 public class ResourceDTO {
     int resource_id;
     String resource_name;
-    // reorder?
+    boolean reorder;
 
-    public int getIngredientId() {
+    public int getResourceId() {
         return resource_id;
     }
-    public void setIngredientId(int ingredientId) {
+    public void setResourceId(int ingredientId) {
         this.resource_id = ingredientId;
     }
 
-    public String getName() {
+    public String getResourceName() {
         return resource_name;
     }
-    public void setName(String name) {
+    public void setResourceName(String name) {
         this.resource_name = name;
+    }
+
+    public boolean getResourceReorder() {
+        return reorder;
+    }
+    public void setResourceReorder(boolean reorder) {
+        this.reorder = reorder;
     }
 
     //TODO write toString

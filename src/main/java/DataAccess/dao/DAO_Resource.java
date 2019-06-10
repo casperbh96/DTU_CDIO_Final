@@ -48,12 +48,13 @@ public class DAO_Resource implements main.java.dal.I_DAL_Resource {
             List<ResourceDTO> resourceList = new LinkedList<>();
 
             Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from Raavare");
+            ResultSet resultSet = statement.executeQuery("select * from resources");
 
             while (resultSet.next()) {
                 ResourceDTO ress = new ResourceDTO();
-                ress.setIngredientId(resultSet.getInt("idRaavare"));
-                ress.setName(resultSet.getString("name"));
+                ress.setResourceId(resultSet.getInt("resource_id"));
+                ress.setResourceName(resultSet.getString("resource_name"));
+                ress.setResourceReorder(resultSet.getBoolean("reorder"));
                 resourceList.add(ress);
             }
 
