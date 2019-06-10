@@ -11,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_Recipe implements main.java.dal.I_DAL_Recipe {
+public class DAO_Recipe implements I_DAL_Recipe {
     @Override
     public RecipeDTO createSingleRecipe(RecipeDTO singleRecipe) {
         return null;

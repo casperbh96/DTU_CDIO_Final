@@ -11,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_ResourceBatch implements main.java.dal.I_DAL_ResourceBatch {
+public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     @Override
     public ResourceBatchDTO createSingleResourceBatch(ResourceBatchDTO singleResourceBatch) {
         return null;

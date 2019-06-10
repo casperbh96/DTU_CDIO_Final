@@ -11,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_User implements main.java.dal.I_DAL_User {
+public class DAO_User implements I_DAL_User {
 
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) {

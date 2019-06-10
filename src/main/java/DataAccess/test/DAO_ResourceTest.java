@@ -22,4 +22,14 @@ public class DAO_ResourceTest {
             ex.printStackTrace();
         }
     }
+
+    @org.junit.Test
+    public void getResourcesBySearchString(){
+        try{
+            System.out.println(dao.readResourcebySearch("1"));
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 }

@@ -11,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_Role implements main.java.dal.I_DAL_Role {
+public class DAO_Role implements I_DAL_Role {
     @Override
     public RoleDTO createSingleRole(RoleDTO singleRole) {
         return null;

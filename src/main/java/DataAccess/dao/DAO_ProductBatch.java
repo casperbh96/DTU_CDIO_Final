@@ -11,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_ProductBatch implements main.java.dal.I_DAL_ProductBatch {
+public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) {
         return null;

@@ -1,4 +1,4 @@
-package main.java.dal;
+package DataAccess.dao;
 
 import DataAccess.dto.UserDTO;
 

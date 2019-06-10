@@ -1,4 +1,4 @@
-package main.java.dal;
+package DataAccess.dao;
 
 import DataAccess.dto.ResourceDTO;
 
@@ -12,7 +12,7 @@ public interface I_DAL_Resource {
 
     ResourceDTO readSingleResourcebyId(int ResourceId );
     List<ResourceDTO> readMultipleResourcesByList (List<Integer> listOfResourceIds);
-    List<ResourceDTO> readResourcebySearch(String keyword);
+    List<ResourceDTO> readResourcebySearch(String keyword) throws SQLException;
     List<ResourceDTO> readAllResources() throws SQLException;
 
     ResourceDTO updateSingleResource(ResourceDTO Resource);

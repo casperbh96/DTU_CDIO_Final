@@ -8,7 +8,7 @@ import java.util.List;
 
 import static DataAccess.dao.Connector.static_createConnection;
 
-public class DAO_Resource implements main.java.dal.I_DAL_Resource {
+public class DAO_Resource implements I_DAL_Resource {
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
         try{
@@ -38,8 +38,26 @@ public class DAO_Resource implements main.java.dal.I_DAL_Resource {
     }
 
     @Override
-    public List<ResourceDTO> readResourcebySearch(String keyword) {
-        return null;
+    public List<ResourceDTO> readResourcebySearch(String keyword) throws SQLException{
+        try (Connection conn = static_createConnection()) {
+            List<ResourceDTO> resourceList = new LinkedList<>();
+
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from resources WHERE Contains(resource_id, keyword)");
+
+            while (resultSet.next()) {
+                ResourceDTO ress = new ResourceDTO();
+                ress.setResourceId(resultSet.getInt("resource_id"));
+                ress.setResourceName(resultSet.getString("resource_name"));
+                ress.setResourceReorder(resultSet.getBoolean("reorder"));
+                resourceList.add(ress);
+            }
+
+            return resourceList;
+
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
     }
 
     @Override
