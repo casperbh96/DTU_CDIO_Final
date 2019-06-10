@@ -14,7 +14,7 @@ public class DAO_ResourceTest {
     DAO_Resource dao = new DAO_Resource();
 
     @org.junit.Test
-    void getIngredientsAll() {
+    public void getIngredientsAll() {
         try{
             System.out.println(dao.readAllResources());
         }
