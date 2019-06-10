@@ -1,30 +1,47 @@
 package DataAccess.dto;
 
 public class ResourceDTO {
-    int resource_id;
-    String resource_name;
-    boolean reorder;
 
-    public int getResourceId() {
-        return resource_id;
-    }
-    public void setResourceId(int ingredientId) {
-        this.resource_id = ingredientId;
-    }
+    private int resourceId;
+    private String resourceName;
+    private int reorder;            //TODO kan måske være boolean???
 
-    public String getResourceName() {
-        return resource_name;
-    }
-    public void setResourceName(String name) {
-        this.resource_name = name;
-    }
-
-    public boolean getResourceReorder() {
-        return reorder;
-    }
-    public void setResourceReorder(boolean reorder) {
+    public ResourceDTO(int resourceId, String resourceName, int reorder) {
+        this.resourceId = resourceId;
+        this.resourceName = resourceName;
         this.reorder = reorder;
     }
 
-    //TODO write toString
+    public int getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(int resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    public int getReorder() {
+        return reorder;
+    }
+
+    public void setReorder(int reorder) {
+        this.reorder = reorder;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceDTO{" +
+                "resourceId=" + resourceId +
+                ", resourceName='" + resourceName + '\'' +
+                ", reorder=" + reorder +
+                '}';
+    }
 }

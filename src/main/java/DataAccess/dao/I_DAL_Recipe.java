@@ -3,23 +3,24 @@ package DataAccess.dao;
 import DataAccess.dto.RecipeDTO;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface I_DAL_Recipe extends Serializable {
 
-    RecipeDTO createSingleRecipe( RecipeDTO singleRecipe );
-    List<RecipeDTO> createMultipleRecipes( List<RecipeDTO> listOfRecipes );
+    RecipeDTO createSingleRecipe( RecipeDTO singleRecipe ) throws SQLException;
+    List<RecipeDTO> createMultipleRecipes( List<RecipeDTO> listOfRecipes ) throws SQLException;
 
-    RecipeDTO readSingleRecipebyId(int RecipeId );
-    List<RecipeDTO> readMultipleRecipesByList (List<Integer> listOfRecipeIds);
-    List<RecipeDTO> readRecipebySearch(String keyword);
-    List<RecipeDTO> readAllRecipes();
+    RecipeDTO readSingleRecipebyId(int RecipeId ) throws SQLException;
+    List<RecipeDTO> readMultipleRecipesByList (List<Integer> listOfRecipeIds) throws SQLException;
+    List<RecipeDTO> readRecipebySearch(String keyword) throws SQLException;
+    List<RecipeDTO> readAllRecipes() throws SQLException;
 
-    RecipeDTO updateSingleRecipe(RecipeDTO Recipe);
-    List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes);
+    RecipeDTO updateSingleRecipe(RecipeDTO Recipe) throws SQLException;
+    List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 
-    RecipeDTO deleteSingleRecipe(RecipeDTO Recipe);
-    List<RecipeDTO> deleteMultipleRecipes(List<RecipeDTO> listOfRecipes);
+    RecipeDTO deleteSingleRecipe(RecipeDTO Recipe) throws SQLException;
+    List<RecipeDTO> deleteMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 
 
 }
