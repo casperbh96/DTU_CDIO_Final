@@ -14,6 +14,16 @@ import static DataAccess.dao.Connector.*;
 public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) {
+        try(Connection connection = static_createConnection()) {
+
+            PreparedStatement pStmt = connection.prepareStatement("INSERT INTO product_batches () VALUES ()");   //TODO implement this
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
