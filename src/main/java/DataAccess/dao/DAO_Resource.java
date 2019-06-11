@@ -11,31 +11,49 @@ import static DataAccess.dao.Connector.static_createConnection;
 public class DAO_Resource implements I_DAL_Resource {
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
-        try{
-            try(Connection conn = static_createConnection()){
-                // Code
-                return null;
-            }
+        try(Connection conn = static_createConnection()){
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
+
+            pStmt.setInt(1, singleResource.getResourceId());
+            pStmt.setString(2, singleResource.getResourceName());
+            pStmt.setInt(3, singleResource.getReorder());
+
+            pStmt.executeUpdate();
         }
         catch(SQLException ex){
-            // Code
+            throw new SQLException(ex);
         }
-        return null;
+        return readSingleResourcebyId(singleResource.getResourceId());
     }
 
     @Override
-    public List<ResourceDTO> createMultipleResources(List<ResourceDTO> listOfResources) {
-        return null;
+    public List<ResourceDTO> createMultipleResources(List<ResourceDTO> listOfResources) throws SQLException{
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
-    public ResourceDTO readSingleResourcebyId(int ResourceId) {
-        return null;
+    public ResourceDTO readSingleResourcebyId(int ResourceId) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
-    public List<ResourceDTO> readMultipleResourcesByList(List<Integer> listOfResourceIds) {
-        return null;
+    public List<ResourceDTO> readMultipleResourcesByList(List<Integer> listOfResourceIds) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
@@ -59,22 +77,42 @@ public class DAO_Resource implements I_DAL_Resource {
     }
 
     @Override
-    public ResourceDTO updateSingleResource(ResourceDTO Resource) {
-        return null;
+    public ResourceDTO updateSingleResource(ResourceDTO Resource) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
-    public List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) {
-        return null;
+    public List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
-    public ResourceDTO deleteSingleResource(ResourceDTO Resource) {
-        return null;
+    public ResourceDTO deleteSingleResource(ResourceDTO Resource) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 
     @Override
-    public List<ResourceDTO> deleteMultipleResources(List<ResourceDTO> listOfResources) {
-        return null;
+    public List<ResourceDTO> deleteMultipleResources(List<ResourceDTO> listOfResources) throws SQLException {
+        try(Connection conn = static_createConnection()){
+            return null;
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
     }
 }
