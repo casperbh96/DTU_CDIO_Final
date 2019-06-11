@@ -20,10 +20,11 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void getIngredientsAll() {
         try{
-            List<ResourceDTO> allRes = dao.readAllResources();
-            assertNotNull(allRes);
+            List<ResourceDTO> resList = dao.readAllResources();
+            assertNotNull(resList);
+            assertNotEquals(resList.isEmpty(),resList);
 
-            for(ResourceDTO i : allRes){
+            for(ResourceDTO i : resList){
                 System.out.println(i);
             }
         }
@@ -35,11 +36,12 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void getResourcesBySearchString(){
         try{
-            List<ResourceDTO> res = dao.readResourcebySearch("998");
-            assertNotNull(res);
+            List<ResourceDTO> resList = dao.readResourcebySearch("test");
+            assertNotNull(resList);
+            assertNotEquals(resList.isEmpty(),resList);
 
-            for(ResourceDTO resI : res){
-                System.out.println(resI.getResourceId());
+            for(ResourceDTO res : resList){
+                System.out.println(res);
             }
         }
         catch(SQLException ex){
@@ -59,6 +61,7 @@ public class DAO_ResourceTest {
 
             List<ResourceDTO> allRes = dao.createMultipleResources(resList);
             assertNotNull(allRes);
+            assertNotEquals(resList.isEmpty(),resList);
 
             for(ResourceDTO i : allRes){
                 System.out.println(i);
@@ -88,10 +91,11 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void readMultipleResources() {
         try {
-            List<ResourceDTO> allRes = dao.readMultipleResourcesByList(new ArrayList<>(Arrays.asList(1, 998)));
-            assertNotNull(allRes);
+            List<ResourceDTO> resList = dao.readMultipleResourcesByList(new ArrayList<>(Arrays.asList(1, 998)));
+            assertNotNull(resList);
+            assertNotEquals(resList.isEmpty(),resList);
 
-            for (ResourceDTO i : allRes) {
+            for (ResourceDTO i : resList) {
                 System.out.println(i);
             }
 
