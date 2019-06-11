@@ -33,7 +33,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
         try(Connection conn = static_createConnection()){
             conn.setAutoCommit(false);
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, reorder) VALUES (?,?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
 
             int index = 0;
             for(ResourceDTO res : listOfResources){
@@ -42,7 +42,6 @@ public class DAO_Resource implements I_DAL_Resource {
                 pStmt.setInt(1, res.getResourceId());
                 pStmt.setString(2, res.getResourceName());
                 pStmt.setInt(3, res.getReorder());
-                pStmt.setInt(4,res.getReorder());
 
                 pStmt.addBatch();
                 index++;
@@ -100,12 +99,21 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> readAllResources() throws SQLException {
-        try (Connection conn = static_createConnection()) {
-            return null;
+        List<ResourceDTO> resList = new LinkedList<>();
+        ResourceDTO res = null;
 
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
+        try(Connection connection = static_createConnection()) {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM resources WHERE resource_id");
+            ResultSet resultset = pStmt.executeQuery();
+
+            while(resultset.next()) {
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                resList.add(res);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return resList;
     }
 
     @Override

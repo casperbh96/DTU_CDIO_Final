@@ -18,7 +18,10 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void getIngredientsAll() {
         try{
-            System.out.println(dao.readAllResources());
+            List<ResourceDTO> allRes = dao.readAllResources();
+            for(ResourceDTO i : allRes){
+                System.out.println(i);
+            }
         }
         catch(SQLException ex){
             ex.printStackTrace();
@@ -28,7 +31,16 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void getResourcesBySearchString(){
         try{
-            System.out.println(dao.readResourcebySearch("998"));
+
+            List<ResourceDTO> res = dao.readResourcebySearch("998");
+            if(res != null){
+                for(ResourceDTO resI : res){
+                    System.out.println(resI.getResourceId());
+                }
+            }
+            else{
+                System.out.println("Result was null");
+            }
         }
         catch(SQLException ex){
             ex.printStackTrace();
