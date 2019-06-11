@@ -56,8 +56,8 @@ public class DAO_ResourceTest {
     public void insertMultipleResources(){
         try{
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(996,"test3",0);
-            ResourceDTO res2 = new ResourceDTO(997,"test4",0);
+            ResourceDTO res1 = new ResourceDTO(990,"test90",0);
+            ResourceDTO res2 = new ResourceDTO(991,"test91",0);
 
             resList.add(res1);
             resList.add(res2);

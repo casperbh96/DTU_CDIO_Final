@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static DataAccess.dao.Connector.static_commitTransAction;
 import static DataAccess.dao.Connector.static_createConnection;
+import static DataAccess.dao.Connector.static_startTransAction;
 
 public class DAO_Resource implements I_DAL_Resource {
     @Override
@@ -32,7 +34,7 @@ public class DAO_Resource implements I_DAL_Resource {
         List<Integer> idList = new ArrayList<>();
 
         try(Connection conn = static_createConnection()){
-            conn.setAutoCommit(false);
+            static_startTransAction(conn);
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
 
             int index = 0;
@@ -55,7 +57,7 @@ public class DAO_Resource implements I_DAL_Resource {
                     System.out.println("Execution " + i +
                             "successful: " + numUpdates[i] + " rows updated");
             }
-            conn.commit();
+            static_commitTransAction(conn);
         }
         catch(BatchUpdateException batchEx){
             throw new BatchUpdateException(batchEx);
