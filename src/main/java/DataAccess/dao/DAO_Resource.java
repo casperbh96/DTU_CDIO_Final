@@ -124,9 +124,6 @@ public class DAO_Resource implements I_DAL_Resource {
                 resList.add(res);
             }
         }
-        catch(BatchUpdateException batchEx){
-            throw new BatchUpdateException(batchEx);
-        }
         catch(SQLException ex){
             throw new SQLException(ex);
         }
