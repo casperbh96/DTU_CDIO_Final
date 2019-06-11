@@ -134,10 +134,9 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public List<ResourceDTO> readResourcebySearch(String keyword) throws SQLException{
         ResourceDTO res;
+        List<ResourceDTO> resourceList = new ArrayList<>();
 
         try (Connection conn = static_createConnection()) {
-            List<ResourceDTO> resourceList = new ArrayList<>();
-
             PreparedStatement pStmt = conn.prepareStatement("select * from resources " +
                                                                 "WHERE resource_id LIKE ? OR resource_name LIKE ? OR reorder LIKE ?");
             pStmt.setString(1, "%" + keyword + "%");
@@ -149,12 +148,11 @@ public class DAO_Resource implements I_DAL_Resource {
                 res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"),resultSet.getInt("reorder"));
                 resourceList.add(res);
             }
-
-            return resourceList;
-
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
+
+        return resourceList;
     }
 
     @Override
