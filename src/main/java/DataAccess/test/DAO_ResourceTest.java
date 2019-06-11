@@ -1,6 +1,7 @@
 package DataAccess.test;
 
 import java.util.*;
+
 import DataAccess.dao.DAO_Resource;
 import DataAccess.dto.ResourceDTO;
 import org.junit.Test;
@@ -19,71 +20,66 @@ public class DAO_ResourceTest {
 
     @org.junit.Test
     public void getIngredientsAll() {
-        try{
+        try {
             List<ResourceDTO> resList = dao.readAllResources();
             assertNotNull(resList);
-            assertNotEquals(resList.isEmpty(),resList);
+            assertNotEquals(resList.isEmpty(), resList);
 
-            for(ResourceDTO i : resList){
+            for (ResourceDTO i : resList) {
                 System.out.println(i);
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
     @org.junit.Test
-    public void getResourcesBySearchString(){
-        try{
+    public void getResourcesBySearchString() {
+        try {
             List<ResourceDTO> resList = dao.readResourcebySearch("test");
             assertNotNull(resList);
-            assertNotEquals(resList.isEmpty(),resList);
+            assertNotEquals(resList.isEmpty(), resList);
 
-            for(ResourceDTO res : resList){
+            for (ResourceDTO res : resList) {
                 System.out.println(res);
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
     @org.junit.Test
-    public void insertMultipleResources(){
-        try{
+    public void insertMultipleResources() {
+        try {
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(60,"123",0);
-            ResourceDTO res2 = new ResourceDTO(61,"1234",0);
+            ResourceDTO res1 = new ResourceDTO(60, "123", 0);
+            ResourceDTO res2 = new ResourceDTO(61, "1234", 0);
 
             resList.add(res1);
             resList.add(res2);
 
             List<ResourceDTO> allRes = dao.createMultipleResources(resList);
             assertNotNull(allRes);
-            assertNotEquals(resList.isEmpty(),resList);
+            assertNotEquals(resList.isEmpty(), resList);
 
-            for(ResourceDTO i : allRes){
+            for (ResourceDTO i : allRes) {
                 System.out.println(i);
             }
-        }
-        catch(BatchUpdateException batchEx){
+        } catch (BatchUpdateException batchEx) {
             batchEx.printStackTrace();
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
     @org.junit.Test
     public void getSingleResource() {
-        try{
+        try {
             ResourceDTO res = dao.readSingleResourcebyId(998);
             assertNotNull(res);
 
             System.out.println(res);
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -93,7 +89,7 @@ public class DAO_ResourceTest {
         try {
             List<ResourceDTO> resList = dao.readMultipleResourcesByList(new ArrayList<>(Arrays.asList(1, 998)));
             assertNotNull(resList);
-            assertNotEquals(resList.isEmpty(),resList);
+            assertNotEquals(resList.isEmpty(), resList);
 
             for (ResourceDTO i : resList) {
                 System.out.println(i);
