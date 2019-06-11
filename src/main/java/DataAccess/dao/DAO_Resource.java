@@ -3,6 +3,7 @@ package DataAccess.dao;
 import DataAccess.dto.ResourceDTO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,12 +29,43 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> createMultipleResources(List<ResourceDTO> listOfResources) throws SQLException{
+        List<Integer> idList = new ArrayList<>();
+
         try(Connection conn = static_createConnection()){
-            return null;
+            conn.setAutoCommit(false);
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, reorder) VALUES (?,?,?,?)");
+
+            int index = 0;
+            for(ResourceDTO res : listOfResources){
+                idList.add(res.getResourceId());
+
+                pStmt.setInt(1, res.getResourceId());
+                pStmt.setString(2, res.getResourceName());
+                pStmt.setInt(3, res.getReorder());
+                pStmt.setInt(4,res.getReorder());
+
+                pStmt.addBatch();
+                index++;
+            }
+            int[] numUpdates=pStmt.executeBatch();
+            for (int i=0; i < numUpdates.length; i++) {
+                if (numUpdates[i] == -2)
+                    System.out.println("Execution " + i +
+                            ": unknown number of rows updated");
+                else
+                    System.out.println("Execution " + i +
+                            "successful: " + numUpdates[i] + " rows updated");
+            }
+            conn.commit();
+        }
+        catch(BatchUpdateException batchEx){
+            throw new BatchUpdateException(batchEx);
         }
         catch(SQLException ex){
             throw new SQLException(ex);
         }
+
+        return readMultipleResourcesByList(idList);
     }
 
     @Override
