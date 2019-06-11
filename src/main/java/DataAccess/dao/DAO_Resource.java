@@ -14,6 +14,7 @@ public class DAO_Resource implements I_DAL_Resource {
         try{
             try(Connection conn = static_createConnection()){
                 // Code
+                return null;
             }
         }
         catch(SQLException ex){
@@ -40,20 +41,7 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public List<ResourceDTO> readResourcebySearch(String keyword) throws SQLException{
         try (Connection conn = static_createConnection()) {
-            List<ResourceDTO> resourceList = new LinkedList<>();
-
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from resources WHERE Contains(resource_id, keyword)");
-
-            while (resultSet.next()) {
-                ResourceDTO ress = new ResourceDTO();
-                ress.setResourceId(resultSet.getInt("resource_id"));
-                ress.setResourceName(resultSet.getString("resource_name"));
-                ress.setResourceReorder(resultSet.getBoolean("reorder"));
-                resourceList.add(ress);
-            }
-
-            return resourceList;
+            return null;
 
         } catch (SQLException ex) {
             throw new SQLException(ex);
@@ -63,20 +51,7 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public List<ResourceDTO> readAllResources() throws SQLException {
         try (Connection conn = static_createConnection()) {
-            List<ResourceDTO> resourceList = new LinkedList<>();
-
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from resources");
-
-            while (resultSet.next()) {
-                ResourceDTO ress = new ResourceDTO();
-                ress.setResourceId(resultSet.getInt("resource_id"));
-                ress.setResourceName(resultSet.getString("resource_name"));
-                ress.setResourceReorder(resultSet.getBoolean("reorder"));
-                resourceList.add(ress);
-            }
-
-            return resourceList;
+            return null;
 
         } catch (SQLException ex) {
             throw new SQLException(ex);
