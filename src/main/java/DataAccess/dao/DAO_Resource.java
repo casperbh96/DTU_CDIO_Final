@@ -80,7 +80,7 @@ public class DAO_Resource implements I_DAL_Resource {
             resultset.beforeFirst();
             resultset.next();
 
-            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -115,7 +115,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
                 resList.add(res);
             }
         } catch (SQLException ex) {
@@ -139,7 +139,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"));
+                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"), amount);
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
@@ -159,7 +159,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
                 resList.add(res);
             }
         } catch (SQLException e) {

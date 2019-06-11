@@ -17,7 +17,7 @@ public interface I_DAL_ResourceBatch extends Serializable {
     List<ResourceBatchDTO> readAllResourceBatchs() throws SQLException;
 
     ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO ResourceBatch) throws SQLException;
-    List<ResourceBatchDTO> updateMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) throws SQLException;
+    List<ResourceBatchDTO> updateMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatches) throws SQLException;
 
     ResourceBatchDTO deleteSingleResourceBatch(ResourceBatchDTO ResourceBatch) throws SQLException;
     List<ResourceBatchDTO> deleteMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) throws SQLException;

@@ -25,7 +25,7 @@ public class DAO_User implements I_DAL_User {
             pStmt.setString(2, singleUser.getUsername());
             pStmt.setString(3, singleUser.getInitials());
 
-            //TODO husk at sætte inactive til default 0 i sql
+            //TODO husk at sætte inactive til default 0 / false i sql
 
             pStmt.executeUpdate();
 
@@ -76,7 +76,7 @@ public class DAO_User implements I_DAL_User {
 
             ResultSet resultset = pStmt.executeQuery();
 
-            user = new UserDTO(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getInt(4));
+            user = new UserDTO(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getBoolean(4));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class DAO_User implements I_DAL_User {
 
                 ResultSet resultset = pStmt.executeQuery();
 
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getInt(4));
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -125,7 +125,7 @@ public class DAO_User implements I_DAL_User {
             ResultSet resultset = pStmt.executeQuery();
 
             while(resultset.next()) {
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getInt(4));
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -186,29 +186,40 @@ public class DAO_User implements I_DAL_User {
     public UserDTO deleteSingleUser(UserDTO user) {
         try(Connection connection = static_createConnection()){
 
-            PreparedStatement pStmt1 = connection.prepareStatement("DELETE FROM users_db WHERE user_id = ?");
-            pStmt1.setInt(1, user.getUserId());
-            pStmt1.executeUpdate();
+            PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
+
+            pStmt.setBoolean(1, true);
+            pStmt.setInt(2, user.getUserId());
+            pStmt.executeUpdate();
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null; //TODO her kan vel ikke rigtigt returneres noget??
+        return readSingleUserbyId(user.getUserId()); //TODO her kan vel ikke rigtigt returneres noget??
     }
 
     @Override
     public List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) {
+
+        List<Integer> ids = new LinkedList<>();
         try(Connection connection = static_createConnection()){
 
             for (int i = 0; i < listOfUsers.size(); i++) {
 
-                PreparedStatement pStmt1 = connection.prepareStatement("DELETE FROM users_db WHERE user_id = ?");
-                pStmt1.setInt(1, listOfUsers.get(i).getUserId());
-                pStmt1.executeUpdate();
+                PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
+                pStmt.setBoolean(1, true);
+                pStmt.setInt(2, listOfUsers.get(i).getUserId());
+                pStmt.executeUpdate();
+
+                ResultSet resultset = pStmt.executeQuery();
+
+                while (resultset.next()){
+                    ids.add(resultset.getInt(1));
+                }
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null; //TODO her kan vel ikke rigtigt returneres noget??
+        return readMultipleUsersByList(ids); //TODO her kan vel ikke rigtigt returneres noget?? Nu returneres en liste, hvor alle skal være inactive = true
     }
 }

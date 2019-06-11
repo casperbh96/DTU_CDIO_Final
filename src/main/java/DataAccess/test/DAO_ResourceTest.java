@@ -1,16 +1,12 @@
 package DataAccess.test;
 
-import java.util.*;
-
 import DataAccess.dao.DAO_Resource;
 import DataAccess.dto.ResourceDTO;
-import org.junit.Test;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,8 +48,8 @@ public class DAO_ResourceTest {
     public void insertMultipleResources() {
         try {
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(60, "123", 0);
-            ResourceDTO res2 = new ResourceDTO(61, "1234", 0);
+            ResourceDTO res1 = new ResourceDTO(60, "123", 0, amount);
+            ResourceDTO res2 = new ResourceDTO(61, "1234", 0, amount);
 
             resList.add(res1);
             resList.add(res2);

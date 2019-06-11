@@ -5,11 +5,24 @@ public class ResourceDTO {
     private int resourceId;
     private String resourceName;
     private int reorder;            //TODO kan måske være boolean???
+    private double amount;          //TODO Hvad gør vi her????
 
     public ResourceDTO(int resourceId, String resourceName, int reorder) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.reorder = reorder;
+    }
+
+    public ResourceDTO(int resourceId, String resourceName, int reorder, double amount) {
+        this.resourceId = resourceId;
+        this.resourceName = resourceName;
+        this.reorder = reorder;
+        this.amount = amount;
+    }
+
+    public ResourceDTO(int resourceId, double amount) {
+        this.resourceId = resourceId;
+        this.amount = amount;
     }
 
     public int getResourceId() {
