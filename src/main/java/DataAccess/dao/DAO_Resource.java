@@ -71,12 +71,24 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public ResourceDTO readSingleResourcebyId(int ResourceId) throws SQLException {
+        ResourceDTO res = null;
+
         try(Connection conn = static_createConnection()){
-            return null;
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resources.resource_id=?");
+
+            pStmt.setInt(1,ResourceId);
+            ResultSet resultset = pStmt.executeQuery();
+
+            // Move pointer to first row before Id, then to row with Id (fix)
+            resultset.beforeFirst();
+            resultset.next();
+
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
         }
         catch(SQLException ex){
             throw new SQLException(ex);
         }
+        return res;
     }
 
     @Override

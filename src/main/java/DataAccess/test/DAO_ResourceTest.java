@@ -80,4 +80,15 @@ public class DAO_ResourceTest {
             ex.printStackTrace();
         }
     }
+
+    @org.junit.Test
+    public void getSingleResource() {
+        try{
+            ResourceDTO res = dao.readSingleResourcebyId(998);
+            System.out.println(res);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 }
