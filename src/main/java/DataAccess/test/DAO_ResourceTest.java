@@ -19,8 +19,13 @@ public class DAO_ResourceTest {
     public void getIngredientsAll() {
         try{
             List<ResourceDTO> allRes = dao.readAllResources();
-            for(ResourceDTO i : allRes){
-                System.out.println(i);
+            if(allRes != null){
+                for(ResourceDTO i : allRes){
+                    System.out.println(i);
+                }
+            }
+            else{
+                System.out.println("Result was null");
             }
         }
         catch(SQLException ex){
@@ -51,13 +56,22 @@ public class DAO_ResourceTest {
     public void insertMultipleResources(){
         try{
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(998,"test1",0);
-            ResourceDTO res2 = new ResourceDTO(999,"test2",0);
+            ResourceDTO res1 = new ResourceDTO(996,"test3",0);
+            ResourceDTO res2 = new ResourceDTO(997,"test4",0);
 
             resList.add(res1);
             resList.add(res2);
 
-            System.out.println(dao.createMultipleResources(resList));
+            List<ResourceDTO> allRes = dao.createMultipleResources(resList);
+            if(allRes != null){
+                for(ResourceDTO i : allRes){
+                    System.out.println(i);
+                }
+            }
+            else{
+                System.out.println("Result was null");
+            }
+
         }
         catch(BatchUpdateException batchEx){
             batchEx.printStackTrace();
