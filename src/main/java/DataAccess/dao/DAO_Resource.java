@@ -74,7 +74,7 @@ public class DAO_Resource implements I_DAL_Resource {
         ResourceDTO res = null;
 
         try(Connection conn = static_createConnection()){
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resources.resource_id=?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resource_id=?");
 
             pStmt.setInt(1,ResourceId);
             ResultSet resultset = pStmt.executeQuery();
@@ -93,12 +93,45 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> readMultipleResourcesByList(List<Integer> listOfResourceIds) throws SQLException {
+        ResourceDTO res;
+        List<ResourceDTO> resList = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
+
+        // Produce string with number of ? equal to size of listOfResourceIds
+        for( int i = 0 ; i < listOfResourceIds.size(); i++ ) {
+            if(i == listOfResourceIds.size()-1) {
+                builder.append("?");
+            }
+            else{
+                builder.append("?,");
+            }
+        }
+
         try(Connection conn = static_createConnection()){
-            return null;
+            // Turns into SELECT * FROM resources WHERE resource_id IN () with the string builder in the parenthesis
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resource_id IN (" + builder.toString() + ")");
+
+            // Set each of the ? to the corresponding Id from listOfResourceIds
+            int index = 1;
+            for(int i : listOfResourceIds ) {
+                pStmt.setInt(index++, i);
+            }
+
+            ResultSet resultset = pStmt.executeQuery();
+
+            while(resultset.next()) {
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                resList.add(res);
+            }
+        }
+        catch(BatchUpdateException batchEx){
+            throw new BatchUpdateException(batchEx);
         }
         catch(SQLException ex){
             throw new SQLException(ex);
         }
+
+        return resList;
     }
 
     @Override

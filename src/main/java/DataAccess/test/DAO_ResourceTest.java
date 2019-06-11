@@ -1,5 +1,6 @@
 package DataAccess.test;
 
+import java.util.*;
 import DataAccess.dao.DAO_Resource;
 import DataAccess.dto.ResourceDTO;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,6 +90,25 @@ public class DAO_ResourceTest {
             System.out.println(res);
         }
         catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readMultipleResources() {
+        try {
+            List<ResourceDTO> allRes = dao.readMultipleResourcesByList(new ArrayList<>(Arrays.asList(1, 998)));
+            if (allRes != null) {
+                for (ResourceDTO i : allRes) {
+                    System.out.println(i);
+                }
+            } else {
+                System.out.println("Result was null");
+            }
+
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
