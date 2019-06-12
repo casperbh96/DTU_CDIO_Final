@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class WeightConverter {
@@ -30,6 +31,38 @@ public class WeightConverter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void weightcommand2(String cmd){
+        LinkedList<Integer> validIps = new LinkedList<Integer>();
+        for(int i = 0; i < 255; i++) {
+            String command = cmd;
+            String ip = "169.254.2." + i +"";
+            try (Socket socket = new Socket(ip , 8000)) {
+                out = new PrintWriter(socket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                out.println(command);
+                out.flush();
+                inRead = in.readLine();
+
+
+
+                validIps.add(i);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }catch (Exception e){
+                System.out.println("ip _ " + i + " ikke gyldig ");
+            }
+        }
+
+        for(int i = 0; i < validIps.size(); i++ ){
+            System.out.println( "valid Ip _ "+ i + ". ");
+        }
+
+
     }
 
     public void verifyUserFromId() throws IOException {
@@ -68,7 +101,7 @@ public class WeightConverter {
 
 
     public double getWeight(){
-        weightCommand("S");
+        weightcommand2("S");
         String str = inRead.replaceAll("\\D+", "");
         double weight = Double.parseDouble(str);
         return weight;
