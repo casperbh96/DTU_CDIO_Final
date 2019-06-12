@@ -6,9 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static DataAccess.dao.Connector.static_commitTransAction;
-import static DataAccess.dao.Connector.static_createConnection;
-import static DataAccess.dao.Connector.static_startTransAction;
+import static DataAccess.dao.Connector.*;
 
 public class DAO_Resource implements I_DAL_Resource {
     @Override
@@ -208,18 +206,37 @@ public class DAO_Resource implements I_DAL_Resource {
     }
 
     @Override
-    public ResourceDTO deleteSingleResource(ResourceDTO Resource) throws SQLException {
-        try (Connection conn = static_createConnection()) {
-            return null;
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
+    public void deleteSingleResource(int resourceId) throws SQLException {
+        try(Connection connection = static_createConnection()){
+
+            PreparedStatement pStmt = connection.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
+
+            pStmt.setInt(1, resourceId);
+            pStmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
         }
     }
 
     @Override
-    public List<ResourceDTO> deleteMultipleResources(List<ResourceDTO> listOfResources) throws SQLException {
+    public void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            return null;
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
+
+            int index = 0;
+            for (int id : listOfResourceIds) {
+                pStmt.setInt(1, id);
+
+                pStmt.addBatch();
+                index++;
+            }
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
