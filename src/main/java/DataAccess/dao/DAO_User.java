@@ -1,8 +1,6 @@
 package DataAccess.dao;
 
 import DataAccess.dto.UserDTO;
-import com.mysql.cj.protocol.Resultset;
-import sun.awt.image.ImageWatched;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -13,7 +11,7 @@ import static DataAccess.dao.Connector.static_createConnection;
 import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
-public class DAO_User implements I_DAL_User {
+public class DAO_User implements DataAccess.dao.I_DAL_User {
 
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) {

@@ -1,3 +1,5 @@
+/*
+
 package DataAccess.test;
 
 import DataAccess.dao.DAO_Resource;
@@ -33,3 +35,4 @@ public class DAO_ResourceTest {
         }
     }
 }
+*/
