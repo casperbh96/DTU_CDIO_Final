@@ -15,7 +15,7 @@ public class DAO_ResourceTest {
     DAO_Resource dao = new DAO_Resource();
 
     @org.junit.Test
-    public void getIngredientsAll() {
+    public void readAllResourcesTest() {
         try {
             List<ResourceDTO> resList = dao.readAllResources();
             assertNotNull(resList);
@@ -30,7 +30,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void getResourcesBySearchString() {
+    public void readResourcebySearchTest() {
         try {
             List<ResourceDTO> resList = dao.readResourcebySearch("test");
             assertNotNull(resList);
@@ -45,7 +45,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void insertMultipleResources() {
+    public void createMultipleResourcesTest() {
         try {
             List<ResourceDTO> resList = new ArrayList<>();
             ResourceDTO res1 = new ResourceDTO(60, "123", 0);
@@ -69,7 +69,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void getSingleResource() {
+    public void readSingleResourcebyIdTest() {
         try {
             ResourceDTO res = dao.readSingleResourcebyId(998);
             assertNotNull(res);
@@ -81,7 +81,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void readMultipleResources() {
+    public void readMultipleResourcesByListTest() {
         try {
             List<ResourceDTO> resList = dao.readMultipleResourcesByList(new ArrayList<>(Arrays.asList(60, 61)));
             assertNotNull(resList);
@@ -97,7 +97,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void updateSingleResource(){
+    public void updateSingleResourceTest(){
         try{
             ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", 0));
             assertNotNull(res);
@@ -109,7 +109,7 @@ public class DAO_ResourceTest {
     }
 
     @org.junit.Test
-    public void updateMultipleResource(){
+    public void updateMultipleResourcesTest(){
         try{
             List<ResourceDTO> resList = new ArrayList<>();
             ResourceDTO res1 = new ResourceDTO(60, "1testworks", 0);
