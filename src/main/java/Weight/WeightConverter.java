@@ -17,7 +17,7 @@ public class WeightConverter {
 
     public void weightCommand(String cmd){
         String command = cmd;
-        try (Socket socket = new Socket("localhost", 8000)){
+        try (Socket socket = new Socket("169.254.2.3", 8000)){
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
