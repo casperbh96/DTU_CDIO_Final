@@ -208,40 +208,40 @@ public class DAO_Resource implements I_DAL_Resource {
         return readMultipleResourcesByList(idList);
     }
 
-    @Override
-    public void deleteSingleResource(int resourceId) throws SQLException {
-        try(Connection connection = static_createConnection()){
-
-            PreparedStatement pStmt = connection.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
-
-            pStmt.setInt(1, resourceId);
-            pStmt.executeUpdate();
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
-        try (Connection conn = static_createConnection()) {
-            static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
-
-            int index = 0;
-            for (int id : listOfResourceIds) {
-                pStmt.setInt(1, id);
-
-                pStmt.addBatch();
-                index++;
-            }
-            pStmt.executeBatch();
-            static_commitTransAction(conn);
-
-        } catch (BatchUpdateException batchEx) {
-            throw new BatchUpdateException(batchEx);
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        }
-    }
+//    @Override
+//    public void deleteSingleResource(int resourceId) throws SQLException {
+//        try(Connection connection = static_createConnection()){
+//
+//            PreparedStatement pStmt = connection.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
+//
+//            pStmt.setInt(1, resourceId);
+//            pStmt.executeUpdate();
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Override
+//    public void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
+//        try (Connection conn = static_createConnection()) {
+//            static_startTransAction(conn);
+//            PreparedStatement pStmt = conn.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
+//
+//            int index = 0;
+//            for (int id : listOfResourceIds) {
+//                pStmt.setInt(1, id);
+//
+//                pStmt.addBatch();
+//                index++;
+//            }
+//            pStmt.executeBatch();
+//            static_commitTransAction(conn);
+//
+//        } catch (BatchUpdateException batchEx) {
+//            throw new BatchUpdateException(batchEx);
+//        } catch (SQLException ex) {
+//            throw new SQLException(ex);
+//        }
+//    }
 }

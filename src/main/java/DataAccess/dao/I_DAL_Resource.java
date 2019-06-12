@@ -18,7 +18,7 @@ public interface I_DAL_Resource {
     ResourceDTO updateSingleResource(ResourceDTO resource) throws SQLException;
     List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException;
 
-    void deleteSingleResource(int resourceId) throws SQLException;
-    void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
+//    void deleteSingleResource(int resourceId) throws SQLException;
+//    void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
 
 }

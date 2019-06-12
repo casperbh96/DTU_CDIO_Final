@@ -130,26 +130,26 @@ public class DAO_ResourceTest {
         }
     }
 
-    @org.junit.Test
-    public void deleteSingleResourceTest(){
-        try{
-            dao.deleteSingleResource(997);
-            assertThrows(SQLException.class, () -> dao.readSingleResourcebyId(997));
-
-        } catch (SQLException ex){
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void deleteMultipleResourcesTest(){
-        try{
-            List<Integer> resList = new ArrayList<>(Arrays.asList(4, 5));
-            dao.deleteMultipleResources(resList);
-            assertThrows(SQLException.class, () -> dao.readMultipleResourcesByList(resList));
-
-        } catch (SQLException ex){
-            ex.printStackTrace();
-        }
-    }
+//    @org.junit.Test
+//    public void deleteSingleResourceTest(){
+//        try{
+//            dao.deleteSingleResource(997);
+//            assertThrows(SQLException.class, () -> dao.readSingleResourcebyId(997));
+//
+//        } catch (SQLException ex){
+//            ex.printStackTrace();
+//        }
+//    }
+//
+//    @org.junit.Test
+//    public void deleteMultipleResourcesTest(){
+//        try{
+//            List<Integer> resList = new ArrayList<>(Arrays.asList(4, 5));
+//            dao.deleteMultipleResources(resList);
+//            assertThrows(SQLException.class, () -> dao.readMultipleResourcesByList(resList));
+//
+//        } catch (SQLException ex){
+//            ex.printStackTrace();
+//        }
+//    }
 }
