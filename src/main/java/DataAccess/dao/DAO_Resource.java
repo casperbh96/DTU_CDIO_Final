@@ -15,7 +15,7 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
 
             pStmt.setInt(1, singleResource.getResourceId());
             pStmt.setString(2, singleResource.getResourceName());
@@ -80,7 +80,7 @@ public class DAO_Resource implements I_DAL_Resource {
             resultset.beforeFirst();
             resultset.next();
 
-            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -115,7 +115,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
                 resList.add(res);
             }
         } catch (SQLException ex) {
@@ -139,7 +139,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"), amount);
+                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"));
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
@@ -159,7 +159,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
                 resList.add(res);
             }
         } catch (SQLException e) {
