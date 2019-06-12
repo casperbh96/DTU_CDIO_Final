@@ -95,4 +95,16 @@ public class DAO_ResourceTest {
             ex.printStackTrace();
         }
     }
+
+    @org.junit.Test
+    public void updateSingleResource(){
+        try{
+            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", 0));
+            assertNotNull(res);
+
+            System.out.println(res);
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 }
