@@ -26,15 +26,36 @@ public class DAO_User implements I_DAL_User {
         return userList;
     }
 
+    private PreparedStatement setCreatePreparedStatement(PreparedStatement pStmt, UserDTO user) throws SQLException {
+        try{
+            pStmt.setInt(1, user.getUserId());
+            pStmt.setString(2, user.getUsername());
+            pStmt.setString(3, user.getInitials());
+            pStmt.setBoolean(4, user.getInactive());
+        } catch (SQLException ex){
+            throw new SQLException(ex);
+        }
+        return pStmt;
+    }
+
+    private PreparedStatement setUpdatePreparedStatement(PreparedStatement pStmt, UserDTO user) throws SQLException {
+        try{
+            pStmt.setString(1, user.getUsername());
+            pStmt.setString(2, user.getInitials());
+            pStmt.setBoolean(3, user.getInactive());
+            pStmt.setInt(4, user.getUserId());
+        } catch (SQLException ex){
+            throw new SQLException(ex);
+        }
+        return pStmt;
+    }
+
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) throws SQLException {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, inactive) VALUES (?,?,?,?)");
 
-            pStmt.setInt(1, singleUser.getUserId());
-            pStmt.setString(2, singleUser.getUsername());
-            pStmt.setString(3, singleUser.getInitials());
-            pStmt.setBoolean(4, singleUser.getInactive());
+            pStmt = setCreatePreparedStatement(pStmt, singleUser);
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
@@ -55,10 +76,7 @@ public class DAO_User implements I_DAL_User {
             for (UserDTO user : listOfUsers) {
                 idList.add(user.getUserId());
 
-                pStmt.setInt(1, user.getUserId());
-                pStmt.setString(2, user.getUsername());
-                pStmt.setString(3, user.getInitials());
-                pStmt.setBoolean(4, user.getInactive());
+                pStmt = setCreatePreparedStatement(pStmt, user);
 
                 pStmt.addBatch();
                 index++;
@@ -173,10 +191,7 @@ public class DAO_User implements I_DAL_User {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET username = ?, initials = ?, inactive = ? WHERE user_id = ?");
 
-            pStmt.setInt(1, user.getUserId());
-            pStmt.setString(2, user.getUsername());
-            pStmt.setString(3, user.getInitials());
-            pStmt.setBoolean(4, user.getInactive());
+            pStmt = setUpdatePreparedStatement(pStmt, user);
 
             pStmt.executeUpdate();
 
@@ -199,10 +214,7 @@ public class DAO_User implements I_DAL_User {
             for (UserDTO user : listOfUsers) {
                 idList.add(user.getUserId());
 
-                pStmt.setString(1, user.getUsername());
-                pStmt.setString(2, user.getInitials());
-                pStmt.setBoolean(3, user.getInactive());
-                pStmt.setInt(4, user.getUserId());
+                pStmt = setUpdatePreparedStatement(pStmt, user);
 
                 pStmt.addBatch();
                 index++;
