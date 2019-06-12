@@ -199,10 +199,10 @@ public class DAO_User implements I_DAL_User {
             for (UserDTO user : listOfUsers) {
                 idList.add(user.getUserId());
 
-                pStmt.setInt(1, user.getUserId());
-                pStmt.setString(2, user.getUsername());
-                pStmt.setString(3, user.getInitials());
-                pStmt.setBoolean(4, user.getInactive());
+                pStmt.setString(1, user.getUsername());
+                pStmt.setString(2, user.getInitials());
+                pStmt.setBoolean(3, user.getInactive());
+                pStmt.setInt(4, user.getUserId());
 
                 pStmt.addBatch();
                 index++;
