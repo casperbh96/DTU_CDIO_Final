@@ -12,11 +12,12 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder, inactive) VALUES (?,?,?,?)");
 
             pStmt.setInt(1, singleResource.getResourceId());
             pStmt.setString(2, singleResource.getResourceName());
             pStmt.setBoolean(3, singleResource.getReorder());
+            pStmt.setBoolean(4, singleResource.getInactive());
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
@@ -31,7 +32,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder, inactive) VALUES (?,?,?,?)");
 
             int index = 0;
             for (ResourceDTO res : listOfResources) {
@@ -40,6 +41,7 @@ public class DAO_Resource implements I_DAL_Resource {
                 pStmt.setInt(1, res.getResourceId());
                 pStmt.setString(2, res.getResourceName());
                 pStmt.setBoolean(3, res.getReorder());
+                pStmt.setBoolean(4, res.getInactive());
 
                 pStmt.addBatch();
                 index++;
@@ -56,20 +58,20 @@ public class DAO_Resource implements I_DAL_Resource {
     }
 
     @Override
-    public ResourceDTO readSingleResourcebyId(int ResourceId) throws SQLException {
+    public ResourceDTO readSingleResourcebyId(int resourceId) throws SQLException {
         ResourceDTO res = null;
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resource_id=?");
 
-            pStmt.setInt(1, ResourceId);
+            pStmt.setInt(1, resourceId);
             ResultSet resultset = pStmt.executeQuery();
 
             // Move pointer to first row before Id, then to row with Id (fix)
             resultset.beforeFirst();
             resultset.next();
 
-            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3), resultset.getBoolean(4));
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -104,7 +106,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3), resultset.getBoolean(4));
                 resList.add(res);
             }
         } catch (SQLException ex) {
@@ -121,14 +123,15 @@ public class DAO_Resource implements I_DAL_Resource {
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("select * from resources " +
-                    "WHERE resource_id LIKE ? OR resource_name LIKE ? OR reorder LIKE ?");
+                    "WHERE resource_id LIKE ? OR resource_name LIKE ? OR reorder LIKE ? OR inactive LIKE ?");
             pStmt.setString(1, "%" + keyword + "%");
             pStmt.setString(2, "%" + keyword + "%");
             pStmt.setString(3, "%" + keyword + "%");
+            pStmt.setString(4, "%" + keyword + "%");
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getBoolean("reorder"));
+                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getBoolean("reorder"), resultSet.getBoolean("inactive"));
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
@@ -148,7 +151,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3), resultset.getBoolean(4));
                 resList.add(res);
             }
         } catch (SQLException e) {
@@ -158,13 +161,14 @@ public class DAO_Resource implements I_DAL_Resource {
     }
 
     @Override
-    public ResourceDTO updateSingleResource(ResourceDTO Resource) throws SQLException {
+    public ResourceDTO updateSingleResource(ResourceDTO resource) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
 
-            pStmt.setString(1, Resource.getResourceName());
-            pStmt.setBoolean(2, Resource.getReorder());
-            pStmt.setInt(3, Resource.getResourceId());
+            pStmt.setString(1, resource.getResourceName());
+            pStmt.setBoolean(2, resource.getReorder());
+            pStmt.setBoolean(3, resource.getInactive());
+            pStmt.setInt(4, resource.getResourceId());
 
             pStmt.executeUpdate();
 
@@ -172,7 +176,7 @@ public class DAO_Resource implements I_DAL_Resource {
             throw new SQLException(ex);
         }
 
-        return readSingleResourcebyId(Resource.getResourceId());
+        return readSingleResourcebyId(resource.getResourceId());
     }
 
     @Override
@@ -181,7 +185,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
 
             int index = 0;
             for (ResourceDTO res : listOfResources) {
@@ -189,7 +193,8 @@ public class DAO_Resource implements I_DAL_Resource {
 
                 pStmt.setString(1, res.getResourceName());
                 pStmt.setBoolean(2, res.getReorder());
-                pStmt.setInt(3, res.getResourceId());
+                pStmt.setBoolean(3, res.getInactive());
+                pStmt.setInt(4, res.getResourceId());
 
                 pStmt.addBatch();
                 index++;
