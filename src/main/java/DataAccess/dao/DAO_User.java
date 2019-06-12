@@ -5,6 +5,7 @@ import com.mysql.cj.protocol.Resultset;
 import sun.awt.image.ImageWatched;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -109,8 +110,27 @@ public class DAO_User implements I_DAL_User {
     }
 
     @Override
-    public List<UserDTO> readUserbySearch(String keyword) {
-        return null;
+    public List<UserDTO> readUserbySearch(String keyword) throws SQLException {
+        UserDTO res;
+        List<UserDTO> resourceList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("select * from resources " +
+                    "WHERE resource_id LIKE ? OR resource_name LIKE ? OR reorder LIKE ?");      //TODO ret så det passer til UserDAO
+            pStmt.setString(1, "%" + keyword + "%");
+            pStmt.setString(2, "%" + keyword + "%");
+            pStmt.setString(3, "%" + keyword + "%");
+            ResultSet resultSet = pStmt.executeQuery();
+
+            while (resultSet.next()) {
+                res = new UserDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"), amount);
+                resourceList.add(res);
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return resourceList;
     }
 
     @Override
