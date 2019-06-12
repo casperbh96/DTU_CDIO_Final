@@ -34,7 +34,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
                 pStmt.setString(2, resBatch.getResourceBatchName());
                 pStmt.setDouble(3, resBatch.getResourceBatchAmount());
                 pStmt.setString(4, resBatch.getSupplierName());
-                pStmt.setInt(5, resBatch.getIsLeftover());      //TODO ændre til boolean i sql-db
+                pStmt.setBoolean(5, resBatch.getIsLeftover());      //TODO ændre til boolean i sql-db
                 pStmt.setInt(6, resBatch.getResourceId());
 
                 pStmt.addBatch();
