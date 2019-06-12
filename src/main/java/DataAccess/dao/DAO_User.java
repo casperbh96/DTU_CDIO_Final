@@ -12,41 +12,205 @@ public class DAO_User implements I_DAL_User {
 
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) throws SQLException {
-        return null;
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, inactive) VALUES (?,?,?,?)");
+
+            pStmt.setInt(1, singleUser.getUserId());
+            pStmt.setString(2, singleUser.getUsername());
+            pStmt.setString(3, singleUser.getInitials());
+            pStmt.setBoolean(4, singleUser.getInactive());
+
+            pStmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return readSingleUserbyId(singleUser.getUserId());
     }
 
     @Override
     public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) throws SQLException {
-        return null;
+        List<Integer> idList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, inactive) VALUES (?,?,?,?)");
+
+            int index = 0;
+            for (UserDTO user : listOfUsers) {
+                idList.add(user.getUserId());
+
+                pStmt.setInt(1, user.getUserId());
+                pStmt.setString(2, user.getUsername());
+                pStmt.setString(3, user.getInitials());
+                pStmt.setBoolean(4, user.getInactive());
+
+                pStmt.addBatch();
+                index++;
+            }
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return readMultipleUsersByList(idList);
     }
 
     @Override
     public UserDTO readSingleUserbyId(int userId) throws SQLException {
-        return null;
+        UserDTO user = null;
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id=?");
+
+            pStmt.setInt(1, userId);
+            ResultSet resultset = pStmt.executeQuery();
+
+            // Move pointer to first row before Id, then to row with Id (fix)
+            resultset.beforeFirst();
+            resultset.next();
+
+            user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return user;
     }
 
     @Override
     public List<UserDTO> readMultipleUsersByList(List<Integer> listOfUserIds) throws SQLException {
-        return null;
+        UserDTO user;
+        List<UserDTO> userList = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
+
+        // Produce string with number of ? equal to size of listOfResourceIds
+        for (int i = 0; i < listOfUserIds.size(); i++) {
+            if (i == listOfUserIds.size() - 1) {
+                builder.append("?");
+            } else {
+                builder.append("?,");
+            }
+        }
+
+        try (Connection conn = static_createConnection()) {
+            // Turns into SELECT * FROM resources WHERE resource_id IN () with the string builder in the parenthesis
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id IN (" + builder.toString() + ")");
+
+            // Set each of the ? to the corresponding Id from listOfResourceIds
+            int index = 1;
+            for (int i : listOfUserIds) {
+                pStmt.setInt(index++, i);
+            }
+
+            ResultSet resultset = pStmt.executeQuery();
+
+            while (resultset.next()) {
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return userList;
     }
 
     @Override
     public List<UserDTO> readUserbySearch(String keyword) throws SQLException {
-        return null;
+        UserDTO user;
+        List<UserDTO> userList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("select * from users " +
+                    "WHERE user_id LIKE ? OR username LIKE ? OR initials LIKE ? OR inactive LIKE ?");
+            pStmt.setString(1, "%" + keyword + "%");
+            pStmt.setString(2, "%" + keyword + "%");
+            pStmt.setString(3, "%" + keyword + "%");
+            pStmt.setString(4, "%" + keyword + "%");
+            ResultSet resultset = pStmt.executeQuery();
+
+            while (resultset.next()) {
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return userList;
     }
 
     @Override
     public List<UserDTO> readAllUsers() throws SQLException {
-        return null;
+        List<UserDTO> userList = new ArrayList<>();
+        UserDTO user = null;
+
+        try (Connection connection = static_createConnection()) {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id");
+            ResultSet resultset = pStmt.executeQuery();
+
+            while (resultset.next()) {
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
     public UserDTO updateSingleUser(UserDTO user) throws SQLException {
-        return null;
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
+
+            pStmt.setInt(1, user.getUserId());
+            pStmt.setString(2, user.getUsername());
+            pStmt.setString(3, user.getInitials());
+            pStmt.setBoolean(4, user.getInactive());
+
+            pStmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return readSingleUserbyId(user.getUserId());
     }
 
     @Override
     public List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) throws SQLException {
-        return null;
+        List<Integer> idList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
+
+            int index = 0;
+            for (UserDTO user : listOfUsers) {
+                idList.add(user.getUserId());
+
+                pStmt.setInt(1, user.getUserId());
+                pStmt.setString(2, user.getUsername());
+                pStmt.setString(3, user.getInitials());
+                pStmt.setBoolean(4, user.getInactive());
+
+                pStmt.addBatch();
+                index++;
+            }
+
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx){
+            throw new BatchUpdateException(batchEx);
+        }
+        catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return readMultipleUsersByList(idList);
     }
 }

@@ -131,7 +131,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getBoolean("reorder"), resultSet.getBoolean("inactive"));
+                res = new ResourceDTO(resultSet.getInt(1), resultSet.getString(2), resultSet.getBoolean(3), resultSet.getBoolean(4));
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
