@@ -62,8 +62,8 @@ public class DAO_Recipe implements I_DAL_Recipe {
                 List<ResourceDTO> resourceAmounts = new ArrayList<>();
                 ResourceDTO resourceAmount;
                 while(resultSet2.next()){
-                    resourceAmount = new ResourceDTO(resultSet2.getInt(1),resultSet2.getDouble(4));
-                    resourceAmounts.add(resourceAmount);
+                    //resourceAmount = new ResourceDTO(resultSet2.getInt(1),resultSet2.getDouble(4));
+                    //resourceAmounts.add(resourceAmount);
                 }
 
                 res = new RecipeDTO(resultset.getInt(1),resultset.getTimestamp(2),resultset.getString(3),

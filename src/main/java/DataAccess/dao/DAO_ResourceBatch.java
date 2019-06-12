@@ -34,7 +34,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
                 pStmt.setString(2, resBatch.getResourceBatchName());
                 pStmt.setDouble(3, resBatch.getResourceBatchAmount());
                 pStmt.setString(4, resBatch.getSupplierName());
-                pStmt.setBoolean(5, resBatch.getIsLeftover());      //TODO ændre til boolean i sql-db
+                pStmt.setInt(5, resBatch.getIsLeftover());      //TODO ændre til boolean i sql-db
                 pStmt.setInt(6, resBatch.getResourceId());
 
                 pStmt.addBatch();
@@ -90,7 +90,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
             while (resultset.next()) {
                 //TODO is_leftover skal i sql-databasen ændres fra int til boolean
                 res = new ResourceBatchDTO(resultset.getInt(1), resultset.getString(2), resultset.getDouble(3),
-                        resultset.getString(4),resultset.getBoolean(5),resultset.getInt(6));
+                        resultset.getString(4),resultset.getInt(5),resultset.getInt(6));
                 resBatchList.add(res);
             }
         } catch (SQLException ex) {

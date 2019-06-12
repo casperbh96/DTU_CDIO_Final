@@ -4,7 +4,6 @@ import DataAccess.dto.ResourceDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static DataAccess.dao.Connector.static_commitTransAction;
@@ -15,7 +14,7 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
 
             pStmt.setInt(1, singleResource.getResourceId());
             pStmt.setString(2, singleResource.getResourceName());
@@ -80,7 +79,7 @@ public class DAO_Resource implements I_DAL_Resource {
             resultset.beforeFirst();
             resultset.next();
 
-            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -115,7 +114,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
                 resList.add(res);
             }
         } catch (SQLException ex) {
@@ -139,7 +138,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"), amount);
+                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"));
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
@@ -151,7 +150,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> readAllResources() throws SQLException {
-        List<ResourceDTO> resList = new LinkedList<>();
+        List<ResourceDTO> resList = new ArrayList<>();
         ResourceDTO res = null;
 
         try (Connection connection = static_createConnection()) {
@@ -159,7 +158,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3), amount);
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
                 resList.add(res);
             }
         } catch (SQLException e) {
@@ -170,20 +169,35 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public ResourceDTO updateSingleResource(ResourceDTO Resource) throws SQLException {
+
         try (Connection conn = static_createConnection()) {
-            return null;
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
+
+            pStmt.setString(1, Resource.getResourceName());
+            pStmt.setInt(2, Resource.getReorder());
+            pStmt.setInt(3, Resource.getResourceId());
+
+            pStmt.executeUpdate();
+
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
+
+        return readSingleResourcebyId(Resource.getResourceId());
     }
 
     @Override
     public List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException {
+        ResourceDTO res;
+        List<Integer> listOfIds = new ArrayList<>();
         try (Connection conn = static_createConnection()) {
-            return null;
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
+
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
+
+        return readMultipleResourcesByList(listOfIds);
     }
 
     @Override

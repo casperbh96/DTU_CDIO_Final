@@ -48,8 +48,8 @@ public class DAO_ResourceTest {
     public void insertMultipleResources() {
         try {
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(60, "123", 0, amount);
-            ResourceDTO res2 = new ResourceDTO(61, "1234", 0, amount);
+            ResourceDTO res1 = new ResourceDTO(60, "123", 0);
+            ResourceDTO res2 = new ResourceDTO(61, "1234", 0);
 
             resList.add(res1);
             resList.add(res2);
@@ -92,6 +92,18 @@ public class DAO_ResourceTest {
             }
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void updateSingleResource(){
+        try{
+            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", 0));
+            assertNotNull(res);
+
+            System.out.println(res);
+        } catch (SQLException ex){
             ex.printStackTrace();
         }
     }
