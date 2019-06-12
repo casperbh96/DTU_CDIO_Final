@@ -4,15 +4,17 @@ public class ResourceDTO {
 
     private int resourceId;
     private String resourceName;
-    private boolean reorder;            //TODO kan måske være boolean???
+    private boolean reorder;
+    private boolean inactive;
 
     //simulated variable to hold value for relational table in db
     private double amount;
 
-    public ResourceDTO(int resourceId, String resourceName, boolean reorder) {
+    public ResourceDTO(int resourceId, String resourceName, boolean reorder, boolean inactive) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.reorder = reorder;
+        this.inactive = inactive;
     }
 
     public ResourceDTO(int resourceId, double amount) {
@@ -42,6 +44,22 @@ public class ResourceDTO {
 
     public void setReorder(boolean reorder) {
         this.reorder = reorder;
+    }
+
+    public boolean getInactive() {
+        return inactive;
+    }
+
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     @Override
