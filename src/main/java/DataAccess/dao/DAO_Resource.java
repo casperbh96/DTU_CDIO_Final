@@ -198,7 +198,10 @@ public class DAO_Resource implements I_DAL_Resource {
             pStmt.executeBatch();
             static_commitTransAction(conn);
 
-        } catch (SQLException ex) {
+        } catch (BatchUpdateException batchEx){
+            throw new BatchUpdateException(batchEx);
+        }
+        catch (SQLException ex) {
             throw new SQLException(ex);
         }
 
