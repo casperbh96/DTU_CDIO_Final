@@ -7,19 +7,11 @@ public class ResourceDTO {
     private boolean reorder;
     private boolean inactive;
 
-    //simulated variable to hold value for relational table in db
-    private double amount;
-
     public ResourceDTO(int resourceId, String resourceName, boolean reorder, boolean inactive) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.reorder = reorder;
         this.inactive = inactive;
-    }
-
-    public ResourceDTO(int resourceId, double amount) {
-        this.resourceId = resourceId;
-        this.amount = amount;
     }
 
     public int getResourceId() {
@@ -52,14 +44,6 @@ public class ResourceDTO {
 
     public void setInactive(boolean inactive) {
         this.inactive = inactive;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     @Override

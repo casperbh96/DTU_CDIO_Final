@@ -1,42 +1,22 @@
 package DataAccess.dto;
 
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.Date;
 
 public class ProductBatchDTO {
 
     private int productBatchId;
-    private Timestamp creationDate;     //TODO kan også være sql.Date
-    private int orderStatus;            //TODO kan måske være boolean???
-    private int recipeId;
-    private Timestamp recipeEndDate;
-    private int productionLeaderId;
-    private List<ResourceBatchDTO> resourceBatchAmounts;            //TODO svarer dette til rel_table???
+    private Date creationDate;
+    private int productionStatus;
+    private Date productionEndDate;
+    private boolean inactive;
 
-    //mulighed 2
-//    private List<ResourceBatchDTO> resourceBatchAmounts = new LinkedList<>();
-
-
-    public ProductBatchDTO(int productBatchId, Timestamp creationDate, int orderStatus, int recipeId, Timestamp recipeEndDate, int productionLeaderId, List<ResourceBatchDTO> resourceBatchAmounts) {
+    public ProductBatchDTO(int productBatchId, Date creationDate, int productionStatus, Date productionEndDate, boolean inactive) {
         this.productBatchId = productBatchId;
         this.creationDate = creationDate;
-        this.orderStatus = orderStatus;
-        this.recipeId = recipeId;
-        this.recipeEndDate = recipeEndDate;
-        this.productionLeaderId = productionLeaderId;
-        this.resourceBatchAmounts = resourceBatchAmounts;
+        this.productionStatus = productionStatus;
+        this.productionEndDate = productionEndDate;
+        this.inactive = inactive;
     }
-
-    //mulighed 2
-//    public ProductBatchDTO(int productBatchId, Timestamp creationDate, int orderStatus, int recipeId, Timestamp recipeEndDate, int productionLeaderId) {
-//        this.productBatchId = productBatchId;
-//        this.creationDate = creationDate;
-//        this.orderStatus = orderStatus;
-//        this.recipeId = recipeId;
-//        this.recipeEndDate = recipeEndDate;
-//        this.productionLeaderId = productionLeaderId;
-//    }
 
     public int getProductBatchId() {
         return productBatchId;
@@ -46,64 +26,62 @@ public class ProductBatchDTO {
         this.productBatchId = productBatchId;
     }
 
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public int getOrderStatus() {
-        return orderStatus;
+    public int getProductionStatus() {
+        return productionStatus;
     }
 
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setProductionStatus(int productionStatus) {
+        this.productionStatus = productionStatus;
     }
 
-    public int getRecipeId() {
-        return recipeId;
+    public Date getProductionEndDate() {
+        return productionEndDate;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
+    public void setProductionEndDate(Date productionEndDate) {
+        this.productionEndDate = productionEndDate;
     }
 
-    public Timestamp getRecipeEndDate() {
-        return recipeEndDate;
+    public boolean getInactive() {
+        return inactive;
     }
 
-    public void setRecipeEndDate(Timestamp recipeEndDate) {
-        this.recipeEndDate = recipeEndDate;
-    }
-
-    public int getProductionLeaderId() {
-        return productionLeaderId;
-    }
-
-    public void setProductionLeaderId(int productionLeaderId) {
-        this.productionLeaderId = productionLeaderId;
-    }
-
-    public List<ResourceBatchDTO> getResourceBatchAmounts() {
-        return resourceBatchAmounts;
-    }
-
-    public void setResourceBatchAmounts(List<ResourceBatchDTO> resourceBatchAmounts) {
-        this.resourceBatchAmounts = resourceBatchAmounts;
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return "ProductBatchDTO{" +
                 "productBatchId=" + productBatchId +
                 ", creationDate=" + creationDate +
-                ", orderStatus=" + orderStatus +
-                ", recipeId=" + recipeId +
-                ", recipeEndDate=" + recipeEndDate +
-                ", productionLeaderId=" + productionLeaderId +
-                ", resourceBatchAmounts=" + resourceBatchAmounts +
+                ", productionStatus=" + productionStatus +
+                ", productionEndDate=" + productionEndDate +
+                ", inactive=" + inactive +
                 '}';
     }
+    //mulighed 2
+//    public ProductBatchDTO(int productBatchId, Timestamp creationDate, int orderStatus, int recipeId, Timestamp recipeEndDate, int productionLeaderId) {
+//        this.productBatchId = productBatchId;
+//        this.creationDate = creationDate;
+//        this.orderStatus = orderStatus;
+//        this.recipeId = recipeId;
+//        this.recipeEndDate = recipeEndDate;
+//        this.productionLeaderId = productionLeaderId;
+//    }
+    //    private int recipeId;
+//    private Date recipeEndDate;
+//    private int productionLeaderId;
+//    private List<ResourceBatchDTO> resourceBatchAmounts;
+
+    //mulighed 2
+//    private List<ResourceBatchDTO> resourceBatchAmounts = new LinkedList<>();
 }

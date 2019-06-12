@@ -5,7 +5,7 @@ public class UserDTO {
     private int userId;
     private String username;
     private String initials;
-    private boolean inactive;           //TODO kan måske være boolean???
+    private boolean inactive;
 
     public UserDTO(int userId, String username, String initials, boolean inactive) {
         this.userId = userId;

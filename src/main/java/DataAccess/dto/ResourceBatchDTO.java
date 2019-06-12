@@ -6,8 +6,7 @@ public class ResourceBatchDTO {
     private String resourceBatchName;
     private double resourceBatchAmount;
     private String supplierName;
-    private boolean isLeftover;     //TODO kan måske være boolean???
-    private int resourceId;
+    private boolean isLeftover;
 
     public ResourceBatchDTO(int resourceBatchId, String resourceBatchName, double resourceBatchAmount, String supplierName, boolean isLeftover, int resourceId) {
         this.resourceBatchId = resourceBatchId;
@@ -15,7 +14,6 @@ public class ResourceBatchDTO {
         this.resourceBatchAmount = resourceBatchAmount;
         this.supplierName = supplierName;
         this.isLeftover = isLeftover;
-        this.resourceId = resourceId;
     }
 
     public int getResourceBatchId() {
@@ -58,14 +56,6 @@ public class ResourceBatchDTO {
         this.isLeftover = isLeftover;
     }
 
-    public int getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
-    }
-
     @Override
     public String toString() {
         return "ResourceBatchDTO{" +
@@ -74,7 +64,6 @@ public class ResourceBatchDTO {
                 ", resourceBatchAmount=" + resourceBatchAmount +
                 ", supplierName='" + supplierName + '\'' +
                 ", isLeftover=" + isLeftover +
-                ", resourceId=" + resourceId +
                 '}';
     }
 }
