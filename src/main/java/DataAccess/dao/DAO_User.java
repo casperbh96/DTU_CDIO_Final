@@ -40,6 +40,7 @@ public class DAO_User implements I_DAL_User {
     public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) {
         try(Connection connection = static_createConnection()) {
 
+            static_startTransAction(connection);
             for (int i = 0; i < listOfUsers.size(); i++) {
                 PreparedStatement pStmt = connection.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
 
@@ -49,7 +50,7 @@ public class DAO_User implements I_DAL_User {
 
                 pStmt.executeUpdate();              //TODO kan dette gøres uden at skulle forbinde til databasen hver iteration?
             }
-
+            static_commitTransAction(connection);
             //TODO husk at sætte inactive til default 0 i sql
 
 //            pStmt.executeUpdate();

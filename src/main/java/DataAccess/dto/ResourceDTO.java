@@ -4,13 +4,20 @@ public class ResourceDTO {
 
     private int resourceId;
     private String resourceName;
-    private int reorder;            //TODO kan måske være boolean???
-    //private double amount;          //TODO Hvad gør vi her????
+    private boolean reorder;            //TODO kan måske være boolean???
 
-    public ResourceDTO(int resourceId, String resourceName, int reorder) {
+    //simulated variable to hold value for relational table in db
+    private double amount;
+
+    public ResourceDTO(int resourceId, String resourceName, boolean reorder) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.reorder = reorder;
+    }
+
+    public ResourceDTO(int resourceId, double amount) {
+        this.resourceId = resourceId;
+        this.amount = amount;
     }
 
     public int getResourceId() {
@@ -29,11 +36,11 @@ public class ResourceDTO {
         this.resourceName = resourceName;
     }
 
-    public int getReorder() {
+    public boolean getReorder() {
         return reorder;
     }
 
-    public void setReorder(int reorder) {
+    public void setReorder(boolean reorder) {
         this.reorder = reorder;
     }
 

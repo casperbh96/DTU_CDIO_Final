@@ -48,8 +48,8 @@ public class DAO_ResourceTest {
     public void createMultipleResourcesTest() {
         try {
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(60, "123", 0);
-            ResourceDTO res2 = new ResourceDTO(61, "1234", 0);
+            ResourceDTO res1 = new ResourceDTO(60, "123", false);
+            ResourceDTO res2 = new ResourceDTO(61, "1234", false);
 
             resList.add(res1);
             resList.add(res2);
@@ -99,7 +99,7 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void updateSingleResourceTest(){
         try{
-            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", 0));
+            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", false));
             assertNotNull(res);
 
             System.out.println(res);
@@ -112,8 +112,8 @@ public class DAO_ResourceTest {
     public void updateMultipleResourcesTest(){
         try{
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(60, "1testworks", 0);
-            ResourceDTO res2 = new ResourceDTO(61, "2testworks", 0);
+            ResourceDTO res1 = new ResourceDTO(60, "1testworks", false);
+            ResourceDTO res2 = new ResourceDTO(61, "2testworks", false);
 
             resList.add(res1);
             resList.add(res2);

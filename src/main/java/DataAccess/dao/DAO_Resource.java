@@ -16,7 +16,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
             pStmt.setInt(1, singleResource.getResourceId());
             pStmt.setString(2, singleResource.getResourceName());
-            pStmt.setInt(3, singleResource.getReorder());
+            pStmt.setBoolean(3, singleResource.getReorder());
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
@@ -39,7 +39,7 @@ public class DAO_Resource implements I_DAL_Resource {
 
                 pStmt.setInt(1, res.getResourceId());
                 pStmt.setString(2, res.getResourceName());
-                pStmt.setInt(3, res.getReorder());
+                pStmt.setBoolean(3, res.getReorder());
 
                 pStmt.addBatch();
                 index++;
@@ -69,7 +69,7 @@ public class DAO_Resource implements I_DAL_Resource {
             resultset.beforeFirst();
             resultset.next();
 
-            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+            res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -104,7 +104,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
                 resList.add(res);
             }
         } catch (SQLException ex) {
@@ -128,7 +128,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultSet = pStmt.executeQuery();
 
             while (resultSet.next()) {
-                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getInt("reorder"));
+                res = new ResourceDTO(resultSet.getInt("resource_id"), resultSet.getString("resource_name"), resultSet.getBoolean("reorder"));
                 resourceList.add(res);
             }
         } catch (SQLException ex) {
@@ -148,7 +148,7 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             while (resultset.next()) {
-                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getInt(3));
+                res = new ResourceDTO(resultset.getInt(1), resultset.getString(2), resultset.getBoolean(3));
                 resList.add(res);
             }
         } catch (SQLException e) {
@@ -163,7 +163,7 @@ public class DAO_Resource implements I_DAL_Resource {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
 
             pStmt.setString(1, Resource.getResourceName());
-            pStmt.setInt(2, Resource.getReorder());
+            pStmt.setBoolean(2, Resource.getReorder());
             pStmt.setInt(3, Resource.getResourceId());
 
             pStmt.executeUpdate();
@@ -188,7 +188,7 @@ public class DAO_Resource implements I_DAL_Resource {
                 idList.add(res.getResourceId());
 
                 pStmt.setString(1, res.getResourceName());
-                pStmt.setInt(2, res.getReorder());
+                pStmt.setBoolean(2, res.getReorder());
                 pStmt.setInt(3, res.getResourceId());
 
                 pStmt.addBatch();

@@ -25,7 +25,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     }
 
     @Override
-    public RecipeDTO readSingleRecipebyId(int RecipeId) {
+    public RecipeDTO readSingleRecipebyId(int recipeId) {
         return null;
     }
 
@@ -87,7 +87,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     }
 
     @Override
-    public RecipeDTO updateSingleRecipe(RecipeDTO Recipe) {
+    public RecipeDTO updateSingleRecipe(RecipeDTO recipe) {
         return null;
     }
 
@@ -97,7 +97,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     }
 
     @Override
-    public RecipeDTO deleteSingleRecipe(RecipeDTO Recipe) {
+    public RecipeDTO deleteSingleRecipe(RecipeDTO recipe) {
         return null;
     }
 

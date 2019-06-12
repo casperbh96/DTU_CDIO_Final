@@ -62,7 +62,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     }
 
     @Override
-    public ResourceBatchDTO readSingleResourceBatchbyId(int ResourceBatchId) {
+    public ResourceBatchDTO readSingleResourceBatchbyId(int resourceBatchId) {
         return null;
     }
 
@@ -90,7 +90,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
             while (resultset.next()) {
                 //TODO is_leftover skal i sql-databasen ændres fra int til boolean
                 res = new ResourceBatchDTO(resultset.getInt(1), resultset.getString(2), resultset.getDouble(3),
-                        resultset.getString(4),resultset.getInt(5),resultset.getInt(6));
+                        resultset.getString(4),resultset.getBoolean(5),resultset.getInt(6));
                 resBatchList.add(res);
             }
         } catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     }
 
     @Override
-    public ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO ResourceBatch) {
+    public ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO resourceBatch) {
         return null;
     }
 
@@ -120,7 +120,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     }
 
     @Override
-    public ResourceBatchDTO deleteSingleResourceBatch(ResourceBatchDTO ResourceBatch) {
+    public ResourceBatchDTO deleteSingleResourceBatch(ResourceBatchDTO resourceBatch) {
         return null;
     }
 

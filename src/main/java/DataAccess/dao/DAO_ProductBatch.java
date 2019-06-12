@@ -33,7 +33,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     }
 
     @Override
-    public ProductBatchDTO readSingleProductBatchbyId(int ProductBatchId) {
+    public ProductBatchDTO readSingleProductBatchbyId(int productBatchId) {
         return null;
     }
 
@@ -53,17 +53,17 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     }
 
     @Override
-    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO ProductBatch) {
+    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) {
+    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) {
         return null;
     }
 
     @Override
-    public ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO ProductBatch) {
+    public ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO productBatch) {
         return null;
     }
 

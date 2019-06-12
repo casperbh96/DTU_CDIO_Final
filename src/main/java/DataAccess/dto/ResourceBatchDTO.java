@@ -6,10 +6,10 @@ public class ResourceBatchDTO {
     private String resourceBatchName;
     private double resourceBatchAmount;
     private String supplierName;
-    private int isLeftover;     //TODO kan måske være boolean???
+    private boolean isLeftover;     //TODO kan måske være boolean???
     private int resourceId;
 
-    public ResourceBatchDTO(int resourceBatchId, String resourceBatchName, double resourceBatchAmount, String supplierName, int isLeftover, int resourceId) {
+    public ResourceBatchDTO(int resourceBatchId, String resourceBatchName, double resourceBatchAmount, String supplierName, boolean isLeftover, int resourceId) {
         this.resourceBatchId = resourceBatchId;
         this.resourceBatchName = resourceBatchName;
         this.resourceBatchAmount = resourceBatchAmount;
@@ -50,11 +50,11 @@ public class ResourceBatchDTO {
         this.supplierName = supplierName;
     }
 
-    public int getIsLeftover() {
+    public boolean getIsLeftover() {
         return isLeftover;
     }
 
-    public void setIsLeftover(int isLeftover) {
+    public void setIsLeftover(boolean isLeftover) {
         this.isLeftover = isLeftover;
     }
 
