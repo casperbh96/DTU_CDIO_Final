@@ -9,6 +9,22 @@ import java.util.List;
 import static DataAccess.dao.Connector.*;
 
 public class DAO_User implements I_DAL_User {
+    private List<UserDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {
+        UserDTO user = null;
+        List<UserDTO> userList = new ArrayList<>();
+
+        try{
+            while (resultset.next()) {
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+                userList.add(user);
+            }
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
+
+        return userList;
+    }
 
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) throws SQLException {
@@ -81,7 +97,6 @@ public class DAO_User implements I_DAL_User {
 
     @Override
     public List<UserDTO> readMultipleUsersByList(List<Integer> listOfUserIds) throws SQLException {
-        UserDTO user;
         List<UserDTO> userList = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
 
@@ -106,10 +121,8 @@ public class DAO_User implements I_DAL_User {
 
             ResultSet resultset = pStmt.executeQuery();
 
-            while (resultset.next()) {
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
-                userList.add(user);
-            }
+            userList = resultSetWhileLoop(resultset);
+
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -119,7 +132,6 @@ public class DAO_User implements I_DAL_User {
 
     @Override
     public List<UserDTO> readUserbySearch(String keyword) throws SQLException {
-        UserDTO user;
         List<UserDTO> userList = new ArrayList<>();
 
         try (Connection conn = static_createConnection()) {
@@ -131,10 +143,8 @@ public class DAO_User implements I_DAL_User {
             pStmt.setString(4, "%" + keyword + "%");
             ResultSet resultset = pStmt.executeQuery();
 
-            while (resultset.next()) {
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
-                userList.add(user);
-            }
+            userList = resultSetWhileLoop(resultset);
+
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
@@ -145,16 +155,13 @@ public class DAO_User implements I_DAL_User {
     @Override
     public List<UserDTO> readAllUsers() throws SQLException {
         List<UserDTO> userList = new ArrayList<>();
-        UserDTO user = null;
 
         try (Connection connection = static_createConnection()) {
             PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id");
             ResultSet resultset = pStmt.executeQuery();
 
-            while (resultset.next()) {
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
-                userList.add(user);
-            }
+            userList = resultSetWhileLoop(resultset);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -164,7 +171,7 @@ public class DAO_User implements I_DAL_User {
     @Override
     public UserDTO updateSingleUser(UserDTO user) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET username = ?, initials = ?, inactive = ? WHERE user_id = ?");
 
             pStmt.setInt(1, user.getUserId());
             pStmt.setString(2, user.getUsername());
@@ -186,7 +193,7 @@ public class DAO_User implements I_DAL_User {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET username = ?, initials = ?, inactive = ? WHERE user_id = ?");
 
             int index = 0;
             for (UserDTO user : listOfUsers) {
