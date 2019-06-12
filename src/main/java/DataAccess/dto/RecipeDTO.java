@@ -11,12 +11,14 @@ public class RecipeDTO {
     private Date recipeEndDate;
     private String recipeName;
     private double productAmount;
+    private int authorUserId;
 
-    public RecipeDTO(int recipeId, Date recipeEndDate, String recipeName, double productAmount) {
+    public RecipeDTO(int recipeId, Date recipeEndDate, String recipeName, double productAmount, int authorUserId) {
         this.recipeId = recipeId;
         this.recipeEndDate = recipeEndDate;
         this.recipeName = recipeName;
         this.productAmount = productAmount;
+        this.authorUserId = authorUserId;
     }
 
     public int getRecipeId() {
@@ -51,6 +53,14 @@ public class RecipeDTO {
         this.productAmount = productAmount;
     }
 
+    public int getAuthorUserId() {
+        return authorUserId;
+    }
+
+    public void setAuthorUserId(int authorUserId) {
+        this.authorUserId = authorUserId;
+    }
+
     @Override
     public String toString() {
         return "RecipeDTO{" +
@@ -58,8 +68,10 @@ public class RecipeDTO {
                 ", recipeEndDate=" + recipeEndDate +
                 ", recipeName='" + recipeName + '\'' +
                 ", productAmount=" + productAmount +
+                ", authorUserId=" + authorUserId +
                 '}';
     }
+
     //mulighed 2
 //    List<ResourceDTO> resourceAmounts = new LinkedList<>();
 

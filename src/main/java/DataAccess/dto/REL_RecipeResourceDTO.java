@@ -13,7 +13,6 @@ public class REL_RecipeResourceDTO {
         this.tara = tara;
     }
 
-
     public int getResourceBatchId() {
         return resourceBatchId;
     }

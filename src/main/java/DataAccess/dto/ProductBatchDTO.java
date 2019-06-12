@@ -9,13 +9,19 @@ public class ProductBatchDTO {
     private int productionStatus;
     private Date productionEndDate;
     private boolean inactive;
+    private int recipeId;
+    private Date recipeEndDate;
+    private int productionLeaderUserId;
 
-    public ProductBatchDTO(int productBatchId, Date creationDate, int productionStatus, Date productionEndDate, boolean inactive) {
+    public ProductBatchDTO(int productBatchId, Date creationDate, int productionStatus, Date productionEndDate, boolean inactive, int recipeId, Date recipeEndDate, int productionLeaderUserId) {
         this.productBatchId = productBatchId;
         this.creationDate = creationDate;
         this.productionStatus = productionStatus;
         this.productionEndDate = productionEndDate;
         this.inactive = inactive;
+        this.recipeId = recipeId;
+        this.recipeEndDate = recipeEndDate;
+        this.productionLeaderUserId = productionLeaderUserId;
     }
 
     public int getProductBatchId() {
@@ -58,6 +64,30 @@ public class ProductBatchDTO {
         this.inactive = inactive;
     }
 
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public Date getRecipeEndDate() {
+        return recipeEndDate;
+    }
+
+    public void setRecipeEndDate(Date recipeEndDate) {
+        this.recipeEndDate = recipeEndDate;
+    }
+
+    public int getProductionLeaderUserId() {
+        return productionLeaderUserId;
+    }
+
+    public void setProductionLeaderUserId(int productionLeaderUserId) {
+        this.productionLeaderUserId = productionLeaderUserId;
+    }
+
     @Override
     public String toString(){
         return "ProductBatchDTO{" +
@@ -66,8 +96,12 @@ public class ProductBatchDTO {
                 ", productionStatus=" + productionStatus +
                 ", productionEndDate=" + productionEndDate +
                 ", inactive=" + inactive +
+                ", recipeId=" + recipeId +
+                ", recipeEndDate=" + recipeEndDate +
+                ", productionLeaderUserId=" + productionLeaderUserId +
                 '}';
     }
+
     //mulighed 2
 //    public ProductBatchDTO(int productBatchId, Timestamp creationDate, int orderStatus, int recipeId, Timestamp recipeEndDate, int productionLeaderId) {
 //        this.productBatchId = productBatchId;
