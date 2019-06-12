@@ -46,15 +46,7 @@ public class DAO_Resource implements I_DAL_Resource {
                 pStmt.addBatch();
                 index++;
             }
-            int[] numUpdates = pStmt.executeBatch();
-            for (int i = 0; i < numUpdates.length; i++) {
-                if (numUpdates[i] == -2)
-                    System.out.println("Execution " + i +
-                            ": unknown number of rows updated");
-                else
-                    System.out.println("Execution " + i +
-                            "successful: " + numUpdates[i] + " rows updated");
-            }
+            pStmt.executeBatch();
             static_commitTransAction(conn);
         } catch (BatchUpdateException batchEx) {
             throw new BatchUpdateException(batchEx);
@@ -169,7 +161,6 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public ResourceDTO updateSingleResource(ResourceDTO Resource) throws SQLException {
-
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
 
@@ -188,16 +179,32 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException {
-        ResourceDTO res;
-        List<Integer> listOfIds = new ArrayList<>();
+        List<Integer> idList = new ArrayList<>();
+
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources (resource_id, resource_name, reorder) VALUES (?,?,?)");
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ? WHERE resource_id = ?");
+
+            int index = 0;
+            for (ResourceDTO res : listOfResources) {
+                idList.add(res.getResourceId());
+
+                pStmt.setString(1, res.getResourceName());
+                pStmt.setInt(2, res.getReorder());
+                pStmt.setInt(3, res.getResourceId());
+
+                pStmt.addBatch();
+                index++;
+            }
+
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
 
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
 
-        return readMultipleResourcesByList(listOfIds);
+        return readMultipleResourcesByList(idList);
     }
 
     @Override
