@@ -21,7 +21,7 @@ public class DAO_User implements I_DAL_User {
     }
 
     @Override
-    public UserDTO readSingleUserbyId(int UserId) throws SQLException {
+    public UserDTO readSingleUserbyId(int userId) throws SQLException {
         return null;
     }
 

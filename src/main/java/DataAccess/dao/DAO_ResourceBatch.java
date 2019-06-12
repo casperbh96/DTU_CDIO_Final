@@ -21,7 +21,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     }
 
     @Override
-    public ResourceBatchDTO readSingleResourceBatchbyId(int ResourceBatchId) throws SQLException {
+    public ResourceBatchDTO readSingleResourceBatchbyId(int resourceBatchId) throws SQLException {
         return null;
     }
 
@@ -41,7 +41,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
     }
 
     @Override
-    public ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO ResourceBatch) throws SQLException {
+    public ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO resourceBatch) throws SQLException {
         return null;
     }
 
