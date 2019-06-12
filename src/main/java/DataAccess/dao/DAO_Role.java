@@ -80,13 +80,4 @@ public class DAO_Role implements I_DAL_Role {
         return null;
     }
 
-    @Override
-    public RoleDTO deleteSingleRole(RoleDTO role) {
-        return null;
-    }
-
-    @Override
-    public List<RoleDTO> deleteMultipleRoles(List<RoleDTO> listOfRoles) {
-        return null;
-    }
 }

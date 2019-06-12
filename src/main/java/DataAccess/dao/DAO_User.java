@@ -202,45 +202,4 @@ public class DAO_User implements I_DAL_User {
         }
         return readMultipleUsersByList(ids);          //TODO virker dette???
     }
-
-    @Override
-    public UserDTO deleteSingleUser(UserDTO user) {
-        try(Connection connection = static_createConnection()){
-
-            PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
-
-            pStmt.setBoolean(1, true);
-            pStmt.setInt(2, user.getUserId());
-            pStmt.executeUpdate();
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return readSingleUserbyId(user.getUserId()); //TODO her kan vel ikke rigtigt returneres noget??
-    }
-
-    @Override
-    public List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) {
-
-        List<Integer> ids = new LinkedList<>();
-        try(Connection connection = static_createConnection()){
-
-            for (int i = 0; i < listOfUsers.size(); i++) {
-
-                PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
-                pStmt.setBoolean(1, true);
-                pStmt.setInt(2, listOfUsers.get(i).getUserId());
-                pStmt.executeUpdate();
-
-                ResultSet resultset = pStmt.executeQuery();
-
-                while (resultset.next()){
-                    ids.add(resultset.getInt(1));
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return readMultipleUsersByList(ids); //TODO her kan vel ikke rigtigt returneres noget?? Nu returneres en liste, hvor alle skal være inactive = true
-    }
 }

@@ -119,14 +119,4 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
         return null;
     }
 
-    @Override
-    public ResourceBatchDTO deleteSingleResourceBatch(ResourceBatchDTO resourceBatch) {
-        return null;
-    }
-
-    @Override
-    public List<ResourceBatchDTO> deleteMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) {
-        return null;
-    }
-
 }

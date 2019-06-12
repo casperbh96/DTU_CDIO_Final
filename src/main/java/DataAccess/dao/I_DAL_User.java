@@ -19,6 +19,6 @@ public interface I_DAL_User extends Serializable {
     UserDTO updateSingleUser(UserDTO user) throws SQLException;
     List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
 
-    UserDTO deleteSingleUser(UserDTO user) throws SQLException;
-    List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
+//    UserDTO deleteSingleUser(UserDTO user) throws SQLException;
+//    List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
 }

@@ -61,14 +61,4 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) {
         return null;
     }
-
-    @Override
-    public ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO productBatch) {
-        return null;
-    }
-
-    @Override
-    public List<ProductBatchDTO> deleteMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) {
-        return null;
-    }
 }

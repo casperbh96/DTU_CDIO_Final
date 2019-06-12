@@ -19,8 +19,8 @@ public interface I_DAL_Recipe extends Serializable {
     RecipeDTO updateSingleRecipe(RecipeDTO recipe) throws SQLException;
     List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 
-    RecipeDTO deleteSingleRecipe(RecipeDTO recipe) throws SQLException;
-    List<RecipeDTO> deleteMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
+//    RecipeDTO deleteSingleRecipe(RecipeDTO recipe) throws SQLException;
+//    List<RecipeDTO> deleteMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 
 
 }

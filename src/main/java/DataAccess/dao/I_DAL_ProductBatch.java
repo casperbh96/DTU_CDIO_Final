@@ -19,7 +19,7 @@ public interface I_DAL_ProductBatch extends Serializable {
     ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
     List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
 
-    ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
-    List<ProductBatchDTO> deleteMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
+//    ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
+//    List<ProductBatchDTO> deleteMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
 
 }

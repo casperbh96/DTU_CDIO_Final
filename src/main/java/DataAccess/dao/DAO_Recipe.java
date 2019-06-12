@@ -95,14 +95,4 @@ public class DAO_Recipe implements I_DAL_Recipe {
     public List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) {
         return null;
     }
-
-    @Override
-    public RecipeDTO deleteSingleRecipe(RecipeDTO recipe) {
-        return null;
-    }
-
-    @Override
-    public List<RecipeDTO> deleteMultipleRecipes(List<RecipeDTO> listOfRecipes) {
-        return null;
-    }
 }
