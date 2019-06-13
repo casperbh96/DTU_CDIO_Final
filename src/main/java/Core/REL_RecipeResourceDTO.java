@@ -1,47 +1,59 @@
 package main.java.Core;
 
+import java.sql.Date;
+
 public class REL_RecipeResourceDTO {
-    private int resourceBatchId;
-    private int productBatchId;
-    private double netAmount;
-    private double tara;
+    private int resourceId;
+    private int recipeId;
+    private Date recipeEndDate;
+    private double resourceAmount;
+    private double tolerance;
 
-    REL_RecipeResourceDTO(int resourceBatchId, int productBatchId, double netAmount, double tara){
-        this.resourceBatchId = resourceBatchId;
-        this.productBatchId = productBatchId;
-        this.netAmount = netAmount;
-        this.tara = tara;
+    REL_RecipeResourceDTO(int resourceId, int recipeId, Date recipeEndDate, double resourceAmount, double tolerance){
+        this.resourceId = resourceId;
+        this.recipeId = recipeId;
+        this.recipeEndDate = recipeEndDate;
+        this.resourceAmount = resourceAmount;
+        this.tolerance = tolerance;
     }
 
-    public int getResourceBatchId() {
-        return resourceBatchId;
+    public int getResouceId() {
+        return resourceId;
     }
 
-    public void setResourceBatchId(int resourceBatchId) {
-        this.resourceBatchId = resourceBatchId;
+    public void setResouceId(int resouceId) {
+        this.resourceId = resouceId;
     }
 
-    public int getProductBatchId() {
-        return productBatchId;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setProductBatchId(int productBatchId) {
-        this.productBatchId = productBatchId;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
-    public double getNetAmount() {
-        return netAmount;
+    public Date getRecipeEndDate() {
+        return recipeEndDate;
     }
 
-    public void setNetAmount(double netAmount) {
-        this.netAmount = netAmount;
+    public void setRecipeEndDate(Date recipeEndDate) {
+        this.recipeEndDate = recipeEndDate;
     }
 
-    public double getTara() {
-        return tara;
+    public double getResourceAmount() {
+        return resourceAmount;
     }
 
-    public void setTara(double tara) {
-        this.tara = tara;
+    public void setResourceAmount(double resourceAmount) {
+        this.resourceAmount = resourceAmount;
+    }
+
+    public double getTolerance() {
+        return tolerance;
+    }
+
+    public void setTolerance(double tolerance) {
+        this.tolerance = tolerance;
     }
 }

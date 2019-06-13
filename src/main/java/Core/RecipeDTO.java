@@ -1,6 +1,7 @@
 package main.java.Core;
 
 import java.sql.Date;
+import java.util.List;
 
 public class RecipeDTO {
 
@@ -9,13 +10,15 @@ public class RecipeDTO {
     private String recipeName;
     private double productAmount;
     private int authorUserId;
+    private List<REL_ProductBatchResourceBatchDTO> resourceList;
 
-    public RecipeDTO(int recipeId, Date recipeEndDate, String recipeName, double productAmount, int authorUserId) {
+    public RecipeDTO(int recipeId, Date recipeEndDate, String recipeName, double productAmount, int authorUserId, List<REL_ProductBatchResourceBatchDTO> resourceList) {
         this.recipeId = recipeId;
         this.recipeEndDate = recipeEndDate;
         this.recipeName = recipeName;
         this.productAmount = productAmount;
         this.authorUserId = authorUserId;
+        this.resourceList = resourceList;
     }
 
     public int getRecipeId() {
@@ -58,6 +61,14 @@ public class RecipeDTO {
         this.authorUserId = authorUserId;
     }
 
+    public List<REL_ProductBatchResourceBatchDTO> getResourceList() {
+        return resourceList;
+    }
+
+    public void setResourceList(List<REL_ProductBatchResourceBatchDTO> resourceList) {
+        this.resourceList = resourceList;
+    }
+
     @Override
     public String toString() {
         return "RecipeDTO{" +
@@ -66,6 +77,7 @@ public class RecipeDTO {
                 ", recipeName='" + recipeName + '\'' +
                 ", productAmount=" + productAmount +
                 ", authorUserId=" + authorUserId +
+                ", resourceList=" + resourceList +
                 '}';
     }
 

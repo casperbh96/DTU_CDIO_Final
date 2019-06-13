@@ -1,5 +1,7 @@
 package main.java.Core;
 
+import java.util.List;
+
 public class UserDTO {
 
     private int userId;
@@ -38,7 +40,7 @@ public class UserDTO {
         this.initials = initials;
     }
 
-    public boolean getInactive() {
+    public boolean isInactive() {
         return inactive;
     }
 

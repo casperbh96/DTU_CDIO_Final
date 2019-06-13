@@ -1,6 +1,7 @@
 package main.java.Core;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ProductBatchDTO {
 
@@ -56,7 +57,7 @@ public class ProductBatchDTO {
         this.productionEndDate = productionEndDate;
     }
 
-    public boolean getInactive() {
+    public boolean isInactive() {
         return inactive;
     }
 
@@ -89,7 +90,7 @@ public class ProductBatchDTO {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "ProductBatchDTO{" +
                 "productBatchId=" + productBatchId +
                 ", creationDate=" + creationDate +
@@ -101,6 +102,7 @@ public class ProductBatchDTO {
                 ", productionLeaderUserId=" + productionLeaderUserId +
                 '}';
     }
+}
 
     //mulighed 2
 //    public ProductBatchDTO(int productBatchId, Timestamp creationDate, int orderStatus, int recipeId, Timestamp recipeEndDate, int productionLeaderId) {
@@ -118,4 +120,3 @@ public class ProductBatchDTO {
 
     //mulighed 2
 //    private List<ResourceBatchDTO> resourceBatchAmounts = new LinkedList<>();
-}
