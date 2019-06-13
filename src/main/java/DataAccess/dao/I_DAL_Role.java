@@ -1,8 +1,7 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.RoleDTO;
+import main.java.Core.RoleDTO;
 
-import java.beans.IntrospectionException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,8 +20,8 @@ public interface I_DAL_Role extends Serializable{
     RoleDTO updateSingleRole(RoleDTO role) throws SQLException;
     List<RoleDTO> updateMultipleRoles(List<RoleDTO> listOfRoles) throws SQLException;
 
-    RoleDTO deleteSingleRole(RoleDTO role) throws SQLException;
-    List<RoleDTO> deleteMultipleRoles(List<RoleDTO> listOfRoles ) throws SQLException;
+//    RoleDTO deleteSingleRole(RoleDTO role) throws SQLException;
+//    List<RoleDTO> deleteMultipleRoles(List<RoleDTO> listOfRoles ) throws SQLException;
 
 
 }

@@ -1,74 +1,48 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.ProductBatchDTO;
+import main.java.Core.ProductBatchDTO;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
-
-import static DataAccess.dao.Connector.static_commitTransAction;
-import static DataAccess.dao.Connector.static_createConnection;
-import static DataAccess.dao.Connector.static_startTransAction;
-import static DataAccess.dao.Connector.*;
 
 public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
-    public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) {
-        try(Connection connection = static_createConnection()) {
-
-            PreparedStatement pStmt = connection.prepareStatement("INSERT INTO product_batches () VALUES ()");   //TODO implement this
-
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) {
+    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) throws SQLException {
         return null;
     }
 
     @Override
-    public ProductBatchDTO readSingleProductBatchbyId(int ProductBatchId) {
+    public ProductBatchDTO readSingleProductBatchbyId(int productBatchId) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> readMultipleProductBatchsByList(List<Integer> listOfProductBatchIds) {
+    public List<ProductBatchDTO> readMultipleProductBatchsByList(List<Integer> listOfProductBatchIds) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> readProductBatchbySearch(String keyword) {
+    public List<ProductBatchDTO> readProductBatchbySearch(String keyword) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> readAllProductBatchs() {
+    public List<ProductBatchDTO> readAllProductBatchs() throws SQLException {
         return null;
     }
 
     @Override
-    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO ProductBatch) {
+    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) {
-        return null;
-    }
-
-    @Override
-    public ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO ProductBatch) {
-        return null;
-    }
-
-    @Override
-    public List<ProductBatchDTO> deleteMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) {
+    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
         return null;
     }
 }
