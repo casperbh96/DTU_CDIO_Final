@@ -2,37 +2,40 @@ package rest;
 
 import rest.DTO.RestDTO_DataType_1;
 
-public class JsonHandler_Web implements I_JsonHandler{
+public class JsonHandler_Web implements rest.I_JsonHandler {
 
     public RestDTO_DataType_1 handleJson(RestDTO_DataType_1 restDto){
         switch(restDto.getAction()){
             case "create":
-                break;
+                return optionCreate(restDto);
             case "read":
-                break;
+                return null;
             case "update":
-                break;
+                return null;
             case "delete":
-                break;
+                return null;
+            default:
+                return null;
         }
     }
 
-    private RestDTO_DataType_1 OptionCreate(RestDTO_DataType_1 restDto){
+    private RestDTO_DataType_1 optionCreate(RestDTO_DataType_1 restDto){
 
         switch (restDto.getValue_1()){
             case "users":
-                break;
+                return null;
             case "recipes":
-                break;
+                return null;
             case "product_batches":
-                break;
+                return null;
             case "roles":
-                break;
+                return null;
             case "resources":
-                break;
+                return null;
             case "resource_batches":
-                break;
+                return null;
+             default:
+                 return null;
         }
     }
-
 }
