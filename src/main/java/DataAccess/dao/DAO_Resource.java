@@ -9,6 +9,7 @@ import java.util.List;
 import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_Resource implements I_DAL_Resource {
+
     private List<ResourceDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {
         ResourceDTO res = null;
         List<ResourceDTO> resList = new ArrayList<>();
@@ -22,7 +23,6 @@ public class DAO_Resource implements I_DAL_Resource {
         catch(SQLException ex){
             throw new SQLException(ex);
         }
-
         return resList;
     }
 
