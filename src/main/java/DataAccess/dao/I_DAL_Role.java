@@ -9,8 +9,8 @@ import java.util.List;
 public interface I_DAL_Role extends Serializable{
 
 
-    RoleDTO createSingleRole( RoleDTO singleRole ) throws SQLException;
-    List<RoleDTO> createMultipleRoles( List<RoleDTO> listOfRoles ) throws SQLException;
+    RoleDTO createSingleRole(RoleDTO singleRole ) throws SQLException;
+    List<RoleDTO> createMultipleRoles(List<RoleDTO> listOfRoles ) throws SQLException;
 
     RoleDTO readSingleRoleById(int roleId ) throws SQLException;
     List<RoleDTO> readMultipleRolesByList (List<Integer> listOfRoleIds) throws SQLException;
