@@ -18,7 +18,9 @@ public class BLLUser implements I_BLLUser {
     @Override
     public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
         UserDTO user = DAL_user.createSingleUser(singleUser);
-        RoleDTO role = DAL_role.createSingleRole(singleRole);
+        if(singleRole != null){
+            RoleDTO role = DAL_role.createSingleRole(singleRole);
+        }
 
         // REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), role.getRoleId())
         // REL_RoleUserDTO roleUser = DAL_roleUser.createSingleRelationship(newRoleUser);
@@ -29,7 +31,9 @@ public class BLLUser implements I_BLLUser {
     @Override
     public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException {
         List<UserDTO> userList = DAL_user.createMultipleUsers(listOfUsers);
-        List<RoleDTO> roleList = DAL_role.createMultipleRoles(listOfRoles);
+        if(listOfRoles != null){
+            List<RoleDTO> roleList = DAL_role.createMultipleRoles(listOfRoles);
+        }
 
         /*
         List<REL_RoleUserDTO> roleUserList = new ArrayList<>(Arrays.asList(new REL_RoleUserDTO[userList.size()]))
@@ -65,7 +69,7 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public List<UserDTO> getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException {
+    public List<UserDTO> getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) {
         // Booleans because we might return more than one role
         return null;
     }
@@ -81,12 +85,12 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public void deleteUser(int userId) throws SQLException {
+    public void deleteUser(int userId) {
 
     }
 
     @Override
-    public void deleteUsers(List<Integer> userIds) throws SQLException {
+    public void deleteUsers(List<Integer> userIds) {
 
     }
 }
