@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_Recipe extends Serializable {
+public interface I_DAL_Recipe {
 
     RecipeDTO createSingleRecipe( RecipeDTO singleRecipe ) throws SQLException;
     List<RecipeDTO> createMultipleRecipes( List<RecipeDTO> listOfRecipes ) throws SQLException;
