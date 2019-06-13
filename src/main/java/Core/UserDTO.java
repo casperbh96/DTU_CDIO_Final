@@ -13,6 +13,7 @@ public class UserDTO {
         this.initials = initials;
         this.inactive = inactive;
     }
+    public UserDTO(){}
 
     public int getUserId() {
         return userId;

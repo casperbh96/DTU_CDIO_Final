@@ -1,6 +1,11 @@
 package rest;
-
+/*
+import main.java.BusinessLogic.BLLUser;
+import main.java.BusinessLogic.I_BLLUser;
+import main.java.Core.RoleDTO;
+import main.java.Core.UserDTO;
 import rest.DTO.RestDTO_DataType_1;
+import  main.java.rest.JsonHandlerStoredMethods;
 
 public class JsonHandler_Web implements rest.I_JsonHandler {
 
@@ -23,8 +28,13 @@ public class JsonHandler_Web implements rest.I_JsonHandler {
 
         switch (restDto.getValue_1()){
             case "users":
-                return null;
+                UserDTO user = JsonHandlerStoredMethods.createUserFromRestDTO(restDto);// Antager at value2 er = columns Data.
+               // RoleDTO roles = JsonHandlerStoredMethods.createRolesFromRestDTO(restDto);
+                I_BLLUser bllUser = new BLLUser();
+
+                return bllUser.createUser();;
             case "recipes":
+
                 return null;
             case "product_batches":
                 return null;
@@ -39,3 +49,4 @@ public class JsonHandler_Web implements rest.I_JsonHandler {
         }
     }
 }
+*/
