@@ -1,6 +1,6 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.UserDTO;
+import main.java.Core.UserDTO;
 
 import java.sql.*;
 import java.util.ArrayList;

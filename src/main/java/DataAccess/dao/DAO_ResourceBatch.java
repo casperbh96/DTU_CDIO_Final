@@ -1,12 +1,9 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.ResourceBatchDTO;
+import main.java.Core.ResourceBatchDTO;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-
-import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
 

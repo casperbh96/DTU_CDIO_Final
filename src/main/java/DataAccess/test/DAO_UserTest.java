@@ -1,7 +1,7 @@
 package main.java.DataAccess.test;
 
 import main.java.DataAccess.dao.DAO_User;
-import main.java.DataAccess.dto.UserDTO;
+import main.java.Core.UserDTO;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;

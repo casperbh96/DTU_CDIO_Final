@@ -1,9 +1,6 @@
-package main.java.DataAccess.dto;
+package main.java.Core;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
 
 public class RecipeDTO {
 

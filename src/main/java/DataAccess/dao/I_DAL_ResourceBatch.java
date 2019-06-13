@@ -1,6 +1,6 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.ResourceBatchDTO;
+import main.java.Core.ResourceBatchDTO;
 
 import java.io.Serializable;
 import java.sql.SQLException;

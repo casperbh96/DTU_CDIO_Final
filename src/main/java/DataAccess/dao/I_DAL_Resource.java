@@ -1,6 +1,6 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.ResourceDTO;
+import main.java.Core.ResourceDTO;
 
 import java.sql.SQLException;
 import java.util.List;

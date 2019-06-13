@@ -1,4 +1,4 @@
-package main.java.DataAccess.dto;
+package main.java.Core;
 
 public class ResourceDTO {
 

@@ -1,12 +1,9 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.RoleDTO;
+import main.java.Core.RoleDTO;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-
-import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_Role implements I_DAL_Role {
 
