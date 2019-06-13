@@ -1,4 +1,4 @@
-package rest;
+package main.java.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
