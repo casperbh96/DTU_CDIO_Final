@@ -12,14 +12,14 @@ import java.util.List;
 
 public class BLLUser implements I_BLLUser {
     private I_DAL_User DAL_user = new DAO_User();
-    private I_DAL_Role DAL_role = new DAO_Role();
+    private I_BLLRole BLL_role = new BLLRole();
     // private I_DAL_RoleUser DAL_roleUser = new DAO_RoleUser();
 
     @Override
     public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
         UserDTO user = DAL_user.createSingleUser(singleUser);
         if(singleRole != null){
-            RoleDTO role = DAL_role.createSingleRole(singleRole);
+            RoleDTO role = BLL_role.createRole(singleRole);
         }
 
         // REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), role.getRoleId())
@@ -32,7 +32,7 @@ public class BLLUser implements I_BLLUser {
     public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException {
         List<UserDTO> userList = DAL_user.createMultipleUsers(listOfUsers);
         if(listOfRoles != null){
-            List<RoleDTO> roleList = DAL_role.createMultipleRoles(listOfRoles);
+            List<RoleDTO> roleList = BLL_role.createRoles(listOfRoles);
         }
 
         /*
