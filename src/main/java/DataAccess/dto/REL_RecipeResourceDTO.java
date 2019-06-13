@@ -1,4 +1,4 @@
-package DataAccess.dto;
+package main.java.DataAccess.dto;
 
 public class REL_RecipeResourceDTO {
     private int resourceBatchId;

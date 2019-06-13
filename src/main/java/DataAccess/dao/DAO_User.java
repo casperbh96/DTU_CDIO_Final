@@ -1,12 +1,12 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.UserDTO;
+import main.java.DataAccess.dto.UserDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static DataAccess.dao.Connector.*;
+import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_User implements I_DAL_User {
     private List<UserDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {

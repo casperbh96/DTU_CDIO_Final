@@ -1,6 +1,6 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.RoleDTO;
+import main.java.DataAccess.dto.RoleDTO;
 
 import java.beans.IntrospectionException;
 import java.io.Serializable;

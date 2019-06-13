@@ -1,4 +1,4 @@
-package DataAccess.dto;
+package main.java.DataAccess.dto;
 
 import java.sql.Date;
 import java.sql.Timestamp;

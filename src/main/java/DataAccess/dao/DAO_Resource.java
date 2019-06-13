@@ -1,12 +1,12 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.ResourceDTO;
+import main.java.DataAccess.dto.ResourceDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static DataAccess.dao.Connector.*;
+import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_Resource implements I_DAL_Resource {
     private List<ResourceDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {

@@ -1,9 +1,7 @@
-/*
+package main.java.DataAccess.test;
 
-package DataAccess.test;
-
-import DataAccess.dao.DAO_Resource;
-import DataAccess.dto.ResourceDTO;
+import main.java.DataAccess.dao.DAO_Resource;
+import main.java.DataAccess.dto.ResourceDTO;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;
@@ -155,4 +153,3 @@ public class DAO_ResourceTest {
 //        }
 //    }
 }
-*/

@@ -1,6 +1,6 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.ResourceDTO;
+import main.java.DataAccess.dto.ResourceDTO;
 
 import java.sql.SQLException;
 import java.util.List;

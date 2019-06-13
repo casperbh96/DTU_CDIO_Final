@@ -1,6 +1,6 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.UserDTO;
+import main.java.DataAccess.dto.UserDTO;
 
 import java.io.Serializable;
 import java.sql.SQLException;
