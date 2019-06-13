@@ -1,5 +1,6 @@
 package main.java.BusinessLogic;
 
+import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 import main.java.DataAccess.dao.DAO_User;
 import main.java.DataAccess.dao.I_DAL_User;
@@ -7,22 +8,16 @@ import main.java.DataAccess.dao.I_DAL_User;
 import java.sql.SQLException;
 import java.util.List;
 
-public class User implements I_User{
-    private I_DAL_User DAL_user;
-    private UserDTO uDTO;
-
-    public User(int userId, String username, String initials, boolean inactive){
-        uDTO = new UserDTO(userId, username, initials, inactive);
-    }
-
+public class BLLUser implements I_BLLUser {
+    private I_DAL_User DAL_user = new DAO_User();
 
     @Override
-    public UserDTO createUser(UserDTO singleUser) throws SQLException {
+    public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
         return null;
     }
 
     @Override
-    public List<UserDTO> createUsers(List<UserDTO> listOfUsers) throws SQLException {
+    public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException {
         return null;
     }
 

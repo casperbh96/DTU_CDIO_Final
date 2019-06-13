@@ -1,13 +1,14 @@
 package main.java.BusinessLogic;
 
+import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_User {
-    UserDTO createUser(UserDTO singleUser) throws SQLException;
-    List<UserDTO> createUsers( List<UserDTO> listOfUsers) throws SQLException;
+public interface I_BLLUser {
+    UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException;
+    List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException;
 
     UserDTO getUserById(int userId, boolean returnProductBatches, boolean returnAmounts) throws SQLException;
     List<UserDTO> getUsersByListOfIds (List<Integer> listOfUserIds) throws SQLException;
