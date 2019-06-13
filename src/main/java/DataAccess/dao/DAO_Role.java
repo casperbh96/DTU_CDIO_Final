@@ -3,62 +3,50 @@ package DataAccess.dao;
 import DataAccess.dto.RoleDTO;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import static DataAccess.dao.Connector.static_commitTransAction;
-import static DataAccess.dao.Connector.static_createConnection;
-import static DataAccess.dao.Connector.static_startTransAction;
 import static DataAccess.dao.Connector.*;
 
 public class DAO_Role implements I_DAL_Role {
+
     @Override
-    public RoleDTO createSingleRole(RoleDTO singleRole) {
+    public RoleDTO createSingleRole(RoleDTO singleRole) throws SQLException {
         return null;
     }
 
     @Override
-    public List<RoleDTO> createMultipleRoles(List<RoleDTO> listOfRoles) {
+    public List<RoleDTO> createMultipleRoles(List<RoleDTO> listOfRoles) throws SQLException {
         return null;
     }
 
     @Override
-    public RoleDTO readSingleRolebyId(int roleId) {
+    public RoleDTO readSingleRolebyId(int roleId) throws SQLException {
         return null;
     }
 
     @Override
-    public List<RoleDTO> readMultipleRolesByList(List<Integer> listOfRoleIds) {
+    public List<RoleDTO> readMultipleRolesByList(List<Integer> listOfRoleIds) throws SQLException {
         return null;
     }
 
     @Override
-    public List<RoleDTO> readRolebySearch(String keyword) {
+    public List<RoleDTO> readRolebySearch(String keyword) throws SQLException {
         return null;
     }
 
     @Override
-    public List<RoleDTO> readAllRoles() {
+    public List<RoleDTO> readAllRoles() throws SQLException {
         return null;
     }
 
     @Override
-    public RoleDTO updateSingleRole(RoleDTO role) {
+    public RoleDTO updateSingleRole(RoleDTO role) throws SQLException {
         return null;
     }
 
     @Override
-    public List<RoleDTO> updateMultipleRoles(List<RoleDTO> listOfRoles) {
-        return null;
-    }
-
-    @Override
-    public RoleDTO deleteSingleRole(RoleDTO role) {
-        return null;
-    }
-
-    @Override
-    public List<RoleDTO> deleteMultipleRoles(List<RoleDTO> listOfRoles) {
+    public List<RoleDTO> updateMultipleRoles(List<RoleDTO> listOfRoles) throws SQLException {
         return null;
     }
 }

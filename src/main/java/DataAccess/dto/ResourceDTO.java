@@ -4,12 +4,14 @@ public class ResourceDTO {
 
     private int resourceId;
     private String resourceName;
-    private int reorder;            //TODO kan måske være boolean???
+    private boolean reorder;
+    private boolean inactive;
 
-    public ResourceDTO(int resourceId, String resourceName, int reorder) {
+    public ResourceDTO(int resourceId, String resourceName, boolean reorder, boolean inactive) {
         this.resourceId = resourceId;
         this.resourceName = resourceName;
         this.reorder = reorder;
+        this.inactive = inactive;
     }
 
     public int getResourceId() {
@@ -28,12 +30,20 @@ public class ResourceDTO {
         this.resourceName = resourceName;
     }
 
-    public int getReorder() {
+    public boolean getReorder() {
         return reorder;
     }
 
-    public void setReorder(int reorder) {
+    public void setReorder(boolean reorder) {
         this.reorder = reorder;
+    }
+
+    public boolean getInactive() {
+        return inactive;
+    }
+
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
     }
 
     @Override
