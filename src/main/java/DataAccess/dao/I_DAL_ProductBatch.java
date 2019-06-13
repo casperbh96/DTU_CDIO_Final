@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_ProductBatch extends Serializable {
+public interface I_DAL_ProductBatch {
 
     ProductBatchDTO createSingleProductBatch( ProductBatchDTO singleProductBatch ) throws SQLException;
     List<ProductBatchDTO> createMultipleProductBatchs( List<ProductBatchDTO> listOfProductBatchs ) throws SQLException;

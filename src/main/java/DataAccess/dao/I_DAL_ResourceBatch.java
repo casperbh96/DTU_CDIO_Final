@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_ResourceBatch extends Serializable {
+public interface I_DAL_ResourceBatch {
 
     ResourceBatchDTO createSingleResourceBatch( ResourceBatchDTO singleResourceBatch ) throws SQLException;
     List<ResourceBatchDTO> createMultipleResourceBatchs( List<ResourceBatchDTO> listOfResourceBatchs ) throws SQLException;

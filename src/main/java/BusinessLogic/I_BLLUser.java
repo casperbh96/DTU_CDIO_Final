@@ -10,7 +10,7 @@ public interface I_BLLUser {
     UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException;
     List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException;
 
-    UserDTO getUserById(int userId, boolean returnProductBatches, boolean returnAmounts) throws SQLException;
+    UserDTO getUserById(int userId) throws SQLException;
     List<UserDTO> getUsersByListOfIds (List<Integer> listOfUserIds) throws SQLException;
     List<UserDTO> getUserBySearch(String keyword) throws SQLException;
     List<UserDTO> getAllUsers() throws SQLException;

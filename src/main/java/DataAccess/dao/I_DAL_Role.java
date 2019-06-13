@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_Role extends Serializable{
-
-
+public interface I_DAL_Role {
     RoleDTO createSingleRole( RoleDTO singleRole ) throws SQLException;
     List<RoleDTO> createMultipleRoles( List<RoleDTO> listOfRoles ) throws SQLException;
 

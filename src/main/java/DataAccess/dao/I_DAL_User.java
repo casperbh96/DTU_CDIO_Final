@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_User extends Serializable {
+public interface I_DAL_User {
 
     UserDTO createSingleUser( UserDTO singleUser ) throws SQLException;
     List<UserDTO> createMultipleUsers( List<UserDTO> listOfUsers) throws SQLException;
