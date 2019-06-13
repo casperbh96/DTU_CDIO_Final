@@ -6,18 +6,20 @@ import java.sql.*;
 import java.util.List;
 
 public class DAO_ProductBatch implements I_DAL_ProductBatch {
+
+
     @Override
     public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatchs) throws SQLException {
+    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
         return null;
     }
 
     @Override
-    public ProductBatchDTO readSingleProductBatchbyId(int productBatchId) throws SQLException {
+    public ProductBatchDTO readSingleProductBatchById(int productBatchId) throws SQLException {
         return null;
     }
 
@@ -27,7 +29,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     }
 
     @Override
-    public List<ProductBatchDTO> readProductBatchbySearch(String keyword) throws SQLException {
+    public List<ProductBatchDTO> readProductBatchBySearch(String keyword) throws SQLException {
         return null;
     }
 
@@ -43,6 +45,16 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
     @Override
     public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ProductBatchDTO setInactiveSingleProductBatch(int productBatchId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ProductBatchDTO setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException {
         return null;
     }
 }

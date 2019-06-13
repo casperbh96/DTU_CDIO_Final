@@ -11,9 +11,9 @@ public interface I_DAL_ProductBatch extends Serializable {
     ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException;
     List<ProductBatchDTO> createMultipleProductBatchs( List<ProductBatchDTO> listOfProductBatches ) throws SQLException;
 
-    ProductBatchDTO readSingleProductBatchbyId(int productBatchId ) throws SQLException;
+    ProductBatchDTO readSingleProductBatchById(int productBatchId ) throws SQLException;
     List<ProductBatchDTO> readMultipleProductBatchsByList (List<Integer> listOfProductBatchIds) throws SQLException;
-    List<ProductBatchDTO> readProductBatchbySearch(String keyword) throws SQLException;
+    List<ProductBatchDTO> readProductBatchBySearch(String keyword) throws SQLException;
     List<ProductBatchDTO> readAllProductBatchs() throws SQLException;
 
     ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;

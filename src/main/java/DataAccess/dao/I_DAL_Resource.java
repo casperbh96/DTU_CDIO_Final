@@ -19,6 +19,6 @@ public interface I_DAL_Resource {
     List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException;
 
     ResourceDTO setInactiveSingleResource(int resourceId) throws SQLException;
-    ResourceDTO setInactiveMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
+    List<ResourceDTO> setInactiveMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
 
 }

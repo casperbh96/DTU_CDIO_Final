@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.List;
 
 public class DAO_Recipe implements I_DAL_Recipe {
+
     @Override
     public RecipeDTO createSingleRecipe(RecipeDTO singleRecipe) throws SQLException {
         return null;
@@ -17,7 +18,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     }
 
     @Override
-    public RecipeDTO readSingleRecipebyId(int recipeId) throws SQLException {
+    public RecipeDTO readSingleRecipeById(int recipeId) throws SQLException {
         return null;
     }
 
@@ -27,7 +28,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     }
 
     @Override
-    public List<RecipeDTO> readRecipebySearch(String keyword) throws SQLException {
+    public List<RecipeDTO> readRecipeBySearch(String keyword) throws SQLException {
         return null;
     }
 
@@ -43,6 +44,16 @@ public class DAO_Recipe implements I_DAL_Recipe {
 
     @Override
     public List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public RecipeDTO setRecipeEndDateSingleRecipe(RecipeDTO recipe) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<RecipeDTO> setRecipeEndDateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException {
         return null;
     }
 }

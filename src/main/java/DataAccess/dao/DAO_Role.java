@@ -18,7 +18,7 @@ public class DAO_Role implements I_DAL_Role {
     }
 
     @Override
-    public RoleDTO readSingleRolebyId(int roleId) throws SQLException {
+    public RoleDTO readSingleRoleById(int roleId) throws SQLException {
         return null;
     }
 
@@ -28,7 +28,7 @@ public class DAO_Role implements I_DAL_Role {
     }
 
     @Override
-    public List<RoleDTO> readRolebySearch(String keyword) throws SQLException {
+    public List<RoleDTO> readRoleBySearch(String keyword) throws SQLException {
         return null;
     }
 

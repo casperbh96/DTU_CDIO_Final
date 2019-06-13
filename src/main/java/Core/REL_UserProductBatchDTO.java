@@ -1,11 +1,11 @@
 package main.java.Core;
 
-public class REL_UserProductbatcheDTO {
+public class REL_UserProductBatchDTO {
 
     private int userId;
     private int productBatchId;
 
-    public REL_UserProductbatcheDTO(int userId, int productBatchId) {
+    public REL_UserProductBatchDTO(int userId, int productBatchId) {
         this.userId = userId;
         this.productBatchId = productBatchId;
     }
@@ -28,7 +28,7 @@ public class REL_UserProductbatcheDTO {
 
     @Override
     public String toString() {
-        return "REL_UserProductbatcheDTO{" +
+        return "REL_UserProductBatchDTO{" +
                 "userId=" + userId +
                 ", productBatchId=" + productBatchId +
                 '}';
