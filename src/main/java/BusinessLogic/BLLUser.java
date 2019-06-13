@@ -45,38 +45,39 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public UserDTO getUserById(int userId, boolean returnProductBatches, boolean returnAmounts) throws SQLException {
-        return null;
+    public UserDTO getUserById(int userId) throws SQLException {
+        return DAL_user.readSingleUserbyId(userId);
     }
 
     @Override
     public List<UserDTO> getUsersByListOfIds(List<Integer> listOfUserIds) throws SQLException {
-        return null;
+        return DAL_user.readMultipleUsersByList(listOfUserIds);
     }
 
     @Override
     public List<UserDTO> getUserBySearch(String keyword) throws SQLException {
-        return null;
+        return DAL_user.readUserbySearch(keyword);
     }
 
     @Override
     public List<UserDTO> getAllUsers() throws SQLException {
-        return null;
+        return DAL_user.readAllUsers();
     }
 
     @Override
     public List<UserDTO> getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException {
+        // Booleans because we might return more than one role
         return null;
     }
 
     @Override
     public UserDTO updateUser(UserDTO user) throws SQLException {
-        return null;
+        return DAL_user.updateSingleUser(user);
     }
 
     @Override
     public List<UserDTO> updateUsers(List<UserDTO> listOfUsers) throws SQLException {
-        return null;
+        return DAL_user.updateMultipleUsers(listOfUsers);
     }
 
     @Override
