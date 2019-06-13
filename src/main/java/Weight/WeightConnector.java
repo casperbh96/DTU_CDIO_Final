@@ -11,26 +11,7 @@ import java.util.Scanner;
 public class WeightConnector{
 
     private Scanner scanner = new Scanner(System.in);
-    private String inRead = "";
-    private BufferedReader in = null;
-    private PrintWriter out = null;
-
-    /*public void weightCommand(String cmd){
-        String command = cmd;
-        try (Socket socket = new Socket("localhost", 8000)){
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            out.println(command);
-            out.flush();
-            inRead = in.readLine();
-
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private WeightConverter weightConverter = new WeightConverter();
 
 
     public void verifyUserFromId() throws IOException {
@@ -39,7 +20,7 @@ public class WeightConnector{
         String text = "Mette";
 
         if (scanner.next().equals("12")){
-            weightCommand("P111 \"" + text + "\"");
+            weightConverter.weightCommand("P111 \"" + text + "\"");
 
             System.out.println("Indtast OK for at godkende navn");
         }
@@ -57,7 +38,7 @@ public class WeightConnector{
 
         if(scanner.next().equals("1234")){
             String text = "Saltvand";
-            weightCommand("P111 \"" + text + "\"" );
+            weightConverter.weightCommand("P111 \"" + text + "\"" );
             System.out.println("Vægten skal være ubalanceret, skriv OK");
         }
         else{
@@ -67,6 +48,6 @@ public class WeightConnector{
 
     }
 
-    */
+
 
         }
