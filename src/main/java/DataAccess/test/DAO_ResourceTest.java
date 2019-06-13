@@ -1,7 +1,7 @@
 package main.java.DataAccess.test;
 
 import main.java.DataAccess.dao.DAO_Resource;
-import main.java.DataAccess.dto.ResourceDTO;
+import main.java.Core.ResourceDTO;
 
 import java.sql.BatchUpdateException;
 import java.sql.SQLException;

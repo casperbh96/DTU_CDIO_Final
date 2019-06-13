@@ -1,6 +1,6 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.RecipeDTO;
+import main.java.Core.RecipeDTO;
 
 import java.io.Serializable;
 import java.sql.SQLException;

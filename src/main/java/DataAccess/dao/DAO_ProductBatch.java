@@ -1,12 +1,9 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.ProductBatchDTO;
+import main.java.Core.ProductBatchDTO;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
-
-import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override

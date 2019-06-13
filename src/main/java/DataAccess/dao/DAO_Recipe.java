@@ -1,14 +1,9 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.RecipeDTO;
-import main.java.DataAccess.dto.ResourceDTO;
+import main.java.Core.RecipeDTO;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_Recipe implements I_DAL_Recipe {
     @Override

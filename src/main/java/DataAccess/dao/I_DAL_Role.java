@@ -1,8 +1,7 @@
 package main.java.DataAccess.dao;
 
-import main.java.DataAccess.dto.RoleDTO;
+import main.java.Core.RoleDTO;
 
-import java.beans.IntrospectionException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
