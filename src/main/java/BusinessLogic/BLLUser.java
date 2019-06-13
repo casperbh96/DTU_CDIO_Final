@@ -2,7 +2,9 @@ package main.java.BusinessLogic;
 
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
+import main.java.DataAccess.dao.DAO_Role;
 import main.java.DataAccess.dao.DAO_User;
+import main.java.DataAccess.dao.I_DAL_Role;
 import main.java.DataAccess.dao.I_DAL_User;
 
 import java.sql.SQLException;
@@ -10,15 +12,36 @@ import java.util.List;
 
 public class BLLUser implements I_BLLUser {
     private I_DAL_User DAL_user = new DAO_User();
+    private I_DAL_Role DAL_role = new DAO_Role();
+    // private I_DAL_RoleUser DAL_roleUser = new DAO_RoleUser();
 
     @Override
     public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
-        return null;
+        UserDTO user = DAL_user.createSingleUser(singleUser);
+        RoleDTO role = DAL_role.createSingleRole(singleRole);
+
+        // REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), role.getRoleId())
+        // REL_RoleUserDTO roleUser = DAL_roleUser.createSingleRelationship(newRoleUser);
+
+        return user;
     }
 
     @Override
     public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException {
-        return null;
+        List<UserDTO> userList = DAL_user.createMultipleUsers(listOfUsers);
+        List<RoleDTO> roleList = DAL_role.createMultipleRoles(listOfRoles);
+
+        /*
+        List<REL_RoleUserDTO> roleUserList = new ArrayList<>(Arrays.asList(new REL_RoleUserDTO[userList.size()]))
+        for(i = 0; i < listOfUsers.size(); i++){
+            roleUserList[i].setUserId(userList[i].getUserId())
+            roleUserList[i].setRoleId(roleList[i].getRoleId())
+        }
+
+        List<REL_RoleUserDTO> newUserRoleList = DAL_roleUser.createMultipleRelationships(roleUserList);
+        return newUserRoleList;
+        */
+        return userList;
     }
 
     @Override
