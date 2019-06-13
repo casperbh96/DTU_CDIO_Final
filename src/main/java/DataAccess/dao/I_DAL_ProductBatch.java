@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface I_DAL_ProductBatch extends Serializable {
 
-    ProductBatchDTO createSingleProductBatch( ProductBatchDTO singleProductBatch ) throws SQLException;
-    List<ProductBatchDTO> createMultipleProductBatchs( List<ProductBatchDTO> listOfProductBatchs ) throws SQLException;
+    ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException;
+    List<ProductBatchDTO> createMultipleProductBatchs( List<ProductBatchDTO> listOfProductBatches ) throws SQLException;
 
     ProductBatchDTO readSingleProductBatchbyId(int productBatchId ) throws SQLException;
     List<ProductBatchDTO> readMultipleProductBatchsByList (List<Integer> listOfProductBatchIds) throws SQLException;
@@ -19,7 +19,6 @@ public interface I_DAL_ProductBatch extends Serializable {
     ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
     List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
 
-//    ProductBatchDTO deleteSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
-//    List<ProductBatchDTO> deleteMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
-
+    ProductBatchDTO setInactiveSingleProductBatch(int productBatchId) throws SQLException;
+    ProductBatchDTO setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException;
 }

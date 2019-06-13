@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface I_DAL_User extends Serializable {
 
-    UserDTO createSingleUser( UserDTO singleUser ) throws SQLException;
-    List<UserDTO> createMultipleUsers( List<UserDTO> listOfUsers) throws SQLException;
+    UserDTO createSingleUser(UserDTO singleUser ) throws SQLException;
+    List<UserDTO> createMultipleUsers( List<UserDTO> listOfUsers ) throws SQLException;
 
-    UserDTO readSingleUserbyId(int userId ) throws SQLException;
+    UserDTO readSingleUserbyId(int userId) throws SQLException;
     List<UserDTO> readMultipleUsersByList (List<Integer> listOfUserIds) throws SQLException;
     List<UserDTO> readUserbySearch(String keyword) throws SQLException;
     List<UserDTO> readAllUsers() throws SQLException;
@@ -19,6 +19,6 @@ public interface I_DAL_User extends Serializable {
     UserDTO updateSingleUser(UserDTO user) throws SQLException;
     List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
 
-//    UserDTO deleteSingleUser(UserDTO user) throws SQLException;
-//    List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
+    UserDTO setInactiveSingleUser(int userId) throws SQLException;
+    UserDTO setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException;
 }

@@ -31,7 +31,7 @@ public class DAO_User implements I_DAL_User {
             pStmt.setInt(1, user.getUserId());
             pStmt.setString(2, user.getUsername());
             pStmt.setString(3, user.getInitials());
-            pStmt.setBoolean(4, user.getInactive());
+            pStmt.setBoolean(4, user.isInactive());
         } catch (SQLException ex){
             throw new SQLException(ex);
         }
@@ -42,7 +42,7 @@ public class DAO_User implements I_DAL_User {
         try{
             pStmt.setString(1, user.getUsername());
             pStmt.setString(2, user.getInitials());
-            pStmt.setBoolean(3, user.getInactive());
+            pStmt.setBoolean(3, user.isInactive());
             pStmt.setInt(4, user.getUserId());
         } catch (SQLException ex){
             throw new SQLException(ex);
