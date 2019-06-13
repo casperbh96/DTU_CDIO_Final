@@ -1,0 +1,34 @@
+#mainContainer{
+}
+.text1{ /* Header 1 */      font-family: "Trebuchet MS", Helvetica, sans-serif;}
+.text2{ /* Header 2*/       font-family: "Trebuchet MS", Helvetica, sans-serif;}
+.text3{ /* Menu text*/      font-family: 'Poiret One', cursive; color:white; font-size: 14pt; }
+.text4{ /* regular text */  font-family: "Trebuchet MS", Helvetica, sans-serif;}
+.text5{ /* Data Text */     font-family: "Trebuchet MS", Helvetica, sans-serif;}
+.text6{ /* Kommentary text*/font-family: "Trebuchet MS", Helvetica, sans-serif;}
+
+:root {
+    /*color 1 = IMPORTANT color */
+    --color1: #d20f41;
+    /*--color1:#F80652;
+    /*color 2 = Base color */
+    --color2:#E8F1F8;
+    /*color 3 = second Base color */
+    --color3:#ADC4D6;
+    /*color 4 = third Base color */
+    --color4:#222F3F;
+    /*color 5 = fourth Base color */
+    --color5:#101C28;
+    /*search Bar Color*/
+    --color6: #2f4359;
+}
+
+:root {
+    --color1:#CAF200;
+    --color2:#E2E3DF;
+    --color3:#FFFEFC;
+    --color4:#2E3233;
+    --color5:#515B5E;
+    --color6: #434344;
+}
+/* var(--color1) */

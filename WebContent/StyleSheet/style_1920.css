@@ -1,0 +1,7 @@
+@media screen and (min-width: 1920px) {
+    #pageFrame{
+        height:1080px;
+        background-color: #101C28;
+    }
+
+}
