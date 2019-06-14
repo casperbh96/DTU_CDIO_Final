@@ -1,4 +1,4 @@
-package rest;
+package main.java.Rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -23,6 +23,8 @@
     <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/styleReset.css" />
 
+    <!-- Grids  -->
+    <link rel="stylesheet" href="StyleSheet/grids.css" />
     <!-- Sorting Through Users by Window Size -->
     <link rel="stylesheet" href="StyleSheet/style_1280.css" />
     <link rel="stylesheet" href="StyleSheet/style_1920.css" />
@@ -33,9 +35,9 @@
 
         <div id="mainMenuFrame"></div>
         <div id="contentFrame">
-            <div id="contentMenu" style="visibility: hidden">
+            <div id="contentMenu" >
                     <form class="contentMenu_replaceAbleMenu" action="#">
-    <!-- 2x2Grid -->    <div id="User_Sort_FromSomething" class="_2x2Grid contentMenu_element" >
+    <!-- 2x2Grid -->    <div id="SelecterSortCategory" class="_3x2Grid contentMenu_element" >
                                 <div class="contentMenu_element contentMenu_element_label" >Sorting with Roles</div>
                                 <div class="contentMenu_element contentMenu_element_label" >from x to y</div>
                                 <div class="contentMenu_element" >
@@ -51,22 +53,26 @@
                                     <div class="SelectionRangeSlider"></div>
                                 </div>
                         </div>
-    <!-- 2x2Grid -->    <div id="User_Sort_FromCategorySearch" class="contentMenu_element _2x2Grid" >
+    <!-- 2x2Grid -->    <div id="User_Sort_FromCategorySearch" class="contentMenu_element _3x2Grid" >
                             <div class="contentMenu_element contentMenu_element_label">Category to Search </div>
                             <div class="contentMenu_element contentMenu_element_label"> Search keywords </div>
-                            <select class="contentMenu_element">
-                                <option>no sorting</option>
-                                <option>laborant</option>
-                                <option>pharmacist</option>
-                                <option>Production Leaders</option>
-                                <option>Administrators</option>
-                            </select>
+                            <div class="contentMenu_element" >
+                                <select class="SelectionRangeOptions" >
+                                    <option>no sorting</option>
+                                    <option>laborant</option>
+                                    <option>pharmacist</option>
+                                    <option>Production Leaders</option>
+                                    <option>Administrators</option>
+                                </select>
+                            </div>
                             <div class="contentMenu_element"><input type="search" ></div>
 
                         </div>
-                        <div id="Panel_aktive_inaktives">
-                            <input>
-
+                        <div class="radioContent_container" >
+                                <label for="aktive">in-Aktive</label>
+                                <input class="toggle brand-toggle" type="checkbox" name="aktive" id="aktive">
+                                <label for="inaktive">Aktive</label>
+                                <input class="toggle brand-toggle" type="checkbox" name="inaktive" id="inaktive">
                         </div>
                         <table id="categoricalHeaderTable">
                             <tr><th>h</th><th>h</th><th>h</th><th>h</th><th>h</th></tr>

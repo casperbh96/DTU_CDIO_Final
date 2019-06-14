@@ -1,4 +1,4 @@
-package rest.DTO;
+package main.java.Rest.DTO;
 
 public class RestDTO_DataType_1 {
     String system;
@@ -60,5 +60,18 @@ public class RestDTO_DataType_1 {
     }
     public void setValue_5(String value_5) {
         this.value_5 = value_5;
+    }
+
+    @Override
+    public String toString() {
+        return "RestDTO_DataType_1{" +
+                "system='" + system + '\'' +
+                ", action='" + action + '\'' +
+                ", value_1='" + value_1 + '\'' +
+                ", value_2='" + value_2 + '\'' +
+                ", value_3='" + value_3 + '\'' +
+                ", value_4='" + value_4 + '\'' +
+                ", value_5='" + value_5 + '\'' +
+                '}';
     }
 }

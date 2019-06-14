@@ -988,7 +988,7 @@ a.ui-button:active,
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
 	border: #aaaaaa;
-	background-color: #212121;
+	background-color: lightgrey;
 }
 .ui-state-active a,
 .ui-state-active a:link,

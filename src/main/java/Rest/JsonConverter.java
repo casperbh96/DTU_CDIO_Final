@@ -1,18 +1,16 @@
-package Rest;
+package main.java.Rest;
 
-import rest.DTO.RestDTO_DataType_1;
-import rest.I_JsonConverter;
-import rest.I_JsonHandler;
+import main.java.Rest.DTO.RestDTO_DataType_1;
 
+public class JsonConverter {
 
-public class JsonConverter implements I_JsonConverter {
+    public <Any> Any httpGET_Data1(RestDTO_DataType_1 restDto){
+        System.out.println(restDto.toString());
 
-    public RestDTO_DataType_1 httpGET_Data1(RestDTO_DataType_1 restDto){
         switch (restDto.getSystem()){
             case "web":
-              /*  I_JsonHandler jsonHandler = new JsonHandler_Web();
-                jsonHandler.handleJson(restDto);*/
-              return null;
+                JsonHandler_Web jsonHandler = new JsonHandler_Web();
+                return jsonHandler.handleJson(restDto);
             case "weight":
                 return null;
             default:

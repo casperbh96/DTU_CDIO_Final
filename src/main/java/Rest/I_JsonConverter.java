@@ -1,10 +1,13 @@
-package rest;
+package main.java.Rest;
 
-import rest.DTO.RestDTO_DataType_1;
+
+import main.java.Rest.DTO.RestDTO_DataType_1;
+
+import java.util.List;
 
 public interface I_JsonConverter {
 
-RestDTO_DataType_1 httpGET_Data1(RestDTO_DataType_1 restDto);
+    List<Object> httpGET_Data1(RestDTO_DataType_1 restDto);
 void httpPost_Data1(RestDTO_DataType_1 restDto);
 
 

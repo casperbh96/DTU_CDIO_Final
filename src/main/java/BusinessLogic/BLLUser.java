@@ -16,16 +16,16 @@ public class BLLUser implements I_BLLUser {
     // private I_DAL_RoleUser DAL_roleUser = new DAO_RoleUser();
 
     @Override
-    public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
-        UserDTO user = DAL_user.createSingleUser(singleUser);
-        if(singleRole != null){
-            RoleDTO role = BLL_role.createRole(singleRole);
+    public UserDTO createUser(UserDTO singleUser, List<RoleDTO> roles) throws SQLException {
+       /* UserDTO user = DAL_user.createSingleUser(singleUser);
+        if(roles != null){
+            RoleDTO role = BLL_role.createRole(roles);
         }
 
         // REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), role.getRoleId())
         // REL_RoleUserDTO roleUser = DAL_roleUser.createSingleRelationship(newRoleUser);
 
-        return user;
+        return user;*/ return null;
     }
 
     @Override
