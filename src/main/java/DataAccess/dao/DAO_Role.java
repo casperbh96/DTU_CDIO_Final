@@ -85,7 +85,6 @@ public class DAO_Role implements I_DAL_Role {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return readMultipleRolesByList(idList);
     }
 
@@ -170,7 +169,7 @@ public class DAO_Role implements I_DAL_Role {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE roles SET rolename = ? WHERE role_id = ?");
 
-            pStmt = setUpdatePreparedStatement(pStmt, role);
+            setUpdatePreparedStatement(pStmt, role);
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
