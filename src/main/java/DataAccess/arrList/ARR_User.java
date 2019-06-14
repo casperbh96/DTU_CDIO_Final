@@ -22,7 +22,7 @@ public class ARR_User implements I_DAL_User {
     @Override
     public UserDTO createSingleUser(UserDTO singleUser) {
         users.add(singleUser);
-        return readSingleUserbyId(singleUser.getUserId());
+        return readSingleUserById(singleUser.getUserId());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ARR_User implements I_DAL_User {
     }
 
     @Override
-    public UserDTO readSingleUserbyId(int userId) {
+    public UserDTO readSingleUserById(int userId) {
         UserDTO u = null;
         for(UserDTO user : users){
             if(user.getUserId() == userId){
@@ -60,7 +60,7 @@ public class ARR_User implements I_DAL_User {
     }
 
     @Override
-    public List<UserDTO> readUserbySearch(String keyword) {
+    public List<UserDTO> readUserBySearch(String keyword) {
         List<UserDTO> returnList = new ArrayList<>();
 
         for(UserDTO user : users){
@@ -99,5 +99,15 @@ public class ARR_User implements I_DAL_User {
             }
         }
         return returnList;
+    }
+
+    @Override
+    public UserDTO setInactiveSingleUser(int userId) {
+        return null;
+    }
+
+    @Override
+    public UserDTO setInactiveMultipleUsers(List<Integer> listOfUserIds) {
+        return null;
     }
 }
