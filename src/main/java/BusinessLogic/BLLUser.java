@@ -132,6 +132,7 @@ public class BLLUser implements I_BLLUser {
 
         int index = 0;
         for(UserDTO user : allUsers){
+            // If roles is true, get the roles and users where booleans are true
             if(roles){
                 for(REL_RoleUserDTO role : allUserRoles){
                     if(user.getUserId() == role.getUserId()){
