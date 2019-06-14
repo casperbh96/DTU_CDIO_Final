@@ -16,11 +16,11 @@ public class BLLUser implements I_BLLUser {
     private I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
 
     @Override
-    public UserDTO createUser(UserDTO singleUser, RoleDTO singleRole) throws SQLException {
+    public UserDTO createUser(UserDTO singleUser, int roleId) throws SQLException {
         UserDTO user = DAL_user.createSingleUser(singleUser);
-        if(singleRole != null){
-            RoleDTO role = BLL_role.createRole(singleRole);
-            REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), role.getRoleId());
+
+        if(roleId != 0){
+            REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), roleId);
             boolean addedRole = DAL_roleUser.assignUserRole(newRoleUser);
 
             if(!addedRole){
@@ -32,16 +32,35 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<RoleDTO> listOfRoles) throws SQLException {
-        List<UserDTO> userList = DAL_user.createMultipleUsers(listOfUsers);
+    public UserDTO createUser(UserDTO singleUser, List<Integer> listOfRoles) throws SQLException {
+        UserDTO user = DAL_user.createSingleUser(singleUser);
+        boolean shouldReturnNull = false;
 
         if(listOfRoles != null){
-            List<RoleDTO> roleList = BLL_role.createRoles(listOfRoles);
+            for(int i : listOfRoles){
+                REL_RoleUserDTO newRoleUser = new REL_RoleUserDTO(singleUser.getUserId(), i);
+                boolean addedRole = DAL_roleUser.assignUserRole(newRoleUser);
 
+                if(!addedRole){
+                    shouldReturnNull = true;
+                }
+            }
+        }
+
+        if(shouldReturnNull) return null;
+
+        return user;
+    }
+
+    @Override
+    public List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<Integer> listOfRoleIds) throws SQLException {
+        List<UserDTO> userList = DAL_user.createMultipleUsers(listOfUsers);
+
+        if(listOfRoleIds != null){
             List<REL_RoleUserDTO> roleUserList = new ArrayList<>(Arrays.asList(new REL_RoleUserDTO[userList.size()]));
             for(int i = 0; i < listOfUsers.size(); i++){
                 roleUserList.get(i).setUserId(userList.get(i).getUserId());
-                roleUserList.get(i).setRoleId(roleList.get(i).getRoleId());
+                roleUserList.get(i).setRoleId(listOfRoleIds.get(i));
             }
 
             boolean addedRoles = DAL_roleUser.assignUserMultipleRoles(roleUserList);
