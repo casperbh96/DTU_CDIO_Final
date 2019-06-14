@@ -121,6 +121,9 @@ public class BLLUser implements I_BLLUser {
         for(UserDTO user : allUsers){
             if(roles){
                 for(REL_RoleUserDTO role : allUserRoles){
+                    // Returns:
+                    // allUsers     : List<UserDTO>
+                    // allUserRoles : List<REL_RoleUserDTO>
                     if(!admins && !labTech && !pharmacist && !prodLeader) return new Object[]{allUsers, allUserRoles};
 
                     if(user.getUserId() == role.getUserId()){
@@ -146,12 +149,17 @@ public class BLLUser implements I_BLLUser {
                     }
                 }
             } else {
+                // Returns:
+                // allUsers : List<UserDTO>
                 return new Object[]{allUsers, null};
             }
             index++;
         }
 
-        return new Object[]{returnListWithUsers, allUserRoles};
+        // Returns:
+        // returnListWithUsers : List<UserDTO>
+        // returnListWithRole  : List<ArrayList<REL_RoleUserDTO>>
+        return new Object[]{returnListWithUsers, returnListWithRole};
     }
 
     @Override
