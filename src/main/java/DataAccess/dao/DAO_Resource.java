@@ -9,6 +9,7 @@ import java.util.List;
 import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_Resource implements I_DAL_Resource {
+
     private List<ResourceDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {
         ResourceDTO res = null;
         List<ResourceDTO> resList = new ArrayList<>();
@@ -22,7 +23,6 @@ public class DAO_Resource implements I_DAL_Resource {
         catch(SQLException ex){
             throw new SQLException(ex);
         }
-
         return resList;
     }
 
@@ -55,7 +55,7 @@ public class DAO_Resource implements I_DAL_Resource {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder, inactive) VALUES (?,?,?,?)");
 
-            pStmt = setCreatePreparedStatement(pStmt, singleResource);
+            setCreatePreparedStatement(pStmt, singleResource);
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
@@ -72,14 +72,12 @@ public class DAO_Resource implements I_DAL_Resource {
             static_startTransAction(conn);
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO resources (resource_id, resource_name, reorder, inactive) VALUES (?,?,?,?)");
 
-            int index = 0;
             for (ResourceDTO res : listOfResources) {
                 idList.add(res.getResourceId());
 
-                pStmt = setCreatePreparedStatement(pStmt, res);
+                setCreatePreparedStatement(pStmt, res);
 
                 pStmt.addBatch();
-                index++;
             }
             pStmt.executeBatch();
             static_commitTransAction(conn);
@@ -140,10 +138,10 @@ public class DAO_Resource implements I_DAL_Resource {
             ResultSet resultset = pStmt.executeQuery();
 
             resList = resultSetWhileLoop(resultset);
+
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return resList;
     }
 
@@ -171,10 +169,9 @@ public class DAO_Resource implements I_DAL_Resource {
     @Override
     public List<ResourceDTO> readAllResources() throws SQLException {
         List<ResourceDTO> resList = new ArrayList<>();
-        ResourceDTO res = null;
 
         try (Connection connection = static_createConnection()) {
-            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM resources WHERE resource_id");
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM resources");
             ResultSet resultset = pStmt.executeQuery();
 
             resList = resultSetWhileLoop(resultset);
@@ -193,11 +190,9 @@ public class DAO_Resource implements I_DAL_Resource {
             pStmt = setUpdatePreparedStatement(pStmt, resource);
 
             pStmt.executeUpdate();
-
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return readSingleResourcebyId(resource.getResourceId());
     }
 
@@ -209,14 +204,12 @@ public class DAO_Resource implements I_DAL_Resource {
             static_startTransAction(conn);
             PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET resource_name = ?, reorder = ?, inactive = ? WHERE resource_id = ?");
 
-            int index = 0;
             for (ResourceDTO res : listOfResources) {
                 idList.add(res.getResourceId());
 
-                pStmt = setUpdatePreparedStatement(pStmt, res);
+                setUpdatePreparedStatement(pStmt, res);
 
                 pStmt.addBatch();
-                index++;
             }
 
             pStmt.executeBatch();
@@ -224,48 +217,52 @@ public class DAO_Resource implements I_DAL_Resource {
 
         } catch (BatchUpdateException batchEx){
             throw new BatchUpdateException(batchEx);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return readMultipleResourcesByList(idList);
     }
 
-//    @Override
-//    public void deleteSingleResource(int resourceId) throws SQLException {
-//        try(Connection connection = static_createConnection()){
-//
-//            PreparedStatement pStmt = connection.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
-//
-//            pStmt.setInt(1, resourceId);
-//            pStmt.executeUpdate();
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
-//        try (Connection conn = static_createConnection()) {
-//            static_startTransAction(conn);
-//            PreparedStatement pStmt = conn.prepareStatement("DELETE FROM resources WHERE resource_id = ?");
-//
-//            int index = 0;
-//            for (int id : listOfResourceIds) {
-//                pStmt.setInt(1, id);
-//
-//                pStmt.addBatch();
-//                index++;
-//            }
-//            pStmt.executeBatch();
-//            static_commitTransAction(conn);
-//
-//        } catch (BatchUpdateException batchEx) {
-//            throw new BatchUpdateException(batchEx);
-//        } catch (SQLException ex) {
-//            throw new SQLException(ex);
-//        }
-//    }
+    @Override
+    public ResourceDTO setInactiveSingleResource(int resourceId) throws SQLException {
+        try(Connection connection = static_createConnection()){
+
+            PreparedStatement pStmt = connection.prepareStatement("UPDATE resources SET inactive = ? WHERE resource_id = ?");
+
+            pStmt.setBoolean(1, true);
+            pStmt.setInt(2,resourceId);
+            pStmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return readSingleResourcebyId(resourceId);
+    }
+
+    @Override
+    public List<ResourceDTO> setInactiveMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
+        List<Integer> idList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET inactive = ? WHERE resource_id = ?");
+
+            for (int id : listOfResourceIds) {
+                idList.add(id);
+
+                pStmt.setBoolean(1, true);
+                pStmt.setInt(2, id);
+
+                pStmt.addBatch();
+            }
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return readMultipleResourcesByList(idList);
+    }
 }

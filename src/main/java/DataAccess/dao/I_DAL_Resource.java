@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface I_DAL_Resource {
 
-    ResourceDTO createSingleResource( ResourceDTO singleResource ) throws SQLException;
+    ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException;
     List<ResourceDTO> createMultipleResources( List<ResourceDTO> listOfResources ) throws SQLException;
 
     ResourceDTO readSingleResourcebyId(int resourceId ) throws SQLException;
@@ -18,7 +18,7 @@ public interface I_DAL_Resource {
     ResourceDTO updateSingleResource(ResourceDTO resource) throws SQLException;
     List<ResourceDTO> updateMultipleResources(List<ResourceDTO> listOfResources) throws SQLException;
 
-//    void deleteSingleResource(int resourceId) throws SQLException;
-//    void deleteMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
+    ResourceDTO setInactiveSingleResource(int resourceId) throws SQLException;
+    List<ResourceDTO> setInactiveMultipleResources(List<Integer> listOfResourceIds) throws SQLException;
 
 }

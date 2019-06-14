@@ -33,7 +33,7 @@ public class DAO_UserTest {
     @org.junit.Test
     public void readUserBySearchTest() {
         try {
-            List<UserDTO> userList = dao.readUserbySearch("mulla");
+            List<UserDTO> userList = dao.readUserBySearch("mulla");
             assertNotNull(userList);
             assertNotEquals(userList.isEmpty(), userList);
 
@@ -72,7 +72,7 @@ public class DAO_UserTest {
     @org.junit.Test
     public void readSingleUserByIdTest() {
         try {
-            UserDTO res = dao.readSingleUserbyId(60);
+            UserDTO res = dao.readSingleUserById(60);
             assertNotNull(res);
 
             System.out.println(res);

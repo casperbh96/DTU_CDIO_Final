@@ -52,6 +52,7 @@ public class ResourceDTO {
                 "resourceId=" + resourceId +
                 ", resourceName='" + resourceName + '\'' +
                 ", reorder=" + reorder +
+                ", inactive=" + inactive +
                 '}';
     }
 }
