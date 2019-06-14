@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.java.DataAccess.dao.Connector.*;
+import static main.java.DataAccess.dao.SQL_Manipulation.static_parameterBuilder;
+import static main.java.DataAccess.dao.SQL_Manipulation.static_setIntPreparedStatements;
 
 public class DAO_Role implements I_DAL_Role {
 
