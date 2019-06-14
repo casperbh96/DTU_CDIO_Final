@@ -16,7 +16,6 @@ import static main.java.DataAccess.dao.SQL_Manipulation.static_setIntPreparedSta
 
 public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
 
-
     private List<ResourceBatchDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {
         ResourceBatchDTO resourceBatch = null;
         List<ResourceBatchDTO> resourceBatchList = new ArrayList<>();
