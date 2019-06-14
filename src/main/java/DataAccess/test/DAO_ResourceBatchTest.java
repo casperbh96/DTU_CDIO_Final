@@ -71,7 +71,7 @@ public class DAO_ResourceBatchTest {
     }
 
     @org.junit.Test
-    public void readSingleResourcebyIdTest() {
+    public void readSingleResourceBatchByIdTest() {
         try {
             ResourceBatchDTO res = dao.readSingleResourceBatchById(65);
             assertNotNull(res);
@@ -83,7 +83,7 @@ public class DAO_ResourceBatchTest {
     }
 
     @org.junit.Test
-    public void readMultipleResourcesByListTest() {
+    public void readMultipleResourceBatchesByListTest() {
         try {
             List<ResourceBatchDTO> dtoList = dao.readMultipleResourceBatchsByList(new ArrayList<>(Arrays.asList(65, 66)));
             assertNotNull(dtoList);
@@ -98,7 +98,7 @@ public class DAO_ResourceBatchTest {
     }
 
     @org.junit.Test
-    public void updateSingleResourceTest(){
+    public void updateSingleResourceBatchTest(){
         try{
             ResourceBatchDTO dto = dao.updateSingleResourceBatch(new ResourceBatchDTO(65, 2222, "supUpdated", false, 61));
             assertNotNull(dto);
@@ -110,7 +110,7 @@ public class DAO_ResourceBatchTest {
     }
 
     @Test
-    public void updateMultipleResourcesTest(){
+    public void updateMultipleResourceBatchesTest(){
         try{
             List<ResourceBatchDTO> dtoList = new ArrayList<>();
             ResourceBatchDTO obj1 = new ResourceBatchDTO(65, 555, "supUpdatedMult", false, 61);

@@ -104,10 +104,10 @@ public class DAO_Recipe implements I_DAL_Recipe {
         RecipeDTO recipe = null;
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id = ? AND recipe_and_date = ?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id = ? AND recipe_end_date = ?");
 
             pStmt.setInt(1, recipeId);
-            pStmt.setDate(1, recipeEndDate);
+            pStmt.setDate(2, recipeEndDate);
             ResultSet resultset = pStmt.executeQuery();
 
             // Move pointer to first row before Id, then to row with Id (fix)
@@ -141,10 +141,10 @@ public class DAO_Recipe implements I_DAL_Recipe {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id IN (" + parameters + ") AND recipe_end_date IN (" + parameters2 + ")");
 
             static_setIntPreparedStatements(pStmt,listOfRecipeIds);
-            int index = 1;
+
             for (int i = 0; i < listOfRecipeIds.size(); i++) {
                 pStmt.setInt(i+1, listOfRecipeIds.get(i));
-                pStmt.setDate(i+1,listOfRecipeEndDates.get(i));
+                pStmt.setDate(i+listOfRecipeEndDates.size() + 1, listOfRecipeEndDates.get(i));
             }
 
             ResultSet resultset = pStmt.executeQuery();

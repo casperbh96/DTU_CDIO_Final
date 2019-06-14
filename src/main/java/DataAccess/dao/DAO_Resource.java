@@ -241,14 +241,11 @@ public class DAO_Resource implements I_DAL_Resource {
 
     @Override
     public List<ResourceDTO> setInactiveMultipleResources(List<Integer> listOfResourceIds) throws SQLException {
-        List<Integer> idList = new ArrayList<>();
-
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
             PreparedStatement pStmt = conn.prepareStatement("UPDATE resources SET inactive = ? WHERE resource_id = ?");
 
             for (int id : listOfResourceIds) {
-                idList.add(id);
 
                 pStmt.setBoolean(1, true);
                 pStmt.setInt(2, id);
@@ -263,6 +260,6 @@ public class DAO_Resource implements I_DAL_Resource {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-        return readMultipleResourcesByList(idList);
+        return readMultipleResourcesByList(listOfResourceIds);
     }
 }
