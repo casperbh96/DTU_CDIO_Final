@@ -94,11 +94,11 @@ public class BLLUser implements I_BLLUser {
 
     // Booleans because we might return more than one role
     @Override
-    public Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException{
+    public Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException {
         List<UserDTO> allUsers = getAllUsers();
         List<REL_RoleUserDTO> allUserRoles = new ArrayList<>();
         List<UserDTO> returnListWithUsers = new ArrayList<>();
-        List<RoleDTO> returnListWithRole = new ArrayList<>();
+        List<ArrayList<REL_RoleUserDTO>> returnListWithRole = new ArrayList<>();
 
         int adminRoleId = 0;
         int labTechRoleId = 0;
@@ -110,13 +110,14 @@ public class BLLUser implements I_BLLUser {
             List<RoleDTO> allRoles = DAL_role.readAllRoles();
 
             for (RoleDTO r : allRoles) {
-                if (r.getRolename().toLowerCase().equals("admin"))               adminRoleId        = r.getRoleId();
-                if (r.getRolename().toLowerCase().equals("laborant technician")) labTechRoleId      = r.getRoleId();
-                if (r.getRolename().toLowerCase().equals("pharmacist"))          pharmacistRoleId   = r.getRoleId();
-                if (r.getRolename().toLowerCase().equals("productionleader"))    prodLeaderRoleId   = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals(       "admin"                )) adminRoleId        = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals(       "laborant technician"  )) labTechRoleId      = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals(       "pharmacist"           )) pharmacistRoleId   = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals(       "productionleader"     )) prodLeaderRoleId   = r.getRoleId();
             }
         }
 
+        int index = 0;
         for(UserDTO user : allUsers){
             if(roles){
                 for(REL_RoleUserDTO role : allUserRoles){
@@ -125,26 +126,29 @@ public class BLLUser implements I_BLLUser {
                     if(user.getUserId() == role.getUserId()){
                         if(admins && role.getRoleId() == adminRoleId){
                             returnListWithUsers.add(user);
-                            //returnListWithRole.add(role);
+                            returnListWithRole.get(index).add(role);
                         }
 
                         if(labTech && role.getRoleId() == labTechRoleId){
                             returnListWithUsers.add(user);
+                            returnListWithRole.get(index).add(role);
                         }
 
                         if(pharmacist && role.getRoleId() == pharmacistRoleId){
                             returnListWithUsers.add(user);
+                            returnListWithRole.get(index).add(role);
                         }
 
                         if(prodLeader && role.getRoleId() == prodLeaderRoleId){
                             returnListWithUsers.add(user);
+                            returnListWithRole.get(index).add(role);
                         }
                     }
                 }
             } else {
                 return new Object[]{allUsers, null};
             }
-
+            index++;
         }
 
         return new Object[]{returnListWithUsers, allUserRoles};
