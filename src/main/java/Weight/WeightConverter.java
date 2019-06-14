@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class WeightConverter {
@@ -15,15 +14,16 @@ public class WeightConverter {
     private String inRead = "";
     private BufferedReader in = null;
     private PrintWriter out = null;
+    private boolean resultFromUserInput = false;
 
     public void weightCommand(String cmd){
         String command = cmd;
-        try (Socket socket = new Socket("localhost", 8000)){
+        try (Socket socket = new Socket("169.254.2.2", 8000)){
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            out.println(command);
             out.flush();
+            out.println(command);
             inRead = in.readLine();
 
         } catch (UnknownHostException e) {
@@ -54,19 +54,29 @@ public class WeightConverter {
         return weight;
     }
 
+    public String WeightTara1() throws IOException{
+        weightCommand("T");
+        return inRead;
+    }
+
     public void backToWeightDisplay() throws IOException{
         weightCommand("DW");
     }
 
-    public String writeInWeightDisplay(String message) throws IOException {
+    public Object[] writeInWeightDisplay(String message) throws IOException {
+        boolean userInputStatus = false;
         weightCommand("RM20 8 \"" + message + "\" \"\" \"&3\"");
-        weightCommand("RM20 B crlf");
         String str = inRead;
-        return inRead;
+        if(!inRead.isEmpty()){
+            userInputStatus = true;
+        } else {
+            userInputStatus = false;
+        }
+        return new Object[]{inRead, userInputStatus};
     }
 
     public void writeLongTextToDisplay(String text) throws IOException{
-        weightCommand("P111 \"" + text + "\" crlf");
+        weightCommand("P111 \"" + text + "\"");
     }
 
     public void writeShortTextToDisplay(String text) throws IOException{
@@ -74,16 +84,5 @@ public class WeightConverter {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

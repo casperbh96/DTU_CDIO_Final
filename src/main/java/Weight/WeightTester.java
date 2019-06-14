@@ -6,22 +6,28 @@ public class WeightTester {
 
     public static void main(String[] args) throws IOException {
 
+        boolean inputReceived = false;
+
         WeightConverter weightConverter = new WeightConverter();
 
-        //System.out.println(weightConverter.getWeight());
+        //System.out.println(weightConverter.getWeight2());
 
-        //System.out.println(weightConverter.WeightTara());
+        //System.out.println(weightConverter.WeightTara1());
 
-        weightConverter.writeLongTextToDisplay("Mette");
+        //weightConverter.writeShortTextToDisplay("Mette");
 
         //weightConverter.backToWeightDisplay();
 
-        //System.out.println(weightConverter.writeInWeightDisplay("userID"));
+        while(){
+        }
+
+
+        //weightConverter.backToWeightDisplay();
+
+        //weightConverter.writeLongTextToDisplay("Mette Tobiasen");
 
 
     }
-
-
 
 
 }
