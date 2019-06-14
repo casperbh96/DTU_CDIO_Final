@@ -97,6 +97,19 @@ public class BLLUser implements I_BLLUser {
     public Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException {
         List<UserDTO> allUsers = getAllUsers();
         List<REL_RoleUserDTO> allUserRoles = new ArrayList<>();
+
+        if(roles && !admins && !labTech && !pharmacist && !prodLeader) {
+            // Returns:
+            // allUsers     : List<UserDTO>
+            // allUserRoles : List<REL_RoleUserDTO>
+            return new Object[]{allUsers, allUserRoles};
+        }
+        else if(!roles) {
+            // Returns:
+            // allUsers : List<UserDTO>
+            return new Object[]{allUsers, null};
+        }
+
         List<UserDTO> returnListWithUsers = new ArrayList<>();
         List<ArrayList<REL_RoleUserDTO>> returnListWithRole = new ArrayList<>();
 
@@ -121,11 +134,6 @@ public class BLLUser implements I_BLLUser {
         for(UserDTO user : allUsers){
             if(roles){
                 for(REL_RoleUserDTO role : allUserRoles){
-                    // Returns:
-                    // allUsers     : List<UserDTO>
-                    // allUserRoles : List<REL_RoleUserDTO>
-                    if(!admins && !labTech && !pharmacist && !prodLeader) return new Object[]{allUsers, allUserRoles};
-
                     if(user.getUserId() == role.getUserId()){
                         if(admins && role.getRoleId() == adminRoleId){
                             returnListWithUsers.add(user);
@@ -148,10 +156,6 @@ public class BLLUser implements I_BLLUser {
                         }
                     }
                 }
-            } else {
-                // Returns:
-                // allUsers : List<UserDTO>
-                return new Object[]{allUsers, null};
             }
             index++;
         }
