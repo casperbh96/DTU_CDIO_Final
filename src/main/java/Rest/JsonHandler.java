@@ -1,4 +1,4 @@
-package main.java.Rest;
+package main.java.rest;
 
 import main.java.BusinessLogic.*;
 import main.java.Core.RoleDTO;
@@ -6,12 +6,39 @@ import main.java.Core.UserDTO;
 import main.java.Rest.DTO.RestDTO_DataType_1;
 import  main.java.Rest.JsonHandlerStoredMethods;
 
+import javax.ws.rs.QueryParam;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JsonHandler_Web{
+public class JsonHandler {
+    public JsonHandler(){}
 
+    public UserDTO HandleUsers(UserDTO dto, List<RoleDTO> roleList,String action,boolean aktive,boolean in_aktive ){
+        switch(action) {
+            case "create":
+                return null;
+            case "read":
+                return null;
+            case"update":
+                return null;
+            case "delete":
+                return null;
+            default:
+                return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    /*
     public <Any> Any handleJson(RestDTO_DataType_1 restDto){
         switch (restDto.getValue_1()){
             case "users":
@@ -31,8 +58,6 @@ public class JsonHandler_Web{
                 return null;
         }
     }
-
-    /* OPTIONS METHODS */
     private List<UserDTO> optionUser(RestDTO_DataType_1 restDTO){
         BLLUser bll_User = new BLLUser();
         UserDTO user;
@@ -95,7 +120,7 @@ public class JsonHandler_Web{
                 // todo Indsæt forklarende fejl besked.
                 return null;
         }
-    }
+    }*/
 
 
 }

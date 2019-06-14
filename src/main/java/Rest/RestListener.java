@@ -21,8 +21,7 @@ public class RestListener {
 	@Path("/users")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<UserDTO> UserReturn(RestDTO_DataType_1 dto, @QueryParam("action") String action, @QueryParam("aktive") boolean aktive, @QueryParam("in_aktive") boolean in_aktive ){
-
+	public List<UserDTO> UserReturn(UserDTO dto,List<RoleDTO> roleList, @QueryParam("action") String action, @QueryParam("aktive") boolean aktive, @QueryParam("in_aktive") boolean in_aktive ){
 
 		UserDTO user0 = new UserDTO(0,action,String.valueOf(aktive),in_aktive);
 		UserDTO user1 = new UserDTO(1,"Marshmella Skufilidus","MS",false);
@@ -43,7 +42,7 @@ public class RestListener {
 	@Path("/Roles")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<RoleDTO> RolesReturn(RestDTO_DataType_1 dto, @PathParam("action") String action, @PathParam("aktive") boolean aktive, @PathParam("in_aktive") boolean in_aktive ){
+	public List<RoleDTO> RolesReturn(RestDTO_DataType_1 dto,@QueryParam("action") String action, @QueryParam("aktive") boolean aktive, @QueryParam("in_aktive") boolean in_aktive ){
 
 		RoleDTO role1 = new RoleDTO(1,"NyRolle");
 		RoleDTO role2 = new RoleDTO(2,"NyRolle2");
