@@ -18,6 +18,7 @@ public interface I_BLLUser {
     Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException;
 
     UserDTO updateUser(UserDTO user) throws SQLException;
+    UserDTO updateUser(UserDTO user, List<RoleDTO> listOfRoles) throws SQLException;
     List<UserDTO> updateUsers(List<UserDTO> listOfUsers) throws SQLException;
 
     void deleteUser(int userId) throws SQLException;

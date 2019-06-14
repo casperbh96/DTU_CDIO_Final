@@ -173,6 +173,12 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
+    public UserDTO updateUser(UserDTO user, List<RoleDTO> listOfRoles) {
+        // Delete then insert?
+        return null;
+    }
+
+    @Override
     public List<UserDTO> updateUsers(List<UserDTO> listOfUsers) throws SQLException {
         return DAL_user.updateMultipleUsers(listOfUsers);
     }
