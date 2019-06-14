@@ -15,6 +15,7 @@ public class BLLUser implements I_BLLUser {
     private I_DAL_User DAL_user = new DAO_User();
     private I_DAL_Role DAL_role = new DAO_Role();
     private I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
+    private I_BLLRoleUser BLLRoleUser = new BLLRoleUser();
 
     @Override
     public UserDTO createUser(UserDTO singleUser, int roleId) throws SQLException {
@@ -173,9 +174,13 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO user, List<RoleDTO> listOfRoles) {
-        // Delete then insert?
-        return null;
+    public UserDTO updateUser(UserDTO user, List<RoleDTO> listOfRoles) throws SQLException {
+        List<REL_RoleUserDTO> roleUser = new ArrayList<>();
+        for(RoleDTO role : listOfRoles){
+            roleUser.add(new REL_RoleUserDTO(user.getUserId(), role.getRoleId()));
+        }
+        BLLRoleUser.deleteMultipleUserRole(roleUser);
+        return user;
     }
 
     @Override
@@ -184,12 +189,12 @@ public class BLLUser implements I_BLLUser {
     }
 
     @Override
-    public void deleteUser(int userId) {
-
+    public UserDTO deleteUser(int userId) throws SQLException {
+        return DAL_user.setInactiveSingleUser(userId);
     }
 
     @Override
-    public void deleteUsers(List<Integer> userIds) {
-
+    public List<UserDTO> deleteUsers(List<Integer> userIds) throws SQLException {
+        return DAL_user.setInactiveMultipleUsers(userIds);
     }
 }

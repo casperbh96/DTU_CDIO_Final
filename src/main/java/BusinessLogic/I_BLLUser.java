@@ -21,6 +21,6 @@ public interface I_BLLUser {
     UserDTO updateUser(UserDTO user, List<RoleDTO> listOfRoles) throws SQLException;
     List<UserDTO> updateUsers(List<UserDTO> listOfUsers) throws SQLException;
 
-    void deleteUser(int userId) throws SQLException;
-    void deleteUsers(List<Integer> userIds) throws SQLException;
+    UserDTO deleteUser(int userId) throws SQLException;
+    List<UserDTO> deleteUsers(List<Integer> userIds) throws SQLException;
 }
