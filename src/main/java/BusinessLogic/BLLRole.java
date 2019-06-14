@@ -22,7 +22,7 @@ public class BLLRole implements I_BLLRole {
 
     @Override
     public RoleDTO getRoleById(int roleId) throws SQLException {
-        return DAL_role.readSingleRolebyId(roleId);
+        return DAL_role.readSingleRoleById(roleId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class BLLRole implements I_BLLRole {
 
     @Override
     public List<RoleDTO> getRolebySearch(String keyword) throws SQLException {
-        return DAL_role.readRolebySearch(keyword);
+        return DAL_role.readRoleBySearch(keyword);
     }
 
     @Override
