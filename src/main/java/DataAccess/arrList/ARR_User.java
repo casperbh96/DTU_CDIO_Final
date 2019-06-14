@@ -3,6 +3,7 @@ package main.java.DataAccess.arrList;
 import main.java.Core.UserDTO;
 import main.java.DataAccess.dao.I_DAL_User;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,13 @@ public class ARR_User implements I_DAL_User {
     }
 
     @Override
-    public UserDTO createSingleUser(UserDTO singleUser) throws SQLException {
+    public UserDTO createSingleUser(UserDTO singleUser) {
         users.add(singleUser);
         return readSingleUserbyId(singleUser.getUserId());
     }
 
     @Override
-    public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) throws SQLException {
+    public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) {
         List<Integer> listOfIds = new ArrayList<>();
         for(UserDTO user : listOfUsers){
             users.add(user);
@@ -36,12 +37,13 @@ public class ARR_User implements I_DAL_User {
 
     @Override
     public UserDTO readSingleUserbyId(int userId) {
+        UserDTO u = null;
         for(UserDTO user : users){
             if(user.getUserId() == userId){
-                return user;
+                u = user;
             }
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -59,21 +61,43 @@ public class ARR_User implements I_DAL_User {
 
     @Override
     public List<UserDTO> readUserbySearch(String keyword) {
-        return null;
+        List<UserDTO> returnList = new ArrayList<>();
+
+        for(UserDTO user : users){
+            if(user.toString().contains(keyword)){
+                returnList.add(user);
+            }
+        }
+
+        return returnList;
     }
 
     @Override
     public List<UserDTO> readAllUsers() {
-        return null;
+        return users;
     }
 
     @Override
     public UserDTO updateSingleUser(UserDTO user) {
+        for(UserDTO u : users){
+            if(u.getUserId() == user.getUserId()){
+                return user;
+            }
+        }
         return null;
     }
 
     @Override
     public List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) {
-        return null;
+        List<UserDTO> returnList = new ArrayList<>();
+
+        for(UserDTO user : users){
+            for(UserDTO i : listOfUsers){
+                if(user.getUserId() == i.getUserId()){
+                    returnList.add(user);
+                }
+            }
+        }
+        return returnList;
     }
 }
