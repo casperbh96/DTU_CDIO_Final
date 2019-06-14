@@ -97,7 +97,7 @@ public class DAO_User implements I_DAL_User {
         UserDTO user = null;
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id=?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id = ?");
 
             pStmt.setInt(1, userId);
             ResultSet resultset = pStmt.executeQuery();
@@ -144,7 +144,6 @@ public class DAO_User implements I_DAL_User {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return userList;
     }
 
@@ -166,7 +165,6 @@ public class DAO_User implements I_DAL_User {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return userList;
     }
 
@@ -198,7 +196,6 @@ public class DAO_User implements I_DAL_User {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return readSingleUserById(user.getUserId());
     }
 
@@ -235,11 +232,44 @@ public class DAO_User implements I_DAL_User {
 
     @Override
     public UserDTO setInactiveSingleUser(int userId) throws SQLException {
-        return null;
+        try(Connection connection = static_createConnection()){
+
+            PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
+
+            pStmt.setBoolean(1, true);
+            pStmt.setInt(2,userId);
+            pStmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return readSingleUserById(userId);
     }
 
     @Override
-    public UserDTO setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException {
-        return null;
+    public List<UserDTO> setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException {
+        List<Integer> idList = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
+
+            for (int userId : listOfUserIds) {
+                idList.add(userId);
+
+                pStmt.setBoolean(1, true);
+                pStmt.setInt(2, userId);
+
+                pStmt.addBatch();
+            }
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return readMultipleUsersByList(idList);
     }
 }
