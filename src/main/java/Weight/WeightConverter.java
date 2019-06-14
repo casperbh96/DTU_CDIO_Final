@@ -63,16 +63,15 @@ public class WeightConverter {
         weightCommand("DW");
     }
 
-    public Object[] writeInWeightDisplay(String message) throws IOException {
-        boolean userInputStatus = false;
+    public String writeInWeightDisplay(String message) throws IOException {
         weightCommand("RM20 8 \"" + message + "\" \"\" \"&3\"");
         String str = inRead;
-        if(!inRead.isEmpty()){
-            userInputStatus = true;
-        } else {
-            userInputStatus = false;
-        }
-        return new Object[]{inRead, userInputStatus};
+        return inRead;
+    }
+
+    public boolean userInputStatus(){
+
+        return true;
     }
 
     public void writeLongTextToDisplay(String text) throws IOException{

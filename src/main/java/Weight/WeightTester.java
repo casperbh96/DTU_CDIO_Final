@@ -18,9 +18,6 @@ public class WeightTester {
 
         //weightConverter.backToWeightDisplay();
 
-        while(){
-        }
-
 
         //weightConverter.backToWeightDisplay();
 
