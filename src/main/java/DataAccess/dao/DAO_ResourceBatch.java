@@ -146,7 +146,7 @@ public class DAO_ResourceBatch implements I_DAL_ResourceBatch {
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("select * from resource_batches " +
-                    "WHERE resource_batch_id LIKE ? OR resource_batch_amount LIKE ? supplier_name LIKE ? is_leftover LIKE ? resource_id LIKE ?");
+                    "WHERE resource_batch_id LIKE ? OR resource_batch_amount LIKE ? OR supplier_name LIKE ? OR is_leftover LIKE ? OR resource_batch_id LIKE ?");
             pStmt.setString(1, "%" + keyword + "%");
             pStmt.setString(2, "%" + keyword + "%");
             pStmt.setString(3, "%" + keyword + "%");
