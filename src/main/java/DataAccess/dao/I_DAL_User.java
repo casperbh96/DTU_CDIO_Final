@@ -20,5 +20,5 @@ public interface I_DAL_User {
     List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) throws SQLException;
 
     UserDTO setInactiveSingleUser(int userId) throws SQLException;
-    UserDTO setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException;
+    List<UserDTO> setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException;
 }

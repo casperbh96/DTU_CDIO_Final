@@ -103,11 +103,28 @@ public class ARR_User implements I_DAL_User {
 
     @Override
     public UserDTO setInactiveSingleUser(int userId) {
-        return null;
+        UserDTO returnUser = null;
+        for(UserDTO user : users){
+            if(user.getUserId() == userId){
+                user.setInactive(true);
+                returnUser = user;
+            }
+        }
+        return returnUser;
     }
 
     @Override
-    public UserDTO setInactiveMultipleUsers(List<Integer> listOfUserIds) {
-        return null;
+    public List<UserDTO> setInactiveMultipleUsers(List<Integer> listOfUserIds) {
+        List<UserDTO> returnUserList = null;
+        for(UserDTO user : users){
+            for(int i : listOfUserIds){
+                if(user.getUserId() == i){
+                    user.setInactive(true);
+                    returnUserList.add(user);
+                }
+            }
+
+        }
+        return returnUserList;
     }
 }

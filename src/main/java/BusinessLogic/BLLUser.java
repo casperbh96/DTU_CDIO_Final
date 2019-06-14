@@ -12,7 +12,6 @@ import java.util.List;
 
 public class BLLUser implements I_BLLUser {
     private I_DAL_User DAL_user = new DAO_User();
-    private I_BLLRole BLL_role = new BLLRole();
     private I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
 
     @Override
