@@ -152,7 +152,7 @@ public class DAO_Role implements I_DAL_Role {
         List<RoleDTO> roleList = new ArrayList<>();
 
         try (Connection connection = static_createConnection()) {
-            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM roles WHERE role_id");
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM roles");
             ResultSet resultset = pStmt.executeQuery();
 
             roleList = resultSetWhileLoop(resultset);

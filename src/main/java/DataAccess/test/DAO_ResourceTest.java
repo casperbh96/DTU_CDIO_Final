@@ -71,7 +71,7 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void readSingleResourcebyIdTest() {
         try {
-            ResourceDTO res = dao.readSingleResourcebyId(998);
+            ResourceDTO res = dao.readSingleResourcebyId(61);
             assertNotNull(res);
 
             System.out.println(res);
