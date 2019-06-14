@@ -15,7 +15,7 @@ public interface I_BLLUser {
     List<UserDTO> getUsersByListOfIds (List<Integer> listOfUserIds) throws SQLException;
     List<UserDTO> getUserBySearch(String keyword) throws SQLException;
     List<UserDTO> getAllUsers() throws SQLException;
-    List<UserDTO> getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException;
+    Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException;
 
     UserDTO updateUser(UserDTO user) throws SQLException;
     List<UserDTO> updateUsers(List<UserDTO> listOfUsers) throws SQLException;

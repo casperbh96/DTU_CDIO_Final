@@ -5,6 +5,7 @@ import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 import main.java.DataAccess.dao.*;
 
+import javax.management.relation.Role;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class BLLUser implements I_BLLUser {
     private I_DAL_User DAL_user = new DAO_User();
+    private I_DAL_Role DAL_role = new DAO_Role();
     private I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
 
     @Override
@@ -90,10 +92,62 @@ public class BLLUser implements I_BLLUser {
         return DAL_user.readAllUsers();
     }
 
+    // Booleans because we might return more than one role
     @Override
-    public List<UserDTO> getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) {
-        // Booleans because we might return more than one role
-        return null;
+    public Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException{
+        List<UserDTO> allUsers = getAllUsers();
+        List<REL_RoleUserDTO> allUserRoles = new ArrayList<>();
+        List<UserDTO> returnListWithUsers = new ArrayList<>();
+        List<RoleDTO> returnListWithRole = new ArrayList<>();
+
+        int adminRoleId = 0;
+        int labTechRoleId = 0;
+        int pharmacistRoleId = 0;
+        int prodLeaderRoleId = 0;
+
+        if(roles) {
+            allUserRoles = DAL_roleUser.readAllUserRoles();
+            List<RoleDTO> allRoles = DAL_role.readAllRoles();
+
+            for (RoleDTO r : allRoles) {
+                if (r.getRolename().toLowerCase().equals("admin"))               adminRoleId        = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals("laborant technician")) labTechRoleId      = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals("pharmacist"))          pharmacistRoleId   = r.getRoleId();
+                if (r.getRolename().toLowerCase().equals("productionleader"))    prodLeaderRoleId   = r.getRoleId();
+            }
+        }
+
+        for(UserDTO user : allUsers){
+            if(roles){
+                for(REL_RoleUserDTO role : allUserRoles){
+                    if(!admins && !labTech && !pharmacist && !prodLeader) return new Object[]{allUsers, allUserRoles};
+
+                    if(user.getUserId() == role.getUserId()){
+                        if(admins && role.getRoleId() == adminRoleId){
+                            returnListWithUsers.add(user);
+                            //returnListWithRole.add(role);
+                        }
+
+                        if(labTech && role.getRoleId() == labTechRoleId){
+                            returnListWithUsers.add(user);
+                        }
+
+                        if(pharmacist && role.getRoleId() == pharmacistRoleId){
+                            returnListWithUsers.add(user);
+                        }
+
+                        if(prodLeader && role.getRoleId() == prodLeaderRoleId){
+                            returnListWithUsers.add(user);
+                        }
+                    }
+                }
+            } else {
+                return new Object[]{allUsers, null};
+            }
+
+        }
+
+        return new Object[]{returnListWithUsers, allUserRoles};
     }
 
     @Override
