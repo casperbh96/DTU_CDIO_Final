@@ -9,6 +9,7 @@ public class RoleDTO {
         this.roleId = roleId;
         this.rolename = rolename;
     }
+    public RoleDTO(){}
 
     public int getRoleId() {
         return roleId;

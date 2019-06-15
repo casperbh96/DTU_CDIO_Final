@@ -1,6 +1,6 @@
 package main.java.Core;
 
-public class UserDTO {
+public class UserDTO implements java.io.Serializable {
 
     private int userId;
     private String username;

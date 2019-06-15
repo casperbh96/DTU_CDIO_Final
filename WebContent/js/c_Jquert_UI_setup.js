@@ -146,7 +146,91 @@
 }));
 
 
-var data = userGetMessage = {
+var restUser = {
+    userDTO:'userId=1;username=beg;initials=b;inactive=false',
+    roleDTOs:'1=rolename;2=rolename;3=rolename'
+};
+function createUser(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/users/create',
+            data:restUser,
+            contentType:'application/json',
+            succes: function (data) {
+                console.log('succes', data);
+            }
+        });
+    })
+}
+
+function getUsers(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/users',
+            data:restUser,
+            contentType:'application/json',
+            succes: function (data) {
+                console.log('succes', data);
+            }
+        });
+    })
+}
+
+
+var restUserSearchRow = {
+    userDTO:'userId=1;username=beg;initials=b;inactive=false'
+};
+var restUserKeyWord = {
+    keyWord:'keyword'
+};
+
+function searchUser(searchMethod){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/users/'+ searchMethod, // SearchId or SearchRow
+            data:restUser,
+            contentType:'application/json',
+            succes: function (data) {
+                console.log('succes', data);
+            }
+        });
+    })
+}
+
+function updateUser(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/users/update', // SearchId or SearchRow
+            data:restUser,
+            contentType:'application/json',
+            succes: function (data) {
+                console.log('succes', data);
+            }
+        });
+    })
+}
+
+function deleteUser(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/users/delete',
+            data:restUser,
+            contentType:'application/json',
+            succes: function (data) {
+                console.log('succes', data);
+            }
+        });
+    })
+}
+
+
+/*
+
     action:"action",
     tableCategories:"userId;username;initials;inactive",
     tableValues:"23;Candish Marshmelowsa;CM;false",
@@ -155,24 +239,19 @@ var data = userGetMessage = {
     range:"x-y",
     aktive:"true",
     inaktive:"false",
-};
-
+    */
 function SetupUsersLog(){
-
-
         $(function () {
             $.ajax({
                 type:'GET',
                 url:'/rest/data',
-                data:data,
+                data:restUser,
                 contentType:'application/json',
                 succes: function (data) {
                     console.log('succes', data);
                 }
             });
         })
-
-
 }
 
 

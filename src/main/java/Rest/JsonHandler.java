@@ -10,26 +10,40 @@ import java.util.List;
 
 public class JsonHandler {
 
-   public static List<UserDTO> handleGetUserJSON(String action,UserDTO userDto,List<RoleDTO> roles,String range,boolean aktive,boolean in_aktive) throws SQLException{
-      BLLUser blUser = new BLLUser();
-      switch (action){
-         case "create":
-           // return blUser.createUser(userDto, roles);
-         case "read":
-            return blUser.getAllUsers();
-         case "readbyId":
-            //return blUser.getUserById(userDto.getUserId());
-         case "searchByRow":
-            return null;
-         case "searchByKeyWord":
-           // return blUser.getUserBySearch();
-         case "update":
-           // return blUser.updateUser();
-         case "delete":
-           // return blUser.deleteUser();
-         default:
-            return null;
+   public UserDTO createUserFromJSON(UserDTO user, List<RoleDTO> roles) {
+
+      try {
+
+         BLLUser bluser = new BLLUser();
+         return bluser.createUser(user, roles);
+
+      }catch (SQLException e){
+
+         UserDTO errorDTO = new UserDTO();
+         errorDTO.setInactive(false);
+         errorDTO.setInitials("error");
+         errorDTO.setUsername("error");
+         errorDTO.setUserId(0);
+         return errorDTO;
+
       }
+
    }
+   public UserDTO deleteUserFromJSON(UserDTO user){
+
+      BLLUser bluser = new BLLUser();
+      bluser.deleteUser(user.getUserId());
+
+      UserDTO empty = new UserDTO();
+      empty.setInactive(true);
+      empty.setInitials("deleted");
+      empty.setUsername("deleted");
+      empty.setUserId(0);
+      return empty;
+
+   }
+
+
+
 
 }
