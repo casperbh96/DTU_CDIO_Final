@@ -1,59 +1,49 @@
-function SetupUsersLogOld() {
+
+
+var data ={userId:"122",username:"Mulla Tjabauvs",initials:"MT",inactive:"false"};
+function SetupUsersLog(){
+
+
     $(function () {
         $.ajax({
-            type: 'GET',
-            url: '/rest/DataType1/Users',
+            type:'GET',
+            url:'/rest/data',
+            data: data,
+            contentType:'application/json',
+            dataType: 'json',
             succes: function (data) {
                 console.log('succes', data);
             }
         });
     })
+
 }
 
-var restDtoMessage = {
-    system: 'web',
-    action: 'create',
-    value_1: 'users',
-    value_2: 'userid=x;username=x;initials=x;inaktive=false',
-    value_3: '1=hej;2=bub du er en fish',
-    value_4: 'empty',
-    value_5: 'empty'
-};
 
-function SetupUsersLog() {
 
-    var data = restDtoMessage = {
-        userId: "122",
-        username: "Mulla Tjabauvs",
-        initials: "MT",
-        inactive: "false"
-    };
 
-    //  var data = $(restDtoMessage).serializeJSON();
-    $(function () {
-        $.ajax({
-            type: 'GET',
-            url: '/rest/data/users',
-            contentType: "application/json",
-            data: {
-                "userDTO": data,
-                "action": "hello",
-                "aktive": true,
-                "in_aktive": false,
-            },
-            success: function (data) {
-                console.log('succes', data);
-            }
-        });
-    })
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 function handleShape(e) {
     $(".shape")
         .removeClass("circle pill square rectangle")
         .addClass($(e.target).val());
 };
-
 function handleToggle(e) {
     var target = $(e.target);
 
@@ -67,15 +57,12 @@ function handleToggle(e) {
         $(".shape").toggleClass(target[0].id, target.is(":checked"));
     }
 }
-
 function updateBrand() {
     handleShape({target: $("[name='shape']:checked")});
     $(".toggle:checked").each(function () {
         handleToggle({target: $(this)});
     });
 }
-
-
 $(document).ready(function () {
 
     $(".SelectionOptions").selectmenu();
@@ -87,4 +74,4 @@ $(document).ready(function () {
     MenuRadio.on("change", handleToggle);
 
 
-});
+});*/
