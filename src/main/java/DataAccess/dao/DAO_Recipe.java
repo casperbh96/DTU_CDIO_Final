@@ -140,7 +140,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id IN (" + parameters + ") AND recipe_end_date IN (" + parameters2 + ")");
 
-            static_setIntPreparedStatements(pStmt,listOfRecipeIds);
+//            static_setIntPreparedStatements(pStmt,listOfRecipeIds);
 
             for (int i = 0; i < listOfRecipeIds.size(); i++) {
                 pStmt.setInt(i+1, listOfRecipeIds.get(i));
