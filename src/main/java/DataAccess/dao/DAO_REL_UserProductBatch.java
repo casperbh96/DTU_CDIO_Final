@@ -41,7 +41,8 @@ public class DAO_REL_UserProductBatch implements I_DAL_REL_UserProductBacth {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO rel_users_productBatches (user_id, product_batch_id) VALUES (?,?)");
 
-            setCreatePreparedStatement(pStmt, singleUserProductBatch);
+            pStmt.setInt(1, singleUserProductBatch.getUserId());
+            pStmt.setInt(2, singleUserProductBatch.getProductBatchId());
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {
@@ -74,7 +75,7 @@ public class DAO_REL_UserProductBatch implements I_DAL_REL_UserProductBacth {
         REL_UserProductBatchDTO relUserProductBatch;
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_users_productBatch WHERE user_id = ? AND product_batch_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_users_productBatches WHERE user_id = ? AND product_batch_id = ?");
 
             pStmt.setInt(1, userId);
             pStmt.setInt(2, productBatchId);
@@ -97,7 +98,25 @@ public class DAO_REL_UserProductBatch implements I_DAL_REL_UserProductBacth {
         List<REL_UserProductBatchDTO> productBatchUsers = new ArrayList<>();
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_users_productBatches WHERE productBatch_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_users_productBatches WHERE product_batch_id = ?");
+            pStmt.setInt(1, userProductBatchId);
+
+            ResultSet resultset = pStmt.executeQuery();
+
+            productBatchUsers = resultSetWhileLoop(resultset);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return productBatchUsers;
+    }
+
+    @Override
+    public List<REL_UserProductBatchDTO> readProductBatchesByUserId(int userId) throws SQLException {
+        List<REL_UserProductBatchDTO> productBatchUsers = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_users_productBatches WHERE user_id = ?");
+            pStmt.setInt(1, userId);
 
             ResultSet resultset = pStmt.executeQuery();
 

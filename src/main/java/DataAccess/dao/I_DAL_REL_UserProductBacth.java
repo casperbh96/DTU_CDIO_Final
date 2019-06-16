@@ -12,6 +12,7 @@ public interface I_DAL_REL_UserProductBacth {
 
     boolean doesUserHaveProductBatch(int userId, int productBatchId) throws SQLException;
     List<REL_UserProductBatchDTO> readProductBatchUsers(int userProductBatchId) throws SQLException;
+    List<REL_UserProductBatchDTO> readProductBatchesByUserId(int userId) throws SQLException;
     List<REL_UserProductBatchDTO> readAllProductBatchUsers() throws SQLException;
 
     void deleteSingleUserProductBatch(int userId, int productBatchId) throws SQLException;

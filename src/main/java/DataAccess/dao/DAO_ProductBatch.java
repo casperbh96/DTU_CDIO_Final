@@ -64,7 +64,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, production_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
 
             setCreatePreparedStatement(pStmt, singleProductBatch);
 
@@ -81,7 +81,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, production_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
 
             for (ProductBatchDTO productBatch : listOfProductBatches) {
                 idList.add(productBatch.getProductBatchId());
@@ -170,7 +170,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
         List<ProductBatchDTO> productBatchList = new ArrayList<>();
 
         try (Connection connection = static_createConnection()) {
-            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM product_bathes");
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM product_batches");
             ResultSet resultset = pStmt.executeQuery();
 
             productBatchList = resultSetWhileLoop(resultset);
