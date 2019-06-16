@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.java.DataAccess.dao.Connector.*;
+import static main.java.DataAccess.dao.SQL_Manipulation.static_parameterBuilder;
+import static main.java.DataAccess.dao.SQL_Manipulation.static_setIntPreparedStatements;
 
 public class DAO_Role implements I_DAL_Role {
 
@@ -83,7 +85,6 @@ public class DAO_Role implements I_DAL_Role {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-
         return readMultipleRolesByList(idList);
     }
 
@@ -168,7 +169,7 @@ public class DAO_Role implements I_DAL_Role {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE roles SET rolename = ? WHERE role_id = ?");
 
-            pStmt = setUpdatePreparedStatement(pStmt, role);
+            setUpdatePreparedStatement(pStmt, role);
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {

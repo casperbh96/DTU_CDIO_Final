@@ -9,7 +9,7 @@ public class REL_RecipeResourceDTO {
     private double resourceAmount;
     private double tolerance;
 
-    REL_RecipeResourceDTO(int resourceId, int recipeId, Date recipeEndDate, double resourceAmount, double tolerance){
+    public REL_RecipeResourceDTO(int resourceId, int recipeId, Date recipeEndDate, double resourceAmount, double tolerance){
         this.resourceId = resourceId;
         this.recipeId = recipeId;
         this.recipeEndDate = recipeEndDate;

@@ -31,23 +31,4 @@ public class Connector {
     public static void static_rollBack(Connection con)throws SQLException{
         con.rollback();
     }
-
-    public static String static_parameterBuilder(List<Integer> listOfIds) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < listOfIds.size(); i++) {
-            if (i == listOfIds.size() - 1) {
-                builder.append("?");
-            } else {
-                builder.append("?,");
-            }
-        }
-        return builder.toString();
-    }
-
-    public static void static_setIntPreparedStatements(PreparedStatement pStmt, List<Integer> listOfIds) throws SQLException {
-        int index = 1;
-        for (int i : listOfIds) {
-            pStmt.setInt(index++, i);
-        }
-    }
 }

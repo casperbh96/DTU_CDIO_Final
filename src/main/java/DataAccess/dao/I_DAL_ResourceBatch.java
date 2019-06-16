@@ -20,6 +20,6 @@ public interface I_DAL_ResourceBatch {
     List<ResourceBatchDTO> updateMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) throws SQLException;
 
     ResourceBatchDTO setIsLeftoverSingleResourceBatch(int resourceBatchId) throws SQLException;
-    ResourceBatchDTO setIsLeftoverMultipleResourceBatchs(List<Integer> listOfResourceBatchIds) throws SQLException;
+    List<ResourceBatchDTO> setIsLeftoverMultipleResourceBatchs(List<Integer> listOfResourceBatchIds) throws SQLException;
 
 }
