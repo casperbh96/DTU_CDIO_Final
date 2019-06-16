@@ -159,7 +159,6 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         return relRecipeResources;
     }
 
-
     @Override
     public List<REL_RecipeResourceDTO> readRecipeResourcebySearch(String keyword) throws SQLException {
         List<REL_RecipeResourceDTO> relRecipeResources = new ArrayList<>();
