@@ -19,7 +19,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class DAO_RecipeResource {
+public class DAO_RecipeResourceTest {
     DAO_REL_RecipeResource dao = new DAO_REL_RecipeResource();
     DAO_Recipe daoRec = new DAO_Recipe();
     DAO_Resource daoRes = new DAO_Resource();
