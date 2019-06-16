@@ -6,7 +6,7 @@ public class REL_ProductBatchResourceBatchDTO {
     private double netAmount;
     private double tara;
 
-    REL_ProductBatchResourceBatchDTO(int resourceBatchId, int productBatchId, double netAmount, double tara){
+    public REL_ProductBatchResourceBatchDTO(int resourceBatchId, int productBatchId, double netAmount, double tara){
         this.resourceBatchId = resourceBatchId;
         this.productBatchId = productBatchId;
         this.netAmount = netAmount;
