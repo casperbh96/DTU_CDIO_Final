@@ -18,10 +18,9 @@ public class WeightTester {
 
         //weightConverter.backToWeightDisplay();
 
-
-        //weightConverter.backToWeightDisplay();
-
         //weightConverter.writeLongTextToDisplay("Mette Tobiasen");
+
+        System.out.println(weightConverter.writeInWeightDisplay("UserID"));
 
 
     }

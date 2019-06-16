@@ -65,13 +65,11 @@ public class WeightConverter {
 
     public String writeInWeightDisplay(String message) throws IOException {
         weightCommand("RM20 8 \"" + message + "\" \"\" \"&3\"");
+        while(!in.ready()){
+
+        }
         String str = inRead;
         return inRead;
-    }
-
-    public boolean userInputStatus(){
-
-        return true;
     }
 
     public void writeLongTextToDisplay(String text) throws IOException{
