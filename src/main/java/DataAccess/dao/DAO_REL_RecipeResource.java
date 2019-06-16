@@ -140,7 +140,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         String recipeEndDatesParameters = builder.toString();
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE resource_id IN (" + resourceIdsParameters + "recipe_id IN (" + recipeIdsParameters + ") AND recipe_end_date IN (" + recipeEndDatesParameters + ")");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE resource_id IN (" + resourceIdsParameters + ") AND recipe_id IN (" + recipeIdsParameters + ") AND recipe_end_date IN (" + recipeEndDatesParameters + ")");
 
 //            static_setIntPreparedStatements(pStmt,listOfRecipeIds);
 
