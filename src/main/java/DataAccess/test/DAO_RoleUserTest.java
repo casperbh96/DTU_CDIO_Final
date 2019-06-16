@@ -8,6 +8,7 @@ import main.java.DataAccess.dao.DAO_REL_RoleUser;
 import main.java.DataAccess.dao.DAO_Role;
 import main.java.DataAccess.dao.DAO_User;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.sql.BatchUpdateException;
 import java.sql.Date;
@@ -50,7 +51,7 @@ public class DAO_RoleUserTest {
             roleList.add(role1);
             roleList.add(role2);
 
-            UserDTO user = new UserDTO(556, "CapTest2", "CT1", false);
+            UserDTO user = new UserDTO(558, "CapTest4", "CT1", false);
 
             for(int i = 0; i < roleList.size(); i++){
                 roleUserDTO.add(new REL_RoleUserDTO(
@@ -62,12 +63,41 @@ public class DAO_RoleUserTest {
             boolean returnValue = dao.assignUserMultipleRoles(roleUserDTO);
             TestCase.assertEquals(true, returnValue);
 
-            System.out.println(dao.readUsersRoles(556));
+            System.out.println(dao.readUsersRoles(558));
 
         }
         catch (BatchUpdateException batchEx) {
             batchEx.printStackTrace();
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readSingleRoleUserByIdTest() {
+        try {
+            List<REL_RoleUserDTO> userRolesList = dao.readUsersRoles(558);
+            Assertions.assertNotNull(userRolesList);
+
+            for(REL_RoleUserDTO i : userRolesList){
+                System.out.println(i);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void deleteMultipleRoleUserTest(){
+        try{
+            List<REL_RoleUserDTO> roleUserList = new ArrayList<>();
+            REL_RoleUserDTO recRes1 = new REL_RoleUserDTO(558, 61);
+            REL_RoleUserDTO recRes2 = new REL_RoleUserDTO(558, 62);
+            roleUserList.add(recRes1);
+            roleUserList.add(recRes2);
+
+            dao.deleteMultipleUserRole(roleUserList);
+        } catch (SQLException ex){
             ex.printStackTrace();
         }
     }
