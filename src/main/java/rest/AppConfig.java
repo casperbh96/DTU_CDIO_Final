@@ -1,4 +1,4 @@
-package main.java.rest;
+package main.java.Rest;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import javax.ws.rs.ApplicationPath;
