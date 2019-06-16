@@ -8,74 +8,92 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("users")
-public class RestListener implements I_RestListener{
 
-    JsonHandler_unconnected jsonHandler = new JsonHandler_unconnected();
-	//JsonHandler jsonHandler = new JsonHandler();
+public class RestListener{
+/*
+    @Path("users")
+    public class RestListener_User implements I_RestListener_User {
+        JsonHandler_unconnected jsonHandler = new JsonHandler_unconnected();
 
-// -- Create ---- Create ---- Create ---- Create ---- Create ---- Create ---- Create --
+        //JsonHandler jsonHandler = new JsonHandler();
+        // -- USERS --
+        @Path("create")
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO createUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
 
-	@Path("create")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public UserDTO createUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs){
+            UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
+            List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+            return jsonHandler.createUserFromJSON(user, roles);
 
-		UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-		List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-		return jsonHandler.createUserFromJSON(user, roles);
+        }
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO getUser(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id) {
 
-	}
+            return jsonHandler.getUsers(searchMethod, Id);
 
-//-- read ---- read ---- read ---- read ---- read ---- read ---- read ---- read ---- read --
+        }
+        @Path("search")
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO searchUsers(@QueryParam("searchMethod") String searchMethod, @QueryParam("KeyWord") String keyWord) {
+            if (searchMethod.equals("searchUsersByRow")) {
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO getUser(@QueryParam("searchMethod") String searchMethod ,@QueryParam("Id") String Id ) {
+                UserDTO userParameters = JsonDTOassembler.assembleRestUserDTO(keyWord);
+                return jsonHandler.searchUsersByRow(userParameters);
 
-        return jsonHandler.getUsers(searchMethod, Id );
+            } else {
 
-	}
+                return jsonHandler.searchUsersByKeyword(keyWord);
 
-    @Path("search")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO searchUsers(@QueryParam("searchMethod") String searchMethod ,@QueryParam("KeyWord") String keyWord ){
-        if(searchMethod.equals("searchUsersByRow")){
+            }
+        }
+        @Path("update")
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO updateUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
 
-            UserDTO userParameters = JsonDTOassembler.assembleRestUserDTO(keyWord);
-            return jsonHandler.searchUsersByRow(userParameters);
+            UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
+            List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+            return jsonHandler.updateUserFromJSON(user, roles);
 
-        }else{
+        }
+        @Path("delete")
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO deleteUser(@QueryParam("userDTO") String userDTO) {
 
-            return jsonHandler.searchUsersByKeyword(keyWord);
+            UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
+            return jsonHandler.deleteUserFromJSON(user);
 
         }
     }
+    @Path("roles")
+    public class RestListener_Roles implements I_RestListener_Roles {
 
-//-- update ---- update ---- update ---- update ---- update ---- update ---- update ---- update --
+        @Path("role/create")
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public UserDTO createRole(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
+            return null;
+        }
 
-    @Path("update")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO updateUser(@QueryParam("userDTO") String userDTO,@QueryParam("roleDTOs") String roleDTOs){
+        public UserDTO getRole(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id) {
+            return null;
+        }
 
-        UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.updateUserFromJSON(user, roles);
+        public UserDTO searchRoles(@QueryParam("searchMethod") String searchMethod, @QueryParam("KeyWord") String keyWord) {
+            return null;
+        }
 
-    }
+        public UserDTO updateRole(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
+            return null;
+        }
 
-//-- delete ---- delete ---- delete ---- delete ---- delete ---- delete ---- delete ---- delete --
+        public UserDTO deleteRole(@QueryParam("userDTO") String userDTO) {
+            return null;
+        }
 
-    @Path("delete")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO deleteUser(@QueryParam("userDTO") String userDTO ){
-
-        UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        return jsonHandler.deleteUserFromJSON(user);
-
-    }
-
+    }*/
 }

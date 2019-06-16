@@ -10,9 +10,10 @@ import java.util.List;
 
 public class JsonHandler {
 
-   public UserDTO createUserFromJSON(UserDTO user, List<Integer> roles) { // Changed from List<RoleDTO> roles
-
+   public UserDTO createUserFromJSON(UserDTO user, List<RoleDTO> roles)throws SQLException {
+/*
       try {
+
          BLLUser bluser = new BLLUser();
          return bluser.createUser(user, roles);
 
@@ -26,9 +27,9 @@ public class JsonHandler {
          return errorDTO;
 
       }
-
+*/ return null;
    }
-   public UserDTO deleteUserFromJSON(UserDTO user) throws SQLException {
+   public UserDTO deleteUserFromJSON(UserDTO user)throws SQLException{
 
       BLLUser bluser = new BLLUser();
       bluser.deleteUser(user.getUserId());

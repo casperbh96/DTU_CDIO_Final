@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" >
 
 <!-- Jquery -->
-    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/jquery-3.4.1.js" ></script>
     <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" />
-    <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="js/jquery-ui-1.12.1/jquery-ui.js" ></script>
     <!-- Setting up Jquery Classes functions  -->
-    <script src="js/c_Jquert_UI_setup.js"></script>
+    <script src="js/JqueryUI_functioner.js" ></script>
+    <script src="js/c_Jquery_AjaxFunctioner.js" ></script>
 
 
     <!-- Add icon library -->
@@ -81,12 +82,18 @@
 
 
             </div>
-            <div id="contentViewer">
 
-                    <button onclick="createUser()" style="width: 200px;height: 100px;background-color: red;"></button>
-                    <button onclick="deleteUser()" style="width: 200px;height: 100px;background-color: blue;"></button>
-                    <button onclick="deleteUser()" style="width: 200px;height: 100px;background-color: blue;"></button>
-                searchId
+            <div id="contentViewer">
+                <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
+                    <button onclick="createUser()" style=" grid-column:1/2; grid-row: 1/2; background-color: #ffc264;"> createUser()</button>
+                    <button onclick="getUsers('allUsers','')" style=" grid-column:2/3; grid-row: 1/2; background-color: #fffc9e;"> getUsers('') </button>
+                    <button onclick="getUsers('searchById','3')" style=" grid-column:3/4; grid-row: 1/2; background-color: #478e3a;"> getUsers('searchById') </button>
+                    <button onclick="searchUser('searchUsersByRow','userId=1;username=beg;initials=b;inactive=false')" style=" grid-column:4/5; grid-row: 1/2; background-color: #2e5944;"> searchUser('searchUsersByRow') </button>
+                    <button onclick="searchUser('searchUsersById','Id')" style=" grid-column:5/6; grid-row: 1/2; background-color: #2b5470;"> searchUser('searchUsersById')</button>
+                    <button onclick="updateUser()" style=" grid-column:6/7; grid-row: 1/2; background-color: #37518b;"> updateUser() </button>
+                    <button onclick="deleteUser()" style=" grid-column:7/8; grid-row: 1/2; background-color: #836e8d;"> deleteUser() </button>
+                    <div id="UsersContentFlasher"  style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;" > ... text her ... </div>
+                </div>
             </div>
         </div>
     </div>
