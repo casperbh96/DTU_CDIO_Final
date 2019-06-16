@@ -1,0 +1,100 @@
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <title>W3.CSS Template</title>
+                <meta charset="UTF-8" >
+                <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+                <!-- Jquery -->
+                <script src="js/jquery-3.4.1.js"></script>
+                <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" />
+                <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+                <!-- Setting up Jquery Classes functions  -->
+                <script src="js/jquery.serialize-object.js"></script>
+                <script src="js/c_Jquert_UI_setup.js"></script>
+
+
+                <!-- Add icon library -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                <!-- Fonts -->
+                <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">   <!-- font-family: 'Poiret One', cursive; -->
+                <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding" rel="stylesheet">  <!--font-family: 'Josefin Slab', serif; -->
+
+                <!-- Reset StyleSheet-->
+                <link rel="stylesheet" href="StyleSheet/styleReset.css" />
+
+                <!-- Grids  -->
+                <link rel="stylesheet" href="StyleSheet/grids.css" />
+                <!-- Sorting Through Users by Window Size -->
+                <link rel="stylesheet" href="StyleSheet/style_1280.css" />
+                <link rel="stylesheet" href="StyleSheet/style_1920.css" />
+
+            </head>
+            <body style="font-size: 65%">
+
+
+            <div class="contentMenu_replaceAbleMenu" action="#">
+<!-- 2x2Grid --><div   id="MenuElement_SortCategorySelector" class="_3x2Grid contentMenu_element">
+                    <div class="contentMenu_element">Sorting with Roles </div>
+                    <div class="contentMenu_element">from x to y        </div>
+                    <div class="contentMenu_element" >
+                        <select class="SelectionOptions">
+                            <option>no sorting</option>
+                            <option>laborant</option>
+                            <option>pharmacist</option>
+                            <option>Production Leaders</option>
+                            <option>Administrators</option>
+                        </select>
+                    </div>
+                    <div class="contentMenu_element" >
+                        <div class="SelectionRangeSlider"></div>
+                    </div>
+                </div>
+<!-- 2x2Grid --><div   id="MenuElement_CategorySearchSelector" class="contentMenu_element _3x2Grid" >
+                    <div class="contentMenu_element">Category to Search </div>
+                    <div class="contentMenu_element"> Search keywords </div>
+                    <div class="contentMenu_element" >
+                        <select class="SelectionOptions" >
+                            <option>no sorting</option>
+                            <option>laborant</option>
+                            <option>pharmacist</option>
+                            <option>Production Leaders</option>
+                            <option>Administrators</option>
+                        </select>
+                    </div>
+                    <div class="contentMenu_element">
+                        <input type="search" >
+                    </div>
+                </div>
+                <div   id="MenuElement_radioContentContainer" >
+                    <label for="aktive">in-Aktive</label>
+                    <input class="toggle brand-toggle" type="checkbox" name="aktive" id="aktive">
+                    <label for="inaktive">Aktive</label>
+                    <input class="toggle brand-toggle" type="checkbox" name="inaktive" id="inaktive">
+                </div>
+                <form id="table_form">
+                    <table id="MenuElement_HeaderTable">
+                        <tr><th><input name="noget" type="search"></th></tr>
+                    </table>
+                </form>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </body>
+            </html>
