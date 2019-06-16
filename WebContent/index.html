@@ -1,10 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>HEJ!</title>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+<!-- Jquery -->
+    <script src="js/jquery-3.4.1.js" ></script>
+    <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" />
+    <script src="js/jquery-ui-1.12.1/jquery-ui.js" ></script>
+    <!-- Setting up Jquery Classes functions  -->
+    <script src="js/JqueryUI_functioner.js" ></script>
+    <script src="js/c_Jquery_AjaxFunctioner.js" ></script>
+
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">   <!-- font-family: 'Poiret One', cursive; -->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding" rel="stylesheet">  <!--font-family: 'Josefin Slab', serif; -->
+
+    <!-- Reset StyleSheet-->
+    <link rel="stylesheet" href="StyleSheet/styleReset.css" />
+
+    <!-- Grids  -->
+    <link rel="stylesheet" href="StyleSheet/grids.css" />
+    <!-- Sorting Through Users by Window Size -->
+    <link rel="stylesheet" href="StyleSheet/style_1280.css" />
+    <link rel="stylesheet" href="StyleSheet/style_1920.css" />
+
 </head>
-<body>
-<h1>KJADKJADLKJADLKJADLKJADLKJAD</h1>
+<body style="font-size: 65%">
+    <div id="pageFrame">
+
+        <div id="mainMenuFrame"></div>
+        <div id="contentFrame">
+            <div id="contentMenu" >
+                    <form class="contentMenu_replaceAbleMenu" action="#">
+    <!-- 2x2Grid -->    <div id="SelecterSortCategory" class="_3x2Grid contentMenu_element" >
+                                <div class="contentMenu_element contentMenu_element_label" >Sorting with Roles</div>
+                                <div class="contentMenu_element contentMenu_element_label" >from x to y</div>
+                                <div class="contentMenu_element" >
+                                   <select class="SelectionRangeOptions">
+                                        <option>no sorting</option>
+                                        <option>laborant</option>
+                                        <option>pharmacist</option>
+                                        <option>Production Leaders</option>
+                                        <option>Administrators</option>
+                                    </select>
+                                </div>
+                                <div class="contentMenu_element" >
+                                    <div class="SelectionRangeSlider"></div>
+                                </div>
+                        </div>
+    <!-- 2x2Grid -->    <div id="User_Sort_FromCategorySearch" class="contentMenu_element _3x2Grid" >
+                            <div class="contentMenu_element contentMenu_element_label">Category to Search </div>
+                            <div class="contentMenu_element contentMenu_element_label"> Search keywords </div>
+                            <div class="contentMenu_element" >
+                                <select class="SelectionRangeOptions" >
+                                    <option>no sorting</option>
+                                    <option>laborant</option>
+                                    <option>pharmacist</option>
+                                    <option>Production Leaders</option>
+                                    <option>Administrators</option>
+                                </select>
+                            </div>
+                            <div class="contentMenu_element"><input type="search" ></div>
+
+                        </div>
+                        <div class="radioContent_container" >
+                                <label for="aktive">in-Aktive</label>
+                                <input class="toggle brand-toggle" type="checkbox" name="aktive" id="aktive">
+                                <label for="inaktive">Aktive</label>
+                                <input class="toggle brand-toggle" type="checkbox" name="inaktive" id="inaktive">
+                        </div>
+                        <table id="categoricalHeaderTable">
+                            <tr><th>h</th><th>h</th><th>h</th><th>h</th><th>h</th></tr>
+                        </table>
+                    </form>
+
+
+            </div>
+
+            <div id="contentViewer">
+                <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
+                    <button onclick="createUser()" style=" grid-column:1/2; grid-row: 1/2; background-color: #ffc264;"> createUser()</button>
+                    <button onclick="getUsers('allUsers','')" style=" grid-column:2/3; grid-row: 1/2; background-color: #fffc9e;"> getUsers('') </button>
+                    <button onclick="getUsers('searchById','3')" style=" grid-column:3/4; grid-row: 1/2; background-color: #478e3a;"> getUsers('searchById') </button>
+                    <button onclick="searchUser('searchUsersByRow','userId=1;username=beg;initials=b;inactive=false')" style=" grid-column:4/5; grid-row: 1/2; background-color: #2e5944;"> searchUser('searchUsersByRow') </button>
+                    <button onclick="searchUser('searchUsersById','Id')" style=" grid-column:5/6; grid-row: 1/2; background-color: #2b5470;"> searchUser('searchUsersById')</button>
+                    <button onclick="updateUser()" style=" grid-column:6/7; grid-row: 1/2; background-color: #37518b;"> updateUser() </button>
+                    <button onclick="deleteUser()" style=" grid-column:7/8; grid-row: 1/2; background-color: #836e8d;"> deleteUser() </button>
+                    <div id="UsersContentFlasher"  style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;" > ... text her ... </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
+
+
+
+
+
+
+<!--
+<div class="contentMenu_element" ><Sorting with Roles</div>
+<div class="contentMenu_element" > from x to y </div>
+<div class="contentMenu_element" >
+     <select name="userRoles" id="userRoles">
+         <option>no sorting</option>
+         <option>laborant</option>
+         <option>pharmacist</option>
+         <option>Production Leaders</option>
+         <option>Administrators</option>
+     </select>
+</div>
+<div class="contentMenu_element" >
+    <div class="contentMenu_slider"></div>
+</div>-->
+
+
+
+
+
+
+
+
+
+

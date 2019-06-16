@@ -9,6 +9,8 @@ public class UserDTO {
     private String initials;
     private boolean inactive;
 
+    public UserDTO(){}
+
     public UserDTO(int userId, String username, String initials, boolean inactive) {
         this.userId = userId;
         this.username = username;
