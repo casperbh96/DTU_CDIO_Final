@@ -1,13 +1,15 @@
-package DataAccess.dto;
+package main.java.Core;
+
+import java.util.List;
 
 public class UserDTO {
 
     private int userId;
     private String username;
     private String initials;
-    private int inactive;           //TODO kan måske være boolean???
+    private boolean inactive;
 
-    public UserDTO(int userId, String username, String initials, int inactive) {
+    public UserDTO(int userId, String username, String initials, boolean inactive) {
         this.userId = userId;
         this.username = username;
         this.initials = initials;
@@ -38,11 +40,11 @@ public class UserDTO {
         this.initials = initials;
     }
 
-    public int getInactive() {
+    public boolean isInactive() {
         return inactive;
     }
 
-    public void setInactive(int inactive) {
+    public void setInactive(boolean inactive) {
         this.inactive = inactive;
     }
 

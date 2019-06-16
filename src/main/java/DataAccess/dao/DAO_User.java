@@ -1,214 +1,275 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.UserDTO;
-import com.mysql.cj.protocol.Resultset;
-import sun.awt.image.ImageWatched;
+import main.java.Core.UserDTO;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import static DataAccess.dao.Connector.static_commitTransAction;
-import static DataAccess.dao.Connector.static_createConnection;
-import static DataAccess.dao.Connector.static_startTransAction;
-import static DataAccess.dao.Connector.*;
+import static main.java.DataAccess.dao.Connector.*;
 
 public class DAO_User implements I_DAL_User {
+    private List<UserDTO> resultSetWhileLoop(ResultSet resultset) throws SQLException {
+        UserDTO user = null;
+        List<UserDTO> userList = new ArrayList<>();
+
+        try{
+            while (resultset.next()) {
+                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+                userList.add(user);
+            }
+        }
+        catch(SQLException ex){
+            throw new SQLException(ex);
+        }
+
+        return userList;
+    }
+
+    private PreparedStatement setCreatePreparedStatement(PreparedStatement pStmt, UserDTO user) throws SQLException {
+        try{
+            pStmt.setInt(1, user.getUserId());
+            pStmt.setString(2, user.getUsername());
+            pStmt.setString(3, user.getInitials());
+            pStmt.setBoolean(4, user.isInactive());
+        } catch (SQLException ex){
+            throw new SQLException(ex);
+        }
+        return pStmt;
+    }
+
+    private PreparedStatement setUpdatePreparedStatement(PreparedStatement pStmt, UserDTO user) throws SQLException {
+        try{
+            pStmt.setString(1, user.getUsername());
+            pStmt.setString(2, user.getInitials());
+            pStmt.setBoolean(3, user.isInactive());
+            pStmt.setInt(4, user.getUserId());
+        } catch (SQLException ex){
+            throw new SQLException(ex);
+        }
+        return pStmt;
+    }
 
     @Override
-    public UserDTO createSingleUser(UserDTO singleUser) {
-        try(Connection connection = static_createConnection()) {
+    public UserDTO createSingleUser(UserDTO singleUser) throws SQLException {
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, inactive) VALUES (?,?,?,?)");
 
-            PreparedStatement pStmt = connection.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
-
-            pStmt.setInt(1, singleUser.getUserId());
-            pStmt.setString(2, singleUser.getUsername());
-            pStmt.setString(3, singleUser.getInitials());
-
-            //TODO husk at sætte inactive til default 0 i sql
+            pStmt = setCreatePreparedStatement(pStmt, singleUser);
 
             pStmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
-        return readSingleUserbyId(singleUser.getUserId());          //TODO virker dette???
+        return readSingleUserById(singleUser.getUserId());
     }
 
     @Override
-    public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) {
-        try(Connection connection = static_createConnection()) {
+    public List<UserDTO> createMultipleUsers(List<UserDTO> listOfUsers) throws SQLException {
+        List<Integer> idList = new ArrayList<>();
 
-            for (int i = 0; i < listOfUsers.size(); i++) {
-                PreparedStatement pStmt = connection.prepareStatement("INSERT INTO users (user_id, username, initials) VALUES (?,?,?)");
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO users (user_id, username, initials, inactive) VALUES (?,?,?,?)");
 
-                pStmt.setInt(1, listOfUsers.get(i).getUserId());
-                pStmt.setString(2, listOfUsers.get(i).getUsername());
-                pStmt.setString(3, listOfUsers.get(i).getInitials());
+            int index = 0;
+            for (UserDTO user : listOfUsers) {
+                idList.add(user.getUserId());
 
-                pStmt.executeUpdate();              //TODO kan dette gøres uden at skulle forbinde til databasen hver iteration?
+                pStmt = setCreatePreparedStatement(pStmt, user);
+
+                pStmt.addBatch();
+                index++;
             }
-
-            //TODO husk at sætte inactive til default 0 i sql
-
-//            pStmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
-        List<Integer> ids = new LinkedList<>();
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            ids.add(listOfUsers.get(i).getUserId());
-        }
-        return readMultipleUsersByList(ids);          //TODO virker dette???
+
+        return readMultipleUsersByList(idList);
     }
 
     @Override
-    public UserDTO readSingleUserbyId(int userId) {
-
+    public UserDTO readSingleUserById(int userId) throws SQLException {
         UserDTO user = null;
 
-        try(Connection connection = static_createConnection()) {
-
-            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id = ?");
 
             pStmt.setInt(1, userId);
-
             ResultSet resultset = pStmt.executeQuery();
 
-            user = new UserDTO(resultset.getInt(1),resultset.getString(2),resultset.getString(3),resultset.getInt(4));
+            // Move pointer to first row before Id, then to row with Id (fix)
+            resultset.beforeFirst();
+            resultset.next();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getBoolean(4));
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
         return user;
     }
 
     @Override
-    public List<UserDTO> readMultipleUsersByList(List<Integer> listOfUserIds) {
+    public List<UserDTO> readMultipleUsersByList(List<Integer> listOfUserIds) throws SQLException {
+        List<UserDTO> userList = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
 
-        List<UserDTO> users = new LinkedList<>();
-        UserDTO user = null;
-
-        try(Connection connection = static_createConnection()) {
-
-            for (int i = 0; i < listOfUserIds.size(); i++) {
-                PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
-
-                pStmt.setInt(1, listOfUserIds.get(i));
-
-                ResultSet resultset = pStmt.executeQuery();
-
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getInt(4));
-                users.add(user);
+        // Produce string with number of ? equal to size of listOfResourceIds
+        for (int i = 0; i < listOfUserIds.size(); i++) {
+            if (i == listOfUserIds.size() - 1) {
+                builder.append("?");
+            } else {
+                builder.append("?,");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return users;           //if list is empty method failed to execute properly
-    }
 
-    @Override
-    public List<UserDTO> readUserbySearch(String keyword) {
-        return null;
-    }
+        try (Connection conn = static_createConnection()) {
+            // Turns into SELECT * FROM resources WHERE resource_id IN () with the string builder in the parenthesis
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM users WHERE user_id IN (" + builder.toString() + ")");
 
-    @Override
-    public List<UserDTO> readAllUsers() {
-        List<UserDTO> users = new LinkedList<>();
-        UserDTO user = null;
-
-        try(Connection connection = static_createConnection()) {
-
-            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id");
+            // Set each of the ? to the corresponding Id from listOfResourceIds
+            int index = 1;
+            for (int i : listOfUserIds) {
+                pStmt.setInt(index++, i);
+            }
 
             ResultSet resultset = pStmt.executeQuery();
 
-            while(resultset.next()) {
-                user = new UserDTO(resultset.getInt(1), resultset.getString(2), resultset.getString(3), resultset.getInt(4));
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            userList = resultSetWhileLoop(resultset);
+
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
-        return users;           //if list is empty method failed to execute properly
+        return userList;
     }
 
     @Override
-    public UserDTO updateSingleUser(UserDTO user) {
-        try(Connection connection = static_createConnection()){
-            // try with resources
-            PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET user_id = ?, username = ?, initials = ? WHERE user_id = ?");
+    public List<UserDTO> readUserBySearch(String keyword) throws SQLException {
+        List<UserDTO> userList = new ArrayList<>();
 
-            pStmt.setInt(1, user.getUserId());          //TODO this ok?? check if probably should be added
-            pStmt.setString(2 ,user.getUsername());
-            pStmt.setString(3, user.getInitials());
-            pStmt.setInt(4, user.getUserId());
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("select * from users " +
+                    "WHERE user_id LIKE ? OR username LIKE ? OR initials LIKE ? OR inactive LIKE ?");
+            pStmt.setString(1, "%" + keyword + "%");
+            pStmt.setString(2, "%" + keyword + "%");
+            pStmt.setString(3, "%" + keyword + "%");
+            pStmt.setString(4, "%" + keyword + "%");
+            ResultSet resultset = pStmt.executeQuery();
+
+            userList = resultSetWhileLoop(resultset);
+
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return userList;
+    }
+
+    @Override
+    public List<UserDTO> readAllUsers() throws SQLException {
+        List<UserDTO> userList = new ArrayList<>();
+
+        try (Connection connection = static_createConnection()) {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT * FROM users WHERE user_id");
+            ResultSet resultset = pStmt.executeQuery();
+
+            userList = resultSetWhileLoop(resultset);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    @Override
+    public UserDTO updateSingleUser(UserDTO user) throws SQLException {
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET username = ?, initials = ?, inactive = ? WHERE user_id = ?");
+
+            pStmt = setUpdatePreparedStatement(pStmt, user);
 
             pStmt.executeUpdate();
 
-        } catch (SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
-        return readSingleUserbyId(user.getUserId());        //TODO this ok??
+        return readSingleUserById(user.getUserId());
     }
 
     @Override
-    public List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) {
+    public List<UserDTO> updateMultipleUsers(List<UserDTO> listOfUsers) throws SQLException {
+        List<Integer> idList = new ArrayList<>();
 
-        List<Integer> ids = new LinkedList<>();
-        try(Connection connection = static_createConnection()) {
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET username = ?, initials = ?, inactive = ? WHERE user_id = ?");
 
-            for (int i = 0; i < listOfUsers.size(); i++) {
-                PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET user_id = ?, username = ?, initials = ? WHERE user_id = ?");
+            int index = 0;
+            for (UserDTO user : listOfUsers) {
+                idList.add(user.getUserId());
 
-                pStmt.setInt(1, listOfUsers.get(i).getUserId());
-                pStmt.setString(2, listOfUsers.get(i).getUsername());
-                pStmt.setString(3, listOfUsers.get(i).getInitials());
-                pStmt.setInt(4, listOfUsers.get(i).getUserId());
-                                                    //TODO skal 'inactive' også kunne ændres??
+                pStmt = setUpdatePreparedStatement(pStmt, user);
 
-                pStmt.executeUpdate();              //TODO kan dette gøres uden at skulle forbinde til databasen hver iteration?
-
-                ResultSet resultset = pStmt.executeQuery();
-
-                while (resultset.next()){
-                    ids.add(resultset.getInt(1));
-                }
+                pStmt.addBatch();
+                index++;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx){
+            throw new BatchUpdateException(batchEx);
         }
-        return readMultipleUsersByList(ids);          //TODO virker dette???
+        catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+
+        return readMultipleUsersByList(idList);
     }
 
     @Override
-    public UserDTO deleteSingleUser(UserDTO user) {
+    public UserDTO setInactiveSingleUser(int userId) throws SQLException {
         try(Connection connection = static_createConnection()){
 
-            PreparedStatement pStmt1 = connection.prepareStatement("DELETE FROM users_db WHERE user_id = ?");
-            pStmt1.setInt(1, user.getUserId());
-            pStmt1.executeUpdate();
+            PreparedStatement pStmt = connection.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
+
+            pStmt.setBoolean(1, true);
+            pStmt.setInt(2,userId);
+            pStmt.executeUpdate();
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null; //TODO her kan vel ikke rigtigt returneres noget??
+        return readSingleUserById(userId);
     }
 
     @Override
-    public List<UserDTO> deleteMultipleUsers(List<UserDTO> listOfUsers) {
-        try(Connection connection = static_createConnection()){
+    public List<UserDTO> setInactiveMultipleUsers(List<Integer> listOfUserIds) throws SQLException {
+        List<Integer> idList = new ArrayList<>();
 
-            for (int i = 0; i < listOfUsers.size(); i++) {
+        try (Connection conn = static_createConnection()) {
+            static_startTransAction(conn);
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE users SET inactive = ? WHERE user_id = ?");
 
-                PreparedStatement pStmt1 = connection.prepareStatement("DELETE FROM users_db WHERE user_id = ?");
-                pStmt1.setInt(1, listOfUsers.get(i).getUserId());
-                pStmt1.executeUpdate();
+            for (int userId : listOfUserIds) {
+                idList.add(userId);
+
+                pStmt.setBoolean(1, true);
+                pStmt.setInt(2, userId);
+
+                pStmt.addBatch();
             }
-        }catch (SQLException e){
-            e.printStackTrace();
+            pStmt.executeBatch();
+            static_commitTransAction(conn);
+
+        } catch (BatchUpdateException batchEx) {
+            throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
-        return null; //TODO her kan vel ikke rigtigt returneres noget??
+        return readMultipleUsersByList(idList);
     }
 }

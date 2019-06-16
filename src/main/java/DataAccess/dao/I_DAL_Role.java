@@ -1,28 +1,20 @@
-package DataAccess.dao;
+package main.java.DataAccess.dao;
 
-import DataAccess.dto.RoleDTO;
+import main.java.Core.RoleDTO;
 
-import java.beans.IntrospectionException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface I_DAL_Role extends Serializable{
+public interface I_DAL_Role {
+    RoleDTO createSingleRole(RoleDTO singleRole ) throws SQLException;
+    List<RoleDTO> createMultipleRoles(List<RoleDTO> listOfRoles ) throws SQLException;
 
-
-    RoleDTO createSingleRole( RoleDTO singleRole ) throws SQLException;
-    List<RoleDTO> createMultipleRoles( List<RoleDTO> listOfRoles ) throws SQLException;
-
-    RoleDTO readSingleRolebyId(int roleId ) throws SQLException;
+    RoleDTO readSingleRoleById(int roleId ) throws SQLException;
     List<RoleDTO> readMultipleRolesByList (List<Integer> listOfRoleIds) throws SQLException;
-    List<RoleDTO> readRolebySearch(String keyword) throws SQLException;
+    List<RoleDTO> readRoleBySearch(String keyword) throws SQLException;
     List<RoleDTO> readAllRoles() throws SQLException;
 
     RoleDTO updateSingleRole(RoleDTO role) throws SQLException;
     List<RoleDTO> updateMultipleRoles(List<RoleDTO> listOfRoles) throws SQLException;
-
-    RoleDTO deleteSingleRole(RoleDTO role) throws SQLException;
-    List<RoleDTO> deleteMultipleRoles(List<RoleDTO> listOfRoles ) throws SQLException;
-
-
 }

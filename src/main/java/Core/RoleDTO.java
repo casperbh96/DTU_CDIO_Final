@@ -1,9 +1,14 @@
-package DataAccess.dto;
+package main.java.Core;
 
 public class RoleDTO {
 
     private int roleId;
     private String rolename;
+
+    public RoleDTO(int roleId, String rolename) {
+        this.roleId = roleId;
+        this.rolename = rolename;
+    }
 
     public int getRoleId() {
         return roleId;
@@ -21,14 +26,9 @@ public class RoleDTO {
         this.rolename = rolename;
     }
 
-    public RoleDTO(int roleId, String rolename) {
-        this.roleId = roleId;
-        this.rolename = rolename;
-    }
-
     @Override
     public String toString() {
-        return "RoleDTO{" +
+        return "ResourceDTO{" +
                 "roleId=" + roleId +
                 ", rolename='" + rolename + '\'' +
                 '}';
