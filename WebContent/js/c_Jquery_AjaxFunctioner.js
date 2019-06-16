@@ -12,8 +12,11 @@ var restKeywordDTO = {
 };
 var restRoleDTO = {
     roleDTOs:'1=rolename;2=rolename;3=rolename'
-}
+};
+var RecipeDTO = {
 
+};
+var ResourceDTO = {ResourceDTO:'resourceId=1;resourceName=resource;reorder=false;inactive=false'};
 
 function createUser(){
 
@@ -103,6 +106,9 @@ function deleteUser(){
             }
         });
     });
+}
+function getInaktiveUsers(){
+    $("#UsersContentFlasher").html( JSON.stringify("NOT IMPLEMENTED") );
 }
 
 function createRoles(){
@@ -195,96 +201,217 @@ function deleteRoles(){
     });
 }
 
-function createProduct(){
+function createResource(){
 
     $(function (){
         $.ajax({
             type:'GET',
-            url:'/rest/production/create',
-            data:restRoleDTO,
+            url:'/rest/resource/create',
+            data:ResourceDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
-                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#ProductionContentFlasher").html(" Error ");
+                $("#IngredientContentFlasher").html(" Error ");
             }
         });
     });
 
 }
-function getProduct(searchMethod,Id){
+function getResource(searchMethod,Id){
 
     $(function () {
         $.ajax({
             type:'GET',
-            url:'/rest/production/get',
+            url:'/rest/resource/get',
             data:{ searchMethod:searchMethod , Id:Id },
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
-                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#ProductionContentFlasher").html(" Error ");
+                $("#IngredientContentFlasher").html(" Error ");
             }
         });
     });
 
 }
-function searchProduct(keyword){
+function searchResource(searchMethod,keyword){
     $(function () {
         $.ajax({
             type:'GET',
-            url:'/rest/production/search', // SearchId or SearchRow
-            data:{keyword:keyword },
+            url:'/rest/resource/search', // SearchId or SearchRow
+            data:{searchMethod:searchMethod,keyword:keyword },
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
-                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#ProductionContentFlasher").html(" Error ");
+                $("#IngredientContentFlasher").html(" Error ");
             }
         });
     });
 }
-function updateProduct(){
+function updateResource(){
     $(function () {
         $.ajax({
             type:'GET',
-            url:'/rest/production/update', // SearchId or SearchRow
-            data:restRoleDTO,
+            url:'/rest/resource/update', // SearchId or SearchRow
+            data:ResourceDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
-                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#ProductionContentFlasher").append(" Error ");
+                $("#IngredientContentFlasher").append(" Error ");
             }
         });
     });
 }
-function deleteProduct(){
+function deleteResource(){
     $(function () {
         $.ajax({
             type:'GET',
-            url:'/rest/production/delete',
-            data:restRoleDTO,
+            url:'/rest/resource/delete',
+            data:ResourceDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
-                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#ProductionContentFlasher").html(" Error ");
+                $("#IngredientContentFlasher").html(" Error ");
             }
         });
     });
 }
+function getReOrdersResource (){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/reorders',
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+/*
+function createRecipe(){
 
+    $(function (){
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/create',
+            data:ResourceDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+
+}
+function getRecipe(searchMethod,Id){
+
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/get',
+            data:{ searchMethod:searchMethod , Id:Id },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+
+}
+function searchRecipe(searchMethod,keyword){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/search', // SearchId or SearchRow
+            data:{searchMethod:searchMethod,keyword:keyword },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+function updateRecipe(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/update', // SearchId or SearchRow
+            data:ResourceDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").append(" Error ");
+            }
+        });
+    });
+}
+function deleteRecipe(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/delete',
+            data:ResourceDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+function getReOrdersRecipe (){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/resource/reorders',
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#IngredientContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#IngredientContentFlasher").html(" Error ");
+            }
+        });
+    });
+}*/
 
 
 

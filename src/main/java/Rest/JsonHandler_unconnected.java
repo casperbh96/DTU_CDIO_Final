@@ -2,6 +2,7 @@ package main.java.Rest;
 
 import main.java.BusinessLogic.BLLRole;
 import main.java.BusinessLogic.BLLUser;
+import main.java.Core.ResourceDTO;
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
@@ -81,6 +82,8 @@ public class JsonHandler_unconnected{
         return empty;
 
     }                       // Delete
+    //todo inaktive String - inclusive, exclusive
+
 
 // -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles --
     public List<RoleDTO> createRoles(List<RoleDTO> roles){
@@ -160,6 +163,111 @@ public class JsonHandler_unconnected{
         return roleList;
 
     }         //Delete
+
+// Ingredients
+// -- Resources -- Resources -- Resources -- Resources -- Resources -- Resources --
+    public List<ResourceDTO> createResource(List<ResourceDTO> resources){
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+
+        for(int i = 0; i < resources.size(); i++) {
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName("CreateResource_"+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+
+        return resourceList;
+    }         //create
+    public List<ResourceDTO> getResource(String searchMethod, String Id){
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+        String name;
+        int q;
+        if( searchMethod.equals("searchById") ){
+            q = 1;
+            name = "ResourceSearchById_"+Id+"_";
+        }else{
+            q = 3;
+            name = "ResourceGetAll_";
+        }
+
+        for(int i = 0 ; i < q ; i++){
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName(name+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+
+        return resourceList;
+    }                                       //Read
+    public List<ResourceDTO> searchResource(String searchMethod,String keyword){
+
+        String name = "resSearchByKey_";
+        if( searchMethod.equals("searchByRow") ){
+            name = "resSearchByRow_";
+        }
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+        for(int i = 0 ; i < 3 ; i++){
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName(name+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+        return resourceList;
+
+    }
+    public List<ResourceDTO> updateResource(List<ResourceDTO> resources){
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+        for(int i = 0 ; i < 2 ; i++){
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName("updateRes_"+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+        return resourceList;
+
+    }         //Update
+    public List<ResourceDTO> deleteResource(List<ResourceDTO> resources){
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+        for(int i = 0 ; i < 2 ; i++){
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName("deleteResource_"+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+        return resourceList;
+
+    }         //Delete
+    public List<ResourceDTO> ReOrdersResources(){
+
+        List<ResourceDTO> resourceList = new LinkedList<>();
+        for(int i = 0 ; i < 2 ; i++){
+            ResourceDTO resourceDto = new ResourceDTO(0,"",false,false);
+            resourceDto.setResourceId(i);
+            resourceDto.setResourceName("ResourceReOrders_"+i);
+            resourceDto.setReorder(false);
+            resourceDto.setInactive(false);
+            resourceList.add(resourceDto);
+        }
+        return resourceList;
+
+    }
+    //todo inaktive String - inclusive, exclusive
+
 
 
 
