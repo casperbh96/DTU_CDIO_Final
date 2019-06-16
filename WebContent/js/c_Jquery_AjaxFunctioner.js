@@ -25,24 +25,30 @@ function createUser(){
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
             },
             error: function () {
-                $("#UsersContentFlasher").append(" Error ");
+                $("#UsersContentFlasher").html(" Error ");
             }
         });
     });
 
 }
 function getUsers(searchMethod, Id){
+
     $(function () {
         $.ajax({
             type:'GET',
             url:'/rest/users',
             data:{ searchMethod:searchMethod , String:Id },
             contentType:'application/json',
-            succes: function (data) {
+            dataType: 'json',
+            success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#UsersContentFlasher").html(" Error ");
             }
         });
     });
+    
 }
 function searchUser(searchMethod, keyword){
     $(function () {
@@ -51,8 +57,12 @@ function searchUser(searchMethod, keyword){
             url:'/rest/users/search', // SearchId or SearchRow
             data:{ searchMethod:searchMethod , keyword:keyword },
             contentType:'application/json',
-            succes: function (data) {
+            dataType: 'json',
+            success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#UsersContentFlasher").append(" Error ");
             }
         });
     });
@@ -64,8 +74,12 @@ function updateUser(){
             url:'/rest/users/update', // SearchId or SearchRow
             data:restUser,
             contentType:'application/json',
-            succes: function (data) {
+            dataType: 'json',
+            success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#UsersContentFlasher").append(" Error ");
             }
         });
     });
@@ -77,8 +91,12 @@ function deleteUser(){
             url:'/rest/users/delete',
             data:restUser,
             contentType:'application/json',
-            succes: function (data) {
+            dataType: 'json',
+            success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#UsersContentFlasher").append(" Error ");
             }
         });
     });
