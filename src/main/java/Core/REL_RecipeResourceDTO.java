@@ -56,4 +56,15 @@ public class REL_RecipeResourceDTO {
     public void setTolerance(double tolerance) {
         this.tolerance = tolerance;
     }
+
+    @Override
+    public String toString() {
+        return "REL_RecipeResourceDTO{" +
+                "resourceId=" + resourceId +
+                ", recipeId=" + recipeId +
+                ", recipeEndDate=" + recipeEndDate +
+                ", resourceAmount=" + resourceAmount +
+                ", tolerance=" + tolerance +
+                '}';
+    }
 }
