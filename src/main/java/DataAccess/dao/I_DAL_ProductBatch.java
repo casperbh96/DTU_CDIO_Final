@@ -20,5 +20,5 @@ public interface I_DAL_ProductBatch {
     List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
 
     ProductBatchDTO setInactiveSingleProductBatch(int productBatchId) throws SQLException;
-    ProductBatchDTO setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException;
+    List<ProductBatchDTO> setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException;
 }

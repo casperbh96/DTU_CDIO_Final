@@ -17,6 +17,32 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class DAO_RoleTest {
     DAO_Role dao = new DAO_Role();
 
+    // region CREATE
+    @org.junit.Test
+    public void createMultipleRolesTest() {
+        try {
+            List<RoleDTO> List = new ArrayList<>();
+            RoleDTO role = new RoleDTO(61, "123");
+            RoleDTO role2 = new RoleDTO(62, "1234");
+            List.add(role);
+            List.add(role2);
+
+            List<RoleDTO> allRoles = dao.createMultipleRoles(List);
+            assertNotNull(allRoles);
+            assertNotEquals(List.isEmpty(), List);
+
+            for (RoleDTO i : allRoles) {
+                System.out.println(i);
+            }
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
     @org.junit.Test
     public void readAllRolesTest() {
         try {
@@ -48,29 +74,6 @@ public class DAO_RoleTest {
     }
 
     @org.junit.Test
-    public void createMultipleRolesTest() {
-        try {
-            List<RoleDTO> List = new ArrayList<>();
-            RoleDTO role = new RoleDTO(61, "123");
-            RoleDTO role2 = new RoleDTO(62, "1234");
-            List.add(role);
-            List.add(role2);
-
-            List<RoleDTO> allRoles = dao.createMultipleRoles(List);
-            assertNotNull(allRoles);
-            assertNotEquals(List.isEmpty(), List);
-
-            for (RoleDTO i : allRoles) {
-                System.out.println(i);
-            }
-        } catch (BatchUpdateException batchEx) {
-            batchEx.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
     public void readSingleRoleByIdTest() {
         try {
             RoleDTO role = dao.readSingleRoleById(61);
@@ -96,7 +99,9 @@ public class DAO_RoleTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleResourceTest(){
         try{
@@ -130,6 +135,9 @@ public class DAO_RoleTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region DELETE
 
+    // endregion
 }
