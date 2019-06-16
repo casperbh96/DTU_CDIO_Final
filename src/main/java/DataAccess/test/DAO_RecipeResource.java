@@ -6,13 +6,13 @@ import main.java.Core.ResourceDTO;
 import main.java.DataAccess.dao.DAO_REL_RecipeResource;
 import main.java.DataAccess.dao.DAO_Recipe;
 import main.java.DataAccess.dao.DAO_Resource;
+import org.junit.jupiter.api.Assertions;
 
 import java.sql.BatchUpdateException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -40,7 +40,7 @@ public class DAO_RecipeResource {
     }
 
     @org.junit.Test
-    public void readRecipeBySearchTest() {
+    public void readRecipeResourceBySearchTest() {
         try {
             List<REL_RecipeResourceDTO> dtoList = dao.readRecipeResourcebySearch("1");
             assertNotNull(dtoList);
@@ -55,7 +55,7 @@ public class DAO_RecipeResource {
     }
 
     @org.junit.Test
-    public void createMultipleRecipeTest() {
+    public void createMultipleRecipeResourceTest() {
         try {
             List<REL_RecipeResourceDTO> recResDTO = new ArrayList<>();
 
@@ -93,6 +93,72 @@ public class DAO_RecipeResource {
         catch (BatchUpdateException batchEx) {
             batchEx.printStackTrace();
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readSingleRecipeResourceByIdTest() {
+        try {
+            REL_RecipeResourceDTO res = dao.readSingleRecipeResourcebyId(280, 180, Date.valueOf("9999-12-31"));
+            Assertions.assertNotNull(res);
+
+            System.out.println(res);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readMultipleRecipeResourceByListTest() {
+        try {
+            List<REL_RecipeResourceDTO> userList = dao.readMultipleRecipeResourcesByList(
+                    new ArrayList<>(Arrays.asList(280, 281)), new ArrayList<>(Arrays.asList(180, 181)),
+                    new ArrayList<>(Arrays.asList(Date.valueOf("9999-12-31"), Date.valueOf("9999-12-31"))) );
+
+            Assertions.assertNotNull(userList);
+            Assertions.assertNotEquals(userList.isEmpty(), userList);
+
+            for (REL_RecipeResourceDTO i : userList) {
+                System.out.println(i);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void updateSingleRecipeResourceTest(){
+        try{
+            REL_RecipeResourceDTO resRec = dao.updateSingleRecipeResource(
+                    new REL_RecipeResourceDTO(280, 180,
+                            Date.valueOf("9999-12-31"), 33.33, 2.5));
+            Assertions.assertNotNull(resRec);
+
+            System.out.println(resRec);
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void updateMultipleUsersTest(){
+        try{
+            List<REL_RecipeResourceDTO> recResList = new ArrayList<>();
+            REL_RecipeResourceDTO recRes1 = new REL_RecipeResourceDTO(280, 180, Date.valueOf("9999-12-31"), 55.55, 3.5);
+            REL_RecipeResourceDTO recRes2 = new REL_RecipeResourceDTO(281, 181, Date.valueOf("9999-12-31"), 56.56, 4.5);
+            recResList.add(recRes1);
+            recResList.add(recRes2);
+
+            List<REL_RecipeResourceDTO> allRes = dao.updateMultipleRecipeResources(recResList);
+            Assertions.assertNotNull(allRes);
+            Assertions.assertNotEquals(recResList.isEmpty(), recResList);
+
+            for (REL_RecipeResourceDTO i : allRes) {
+                System.out.println(i);
+            }
+        } catch (SQLException ex){
             ex.printStackTrace();
         }
     }
