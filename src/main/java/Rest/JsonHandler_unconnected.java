@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JsonHandler_unconnected implements I_JsonHandler{
+public class JsonHandler_unconnected{
 // -- User -- User -- User -- User -- User -- User -- User -- User -- User --
     public UserDTO createUserFromJSON(UserDTO user, List<RoleDTO> roles) {
 
@@ -59,7 +59,7 @@ public class JsonHandler_unconnected implements I_JsonHandler{
         return empty;
 
     }
-    public UserDTO updateUserFromJSON(UserDTO user, List<RoleDTO> roles) {
+    public UserDTO updateUser(UserDTO user, List<RoleDTO> roles) {
 
         UserDTO newDTO = new UserDTO();
         newDTO.setInactive(false);
@@ -70,7 +70,7 @@ public class JsonHandler_unconnected implements I_JsonHandler{
         return newDTO;
 
     } // Update
-    public UserDTO deleteUserFromJSON(UserDTO user){
+    public UserDTO deleteUser(UserDTO user){
 
         UserDTO empty = new UserDTO();
         empty.setInactive(true);
@@ -83,14 +83,15 @@ public class JsonHandler_unconnected implements I_JsonHandler{
     }                       // Delete
 
 // -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles -- Roles --
-    public List<RoleDTO> createRolesFromJSON(List<RoleDTO> roles){
+    public List<RoleDTO> createRoles(List<RoleDTO> roles){
 
         List<RoleDTO> roleList = new LinkedList<>();
-        for(int i = 0 ; i < roles.size() ; i++){
-            RoleDTO roledto = new RoleDTO();
-            roledto.setRolename("CreateRole_" + i);
-            roledto.setRoleId(i);
-        }
+
+        RoleDTO roledto = new RoleDTO();
+        roledto.setRolename("CreateRole_" + 1);
+        roledto.setRoleId(1);
+        roleList.add(roledto);
+
         return roleList;
 
         /*BLLRole blRole = new BLLRole();
@@ -101,59 +102,65 @@ public class JsonHandler_unconnected implements I_JsonHandler{
             return null;
         }*/
     }         //create
-    public List<RoleDTO> getRoles(){
+    public List<RoleDTO> getRoles(String searchMethod, String Id){
 
         List<RoleDTO> roleList = new LinkedList<>();
-        for(int i = 0 ; i < 3 ; i++){
-            RoleDTO roledto = new RoleDTO();
-            roledto.setRolename("GetRoles_" + i);
-            roledto.setRoleId(i);
+        String name;
+        int q;
+        if( searchMethod.equals("searchById") ){
+            q = 1;
+            name = "RoleSearchById_"+Id+"_";
+        }else{
+            q = 3;
+            name = "RoleGetAll_";
         }
-        return roleList;
 
+        for(int i = 0 ; i < q ; i++){
+            RoleDTO roledto = new RoleDTO();
+            roledto.setRolename(name + i);
+            roledto.setRoleId(i);
+            roleList.add(roledto);
+        }
+
+        return roleList;
     }                                       //Read
     public List<RoleDTO> searchRolesByKeyword(String keyword){
 
         List<RoleDTO> roleList = new LinkedList<>();
-        for(int i = 0 ; i < 2 ; i++){
+        for(int i = 0 ; i < 3 ; i++){
             RoleDTO roledto = new RoleDTO();
-            roledto.setRolename("RolesBySearchKeyword_" + i);
+            roledto.setRolename("SearchByKeyword_"+keyword+"_" + i);
             roledto.setRoleId(i);
+            roleList.add(roledto);
         }
         return roleList;
 
     }
-    public List<RoleDTO> updateRolesFromJSON(List<RoleDTO> roles){
+    public List<RoleDTO> updateRoles(List<RoleDTO> roles){
 
         List<RoleDTO> roleList = new LinkedList<>();
         for(int i = 0 ; i < 2 ; i++){
             RoleDTO roledto = new RoleDTO();
             roledto.setRolename("UpdatedRole" + i);
             roledto.setRoleId(i);
+            roleList.add(roledto);
         }
         return roleList;
 
     }         //Update
-    public List<RoleDTO> deleteRolesFromJSON(List<RoleDTO> roles){
+    public List<RoleDTO> deleteRoles(List<RoleDTO> roles){
 
         List<RoleDTO> roleList = new LinkedList<>();
         for(int i = 0 ; i < 2 ; i++){
             RoleDTO roledto = new RoleDTO();
-            roledto.setRolename("DeletedRole" + i);
+            roledto.setRolename("DeletedRole_" + i);
             roledto.setRoleId(i);
+            roleList.add(roledto);
         }
         return roleList;
 
     }         //Delete
 
 
-/*
-
-
-       for ( RoleDTO role : roles) {
-            role.setRoleId();
-            role.setRolename();
-        }
- */
 
 }

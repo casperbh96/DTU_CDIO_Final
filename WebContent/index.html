@@ -82,8 +82,8 @@
 
 
             </div>
-
-            <div id="contentViewer">
+<!-- Users -->
+            <div class="contentViewer">
                 <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
                     <button onclick="createUser()" style=" grid-column:1/2; grid-row: 1/2; background-color: #ffc264;"> createUser()</button>
                     <button onclick="getUsers('allUsers','')" style=" grid-column:2/3; grid-row: 1/2; background-color: #fffc9e;"> getUsers('') </button>
@@ -92,9 +92,36 @@
                     <button onclick="searchUser('searchUsersById','Id')" style=" grid-column:5/6; grid-row: 1/2; background-color: #2b5470;"> searchUser('searchUsersById')</button>
                     <button onclick="updateUser()" style=" grid-column:6/7; grid-row: 1/2; background-color: #37518b;"> updateUser() </button>
                     <button onclick="deleteUser()" style=" grid-column:7/8; grid-row: 1/2; background-color: #836e8d;"> deleteUser() </button>
-                    <div id="UsersContentFlasher"  style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;" > ... text her ... </div>
+                    <div id="UsersContentFlasher" style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;font-size: 15pt;color: white;text-shadow: 0px 0px 2px black;"> ... text her ... </div>
                 </div>
             </div>
+<!-- ROLES -->
+            <div class="contentViewer">
+                <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
+                    <button onclick="createRoles()" style=" grid-column:1/2; grid-row: 1/2; background-color: #6cff96;"> createUser()</button>
+                    <button onclick="getRoles('allRoles','e')" style=" grid-column:2/3; grid-row: 1/2; background-color: #cdff72;"> getRoles('x','x') allUsers </button>
+                    <button onclick="getRoles('searchById','3')" style=" grid-column:3/4; grid-row: 1/2; background-color: #8e8934;"> getRoles('searchById','3') </button>
+                    <button onclick="searchRoles('searchKeyWord')" style=" grid-column:4/5; grid-row: 1/2; background-color: #956140;"> searchRoles('searchKeyWord') </button>
+                    <!-- has one less here  -->
+                    <button onclick="updateRoles()" style=" grid-column:6/7; grid-row: 1/2; background-color: #8b2b4c;"> updateRoles() </button>
+                    <button onclick="deleteRoles()" style=" grid-column:7/8; grid-row: 1/2; background-color: #7a428d;"> deleteRoles() </button>
+                    <div id="RolesContentFlasher" style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;font-size: 15pt;color: white;text-shadow: 0px 0px 2px black;"> ... text her ... </div>
+                </div>
+            </div>
+<!-- PRDCT -->
+            <div class="contentViewer">
+                <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
+                    <button onclick="createProduct()" style=" grid-column:1/2; grid-row: 1/2; background-color: #ffc264;"> createUser()</button>
+                    <button onclick="getProduct('allRoles','e')" style=" grid-column:2/3; grid-row: 1/2; background-color: #fffc9e;"> getRoles('x','x') allUsers </button>
+                    <button onclick="getProduct('searchById','3')" style=" grid-column:3/4; grid-row: 1/2; background-color: #478e3a;"> getRoles('searchById','3') </button>
+                    <button onclick="searchProduct('searchKeyWord')" style=" grid-column:4/5; grid-row: 1/2; background-color: #2e5944;"> searchRoles('searchKeyWord') </button>
+                    <!-- has one less here  -->
+                    <button onclick="updateProduct()" style=" grid-column:6/7; grid-row: 1/2; background-color: #37518b;"> updateRoles() </button>
+                    <button onclick="deleteProduct()" style=" grid-column:7/8; grid-row: 1/2; background-color: #836e8d;"> deleteRoles() </button>
+                    <div id="ProductionContentFlasher" style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;font-size: 15pt;color: white;text-shadow: 0px 0px 2px black;"> ... text her ... </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

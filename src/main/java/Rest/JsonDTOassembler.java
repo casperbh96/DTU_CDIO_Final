@@ -35,7 +35,6 @@ public class JsonDTOassembler {
             }
             return user;
     }
-
     public static List<RoleDTO> assembleRestRoleDTO(String roleDTO){
 
         List<RoleDTO> roles = new LinkedList<>();

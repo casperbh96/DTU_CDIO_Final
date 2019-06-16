@@ -1,15 +1,18 @@
 
 
-var restUser = {
+var restUserNRolesDTO = {
     userDTO:'userId=1;username=beg;initials=b;inactive=false',
     roleDTOs:'1=rolename;2=rolename;3=rolename'
 };
-var restUserSearchRow = {
+var restUserDTO = {
     userDTO:'userId=1;username=beg;initials=b;inactive=false'
 };
-var restUserKeyWord = {
+var restKeywordDTO = {
     keyWord:'keyword'
 };
+var restRoleDTO = {
+    roleDTOs:'1=rolename;2=rolename;3=rolename'
+}
 
 
 function createUser(){
@@ -18,7 +21,7 @@ function createUser(){
         $.ajax({
             type:'GET',
             url:'/rest/users/create',
-            data:restUser,
+            data:restUserNRolesDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
@@ -48,7 +51,7 @@ function getUsers(searchMethod, Id){
             }
         });
     });
-    
+
 }
 function searchUser(searchMethod, keyword){
     $(function () {
@@ -72,7 +75,7 @@ function updateUser(){
         $.ajax({
             type:'GET',
             url:'/rest/users/update', // SearchId or SearchRow
-            data:restUser,
+            data:restUserNRolesDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
@@ -89,7 +92,7 @@ function deleteUser(){
         $.ajax({
             type:'GET',
             url:'/rest/users/delete',
-            data:restUser,
+            data:restUserNRolesDTO,
             contentType:'application/json',
             dataType: 'json',
             success: function (data) {
@@ -102,9 +105,185 @@ function deleteUser(){
     });
 }
 
+function createRoles(){
 
+    $(function (){
+        $.ajax({
+            type:'GET',
+            url:'/rest/roles/create',
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#RolesContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#RolesContentFlasher").html(" Error ");
+            }
+        });
+    });
 
+}
+function getRoles(searchMethod,Id){
 
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/roles/get',
+            data:{ searchMethod:searchMethod , Id:Id },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#RolesContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#RolesContentFlasher").html(" Error ");
+            }
+        });
+    });
+
+}
+function searchRoles(keyword){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/roles/search', // SearchId or SearchRow
+            data:{keyword:keyword },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#RolesContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#RolesContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+function updateRoles(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/roles/update', // SearchId or SearchRow
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#RolesContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#RolesContentFlasher").append(" Error ");
+            }
+        });
+    });
+}
+function deleteRoles(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/roles/delete',
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#RolesContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#RolesContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+
+function createProduct(){
+
+    $(function (){
+        $.ajax({
+            type:'GET',
+            url:'/rest/production/create',
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#ProductionContentFlasher").html(" Error ");
+            }
+        });
+    });
+
+}
+function getProduct(searchMethod,Id){
+
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/production/get',
+            data:{ searchMethod:searchMethod , Id:Id },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#ProductionContentFlasher").html(" Error ");
+            }
+        });
+    });
+
+}
+function searchProduct(keyword){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/production/search', // SearchId or SearchRow
+            data:{keyword:keyword },
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#ProductionContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
+function updateProduct(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/production/update', // SearchId or SearchRow
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#ProductionContentFlasher").append(" Error ");
+            }
+        });
+    });
+}
+function deleteProduct(){
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'/rest/production/delete',
+            data:restRoleDTO,
+            contentType:'application/json',
+            dataType: 'json',
+            success: function (data) {
+                $("#ProductionContentFlasher").html( JSON.stringify(data) );
+            },
+            error: function () {
+                $("#ProductionContentFlasher").html(" Error ");
+            }
+        });
+    });
+}
 
 
 
