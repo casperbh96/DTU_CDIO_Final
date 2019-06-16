@@ -1,4 +1,9 @@
-package Weight;
+package main.java.Weight;
+
+import main.java.BusinessLogic.BLLUser;
+import main.java.BusinessLogic.I_BLLUser;
+import main.java.Core.UserDTO;
+import main.java.DataAccess.dao.I_DAL_User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,48 +11,39 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class WeightConnector{
 
-    private Scanner scanner = new Scanner(System.in);
-    private WeightConverter weightConverter = new WeightConverter();
+        public static void main(String[] args) throws IOException, InterruptedException, SQLException {
+
+            WeightConverter weightConverter = new WeightConverter();
+            I_BLLUser user = new BLLUser();
+            int userInput;
 
 
-    public void verifyUserFromId() throws IOException {
+            while(user == null){
+                userInput = weightConverter.writeInWeightDisplay("Indtast UserID");
+                try {
+                    if(user.getUserById(userInput).getUserId() == userInput){
+                        weightConverter.writeShortTextToDisplay("Velkommen");
+                        weightConverter.writeLongTextToDisplay(user.getUserById(userInput).getUsername());
 
-        System.out.println("Indtast Laborant ID");
-        String text = "Mette";
+                    } else{
+                        weightConverter.writeLongTextToDisplay("ID ikke fundet");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
-        if (scanner.next().equals("12")){
-            weightConverter.weightCommand("P111 \"" + text + "\"");
+            }
 
-            System.out.println("Indtast OK for at godkende navn");
+
+
+
+
         }
-        else {
-            System.out.println("ID findes ikke, prøv igen");
-            verifyUserFromId();
-        }
-    }
-
-    public void getProductBatchFromID() throws IOException {
-
-        if(scanner.next().toUpperCase().equals("OK")){
-            System.out.println("Indtast productbatch ID");
-        }
-
-        if(scanner.next().equals("1234")){
-            String text = "Saltvand";
-            weightConverter.weightCommand("P111 \"" + text + "\"" );
-            System.out.println("Vægten skal være ubalanceret, skriv OK");
-        }
-        else{
-            System.out.println("ID findes ikke, prøv igen");
-            verifyUserFromId();
-        }
-
-    }
-
 
 
         }
