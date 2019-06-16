@@ -1,12 +1,14 @@
-package main.java.rest;
+package main.java.Rest;
 
 import main.java.BusinessLogic.BLLUser;
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
+import main.java.Rest.I_JsonHandler;
 
 import javax.management.relation.Role;
 import java.sql.SQLException;
 import java.util.List;
+
 
 public class JsonHandler_unconnected implements I_JsonHandler{
 

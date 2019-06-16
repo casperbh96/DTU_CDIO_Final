@@ -1,4 +1,4 @@
-package main.java.rest;
+package main.java.Rest;
 
 import main.java.BusinessLogic.BLLUser;
 import main.java.Core.RoleDTO;
@@ -10,10 +10,9 @@ import java.util.List;
 
 public class JsonHandler {
 
-   public UserDTO createUserFromJSON(UserDTO user, List<RoleDTO> roles) {
+   public UserDTO createUserFromJSON(UserDTO user, List<Integer> roles) { // Changed from List<RoleDTO> roles
 
       try {
-
          BLLUser bluser = new BLLUser();
          return bluser.createUser(user, roles);
 
@@ -29,7 +28,7 @@ public class JsonHandler {
       }
 
    }
-   public UserDTO deleteUserFromJSON(UserDTO user){
+   public UserDTO deleteUserFromJSON(UserDTO user) throws SQLException {
 
       BLLUser bluser = new BLLUser();
       bluser.deleteUser(user.getUserId());

@@ -1,4 +1,4 @@
-package main.java.rest;
+package main.java.Rest;
 
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
