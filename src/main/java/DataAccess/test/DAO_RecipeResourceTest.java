@@ -24,35 +24,9 @@ public class DAO_RecipeResourceTest {
     DAO_Recipe daoRec = new DAO_Recipe();
     DAO_Resource daoRes = new DAO_Resource();
 
-    @org.junit.Test
-    public void readAllRecipesResourcesTest() {
-        try {
-            List<REL_RecipeResourceDTO> recResList = dao.readAllRecipeResources();
-            assertNotNull(recResList);
-            assertNotEquals(recResList.isEmpty(), recResList);
+    // region CREATE
 
-            for(REL_RecipeResourceDTO recRes : recResList){
-                System.out.println(recRes);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void readRecipeResourceBySearchTest() {
-        try {
-            List<REL_RecipeResourceDTO> dtoList = dao.readRecipeResourcebySearch("1");
-            assertNotNull(dtoList);
-            assertNotEquals(dtoList.isEmpty(), dtoList);
-
-            for (REL_RecipeResourceDTO dto : dtoList) {
-                System.out.println(dto);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+    // Single create
 
     @org.junit.Test
     public void createMultipleRecipeResourceTest() {
@@ -96,6 +70,38 @@ public class DAO_RecipeResourceTest {
             ex.printStackTrace();
         }
     }
+    // endregion
+
+    //region READ
+    @org.junit.Test
+    public void readAllRecipesResourcesTest() {
+        try {
+            List<REL_RecipeResourceDTO> recResList = dao.readAllRecipeResources();
+            assertNotNull(recResList);
+            assertNotEquals(recResList.isEmpty(), recResList);
+
+            for(REL_RecipeResourceDTO recRes : recResList){
+                System.out.println(recRes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readRecipeResourceBySearchTest() {
+        try {
+            List<REL_RecipeResourceDTO> dtoList = dao.readRecipeResourcebySearch("1");
+            assertNotNull(dtoList);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (REL_RecipeResourceDTO dto : dtoList) {
+                System.out.println(dto);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @org.junit.Test
     public void readSingleRecipeResourceByIdTest() {
@@ -127,7 +133,9 @@ public class DAO_RecipeResourceTest {
             ex.printStackTrace();
         }
     }
+    //endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleRecipeResourceTest(){
         try{
@@ -143,7 +151,7 @@ public class DAO_RecipeResourceTest {
     }
 
     @org.junit.Test
-    public void updateMultipleUsersTest(){
+    public void updateMultipleRecipeResourceTest(){
         try{
             List<REL_RecipeResourceDTO> recResList = new ArrayList<>();
             REL_RecipeResourceDTO recRes1 = new REL_RecipeResourceDTO(280, 180, Date.valueOf("9999-12-31"), 55.55, 3.5);
@@ -162,5 +170,30 @@ public class DAO_RecipeResourceTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region DELETE
+    @org.junit.Test
+    public void deleteSingleRecipeResourceTest(){
+        try{
+            dao.deleteSingleRecipeResource(270, 170, Date.valueOf("9999-12-31"));
+
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void deleteMultipleRecipeResourceTest(){
+        try{
+            List<Integer> resourcesIds = new ArrayList<>(Arrays.asList(280, 281));
+            List<Integer> recipeIds = new ArrayList<>(Arrays.asList(180, 181));
+            List<Date> dateList = new ArrayList<>(Arrays.asList(Date.valueOf("9999-12-31"),Date.valueOf("9999-12-31")));
+
+            dao.deleteMultipleRecipeResources(resourcesIds, recipeIds, dateList);
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    // endregion
 }

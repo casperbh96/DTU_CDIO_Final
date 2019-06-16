@@ -17,6 +17,33 @@ import static org.junit.Assert.assertNotEquals;
 public class DAO_RecipeTest {
     DAO_Recipe dao = new DAO_Recipe();
 
+    // region CREATE
+    @org.junit.Test
+    public void createMultipleRecipeTest() {
+        try {
+            List<RecipeDTO> dtoList = new ArrayList<>();
+            RecipeDTO dto1 = new RecipeDTO(70, Date.valueOf("9999-12-31"), "rec1", 123,61);
+            RecipeDTO dto2 = new RecipeDTO(71, Date.valueOf("9999-12-31"), "rec2", 321, 61);
+
+            dtoList.add(dto1);
+            dtoList.add(dto2);
+
+            List<RecipeDTO> allObjs = dao.createMultipleRecipes(dtoList);
+            assertNotNull(allObjs);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (RecipeDTO i : allObjs) {
+                System.out.println(i);
+            }
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
     @org.junit.Test
     public void readAllRecipesTest() {
         try {
@@ -42,30 +69,6 @@ public class DAO_RecipeTest {
             for (RecipeDTO dto : dtoList) {
                 System.out.println(dto);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void createMultipleRecipeTest() {
-        try {
-            List<RecipeDTO> dtoList = new ArrayList<>();
-            RecipeDTO dto1 = new RecipeDTO(70, Date.valueOf("9999-12-31"), "rec1", 123,61);
-            RecipeDTO dto2 = new RecipeDTO(71, Date.valueOf("9999-12-31"), "rec2", 321, 61);
-
-            dtoList.add(dto1);
-            dtoList.add(dto2);
-
-            List<RecipeDTO> allObjs = dao.createMultipleRecipes(dtoList);
-            assertNotNull(allObjs);
-            assertNotEquals(dtoList.isEmpty(), dtoList);
-
-            for (RecipeDTO i : allObjs) {
-                System.out.println(i);
-            }
-        } catch (BatchUpdateException batchEx) {
-            batchEx.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -105,7 +108,9 @@ public class DAO_RecipeTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleRecipeTest(){
         try{
@@ -140,4 +145,9 @@ public class DAO_RecipeTest {
             ex.printStackTrace();
         }
     }
+    // endregion
+
+    // region DELETE
+
+    // endregion
 }

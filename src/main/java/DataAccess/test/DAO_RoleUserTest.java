@@ -25,21 +25,7 @@ public class DAO_RoleUserTest {
     DAO_User daoUser = new DAO_User();
     DAO_Role daoRole = new DAO_Role();
 
-    @org.junit.Test
-    public void readAllRoleUserTest() {
-        try {
-            List<REL_RoleUserDTO> roleUserList = dao.readAllUserRoles();
-            assertNotNull(roleUserList);
-            assertNotEquals(roleUserList.isEmpty(), roleUserList);
-
-            for (REL_RoleUserDTO i : roleUserList) {
-                System.out.println(i);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
+    // region CREATE
     @org.junit.Test
     public void createMultipleRoleUserTest() {
         try {
@@ -72,6 +58,23 @@ public class DAO_RoleUserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
+
+    // region READ
+    @org.junit.Test
+    public void readAllRoleUserTest() {
+        try {
+            List<REL_RoleUserDTO> roleUserList = dao.readAllUserRoles();
+            assertNotNull(roleUserList);
+            assertNotEquals(roleUserList.isEmpty(), roleUserList);
+
+            for (REL_RoleUserDTO i : roleUserList) {
+                System.out.println(i);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @org.junit.Test
     public void readSingleRoleUserByIdTest() {
@@ -86,7 +89,13 @@ public class DAO_RoleUserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
+
+    // endregion
+
+    // region DELETE
     @org.junit.Test
     public void deleteMultipleRoleUserTest(){
         try{
@@ -101,4 +110,5 @@ public class DAO_RoleUserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 }

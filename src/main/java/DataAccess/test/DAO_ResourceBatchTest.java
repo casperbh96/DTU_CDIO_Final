@@ -16,6 +16,33 @@ import static org.junit.Assert.assertNotEquals;
 public class DAO_ResourceBatchTest {
     DAO_ResourceBatch dao = new DAO_ResourceBatch();
 
+    // region CREATE
+    @org.junit.Test
+    public void createMultipleResourceBatchesTest() {
+        try {
+            List<ResourceBatchDTO> dtoList = new ArrayList<>();
+            ResourceBatchDTO res1 = new ResourceBatchDTO(65, 123, "sup1", false,61);
+            ResourceBatchDTO res2 = new ResourceBatchDTO(66, 1234.5, "sup2", false, 61);
+
+            dtoList.add(res1);
+            dtoList.add(res2);
+
+            List<ResourceBatchDTO> allRes = dao.createMultipleResourceBatchs(dtoList);
+            assertNotNull(allRes);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (ResourceBatchDTO i : allRes) {
+                System.out.println(i);
+            }
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
     @org.junit.Test
     public void readAllResourceBatchesTest() {
         try {
@@ -47,30 +74,6 @@ public class DAO_ResourceBatchTest {
     }
 
     @org.junit.Test
-    public void createMultipleResourceBatchesTest() {
-        try {
-            List<ResourceBatchDTO> dtoList = new ArrayList<>();
-            ResourceBatchDTO res1 = new ResourceBatchDTO(65, 123, "sup1", false,61);
-            ResourceBatchDTO res2 = new ResourceBatchDTO(66, 1234.5, "sup2", false, 61);
-
-            dtoList.add(res1);
-            dtoList.add(res2);
-
-            List<ResourceBatchDTO> allRes = dao.createMultipleResourceBatchs(dtoList);
-            assertNotNull(allRes);
-            assertNotEquals(dtoList.isEmpty(), dtoList);
-
-            for (ResourceBatchDTO i : allRes) {
-                System.out.println(i);
-            }
-        } catch (BatchUpdateException batchEx) {
-            batchEx.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
     public void readSingleResourceBatchByIdTest() {
         try {
             ResourceBatchDTO res = dao.readSingleResourceBatchById(65);
@@ -96,7 +99,9 @@ public class DAO_ResourceBatchTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleResourceBatchTest(){
         try{
@@ -130,5 +135,9 @@ public class DAO_ResourceBatchTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region DELETE
+
+    // endregion
 }
