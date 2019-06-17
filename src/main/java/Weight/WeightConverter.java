@@ -42,23 +42,30 @@ public class WeightConverter {
         weightCommand("S");
         String[] split = inRead.split(" ");
         String send = "";
-        for(int i = 0; i < split.length - 1 ; i++){
+        for(int i = 0; i < split.length -1 ; i++){
             send = split[i];
+        }
+        if(inRead.contains("S S")){
+            return send;
+        } else {
+            return null;
         }
 
         //double result = Double.parseDouble(send);
-        return send;
     }
 
-    public String WeightTara() throws IOException, InterruptedException {
+    public String weightTara() throws IOException, InterruptedException {
         weightCommand("T");
         String[] split = inRead.split(" ");
         String send = "";
-        for(int i = 0; i < split.length - 1 ; i++){
+        for (int i = 0; i < split.length - 1; i++) {
             send = split[i];
         }
-        //double result = Double.parseDouble(send);
-        return send;
+        if (inRead.contains("T S")) {
+            return send;
+        } else {
+            return null;
+        }
     }
 
     public void backToWeightDisplay() throws IOException{
@@ -105,6 +112,13 @@ public class WeightConverter {
 
     public void writeShortTextToDisplay(String text) throws IOException{
         weightCommand("D \"" + text + "\" crlf");
+    }
+
+    public void getInputFromDisplay()throws IOException{
+            while(!in.ready()){
+
+        }
+            in.readLine();
     }
 
 

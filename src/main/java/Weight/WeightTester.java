@@ -11,15 +11,13 @@ public class WeightTester {
 
         //System.out.println(weightConverter.getWeight());
 
-        //System.out.println(weightConverter.WeightTara());
+        System.out.println(weightConverter.weightTara());
 
         //weightConverter.writeShortTextToDisplay("Mette");
 
         //weightConverter.backToWeightDisplay();
 
-        //weightConverter.writeLongTextToDisplay("Mette Tobiasen");
-
-
+/*
         while (weightConverter.StatusForUserResponse() == false) {
 
 
@@ -27,7 +25,7 @@ public class WeightTester {
             System.out.println(weightConverter.convertInputFromDisplayToString(send));
         }
 
-
+*/
             //System.out.println(weightConverter.getWeight3());
 
             //System.out.println(weightConverter.writeInWeightDisplay("userID"));
