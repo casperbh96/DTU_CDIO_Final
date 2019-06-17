@@ -27,7 +27,7 @@ public class BLLRecipeResource implements I_BLLRecipeResource {
     }
 
     @Override
-    public List<REL_RecipeResourceDTO> readMultipleRecipeResourcesByList(List<Integer> listOfResourceIds, List<Integer> listOfRecipeIds, List<Date> listOfRecipeEndDates) throws SQLException {
+public List<REL_RecipeResourceDTO> readMultipleRecipeResourcesByList(List<Integer> listOfResourceIds, List<Integer> listOfRecipeIds, List<Date> listOfRecipeEndDates) throws SQLException {
         return daoRecRes.readMultipleRecipeResourcesByList(listOfResourceIds, listOfRecipeIds, listOfRecipeEndDates);
     }
 
