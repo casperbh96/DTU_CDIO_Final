@@ -201,7 +201,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, production_status = ?, production_end_date = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?\"");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, production_status = ?, production_end_date = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
 
             for (ProductBatchDTO resourceBatch : listOfProductBatches) {
                 idList.add(resourceBatch.getProductBatchId());
@@ -213,8 +213,10 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
             pStmt.executeBatch();
             static_commitTransAction(conn);
 
-        } catch (BatchUpdateException batchEx){
+        } catch (BatchUpdateException batchEx) {
             throw new BatchUpdateException(batchEx);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
         }
         return readMultipleProductBatchsByList(idList);
     }
