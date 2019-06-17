@@ -49,7 +49,9 @@ public class BLLUser implements I_BLLUser {
             }
         }
 
-        if(shouldReturnNull) return null;
+        if(shouldReturnNull) {
+            return null;
+        }
 
         return user;
     }

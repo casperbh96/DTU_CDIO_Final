@@ -119,12 +119,12 @@ public class DAO_REL_ProductBatchResourceBatch implements I_DAL_REL_ProductBatch
     public List<REL_ProductBatchResourceBatchDTO> readMultipleProductBatchResourceBatchsByList(List<Integer> listOfResourceBatchIds, List<Integer> listOfProductBatchIds) throws SQLException {
         List<REL_ProductBatchResourceBatchDTO> relProductBatchResourceBatchList = new ArrayList<>();
 
-        String resourceIdsParameters = static_parameterBuilder(listOfResourceBatchIds);
+        String resourceBatchIdsParameters = static_parameterBuilder(listOfResourceBatchIds);
 
         String productBatchIdsParameters = static_parameterBuilder(listOfProductBatchIds);
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_resourceBatches_resourceBatches WHERE resource_id IN (" + resourceIdsParameters + "product_batch_id IN (" + productBatchIdsParameters + ")");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_productBatches_resourceBatches WHERE resource_batch_id IN (" + resourceBatchIdsParameters + ") AND product_batch_id IN (" + productBatchIdsParameters + ")");
 
             for (int i = 0; i < listOfResourceBatchIds.size(); i++) {
                 pStmt.setInt(i+1, listOfResourceBatchIds.get(i));

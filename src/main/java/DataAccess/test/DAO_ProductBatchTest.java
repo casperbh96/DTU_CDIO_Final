@@ -3,7 +3,10 @@ package main.java.DataAccess.test;
 import main.java.Core.ProductBatchDTO;
 import main.java.DataAccess.dao.DAO_ProductBatch;
 
+import java.sql.BatchUpdateException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -13,33 +16,134 @@ public class DAO_ProductBatchTest {
     DAO_ProductBatch dao = new DAO_ProductBatch();
 
     // region CREATE
-
-    // endregion
-
-    // region READ
     @org.junit.Test
-    public void readAllProductBatchesTest() {
+    public void createMultipleProductBatchesTest() {
         try {
-            List<ProductBatchDTO> pbDTO = dao.readAllProductBatchs();
-            assertNotNull(pbDTO);
-            assertNotEquals(pbDTO.isEmpty(), pbDTO);
+            List<ProductBatchDTO> dtoList = new ArrayList<>();
+            ProductBatchDTO dto1 = new ProductBatchDTO(70, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), false, 60, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO dto2 = new ProductBatchDTO(71, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), false, 61, Date.valueOf("9999-12-31"), 61);
 
-            for (ProductBatchDTO i : pbDTO) {
+            dtoList.add(dto1);
+            dtoList.add(dto2);
+
+            List<ProductBatchDTO> allObjs = dao.createMultipleProductBatchs(dtoList);
+            assertNotNull(allObjs);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (ProductBatchDTO i : allObjs) {
                 System.out.println(i);
             }
 
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    // endregion
+        // endregion
 
-    // region UPDATE
+        // region READ
+        @org.junit.Test
+        public void readAllProductBatchesTest () {
+            try {
+                List<ProductBatchDTO> pbDTO = dao.readAllProductBatchs();
+                assertNotNull(pbDTO);
+                assertNotEquals(pbDTO.isEmpty(), pbDTO);
 
-    // endregion
+                for (ProductBatchDTO i : pbDTO) {
+                    System.out.println(i);
+                }
 
-    // region DELETE
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
 
-    // endregion
+    @org.junit.Test
+    public void readProductBatchBySearchTest() {
+        try {
+            List<ProductBatchDTO> dtoList = dao.readProductBatchBySearch("61");
+            assertNotNull(dtoList);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (ProductBatchDTO dto : dtoList) {
+                System.out.println(dto);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readSingleProductBatchByIdTest() {
+        try {
+            ProductBatchDTO dto = dao.readSingleProductBatchById(70);
+            assertNotNull(dto);
+
+            System.out.println(dto);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readMultipleProductBatchesByListTest() {
+        try {
+            ArrayList<Integer> idList = new ArrayList<>();
+            idList.add(70);
+            idList.add(71);
+
+            List<ProductBatchDTO> dtoList = dao.readMultipleProductBatchsByList(idList);
+            assertNotNull(dtoList);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (ProductBatchDTO i : dtoList) {
+                System.out.println(i);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+        // endregion
+
+        // region UPDATE
+        @org.junit.Test
+        public void updateSingleProductBatchTest(){
+            try{
+                ProductBatchDTO dto = dao.updateSingleProductBatch(new ProductBatchDTO(70, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), true, 60, Date.valueOf("9999-12-31"), 61));
+                assertNotNull(dto);
+
+                System.out.println(dto);
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+
+    @org.junit.Test
+    public void updateMultipleResourceBatchesTest(){
+        try{
+            List<ProductBatchDTO> dtoList = new ArrayList<>();
+            ProductBatchDTO obj1 = new ProductBatchDTO(70, Date.valueOf("2000-12-31"), "afsluttet", Date.valueOf("2000-12-31"), false, 60, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO obj2 = new ProductBatchDTO(71, Date.valueOf("2000-12-31"), "afsluttet", Date.valueOf("2000-12-31"), false, 61, Date.valueOf("9999-12-31"), 61);
+
+            dtoList.add(obj1);
+            dtoList.add(obj2);
+
+            List<ProductBatchDTO> allDTOs = dao.updateMultipleProductBatchs(dtoList);
+            assertNotNull(allDTOs);
+            assertNotEquals(dtoList.isEmpty(), dtoList);
+
+            for (ProductBatchDTO i : allDTOs) {
+                System.out.println(i);
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+        // endregion
+
+        // region DELETE
+
+        // endregion
 
 }
