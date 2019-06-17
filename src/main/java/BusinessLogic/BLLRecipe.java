@@ -2,10 +2,8 @@ package main.java.BusinessLogic;
 
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
-import main.java.DataAccess.dao.DAO_REL_RecipeResource;
-import main.java.DataAccess.dao.DAO_Recipe;
-import main.java.DataAccess.dao.I_DAL_REL_UserProductBacth;
-import main.java.DataAccess.dao.I_DAL_Recipe;
+import main.java.Core.ResourceDTO;
+import main.java.DataAccess.dao.*;
 import org.junit.internal.runners.statements.FailOnTimeout;
 
 import java.sql.Date;
@@ -15,13 +13,14 @@ import java.util.List;
 
 public class BLLRecipe implements I_BLLRecipe {
     private DAO_Recipe daoRecipe = new DAO_Recipe();
-    private DAO_REL_RecipeResource daoRecipeResource= new DAO_REL_RecipeResource();
+    private DAO_REL_RecipeResource daoRecipeResource = new DAO_REL_RecipeResource();
+    private DAO_Resource daoResource = new DAO_Resource();
 
 
     @Override
     public RecipeDTO createSingleRecipe(RecipeDTO singleRecipe, List<Integer> listOfResourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException {
-        RecipeDTO user = daoRecipe.createSingleRecipe(singleRecipe);
-        boolean shouldReturnNull = false;
+        RecipeDTO recipe = daoRecipe.createSingleRecipe(singleRecipe);
+        boolean resourceDoesNotExist = false;
 
         if(listOfResourceIds != null){
 
@@ -30,12 +29,16 @@ public class BLLRecipe implements I_BLLRecipe {
                 REL_RecipeResourceDTO newRecipeResource = new REL_RecipeResourceDTO(listOfResourceIds.get(i), singleRecipe.getRecipeId(), singleRecipe.getRecipeEndDate(), resourceAmounts.get(i), tolerances.get(i));
 
 
+                if(daoResource.readSingleResourcebyId(newRecipeResource.getResouceId()) != null) {
+                    resourceDoesNotExist = true;
+                }
+
                 recipeResourceList.add(newRecipeResource);
 
 //                boolean addedRole = DAL_roleUser.assignUserRole(newRecipeResource);
 //
 //                if(!addedRole){
-//                    shouldReturnNull = true;
+//                    resourceDoesNotExist = true;
 //                }
             }
             daoRecipeResource.createMultipleRecipeResources(recipeResourceList);
@@ -43,9 +46,10 @@ public class BLLRecipe implements I_BLLRecipe {
 
         }
 
-        if(shouldReturnNull) return null;
+        //returns null if the recipe composes of one or more non-existant resources
+        if(resourceDoesNotExist) return null;
 
-        return user;
+        return recipe;
     }
 
     @Override
