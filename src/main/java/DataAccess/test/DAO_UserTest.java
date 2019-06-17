@@ -15,6 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class DAO_UserTest {
     DAO_User dao = new DAO_User();
 
+    // region CREATE
+    @org.junit.Test
+    public void createMultipleUsersTest() {
+        try {
+            List<UserDTO> userList = new ArrayList<>();
+            UserDTO user1 = new UserDTO(60, "123", "in1", false);
+            UserDTO user2 = new UserDTO(61, "1234", "in2", false);
+
+            userList.add(user1);
+            userList.add(user2);
+
+            List<UserDTO> allRes = dao.createMultipleUsers(userList);
+            assertNotNull(allRes);
+            assertNotEquals(userList.isEmpty(), userList);
+
+            for (UserDTO i : allRes) {
+                System.out.println(i);
+            }
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
     @org.junit.Test
     public void readAllUsersTest() {
         try {
@@ -40,30 +67,6 @@ public class DAO_UserTest {
             for (UserDTO res : userList) {
                 System.out.println(res);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void createMultipleUsersTest() {
-        try {
-            List<UserDTO> userList = new ArrayList<>();
-            UserDTO user1 = new UserDTO(60, "123", "in1", false);
-            UserDTO user2 = new UserDTO(61, "1234", "in2", false);
-
-            userList.add(user1);
-            userList.add(user2);
-
-            List<UserDTO> allRes = dao.createMultipleUsers(userList);
-            assertNotNull(allRes);
-            assertNotEquals(userList.isEmpty(), userList);
-
-            for (UserDTO i : allRes) {
-                System.out.println(i);
-            }
-        } catch (BatchUpdateException batchEx) {
-            batchEx.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -96,7 +99,9 @@ public class DAO_UserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleUserTest(){
         try{
@@ -130,4 +135,9 @@ public class DAO_UserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
+
+    // region DELETE
+
+    // endregion
 }

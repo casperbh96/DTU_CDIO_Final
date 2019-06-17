@@ -16,7 +16,7 @@ public interface I_JsonHandler {
 
 
 //--- ROLES --- ROLES --- ROLES --- ROLES --- ROLES --- ROLES --- ROLES ---
-    List<RoleDTO> createRolesFromJSON(List<RoleDTO> roles);//Create
+    List<RoleDTO> createRoles(List<RoleDTO> roles);//Create
     List<RoleDTO> getRoles();//Read
     List<RoleDTO> searchRolesByKeyword(String keyword);
     List<RoleDTO> updateRolesFromJSON(List<RoleDTO> roles);//Update

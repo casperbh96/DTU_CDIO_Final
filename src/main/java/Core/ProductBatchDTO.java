@@ -1,20 +1,19 @@
 package main.java.Core;
 
 import java.sql.Date;
-import java.util.List;
 
 public class ProductBatchDTO {
 
     private int productBatchId;
     private Date creationDate;
-    private int productionStatus;
+    private String productionStatus;
     private Date productionEndDate;
     private boolean inactive;
     private int recipeId;
     private Date recipeEndDate;
     private int productionLeaderUserId;
 
-    public ProductBatchDTO(int productBatchId, Date creationDate, int productionStatus, Date productionEndDate, boolean inactive, int recipeId, Date recipeEndDate, int productionLeaderUserId) {
+    public ProductBatchDTO(int productBatchId, Date creationDate, String productionStatus, Date productionEndDate, boolean inactive, int recipeId, Date recipeEndDate, int productionLeaderUserId) {
         this.productBatchId = productBatchId;
         this.creationDate = creationDate;
         this.productionStatus = productionStatus;
@@ -41,11 +40,11 @@ public class ProductBatchDTO {
         this.creationDate = creationDate;
     }
 
-    public int getProductionStatus() {
+    public String getProductionStatus() {
         return productionStatus;
     }
 
-    public void setProductionStatus(int productionStatus) {
+    public void setProductionStatus(String productionStatus) {
         this.productionStatus = productionStatus;
     }
 

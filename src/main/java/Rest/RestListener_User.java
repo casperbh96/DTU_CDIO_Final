@@ -1,15 +1,16 @@
 package main.java.Rest;
 
+import main.java.BusinessLogic.BLLUser;
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
-
+@SuppressWarnings("unused")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
 
@@ -17,13 +18,10 @@ public class RestListener_User implements I_RestListener_User {
     //JsonHandler jsonHandler = new JsonHandler();
 
     @Path("create")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO createUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
-
-        UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.createUserFromJSON(user, roles);
+    @POST
+    public UserDTO createUser(UserDTO user) {
+        System.out.println(user);
+        return user;
 
     }
     @GET
@@ -59,7 +57,7 @@ public class RestListener_User implements I_RestListener_User {
 
         UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
         List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.updateUserFromJSON(user, roles);
+        return jsonHandler.updateUser(user, roles);
 
     }
     @Path("delete")
@@ -68,7 +66,7 @@ public class RestListener_User implements I_RestListener_User {
     public UserDTO deleteUser(@QueryParam("userDTO") String userDTO) {
 
         UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        return jsonHandler.deleteUserFromJSON(user);
+        return jsonHandler.deleteUser(user);
 
     }
 }

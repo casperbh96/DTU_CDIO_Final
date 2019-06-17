@@ -140,7 +140,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         String recipeEndDatesParameters = builder.toString();
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE resource_id IN (" + resourceIdsParameters + "recipe_id IN (" + recipeIdsParameters + ") AND recipe_end_date IN (" + recipeEndDatesParameters + ")");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE resource_id IN (" + resourceIdsParameters + ") AND recipe_id IN (" + recipeIdsParameters + ") AND recipe_end_date IN (" + recipeEndDatesParameters + ")");
 
 //            static_setIntPreparedStatements(pStmt,listOfRecipeIds);
 
@@ -158,7 +158,6 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         }
         return relRecipeResources;
     }
-
 
     @Override
     public List<REL_RecipeResourceDTO> readRecipeResourcebySearch(String keyword) throws SQLException {
@@ -201,7 +200,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
     @Override
     public REL_RecipeResourceDTO updateSingleRecipeResource(REL_RecipeResourceDTO recipeResource) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE rel_recipe_resources SET resource_amount = ?, tolerance = ? WHERE resource_id = ? AND recipe_id = ? AND recipe_end_date = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE rel_recipes_resources SET resource_amount = ?, tolerance = ? WHERE resource_id = ? AND recipe_id = ? AND recipe_end_date = ?");
 
             setUpdatePreparedStatement(pStmt, recipeResource);
 
@@ -220,7 +219,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE rel_recipe_resources SET resource_amount = ?, tolerance = ? WHERE resource_id = ? AND recipe_id = ? AND recipe_end_date = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE rel_recipes_resources SET resource_amount = ?, tolerance = ? WHERE resource_id = ? AND recipe_id = ? AND recipe_end_date = ?");
 
             for (REL_RecipeResourceDTO relRecipeResource : listOfRecipeResources) {
                 resIdList.add(relRecipeResource.getResouceId());

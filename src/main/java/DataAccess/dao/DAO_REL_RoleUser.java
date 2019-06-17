@@ -66,7 +66,6 @@ public class DAO_REL_RoleUser implements I_DAL_REL_RoleUser {
 
     @Override
     public boolean assignUserMultipleRoles(List<REL_RoleUserDTO> listOfUserRoles) throws SQLException {
-
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO rel_roles_users (user_id, role_id) VALUES (?,?)");
@@ -113,6 +112,7 @@ public class DAO_REL_RoleUser implements I_DAL_REL_RoleUser {
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_roles_users WHERE user_id = ?");
+            pStmt.setInt(1, user_id);
 
             ResultSet resultset = pStmt.executeQuery();
 
