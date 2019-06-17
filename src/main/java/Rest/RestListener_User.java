@@ -1,12 +1,14 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLUser;
+import main.java.BusinessLogic.I_BLLUser;
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 @SuppressWarnings("unused")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,18 +24,30 @@ public class RestListener_User implements I_RestListener_User {
     public UserDTO createUser(UserDTO user) {
         System.out.println(user);
         return user;
-
     }
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO getUser(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id) {
 
-        return jsonHandler.getUsers(searchMethod, Id);
-
+    @Path("get")
+    @POST
+    public List<UserDTO> getUser(String searchField) {
+        I_BLLUser u = new BLLUser();
+        System.out.println(searchField);
+        try{
+            List<UserDTO> userList = new ArrayList<>();
+            userList = u.getUserBySearch(searchField);
+            for(UserDTO use : userList){
+                System.out.println(use);
+            }
+            System.out.println("user list finished");
+            return userList;
+        } catch(SQLException ex){
+            // WHAT TO DO
+            System.out.println("there was an error");
+        }
+        return null;
     }
+
     @Path("search")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public UserDTO searchUsers(@QueryParam("searchMethod") String searchMethod, @QueryParam("keyword") String keyWord) {
         if (searchMethod.equals("searchUsersByRow")) {
 

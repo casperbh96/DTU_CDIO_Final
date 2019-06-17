@@ -13,10 +13,7 @@ var restUserKeyWord = {
 
 
 function createUser(){
-    event.preventDefault();
-    alert("SOVS");
     var data = $('#UserDTO').serializeJSON();
-    alert(data);
     $(function (){
         $.ajax({
             type:'POST',
@@ -33,15 +30,15 @@ function createUser(){
     });
 
 }
-function getUsers(searchMethod, Id){
-
+function getUsers(){
+    var data = $('#searchField').serializeJSON();
+    alert(data);
     $(function () {
         $.ajax({
-            type:'GET',
-            url:'/rest/users',
-            data:{ searchMethod:searchMethod , String:Id },
+            type:'POST',
+            url:'/rest/users/get',
             contentType:'application/json',
-            dataType: 'json',
+            data:data,
             success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
             },
