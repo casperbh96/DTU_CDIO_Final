@@ -35,7 +35,7 @@ public class WeightConnector {
         DAO_ProductBatch dao_productBatch = new DAO_ProductBatch();
         int productbatchId;
         DAO_REL_RecipeResource recipe = new DAO_REL_RecipeResource();
-        List<Integer> ingredients = null;
+        List<String> ingredients = null;
         int recipeId;
         DAO_REL_ProductBatchResourceBatch productBatchResourceBatch = new DAO_REL_ProductBatchResourceBatch();
         REL_ProductBatchResourceBatchDTO productBatchResourceBatchDTO = null;
@@ -81,16 +81,14 @@ public class WeightConnector {
             //if(dao_productBatch.readSingleProductBatchById(productbatchId).getProductBatchId() == productbatchId){
                 //recipeId = dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId();
 
-            System.out.println(productBatchResourceBatch.readAllProductBatchResourceBatchs().toString());
 
-                for(int i = 0 ; i < productBatchResourceBatch.readAllProductBatchResourceBatchs().size() ; i++){
-                    ingredients.add(i, productBatchResourceBatchDTO.getResourceBatchId());;
-                }
+            List<REL_ProductBatchResourceBatchDTO> list = productBatchResourceBatch.readAllProductBatchResourceBatchs();
 
-                for(int i = 0 ; i < ingredients.size() ; i++){
-                    String str = ingredients.get(i).toString();
+                for(int i = 0 ; i < list.size() ; i++){
+                    int integer = list.get(i).getResourceBatchId();
+                    String str = String.valueOf(integer);
                     while(weightConverter.StatusForUserResponse()){
-                        userInput = weightConverter.writeInWeightDisplay(str);
+                        weightConverter.writeLongTextToDisplay("RåvareBatchId" + str);
                         userInput = weightConverter.convertInputFromDisplayToString(userInput);
                     }
 
