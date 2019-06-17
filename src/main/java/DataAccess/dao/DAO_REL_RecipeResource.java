@@ -122,6 +122,30 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
     }
 
     @Override
+    public List<REL_RecipeResourceDTO> readResourcesForRecipe(int recipeId, Date recipeEndDate) throws SQLException {
+        List<REL_RecipeResourceDTO> relRecipeResources = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE recipe_id = ? AND recipe_end_date = ?");
+
+            pStmt.setInt(1, recipeId);
+            pStmt.setDate(2, recipeEndDate);
+            ResultSet resultset = pStmt.executeQuery();
+
+            // Move pointer to first row before Id, then to row with Id (fix)
+            resultset.beforeFirst();
+            while (resultset.next()){
+                REL_RecipeResourceDTO relRecipeResource = new REL_RecipeResourceDTO(resultset.getInt(1), resultset.getInt(2), resultset.getDate(3), resultset.getDouble(4),resultset.getDouble(5));
+                relRecipeResources.add(relRecipeResource);
+            }
+
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return relRecipeResources;
+    }
+
+    @Override
     public List<REL_RecipeResourceDTO> readMultipleRecipeResourcesByList(List<Integer> listOfResourceIds, List<Integer> listOfRecipeIds, List<Date> listOfRecipeEndDates) throws SQLException {
         List<REL_RecipeResourceDTO> relRecipeResources = new ArrayList<>();
 

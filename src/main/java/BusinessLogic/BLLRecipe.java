@@ -123,6 +123,11 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
+    public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId, Date recipeEndDate) throws SQLException {
+        return bllRecipeResource.readResourcesForRecipe(recipeId, recipeEndDate);
+    }
+
+    @Override
     public RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException {
         List<Integer> recIdHolder = new ArrayList<>();
         recIdHolder.add(recipe.getRecipeId());

@@ -1,5 +1,6 @@
 package main.java.BusinessLogic;
 
+import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
 
 import java.sql.Date;
@@ -17,6 +18,7 @@ public interface I_BLLRecipe {
     List<RecipeDTO> getRecipeBySearch(String keyword) throws SQLException;
     List<RecipeDTO> getAllRecipes() throws SQLException;
     List<RecipeDTO> getAllActiveRecipes() throws SQLException;
+    List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId, Date recipeEndDate) throws SQLException;
 
     RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException;
 //    List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
