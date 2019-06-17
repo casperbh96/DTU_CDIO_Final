@@ -2,9 +2,7 @@ package main.java.BusinessLogic;
 
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
-import main.java.Core.ResourceDTO;
 import main.java.DataAccess.dao.*;
-import org.junit.internal.runners.statements.FailOnTimeout;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,8 +11,8 @@ import java.util.List;
 
 public class BLLRecipe implements I_BLLRecipe {
     private DAO_Recipe daoRecipe = new DAO_Recipe();
-    private DAO_REL_RecipeResource daoRecipeResource = new DAO_REL_RecipeResource();
-    private DAO_Resource daoResource = new DAO_Resource();
+    private BLLRecipeResource bllRecipeResource = new BLLRecipeResource();
+    private BLLResource bllResource = new BLLResource();
 
 
     @Override
@@ -29,7 +27,7 @@ public class BLLRecipe implements I_BLLRecipe {
                 REL_RecipeResourceDTO newRecipeResource = new REL_RecipeResourceDTO(listOfResourceIds.get(i), singleRecipe.getRecipeId(), singleRecipe.getRecipeEndDate(), resourceAmounts.get(i), tolerances.get(i));
 
 
-                if(daoResource.readSingleResourcebyId(newRecipeResource.getResouceId()) != null) {
+                if(bllResource.readSingleResourcebyId(newRecipeResource.getResouceId()) != null) {
                     resourceDoesNotExist = true;
                 }
 
@@ -41,9 +39,7 @@ public class BLLRecipe implements I_BLLRecipe {
 //                    resourceDoesNotExist = true;
 //                }
             }
-            daoRecipeResource.createMultipleRecipeResources(recipeResourceList);
-
-
+            bllRecipeResource.createMultipleRecipeResources(recipeResourceList);
         }
 
         //returns null if the recipe composes of one or more non-existant resources
