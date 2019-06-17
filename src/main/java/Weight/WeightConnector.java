@@ -4,9 +4,10 @@ import com.mysql.cj.util.StringUtils;
 import com.sun.deploy.net.proxy.SunAutoProxyHandler;
 import main.java.BusinessLogic.BLLUser;
 import main.java.BusinessLogic.I_BLLUser;
+import main.java.Core.ProductBatchDTO;
+import main.java.Core.REL_ProductBatchResourceBatchDTO;
 import main.java.Core.UserDTO;
-import main.java.DataAccess.dao.DAO_User;
-import main.java.DataAccess.dao.I_DAL_User;
+import main.java.DataAccess.dao.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
+import java.util.List;
 import java.util.Scanner;
 
 public class WeightConnector {
@@ -27,7 +29,19 @@ public class WeightConnector {
         BLLUser user = new BLLUser();
         UserDTO userObject = null;
         String userInput = null;
+        String productbatchNumber = null;
         int userId;
+        String[] strings = null;
+        DAO_ProductBatch dao_productBatch = new DAO_ProductBatch();
+        int productbatchId;
+        DAO_REL_RecipeResource recipe = new DAO_REL_RecipeResource();
+        List<Integer> ingredients = null;
+        int recipeId;
+        DAO_REL_ProductBatchResourceBatch productBatchResourceBatch = new DAO_REL_ProductBatchResourceBatch();
+        REL_ProductBatchResourceBatchDTO productBatchResourceBatchDTO = null;
+
+
+
 
 
 
@@ -55,6 +69,41 @@ public class WeightConnector {
                 }
 
             } while(!(user.getUserById(userId).getUserId() == userId));
+
+            while (weightConverter.StatusForUserResponse() == false){
+                productbatchNumber = weightConverter.writeInWeightDisplay("Indtast produktbatcID");
+                productbatchNumber = weightConverter.convertInputFromDisplayToString(productbatchNumber);
+            }
+
+            productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
+            //int count = productBatchResourceBatch.readAllProductBatchResourceBatchs().size();
+
+            //if(dao_productBatch.readSingleProductBatchById(productbatchId).getProductBatchId() == productbatchId){
+                //recipeId = dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId();
+
+            System.out.println(productBatchResourceBatch.readAllProductBatchResourceBatchs().toString());
+
+                for(int i = 0 ; i < productBatchResourceBatch.readAllProductBatchResourceBatchs().size() ; i++){
+                    ingredients.add(i, productBatchResourceBatchDTO.getResourceBatchId());;
+                }
+
+                for(int i = 0 ; i < ingredients.size() ; i++){
+                    String str = ingredients.get(i).toString();
+                    while(weightConverter.StatusForUserResponse()){
+                        userInput = weightConverter.writeInWeightDisplay(str);
+                        userInput = weightConverter.convertInputFromDisplayToString(userInput);
+                    }
+
+                    weightConverter.writeLongTextToDisplay("Er vægten afbalanceret? tryk enter");
+                    weightConverter.getInputFromDisplay();
+
+
+
+
+                }
+
+
+            //}
 
 
 
