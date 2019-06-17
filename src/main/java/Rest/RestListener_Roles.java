@@ -1,33 +1,61 @@
 package main.java.Rest;
 
-import main.java.Core.UserDTO;
+import main.java.Core.RoleDTO;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.util.LinkedList;
+import java.util.List;
 
 @Path("roles")
-public class RestListener_Roles implements I_RestListener_Roles {
+public class RestListener_Roles{
+
+    private JsonHandler_unconnected jsonHandler = new JsonHandler_unconnected();
+    //JsonHandler jsonHandler = new JsonHandler();
 
     @Path("create")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO createRole(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
-        return null;
+    public List<RoleDTO> createRole(@QueryParam("roleDTOs") String roleDTOs) {
+        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+
+       // roleList2.toArray(new RoleDTO[roleList2.size()]);
+        return jsonHandler.createRoles(roleList);
+
     }
-    public UserDTO getRole(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id) {
-        return null;
+
+    @Path("get")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RoleDTO> getRole(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id){
+
+        return jsonHandler.getRoles( searchMethod , Id );
     }
-    public UserDTO searchRoles(@QueryParam("searchMethod") String searchMethod, @QueryParam("KeyWord") String keyWord) {
-        return null;
+
+    @Path("search")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RoleDTO> searchRoles(@QueryParam("keyword") String keyWord) {
+        return jsonHandler.searchRolesByKeyword(keyWord);
     }
-    public UserDTO updateRole(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
-        return null;
+
+    @Path("update")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RoleDTO> updateRole(@QueryParam("roleDTOs") String roleDTOs) {
+        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+        return jsonHandler.updateRoles(roleList);
     }
-    public UserDTO deleteRole(@QueryParam("userDTO") String userDTO) {
-        return null;
+    @Path("delete")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RoleDTO> deleteRole(@QueryParam("roleDTOs") String roleDTOs) {
+
+        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+        return jsonHandler.deleteRoles(roleList);
     }
 
 }

@@ -56,7 +56,7 @@ public class RestListener{
 
             UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
             List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-            return jsonHandler.updateUserFromJSON(user, roles);
+            return jsonHandler.updateUser(user, roles);
 
         }
         @Path("delete")
@@ -65,7 +65,7 @@ public class RestListener{
         public UserDTO deleteUser(@QueryParam("userDTO") String userDTO) {
 
             UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-            return jsonHandler.deleteUserFromJSON(user);
+            return jsonHandler.deleteUser(user);
 
         }
     }
