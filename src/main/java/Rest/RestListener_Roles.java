@@ -1,61 +1,83 @@
 package main.java.Rest;
 
+import main.java.BusinessLogic.BLLRole;
 import main.java.Core.RoleDTO;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("unused")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @Path("roles")
-public class RestListener_Roles{
-
-    private JsonHandler_unconnected jsonHandler = new JsonHandler_unconnected();
-    //JsonHandler jsonHandler = new JsonHandler();
+public class RestListener_Roles implements I_RestListener_Roles{
 
     @Path("create")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RoleDTO> createRole(@QueryParam("roleDTOs") String roleDTOs) {
-        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
+    @POST
+    public Response createRole(RoleDTO role) {
+        RoleDTO returnRole = null;
+        try{
+            returnRole = new BLLRole().createRole(role);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
 
-       // roleList2.toArray(new RoleDTO[roleList2.size()]);
-        return jsonHandler.createRoles(roleList);
-
+        return Response.ok(returnRole).build();
     }
 
     @Path("get")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RoleDTO> getRole(@QueryParam("searchMethod") String searchMethod, @QueryParam("Id") String Id){
+    public Response getAllRoles() {
+        List<RoleDTO> returnRoleList = null;
+        try{
+            returnRoleList = new BLLRole().getAllRoles();
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
 
-        return jsonHandler.getRoles( searchMethod , Id );
+        return Response.ok(returnRoleList).build();
     }
 
-    @Path("search")
+    @Path("get/{id}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RoleDTO> searchRoles(@QueryParam("keyword") String keyWord) {
-        return jsonHandler.searchRolesByKeyword(keyWord);
+    public Response getRoleById(@PathParam("id") int roleId) {
+        RoleDTO returnRole = null;
+        try{
+            returnRole = new BLLRole().getRoleById(roleId);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(returnRole).build();
+    }
+
+    @Path("get/search/{keyword}")
+    @GET
+    public Response getRolesBySearch(@PathParam("keyword") String keyWord) {
+        List<RoleDTO> returnRoleList = null;
+        try{
+            returnRoleList = new BLLRole().getRolebySearch(keyWord);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(returnRoleList).build();
     }
 
     @Path("update")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RoleDTO> updateRole(@QueryParam("roleDTOs") String roleDTOs) {
-        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.updateRoles(roleList);
-    }
-    @Path("delete")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<RoleDTO> deleteRole(@QueryParam("roleDTOs") String roleDTOs) {
+    @PUT
+    public Response updateRole(RoleDTO role) {
+        RoleDTO returnRole = null;
+        try{
+            returnRole = new BLLRole().updateRole(role);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
 
-        List<RoleDTO> roleList = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.deleteRoles(roleList);
+        return Response.ok(returnRole).build();
     }
-
 }

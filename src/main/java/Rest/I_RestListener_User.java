@@ -10,8 +10,6 @@ public interface I_RestListener_User {
     Response getUserById(int userId);
     Response getUsersBySearch(String search);
     Response updateUser(UserDTO user);
-//    Response updateUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList);
     Response deleteUser(UserDTO user);
-//    Response deleteUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList);
 }
 
