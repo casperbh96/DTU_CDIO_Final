@@ -1,19 +1,19 @@
 package main.java.Rest;
 
-import com.google.gson.JsonObject;
+import main.java.Core.REL_RoleUserDTO;
 import main.java.Core.UserDTO;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import java.util.List;
+import java.util.ArrayList;
 
 public interface I_RestListener_User {
-    // -- USER -- USER -- USER -- USER --
-    public Response createUser(UserDTO user);//@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs);
-    public Response getUser(int userId);
-    public Response getUsersBySearch(String search);
-    public UserDTO updateUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs);
-    public UserDTO deleteUser(@QueryParam("userDTO") String userDTO);
+    Response createUser(UserDTO user);
+    Response getAllUsers();
+    Response getUserById(int userId);
+    Response getUsersBySearch(String search);
+    Response updateUser(UserDTO user);
+//    Response updateUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList);
+    Response deleteUser(UserDTO user);
+//    Response deleteUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList);
 }
 

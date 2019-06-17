@@ -52,11 +52,12 @@ function put(data, url, sFunc, eFunc){
     });
 }
 
-function put(data, url, sFunc, eFunc){
+function Delete(data, url, sFunc, eFunc){
     $.ajax({
         type:'DELETE',
         url: url,
         contentType:'application/json',
+        data:data,
         success: function (data) {
             sFunc(data);
         },

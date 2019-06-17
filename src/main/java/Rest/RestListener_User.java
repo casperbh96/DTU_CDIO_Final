@@ -3,6 +3,7 @@ package main.java.Rest;
 import com.google.gson.JsonObject;
 import main.java.BusinessLogic.BLLUser;
 import main.java.BusinessLogic.I_BLLUser;
+import main.java.Core.REL_RoleUserDTO;
 import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
@@ -17,10 +18,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
-
-    JsonHandler_unconnected jsonHandler = new JsonHandler_unconnected();
-    //JsonHandler jsonHandler = new JsonHandler();
-
     @Path("create")
     @POST
     public Response createUser(UserDTO user) {
@@ -28,9 +25,22 @@ public class RestListener_User implements I_RestListener_User {
         return Response.ok(user).build();
     }
 
+    @Path("get")
+    @GET
+    public Response getAllUsers() {
+        List<UserDTO> user = null;
+        try{
+            user = new BLLUser().getAllUsers();
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(user).build();
+    }
+
     @Path("get/{id}")
     @GET
-    public Response getUser(@PathParam("id") int userId) {
+    public Response getUserById(@PathParam("id") int userId) {
         System.out.println(userId);
         UserDTO user = null;
         try{
@@ -57,23 +67,51 @@ public class RestListener_User implements I_RestListener_User {
 
         return Response.ok(user).build();
     }
+
     @Path("update")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO updateUser(@QueryParam("userDTO") String userDTO, @QueryParam("roleDTOs") String roleDTOs) {
+    @PUT
+    public Response updateUser(UserDTO user) {
+        System.out.println(user);
+        UserDTO returnUser = null;
+        try{
+            returnUser = new BLLUser().updateUser(user);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
 
-        UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        List<RoleDTO> roles = JsonDTOassembler.assembleRestRoleDTO(roleDTOs);
-        return jsonHandler.updateUser(user, roles);
-
+        return Response.ok(returnUser).build();
     }
+
+//    @Path("update/roles")
+//    @PUT
+//    public Response updateUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList) {
+//        System.out.println(user);
+//        System.out.println(roleUserList);
+//
+//        return null;
+//    }
+
     @Path("delete")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO deleteUser(@QueryParam("userDTO") String userDTO) {
+    @DELETE
+    public Response deleteUser(UserDTO user) {
+        System.out.println(user);
+        UserDTO returnUser = null;
+        try{
+            returnUser = new BLLUser().deleteUser(user.getUserId());
+        } catch (SQLException ex) {
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
 
-        UserDTO user = JsonDTOassembler.assembleRestUserDTO(userDTO);
-        return jsonHandler.deleteUser(user);
-
+        return Response.ok(returnUser).build();
     }
+
+//    @Path("delete/deleteroles")
+//    @DELETE
+//    public Response deleteUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList) {
+//        System.out.println(user);
+//        System.out.println(roleUserList);
+//
+//        return null;
+//    }
+
 }
