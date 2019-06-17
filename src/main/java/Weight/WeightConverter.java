@@ -19,10 +19,11 @@ public class WeightConverter {
     private BufferedReader in = null;
     private PrintWriter out = null;
     private boolean resultFromUserInput = false;
+    private String send = "";
 
     public void weightCommand(String cmd){
         String command = cmd;
-        try (Socket socket = new Socket("localhost", 8000)){
+        try (Socket socket = new Socket("169.254.2.3", 8000)){
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -37,55 +38,65 @@ public class WeightConverter {
         }
     }
 
-    public double getWeight() throws IOException {
+    public String getWeight() throws IOException {
         weightCommand("S");
         String[] split = inRead.split(" ");
         String send = "";
-        for(int i = 0; i < split.length ; i++){
+        for(int i = 0; i < split.length - 1 ; i++){
             send = split[i];
         }
-        double result = Double.parseDouble(send);
-        return result;
+
+        //double result = Double.parseDouble(send);
+        return send;
     }
 
-    public double WeightTara() throws IOException, InterruptedException {
+    public String WeightTara() throws IOException, InterruptedException {
         weightCommand("T");
         String[] split = inRead.split(" ");
         String send = "";
-        for(int i = 0; i < split.length ; i++){
+        for(int i = 0; i < split.length - 1 ; i++){
             send = split[i];
         }
-        double result = Double.parseDouble(send);
-        return result;
+        //double result = Double.parseDouble(send);
+        return send;
     }
 
     public void backToWeightDisplay() throws IOException{
         weightCommand("DW");
     }
 
-    public int writeInWeightDisplay(String message) throws IOException, InterruptedException {
+    public String writeInWeightDisplay(String message) throws IOException, InterruptedException {
         weightCommand("RM20 8 \"" + message + "\" \"\" \"&3\"");
         weightCommand("RM20 B crlf");
+
         //sleep(100);
         String[] split = inRead.split(" ");
         String send = "";
         for (int i = 0; i < split.length ; i++) {
             send = split[i];
         }
-        int result = Integer.parseInt(send);
-        return result;
+
+        return send;
     }
 
     public boolean StatusForUserResponse() throws IOException {
         boolean inputStatus = false;
 
-        if (!inRead.contains("RM20 A")) {
+        if (inRead.contains("RM20 B")) {
             inputStatus = false;
-        } else {
+        } else if (inRead.contains("RM20 A")){
             inputStatus = true;
+        } else {
+            inputStatus = false;
         }
 
         return inputStatus;
+    }
+
+    public String convertInputFromDisplayToString(String str){
+            String send = str.replaceAll("\\D+", "");
+        return send;
+
     }
 
     public void writeLongTextToDisplay(String text) throws IOException{
