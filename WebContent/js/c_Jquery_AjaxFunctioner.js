@@ -13,14 +13,16 @@ var restUserKeyWord = {
 
 
 function createUser(){
-
+    event.preventDefault();
+    alert("SOVS");
+    var data = $('#UserDTO').serializeJSON();
+    alert(data);
     $(function (){
         $.ajax({
-            type:'GET',
+            type:'POST',
             url:'/rest/users/create',
-            data:restUser,
             contentType:'application/json',
-            dataType: 'json',
+            data:data,
             success: function (data) {
                 $("#UsersContentFlasher").html( JSON.stringify(data) );
             },

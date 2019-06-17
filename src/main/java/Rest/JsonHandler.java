@@ -35,7 +35,7 @@ public class JsonHandler {
       bluser.deleteUser(user.getUserId());
 
       UserDTO empty = new UserDTO();
-      empty.setInactive(true);
+      //empty.setInactive(true);
       empty.setInitials("deleted");
       empty.setUsername("deleted");
       empty.setUserId(0);
