@@ -1,5 +1,6 @@
 package main.java.Rest;
 
+import com.google.gson.JsonObject;
 import main.java.BusinessLogic.BLLUser;
 import main.java.BusinessLogic.I_BLLUser;
 import main.java.Core.RoleDTO;
@@ -7,6 +8,7 @@ import main.java.Core.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,48 +23,39 @@ public class RestListener_User implements I_RestListener_User {
 
     @Path("create")
     @POST
-    public UserDTO createUser(UserDTO user) {
+    public Response createUser(UserDTO user) {
         System.out.println(user);
-        return user;
+        return Response.ok(user).build();
     }
 
-    @Path("get")
-    @POST
-    public List<UserDTO> getUser(String searchField) {
-        I_BLLUser u = new BLLUser();
-        System.out.println(searchField);
-        try{
-            List<UserDTO> userList = new ArrayList<>();
-            userList = u.getUserBySearch(searchField);
-            for(UserDTO use : userList){
-                System.out.println(use);
-            }
-            System.out.println("user list finished");
-            return userList;
-        } catch(SQLException ex){
-            // WHAT TO DO
-            System.out.println("there was an error");
-        }
-        return null;
-    }
-
-    @Path("search")
+    @Path("get/{id}")
     @GET
-    public UserDTO searchUsers(@QueryParam("searchMethod") String searchMethod, @QueryParam("keyword") String keyWord) {
-        if (searchMethod.equals("searchUsersByRow")) {
-
-            UserDTO userParameters = JsonDTOassembler.assembleRestUserDTO(keyWord);
-            return jsonHandler.searchUsersByRow(userParameters);
-
-        } else if(searchMethod.equals("searchUsersById")){
-
-            return jsonHandler.searchUsersByKeyword(keyWord);
-
-        }else{
-
-            return null;
-
+    public Response getUser(@PathParam("id") int userId) {
+        System.out.println(userId);
+        UserDTO user = null;
+        try{
+            user = new BLLUser().getUserById(userId);
+        } catch (SQLException ex){
+            // OOPS
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
+
+        return Response.ok(user).build();
+    }
+
+    @Path("get/search/{keyword}")
+    @GET
+    public Response getUsersBySearch(@PathParam("keyword") String search) {
+        System.out.println(search);
+        List<UserDTO> user = null;
+        try{
+            user = new BLLUser().getUserBySearch(search);
+        } catch (SQLException ex){
+            // OOPS
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(user).build();
     }
     @Path("update")
     @GET
