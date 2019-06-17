@@ -1,28 +1,34 @@
 package main.java.Rest;
 
-import com.google.gson.JsonObject;
 import main.java.BusinessLogic.BLLUser;
-import main.java.BusinessLogic.I_BLLUser;
-import main.java.Core.REL_RoleUserDTO;
-import main.java.Core.RoleDTO;
 import main.java.Core.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+
 @SuppressWarnings("unused")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
-    @Path("create")
+    @Path("create/{role}")
     @POST
-    public Response createUser(UserDTO user) {
+    public Response createUser(UserDTO user, @PathParam("role") int roleId) {
         System.out.println(user);
-        return Response.ok(user).build();
+        System.out.println(roleId);
+
+        UserDTO returnUser = null;
+        try{
+            returnUser = new BLLUser().createUser(user, roleId);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(returnUser).build();
     }
 
     @Path("get")
@@ -82,15 +88,6 @@ public class RestListener_User implements I_RestListener_User {
         return Response.ok(returnUser).build();
     }
 
-//    @Path("update/roles")
-//    @PUT
-//    public Response updateUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList) {
-//        System.out.println(user);
-//        System.out.println(roleUserList);
-//
-//        return null;
-//    }
-
     @Path("delete")
     @DELETE
     public Response deleteUser(UserDTO user) {
@@ -104,14 +101,5 @@ public class RestListener_User implements I_RestListener_User {
 
         return Response.ok(returnUser).build();
     }
-
-//    @Path("delete/deleteroles")
-//    @DELETE
-//    public Response deleteUserRoles(UserDTO user, ArrayList<REL_RoleUserDTO> roleUserList) {
-//        System.out.println(user);
-//        System.out.println(roleUserList);
-//
-//        return null;
-//    }
 
 }

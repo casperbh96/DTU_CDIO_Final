@@ -23,6 +23,7 @@ function get(url, sFunc, eFunc){
 }
 
 function post(data, url, sFunc, eFunc){
+    alert(data + url);
     $.ajax({
         type:'POST',
         url: url,

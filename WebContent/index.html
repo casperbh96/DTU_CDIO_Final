@@ -90,7 +90,7 @@
                 <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
                     <button onclick="
                     post($('#UserDTO').serializeJSON(),
-                           '/rest/users/create',
+                           '/rest/users/create/' + 62,
                            function (data) {
                                 $('#UsersContentFlasher').html( JSON.stringify(data) );
                            },
@@ -162,20 +162,26 @@
     </div>
 
     <DIV class="container">
-    <form id="UserDTO">
-        <div>
-            <input id="userId" name="userId" type="number" value="1">
-        </div>
-        <div>
-            <input id="username" name="username" type="text" value="henrik">
-        </div>
-        <div>
-            <input id="initials" name="initials" type="text" value="HPH">
-        </div>
-        <div>
-            <input id="inactive" name="inactive" value=false>
-        </div>
-    </form>
+        <form id="UserDTO">
+            <div>
+                <input id="userId" name="userId" type="number" value="1">
+            </div>
+            <div>
+                <input id="username" name="username" type="text" value="henrik">
+            </div>
+            <div>
+                <input id="initials" name="initials" type="text" value="HPH">
+            </div>
+            <div>
+                <input id="inactive" name="inactive" value=false>
+            </div>
+        </form>
+    </DIV>
+
+    <DIV class="container">
+        <form id="JSON_User_RoleUserDTO">
+
+        </form>
     </DIV>
 
 </body>
