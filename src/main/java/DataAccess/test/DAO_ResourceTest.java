@@ -14,6 +14,33 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DAO_ResourceTest {
     DAO_Resource dao = new DAO_Resource();
 
+    // region CREATE
+    @org.junit.Test
+    public void createMultipleResourcesTest() {
+        try {
+            List<ResourceDTO> resList = new ArrayList<>();
+            ResourceDTO res1 = new ResourceDTO(61, "123", false, false);
+            ResourceDTO res2 = new ResourceDTO(62, "1234", false, false);
+
+            resList.add(res1);
+            resList.add(res2);
+
+            List<ResourceDTO> allRes = dao.createMultipleResources(resList);
+            assertNotNull(allRes);
+            assertNotEquals(resList.isEmpty(), resList);
+
+            for (ResourceDTO i : allRes) {
+                System.out.println(i);
+            }
+        } catch (BatchUpdateException batchEx) {
+            batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
     @org.junit.Test
     public void readAllResourcesTest() {
         try {
@@ -39,30 +66,6 @@ public class DAO_ResourceTest {
             for (ResourceDTO res : resList) {
                 System.out.println(res);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void createMultipleResourcesTest() {
-        try {
-            List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(61, "123", false, false);
-            ResourceDTO res2 = new ResourceDTO(62, "1234", false, false);
-
-            resList.add(res1);
-            resList.add(res2);
-
-            List<ResourceDTO> allRes = dao.createMultipleResources(resList);
-            assertNotNull(allRes);
-            assertNotEquals(resList.isEmpty(), resList);
-
-            for (ResourceDTO i : allRes) {
-                System.out.println(i);
-            }
-        } catch (BatchUpdateException batchEx) {
-            batchEx.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -95,7 +98,9 @@ public class DAO_ResourceTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleResourceTest(){
         try{
@@ -129,27 +134,9 @@ public class DAO_ResourceTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
-//    @org.junit.Test
-//    public void deleteSingleResourceTest(){
-//        try{
-//            dao.deleteSingleResource(997);
-//            assertThrows(SQLException.class, () -> dao.readSingleResourcebyId(997));
-//
-//        } catch (SQLException ex){
-//            ex.printStackTrace();
-//        }
-//    }
-//
-//    @org.junit.Test
-//    public void deleteMultipleResourcesTest(){
-//        try{
-//            List<Integer> resList = new ArrayList<>(Arrays.asList(4, 5));
-//            dao.deleteMultipleResources(resList);
-//            assertThrows(SQLException.class, () -> dao.readMultipleResourcesByList(resList));
-//
-//        } catch (SQLException ex){
-//            ex.printStackTrace();
-//        }
-//    }
+    // region DELETE
+
+    // endregion
 }

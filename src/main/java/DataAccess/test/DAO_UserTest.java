@@ -15,36 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class DAO_UserTest {
     DAO_User dao = new DAO_User();
 
-    @org.junit.Test
-    public void readAllUsersTest() {
-        try {
-            List<UserDTO> userList = dao.readAllUsers();
-            assertNotNull(userList);
-            assertNotEquals(userList.isEmpty(), userList);
-
-            for (UserDTO i : userList) {
-                System.out.println(i);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @org.junit.Test
-    public void readUserBySearchTest() {
-        try {
-            List<UserDTO> userList = dao.readUserBySearch("mulla");
-            assertNotNull(userList);
-            assertNotEquals(userList.isEmpty(), userList);
-
-            for (UserDTO res : userList) {
-                System.out.println(res);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
+    // region CREATE
     @org.junit.Test
     public void createMultipleUsersTest() {
         try {
@@ -64,6 +35,38 @@ public class DAO_UserTest {
             }
         } catch (BatchUpdateException batchEx) {
             batchEx.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // endregion
+
+    // region READ
+    @org.junit.Test
+    public void readAllUsersTest() {
+        try {
+            List<UserDTO> userList = dao.readAllUsers();
+            assertNotNull(userList);
+            assertNotEquals(userList.isEmpty(), userList);
+
+            for (UserDTO i : userList) {
+                System.out.println(i);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void readUserBySearchTest() {
+        try {
+            List<UserDTO> userList = dao.readUserBySearch("559");
+            assertNotNull(userList);
+            assertNotEquals(userList.isEmpty(), userList);
+
+            for (UserDTO res : userList) {
+                System.out.println(res);
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -96,7 +99,9 @@ public class DAO_UserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
 
+    // region UPDATE
     @org.junit.Test
     public void updateSingleUserTest(){
         try{
@@ -130,4 +135,9 @@ public class DAO_UserTest {
             ex.printStackTrace();
         }
     }
+    // endregion
+
+    // region DELETE
+
+    // endregion
 }

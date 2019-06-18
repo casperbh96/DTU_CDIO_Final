@@ -1,7 +1,5 @@
 package main.java.Core;
 
-import java.util.List;
-
 public class UserDTO {
 
     private int userId;

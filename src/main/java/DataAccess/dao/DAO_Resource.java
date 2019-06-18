@@ -95,7 +95,7 @@ public class DAO_Resource implements I_DAL_Resource {
         ResourceDTO res = null;
 
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resource_id=?");
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM resources WHERE resource_id = ?");
 
             pStmt.setInt(1, resourceId);
             ResultSet resultset = pStmt.executeQuery();
