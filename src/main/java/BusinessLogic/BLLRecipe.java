@@ -123,8 +123,8 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
-    public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId, Date recipeEndDate) throws SQLException {
-        return bllRecipeResource.readResourcesForRecipe(recipeId, recipeEndDate);
+    public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException {
+        return bllRecipeResource.readResourcesForRecipe(recipeId, Date.valueOf("9999-12-31"));
     }
 
     @Override
