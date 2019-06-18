@@ -18,6 +18,11 @@ public class BLLUser implements I_BLLUser {
     private I_BLLRoleUser BLLRoleUser = new BLLRoleUser();
 
     @Override
+    public UserDTO createUser(UserDTO singleUser) throws SQLException {
+        return DAL_user.createSingleUser(singleUser);
+    }
+
+    @Override
     public UserDTO createUser(UserDTO singleUser, int roleId) throws SQLException {
         UserDTO user = DAL_user.createSingleUser(singleUser);
 
