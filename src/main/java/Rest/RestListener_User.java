@@ -1,6 +1,7 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLUser;
+import main.java.BusinessLogic.I_BLLUser;
 import main.java.Core.UserDTO;
 
 import javax.ws.rs.*;
@@ -15,6 +16,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
+    I_BLLUser userBLL = new BLLUser();
+
     @Path("create")
     @POST
     public Response createUser(UserDTO user) {
@@ -22,7 +25,7 @@ public class RestListener_User implements I_RestListener_User {
 
         UserDTO returnUser = null;
         try{
-            returnUser = new BLLUser().createUser(user);
+            returnUser = userBLL.createUser(user);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -35,7 +38,7 @@ public class RestListener_User implements I_RestListener_User {
     public Response getAllUsers() {
         List<UserDTO> user = null;
         try{
-            user = new BLLUser().getAllUsers();
+            user = userBLL.getAllUsers();
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -49,7 +52,7 @@ public class RestListener_User implements I_RestListener_User {
         System.out.println(userId);
         UserDTO user = null;
         try{
-            user = new BLLUser().getUserById(userId);
+            user = userBLL.getUserById(userId);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -63,7 +66,7 @@ public class RestListener_User implements I_RestListener_User {
         System.out.println(search);
         List<UserDTO> user = null;
         try{
-            user = new BLLUser().getUserBySearch(search);
+            user = userBLL.getUserBySearch(search);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -77,7 +80,7 @@ public class RestListener_User implements I_RestListener_User {
         System.out.println(user);
         UserDTO returnUser = null;
         try{
-            returnUser = new BLLUser().updateUser(user);
+            returnUser = userBLL.updateUser(user);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -91,7 +94,7 @@ public class RestListener_User implements I_RestListener_User {
         System.out.println(user);
         UserDTO returnUser = null;
         try{
-            returnUser = new BLLUser().deleteUser(user.getUserId());
+            returnUser = userBLL.deleteUser(user.getUserId());
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }

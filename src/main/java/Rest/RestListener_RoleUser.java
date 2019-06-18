@@ -2,6 +2,8 @@ package main.java.Rest;
 
 import main.java.BusinessLogic.BLLRole;
 import main.java.BusinessLogic.BLLRoleUser;
+import main.java.BusinessLogic.I_BLLRole;
+import main.java.BusinessLogic.I_BLLRoleUser;
 import main.java.Core.REL_RoleUserDTO;
 import main.java.Core.RoleDTO;
 
@@ -17,13 +19,16 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("roleuser")
 public class RestListener_RoleUser implements I_RestListener_RoleUser {
+    I_BLLRoleUser roleUserBLL = new BLLRoleUser();
+    I_BLLRole roleBLL = new BLLRole();
+
     @Path("create")
     @POST
     public Response createRoleUser(REL_RoleUserDTO roleUser) {
         System.out.println(roleUser);
 
         try{
-            new BLLRoleUser().assignUserRole(roleUser);
+            roleUserBLL.assignUserRole(roleUser);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -36,7 +41,7 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
     public Response getAllRoleUsers() {
         List<REL_RoleUserDTO> returnRoleUserList = null;
         try{
-            returnRoleUserList = new BLLRoleUser().readAllUserRoles();
+            returnRoleUserList = roleUserBLL.readAllUserRoles();
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -53,11 +58,11 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
         List<RoleDTO> roleList = new ArrayList<>();
         List<Integer> listOfRoleIds = new ArrayList<>();
         try{
-            roleUserList = new BLLRoleUser().readUsersRoles(userId);
+            roleUserList = roleUserBLL.readUsersRoles(userId);
             for(REL_RoleUserDTO roleUser : roleUserList){
                 listOfRoleIds.add(roleUser.getRoleId());
             }
-            roleList = new BLLRole().getRolesByList(listOfRoleIds);
+            roleList = roleBLL.getRolesByList(listOfRoleIds);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -71,7 +76,7 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
         System.out.println(roleUser);
 
         try{
-            new BLLRoleUser().deleteUserRole(roleUser.getUserId(), roleUser.getRoleId());
+            roleUserBLL.deleteUserRole(roleUser.getUserId(), roleUser.getRoleId());
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }

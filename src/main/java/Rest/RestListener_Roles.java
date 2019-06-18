@@ -1,6 +1,7 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLRole;
+import main.java.BusinessLogic.I_BLLRole;
 import main.java.Core.RoleDTO;
 
 import javax.ws.rs.*;
@@ -15,13 +16,13 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("roles")
 public class RestListener_Roles implements I_RestListener_Roles{
-
+    I_BLLRole roleBLL = new BLLRole();
     @Path("create")
     @POST
     public Response createRole(RoleDTO role) {
         RoleDTO returnRole = null;
         try{
-            returnRole = new BLLRole().createRole(role);
+            returnRole = roleBLL.createRole(role);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -34,7 +35,7 @@ public class RestListener_Roles implements I_RestListener_Roles{
     public Response getAllRoles() {
         List<RoleDTO> returnRoleList = null;
         try{
-            returnRoleList = new BLLRole().getAllRoles();
+            returnRoleList = roleBLL.getAllRoles();
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -47,7 +48,7 @@ public class RestListener_Roles implements I_RestListener_Roles{
     public Response getRoleById(@PathParam("id") int roleId) {
         RoleDTO returnRole = null;
         try{
-            returnRole = new BLLRole().getRoleById(roleId);
+            returnRole = roleBLL.getRoleById(roleId);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -60,7 +61,7 @@ public class RestListener_Roles implements I_RestListener_Roles{
     public Response getRolesBySearch(@PathParam("keyword") String keyWord) {
         List<RoleDTO> returnRoleList = null;
         try{
-            returnRoleList = new BLLRole().getRolebySearch(keyWord);
+            returnRoleList = roleBLL.getRolebySearch(keyWord);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -73,7 +74,7 @@ public class RestListener_Roles implements I_RestListener_Roles{
     public Response updateRole(RoleDTO role) {
         RoleDTO returnRole = null;
         try{
-            returnRole = new BLLRole().updateRole(role);
+            returnRole = roleBLL.updateRole(role);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
