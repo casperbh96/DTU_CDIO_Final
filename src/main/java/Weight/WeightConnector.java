@@ -75,16 +75,6 @@ public class WeightConnector {
                 System.exit(0);
             }
 
-            /*
-            weightConverter.resetInputString();
-
-
-            while(weightConverter.StatusForUserResponse() == false){
-                respond = weightConverter.writeInWeightDisplay("Hvis brugerId: " + userId + " tryk 1(ja)/0(nej)");
-                respond = weightConverter.convertInputFromDisplayToString(respond);
-            }
-            */
-
 
             weightConverter.resetInputString();
 
@@ -95,7 +85,6 @@ public class WeightConnector {
 
             productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
 
-            //if(dao_productBatch.readSingleProductBatchById(productbatchId).getProductBatchId() == productbatchId){
             recipeId = dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId();
 
 
@@ -139,10 +128,11 @@ public class WeightConnector {
                     netAmount = weightConverter.getWeight();
                     System.out.println(netAmount);
 
-                } while((Double.valueOf(netAmount) >= amountWithTolerenceNeg & Double.valueOf(netAmount) <= amountWithTolerencePos) == false);
+                } while((Double.parseDouble(netAmount) >= amountWithTolerenceNeg & Double.parseDouble(netAmount) <= amountWithTolerencePos) == false);
 
 
 
+                //TOD0 gemme opdatering i databasen
                 //productBatchResourceBatch.updateSingleProductBatchResourceBatch(resId,productbatchId,netAmountDouble,taraToDouble);
 
 
