@@ -51,7 +51,6 @@ public class RestListener_User implements I_RestListener_User {
         try{
             user = new BLLUser().getUserById(userId);
         } catch (SQLException ex){
-            // OOPS
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -66,7 +65,6 @@ public class RestListener_User implements I_RestListener_User {
         try{
             user = new BLLUser().getUserBySearch(search);
         } catch (SQLException ex){
-            // OOPS
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
