@@ -94,22 +94,49 @@ public class BLLProductBatch implements I_BLLProductBatch {
     }
 
     @Override
-    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException {
-        return null;
+    public ProductBatchDTO updateProductBatchButNotResourceBatches(ProductBatchDTO productBatchDTO) throws SQLException {
+        return daoProductBatch.updateSingleProductBatch(productBatchDTO);
     }
 
     @Override
-    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
+    public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch, List<Integer> resourceIds, List<Double> netAmounts, List<Double> taras) throws SQLException {
+        List<Integer> prodIdBatchHolder = new ArrayList<>();
+        prodIdBatchHolder.add(productBatch.getProductBatchId());
+
+        //gets the prodBatchResBatch elements that will get updated
+        List<REL_ProductBatchResourceBatchDTO> prodBatchResBatchToBeUpdated =
+                bllProductBatchResourceBatch.readMultipleProductBatchResourceBatchsByList(resourceIds, prodIdBatchHolder);
+
+
+        boolean prodBatchExists = daoProductBatch.readSingleProductBatchById(productBatch.getProductBatchId()) != null;
+        boolean connectedValuesHaveMatchingNumberOfElements = resourceIds.size() == netAmounts.size() && resourceIds.size() == taras.size() &&
+                resourceIds.size() == prodBatchResBatchToBeUpdated.size();
+
+        if (prodBatchExists && connectedValuesHaveMatchingNumberOfElements) {
+            for (int i = 0; i < prodBatchResBatchToBeUpdated.size(); i++) {
+                prodBatchResBatchToBeUpdated.get(i).setNetAmount(netAmounts.get(i));
+                prodBatchResBatchToBeUpdated.get(i).setTara(taras.get(i));
+            }
+            bllProductBatchResourceBatch.updateMultipleProductBatchResourceBatchs(prodBatchResBatchToBeUpdated);
+            return daoProductBatch.updateSingleProductBatch(productBatch);
+        }
+
+        //returns null, if problem with update data. In this case no modifying methods have been executed
         return null;
     }
+
+//    @Override
+//    public List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
+//        return null;
+//    }
 
     @Override
     public ProductBatchDTO setInactiveSingleProductBatch(int productBatchId) throws SQLException {
-        return null;
+        return daoProductBatch.setInactiveSingleProductBatch(productBatchId);
     }
 
     @Override
     public List<ProductBatchDTO> setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException {
-        return null;
+        return daoProductBatch.setInactiveMultipleProductBatchs(listOfProductBatchIds);
     }
 }
