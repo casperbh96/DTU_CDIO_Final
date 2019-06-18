@@ -9,9 +9,9 @@ public class WeightTester {
 
         WeightConverter weightConverter = new WeightConverter();
 
-        //System.out.println(weightConverter.getWeight());
+        System.out.println(weightConverter.getWeight());
 
-        System.out.println(weightConverter.weightTara());
+        //System.out.println(weightConverter.weightTara());
 
         //weightConverter.writeShortTextToDisplay("Mette");
 

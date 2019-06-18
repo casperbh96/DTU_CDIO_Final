@@ -6,6 +6,7 @@ import main.java.BusinessLogic.BLLUser;
 import main.java.BusinessLogic.I_BLLUser;
 import main.java.Core.ProductBatchDTO;
 import main.java.Core.REL_ProductBatchResourceBatchDTO;
+import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.UserDTO;
 import main.java.DataAccess.dao.*;
 
@@ -76,20 +77,23 @@ public class WeightConnector {
             }
 
             productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
-            //int count = productBatchResourceBatch.readAllProductBatchResourceBatchs().size();
 
             //if(dao_productBatch.readSingleProductBatchById(productbatchId).getProductBatchId() == productbatchId){
-                //recipeId = dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId();
+            //recipeId = dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId();
 
 
-            List<REL_ProductBatchResourceBatchDTO> list = productBatchResourceBatch.readAllProductBatchResourceBatchs();
+            List<REL_ProductBatchResourceBatchDTO> resourceBatchList = productBatchResourceBatch.readProductBatchResourceBatchbySearch(productbatchNumber);
+            List<REL_RecipeResourceDTO> recipeIngredientsList = recipe.readRecipeResourcebySearch(String.valueOf(dao_productBatch.readSingleProductBatchById(productbatchId).getRecipeId()));
 
-                for(int i = 0 ; i < list.size() ; i++){
-                    int integer = list.get(i).getResourceBatchId();
+
+                for(int i = 0 ; i < recipeIngredientsList.size() ; i++){
+                    int integer = recipeIngredientsList.get(i).getResouceId();
                     String str = String.valueOf(integer);
                     while(weightConverter.StatusForUserResponse()){
                         weightConverter.writeLongTextToDisplay("RåvareBatchId" + str);
-                        userInput = weightConverter.convertInputFromDisplayToString(userInput);
+                        weightConverter.getInputFromDisplay();
+                        weightConverter.writeLongTextToDisplay("Sæt tom beholder på vægt");
+
                     }
 
                     weightConverter.writeLongTextToDisplay("Er vægten afbalanceret? tryk enter");
