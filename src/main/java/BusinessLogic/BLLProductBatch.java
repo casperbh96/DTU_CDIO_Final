@@ -1,14 +1,48 @@
 package main.java.BusinessLogic;
 
 import main.java.Core.ProductBatchDTO;
+import main.java.Core.REL_ProductBatchResourceBatchDTO;
+import main.java.DataAccess.dao.DAO_ProductBatch;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BLLProductBatch implements I_BLLProductBatch {
+    DAO_ProductBatch daoProductBatch = new DAO_ProductBatch();
+    BLLUserProductBatch bllUserProductBatch = new BLLUserProductBatch();
+    BLLProductBatchResourceBatch bllProductBatchResourceBatch = new BLLProductBatchResourceBatch();
+    BLLResourceBatch bllResourceBatch = new BLLResourceBatch();
+
     @Override
-    public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException {
-        return null;
+    public ProductBatchDTO createProductBatch(ProductBatchDTO singleProductBatch, List<Integer> listOfResourceBatchIds, List<Double> listOfNetAmounts, List<Integer> listOfTaras) throws SQLException {
+        boolean resourceBatchDouesNotExist = false;
+
+        List<REL_ProductBatchResourceBatchDTO> productBatchResourceBatchList = new ArrayList<>();
+        if (listOfResourceBatchIds != null) {
+
+            for (int i = 0; i < listOfResourceBatchIds.size(); i++) {
+                REL_ProductBatchResourceBatchDTO newProductBatchResourceBatch = new REL_ProductBatchResourceBatchDTO(listOfResourceBatchIds.get(i), singleProductBatch.getProductBatchId(),listOfNetAmounts.get(i), listOfTaras.get(i));
+
+                if (bllResourceBatch.readSingleResourceBatchById(newProductBatchResourceBatch.getResourceBatchId()) != null) {
+                    resourceBatchDouesNotExist = true;
+                }
+
+                productBatchResourceBatchList.add(newProductBatchResourceBatch);
+            }
+
+            //returns null if the productBatch composes of one or more non-existent resourceBatches
+            if(resourceBatchDouesNotExist) {
+                return null;
+            }
+
+            ProductBatchDTO productBatch = daoProductBatch.createSingleProductBatch(singleProductBatch);
+            bllProductBatchResourceBatch.createMultipleProductBatchResourceBatchs(productBatchResourceBatchList);
+
+            return productBatch;
+        }
+
+
     }
 
     @Override
