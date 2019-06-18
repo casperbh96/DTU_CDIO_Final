@@ -15,15 +15,14 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
-    @Path("create/{role}")
+    @Path("create")
     @POST
-    public Response createUser(UserDTO user, @PathParam("role") int roleId) {
+    public Response createUser(UserDTO user) {
         System.out.println(user);
-        System.out.println(roleId);
 
         UserDTO returnUser = null;
         try{
-            returnUser = new BLLUser().createUser(user, roleId);
+            returnUser = new BLLUser().createUser(user);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
