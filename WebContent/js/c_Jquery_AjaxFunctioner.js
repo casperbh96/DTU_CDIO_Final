@@ -55,7 +55,6 @@ function Delete(data, url, sFunc, eFunc){
         }
     });
 }
-
 var HTML_RolesDropDownListElements ="";
 $( document ).ready(function(){
 
@@ -65,22 +64,10 @@ $( document ).ready(function(){
             HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check" type="checkbox" checked="false" data-roleId="'+ role.roleId +'"><span>'+role.rolename+'</span></li> \n';
         });
     });
+
 });
 
 var tableName_UserAdmin = "userTable";
-
-var restUser = {
-    userDTO:'userId=1;username=beg;initials=b;inactive=false',
-    roleDTOs:'1=rolename;2=rolename;3=rolename'
-};
-var restUserSearchRow = {
-    userDTO:'userId=1;username=beg;initials=b;inactive=false'
-};
-var restUserKeyWord = {
-    keyWord:'keyword'
-};
-
-
 
 
 function loadUser() {
@@ -98,6 +85,9 @@ function loadUser() {
 
             $('#dto-table-container').append(HTML_generateUserDTO(User, rowId));
             $('#'+rowId+'').find('.commit-state').prop( "checked", false );
+            $('#'+rowId+'').find('.dele-state').prop( "checked", false );
+            $('#'+rowId+'').find('.edit-state').prop( "checked", false );
+
 
             // Update RolesDropDown to Current Roles
             /*get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
@@ -111,7 +101,6 @@ function loadUser() {
     });
 
 }
-
 function HTML_generateUserDTO(userDto, RowId ) {
 
     return '<tr id="'+RowId+'">\n' +
@@ -153,9 +142,9 @@ function HTML_generateUserDTO(userDto, RowId ) {
         '                </td>\n' +
         '            </tr>';
 }
-/*function HTML_update_UserRolesPrUser( rowId, rowData){
+function HTML_update_UserRolesPrUser( rowId, rowData){
     alert(rowId);
-    $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
+ //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
   //  $(container).css("background-color","blue");
   //  container.children('li').each(function () {
 
@@ -166,63 +155,29 @@ function HTML_generateUserDTO(userDto, RowId ) {
     //    alert(roleId + " ," + roleName);
 
    // })
-}*/
+}
 
 /* Commit Data things . */
-function commitChanges_btn(){
-
-    var activeTable = $('#dto-table-container').attr('data-ActiveTable');
-    switch(activeTable) {
-        case tableName_UserAdmin:
-            commit_tableUsersChanges();
-        break;
-        default:
-
-    }
-
-}
 function commit_tableUsersChanges() {
     $('#dto-table-container').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
+
         if(commitState){
-            if($(this).find('.dele-state').prop("checked")){
-
+            if( $(this).find('.dele-state').prop("checked") ){
+                alert(commitState);
+                alert("delete Row " + $(this).attr("id"));
             }
-            else if($(this).find('.edit-state').prop("checked")){
-
+            else{
+                alert("edit Row " + $(this).attr("id"));
             }
         }
     });
 }
-/* commit Dette */
 
 
 function changeTable_Data(identifyer){
     $('#dto-table-container').attr("data-activetable",identifyer);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function dto_table_row_updateToggle(row){
    if ($(row).find('.edit-state').is(':checked')) {
 
@@ -247,28 +202,16 @@ function dto_table_row_deleteToggle(row){
     if ($(row).find('.dele-state').is(':checked')) {
         $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
             $(this).hide();
-
         });
         $(row).find('.dele-state').prop( "checked", false );
     }else{
-
         $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
-
             $(this).show();
-
         });
         $(row).find('.dele-state').prop( "checked", true );
     }
 
 }
-function commitTableChanges(){
-    $( "#dto-table-container" ).find(' tr').each(function () {
-        if($(this).find(' .commit-state').prop('checked')) {
-            var table = $(this).find('.dto-table-column-DTO');
-            alert("commit "+ CreateTextDTO(table)); // todo replace with a get function
-        }
-    });
-}
 
 
 
@@ -276,55 +219,15 @@ function commitTableChanges(){
 
 
 
-function CreateTextDTO(form){
-    var text = "{";
-    $(form).children('.dto-table-column-DTO-formElement').each(function () {
-        var name = $(this).attr("name");
-        var value =$(this).val();
 
-        text = text + name + ":" + value+ ";"
-    })
-    text = text + "}"
-    return text;
-}
 
-function getTableDTO_UserTable() {
-    var Counter = 0;
 
-    $('#userDTO_Table tr').each(function(){
 
-        var $checkBox = $(this).find('.DTO_TABLE_selected');
 
-        if ($checkBox.prop('checked')) {
-            var UserDTO =  { userDTO:'' +
-                    'userId=' + $(this).find('.userId').val() + ';' +
-                    'username='+ $(this).find('.username').val() +';' +
-                    'initials='+ $(this).find('.initials').val() +';' +
-                    'inactive='+ $(this).find('.inactive').val() +' '
-            };
-        }
 
-        //todo METHOD here.
-    });
-}
 
-var restUserNRolesDTO = {
-    userDTO:'userId=1;username=beg;initials=b;inactive=false',
-    roleDTOs:'1=rolename;2=rolename;3=rolename'
-};
-var restUserDTO = {
-    userDTO:'userId=1;username=beg;initials=b;inactive=false'
-};
-var restKeywordDTO = {
-    keyWord:'keyword'
-};
-var restRoleDTO = {
-    roleDTOs:'1=rolename;2=rolename;3=rolename'
-};
-var RecipeDTO = {
 
-};
-var ResourceDTO = {ResourceDTO:'resourceId=1;resourceName=resource;reorder=false;inactive=false'};
+
 
 function createUser(user){
     $(function (){

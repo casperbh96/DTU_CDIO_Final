@@ -2,34 +2,18 @@
 <html lang="en">
 <head>
     <title>W3.CSS Template</title>
-    <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Jquery -->
-    <script src="js/jquery-3.4.1.js" ></script>
-    <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="StyleSheet/ui.dropdownchecklist.themeroller.css">
-     <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.min.css
-         <script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-         <link rel="stylesheet" href="StyleSheet/jquery.multiselect.css">-->
-    <script src="js/jquery-ui-1.12.1/jquery-ui.js" ></script>
-    <script type="text/javascript" src="js/ui.dropdownchecklist-1.5-min.js"></script>
-
-    <!-- Setting up Jquery Classes functions
-    <script src="js/JqueryUI_functioner.js" ></script> -->
-    <script src="js/c_Jquery_AjaxFunctioner.js" ></script>
-
-    <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">   <!-- font-family: 'Poiret One', cursive; -->
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding" rel="stylesheet">  <!--font-family: 'Josefin Slab', serif; -->
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
 
     <!-- Reset StyleSheet-->
-    <link rel="stylesheet" href="StyleSheet/styleReset.css" />
-    <link rel="stylesheet" href="StyleSheet/style.css" />
-    <link rel="stylesheet" href="StyleSheet/grids.css" />
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/style.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
     <style>
     </style>
 
@@ -47,16 +31,15 @@
                 <li> menuPoint 1</li>
             </ul>
         </div>
-        <button onclick="commitTableChanges()" style="width: 50px; height: 50px; background-color: #cd0a0a;" ></button>
+        <!--<button onclick="commitTableChanges()" style="width: 50px; height: 50px; background-color: #cd0a0a;" ></button>-->
     </div>
     <div id="top-menuFrame">
-        <button id="CommitChanges" class="top-menu-Element" onclick="commitChanges_btn()"></button>
+        <button id="CommitChanges" class="top-menu-Element" onclick="commit_tableUsersChanges()"></button>
         <div id="searchContainer"></div>
     </div>
     <!-- -->
     <div id="content-container">
         <table id="dto-table-container" data-ActiveTable="" >
-
 
 
 
@@ -70,23 +53,16 @@
 
     </div>
 </div>
-
-
-<link rel="stylesheet" href="StyleSheet/jquery.multiselect.css">
-<script src="js/jquery.multiselect.js"></script>
-<script>
+<script type="text/javascript" >
 
     function toggleDropDown(self){
-
         var dropDown = $(self).siblings('ul');
         var h = (dropDown.outerHeight(true) + 5);
 
         dropDown.toggle();
         dropDown.css("margin-top", "5px");
         dropDown.css("margin-bottom", -h);
-
     }
-
 
 </script>
 </body>
