@@ -1,12 +1,15 @@
 package main.java.Rest;
 
+import main.java.BusinessLogic.BLLRole;
 import main.java.BusinessLogic.BLLRoleUser;
 import main.java.Core.REL_RoleUserDTO;
+import main.java.Core.RoleDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -46,14 +49,20 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
     public Response getRoleUserByUserId(@PathParam("id") int userId) {
         System.out.println(userId);
 
-        List<REL_RoleUserDTO> roleUser = null;
+        List<REL_RoleUserDTO> roleUserList = null;
+        List<RoleDTO> roleList = new ArrayList<>();
+        List<Integer> listOfRoleIds = new ArrayList<>();
         try{
-            roleUser = new BLLRoleUser().readUsersRoles(userId);
+            roleUserList = new BLLRoleUser().readUsersRoles(userId);
+            for(REL_RoleUserDTO roleUser : roleUserList){
+                listOfRoleIds.add(roleUser.getRoleId());
+            }
+            roleList = new BLLRole().getRolesByList(listOfRoleIds);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(roleUser).build();
+        return Response.ok(roleList).build();
     }
 
     @Path("delete")
