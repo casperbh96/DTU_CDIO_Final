@@ -1,29 +1,38 @@
-package Weight;
+package main.java.Weight;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class WeightTester {
 
-    public static void main(String[] args) throws IOException {
-
-        boolean inputReceived = false;
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         WeightConverter weightConverter = new WeightConverter();
 
-        //System.out.println(weightConverter.getWeight2());
+        //System.out.println(weightConverter.getWeight());
 
-        //System.out.println(weightConverter.WeightTara1());
+        System.out.println(weightConverter.weightTara());
 
         //weightConverter.writeShortTextToDisplay("Mette");
 
         //weightConverter.backToWeightDisplay();
 
-        //weightConverter.writeLongTextToDisplay("Mette Tobiasen");
+/*
+        while (weightConverter.StatusForUserResponse() == false) {
 
-        System.out.println(weightConverter.writeInWeightDisplay("UserID"));
+
+            String send = weightConverter.writeInWeightDisplay("UserID");
+            System.out.println(weightConverter.convertInputFromDisplayToString(send));
+        }
+
+*/
+            //System.out.println(weightConverter.getWeight3());
+
+            //System.out.println(weightConverter.writeInWeightDisplay("userID"));
+
+
+        //}
 
 
     }
-
-
 }

@@ -60,7 +60,7 @@ public class DAO_UserTest {
     @org.junit.Test
     public void readUserBySearchTest() {
         try {
-            List<UserDTO> userList = dao.readUserBySearch("mulla");
+            List<UserDTO> userList = dao.readUserBySearch("559");
             assertNotNull(userList);
             assertNotEquals(userList.isEmpty(), userList);
 
