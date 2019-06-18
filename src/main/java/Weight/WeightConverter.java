@@ -24,7 +24,7 @@ public class WeightConverter {
     private PrintWriter out = null;
     private boolean resultFromUserInput = false;
     private String send = "";
-    private List<String> wrongInputList = new ArrayList<>(Arrays.asList("RM20 L", "RM20 I", "RM20 C"));
+    private List<String> wrongInputList = new ArrayList<>(Arrays.asList("RM20 L", "RM20 I", "RM20 C", "K A", "K C 4"));
     private boolean shouldContinueFromInput = true;
 
 
@@ -94,7 +94,6 @@ public class WeightConverter {
     public String writeInWeightDisplay(String message) throws IOException, InterruptedException {
         weightCommand("RM20 8 \"" + message + "\" \"\" \"&3\"");
         weightCommand("RM20 B crlf");
-
         //sleep(100);
         String[] split = inRead.split(" ");
         String send = "";
@@ -105,7 +104,7 @@ public class WeightConverter {
         return send;
     }
 
-    public boolean StatusForUserResponse() throws IOException {
+    public boolean statusForUserResponse() throws IOException {
         boolean inputStatus = false;
 
         if (inRead.contains("RM20 B")) {
@@ -133,16 +132,22 @@ public class WeightConverter {
         weightCommand("D \"" + text + "\" crlf");
     }
 
-    public void getInputFromDisplay()throws IOException{
-            while(!in.ready()){
-
-        }
-            in.readLine();
+    public String respondWithEnter() throws IOException {
+        weightCommand("K 3");
+        String respond = inRead;
+        return respond;
     }
 
     public void resetInputString(){
         inRead = "";
     }
+
+    public void resetDisplayString() throws IOException{
+        writeLongTextToDisplay("");
+        writeShortTextToDisplay("");
+    }
+
+
 
 
 }

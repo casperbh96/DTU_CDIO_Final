@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.List;
@@ -42,36 +43,52 @@ public class WeightConnector {
         int recipeId;
         DAO_REL_ProductBatchResourceBatch productBatchResourceBatch = new DAO_REL_ProductBatchResourceBatch();
         REL_ProductBatchResourceBatchDTO productBatchResourceBatchDTO = null;
+        String respond = null;
+        String netAmount;
 
 
         try {
-            do {
 
-                while (weightConverter.StatusForUserResponse() == false) { //sørger for at input fra vægten bliver læst korrekt
 
-                    userInput = weightConverter.writeInWeightDisplay("Indtast UserID");
-                    //weightConverter.getInputFromDisplay();
-                    userInput = weightConverter.convertInputFromDisplayToString(userInput);
+            while (weightConverter.statusForUserResponse() == false) { //sørger for at input fra vægten bliver læst korrekt
 
-                    //System.out.println(userInput);
+                userInput = weightConverter.writeInWeightDisplay("Indtast UserID");
+                userInput = weightConverter.convertInputFromDisplayToString(userInput);
 
+                //System.out.println(userInput);
+            }
+
+            // konvertere input fra vægt fra string til integer
+            userId = Integer.parseInt(userInput.replaceAll("\\D", ""));
+
+
+            //sørger for at useren findes i databasen
+            if (user.getUserById(userId).getUserId() == userId) {
+                userObject = user.getUserById(userId);
+                System.out.println(userObject.toString());
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay(user.getUserById(userId).getUsername());
                 }
+                //weightConverter.writeLongTextToDisplay(user.getUserById(userId).getUsername());
+            } else {
+                System.exit(0);
+            }
 
-                // konvertere input fra vægt fra string til integer
-                userId = Integer.parseInt(userInput.replaceAll("\\D", ""));
+            /*
+            weightConverter.resetInputString();
 
-                //sørger for at useren findes i databasen
-                if (user.getUserById(userId).getUserId() == userId) {
-                    userObject = user.getUserById(userId);
-                    System.out.println(userObject.toString());
-                    weightConverter.writeLongTextToDisplay(user.getUserById(userId).getUsername());
-                }
 
-            } while(!(user.getUserById(userId).getUserId() == userId));
+            while(weightConverter.StatusForUserResponse() == false){
+                respond = weightConverter.writeInWeightDisplay("Hvis brugerId: " + userId + " tryk 1(ja)/0(nej)");
+                respond = weightConverter.convertInputFromDisplayToString(respond);
+            }
+            */
+
 
             weightConverter.resetInputString();
 
-            while (weightConverter.StatusForUserResponse() == false){
+            while (weightConverter.statusForUserResponse() == false){
                 productbatchNumber = weightConverter.writeInWeightDisplay("Indtast produktbatcID");
                 productbatchNumber = weightConverter.convertInputFromDisplayToString(productbatchNumber);
             }
@@ -87,9 +104,46 @@ public class WeightConnector {
 
             for(int i = 0; i < recipeIngredientsList.size(); i++){
                 int resId = recipeIngredientsList.get(i).getResouceId();
+                weightConverter.writeLongTextToDisplay("råvareBatch: " + String.valueOf(resId));
 
-                weightConverter.writeLongTextToDisplay("RåvareBatchId: " + String.valueOf(resId));
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("Afbalanceret vaegt");
+                }
 
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("saet beholder");
+                }
+
+                String tara = weightConverter.weightTara();
+                //double taraToDouble = Double.valueOf(tara);
+
+                double Tolerence = recipe.readSingleRecipeResourcebyId(resId,recipeId, Date.valueOf("9999-12-31")).getTolerance();
+                double resourceAmount = recipe.readSingleRecipeResourcebyId(resId, recipeId, Date.valueOf("9999-12-31")).getResourceAmount();
+                double amountWithTolerencePos = resourceAmount + (resourceAmount * (Tolerence/100));
+                double amountWithTolerenceNeg = resourceAmount - (resourceAmount * (Tolerence/100));
+
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false) {
+                    weightConverter.writeInWeightDisplay("afvej " + resourceAmount);
+                }
+
+                do {
+
+                    weightConverter.writeLongTextToDisplay("tryk ->0<- og afvej " + resourceAmount);
+                    weightConverter.backToWeightDisplay();
+
+
+
+                    netAmount = weightConverter.getWeight();
+                    System.out.println(netAmount);
+
+                } while((Double.valueOf(netAmount) >= amountWithTolerenceNeg & Double.valueOf(netAmount) <= amountWithTolerencePos) == false);
+
+
+
+                //productBatchResourceBatch.updateSingleProductBatchResourceBatch(resId,productbatchId,netAmountDouble,taraToDouble);
 
 
             }
