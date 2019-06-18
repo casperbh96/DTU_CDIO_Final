@@ -36,6 +36,7 @@ public class WeightConverter {
 
             out.flush();
             out.println(command);
+            System.out.println(in.readLine());
             String tempReadLine = in.readLine();
             for(String stringFromList : wrongInputList){
                 if(tempReadLine.toLowerCase().equals(stringFromList.toLowerCase())){

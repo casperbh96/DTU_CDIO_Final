@@ -89,9 +89,9 @@ public class WeightConnector {
                 int resId = recipeIngredientsList.get(i).getResouceId();
 
                 weightConverter.writeLongTextToDisplay("RåvareBatchId: " + String.valueOf(resId));
-                Thread.sleep(3000);
+                //Thread.sleep(3000);
                 weightConverter.writeLongTextToDisplay("Sæt tom beholder på vægt");
-                Thread.sleep(10000);
+                //Thread.sleep(10000);
                 int tara = Integer.valueOf(weightConverter.weightTara());
 
 
