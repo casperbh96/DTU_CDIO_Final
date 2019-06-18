@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface I_BLLUser {
+    UserDTO createUser(UserDTO singleUser) throws SQLException;
     UserDTO createUser(UserDTO singleUser, int roleId) throws SQLException;
     UserDTO createUser(UserDTO singleUser, List<Integer> listOfRoles) throws SQLException;
     List<UserDTO> createUsers(List<UserDTO> listOfUsers, List<Integer> listOfRoleIds) throws SQLException;
