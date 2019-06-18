@@ -99,18 +99,7 @@ public class WeightConnector {
                     weightConverter.writeLongTextToDisplay("Er vægten afbalanceret? tryk enter");
                     weightConverter.getInputFromDisplay();
 
-
-
-
                 }
-
-
-            //}
-
-
-
-
-
 
         } catch (IOException e) {
 
@@ -120,35 +109,8 @@ public class WeightConnector {
 
     }
 
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-                /*
-                try {
-                    if(user.getUserById(weightInput).getUserId() == weightInput){
-                        weightConverter.writeShortTextToDisplay("Velkommen");
-                        weightConverter.writeLongTextToDisplay(user.getUserById(weightInput).getUsername());
-
-                    } else{
-                        weightConverter.writeLongTextToDisplay("ID ikke fundet");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-*/
 
 
 
