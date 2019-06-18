@@ -101,5 +101,4 @@ public class RestListener_User implements I_RestListener_User {
 
         return Response.ok(returnUser).build();
     }
-
 }
