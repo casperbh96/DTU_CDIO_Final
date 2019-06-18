@@ -68,6 +68,32 @@ public class BLLProductBatch implements I_BLLProductBatch {
     }
 
     @Override
+    public List<ProductBatchDTO> getAllProductBatchesUnderProduction() throws SQLException {
+        List<ProductBatchDTO> productBatchesUnderProduction = new ArrayList<>();
+
+        for (ProductBatchDTO prodB : daoProductBatch.readAllProductBatchs()) {
+            if (prodB.getProductionStatus().toLowerCase() == "under produktion".toLowerCase()) {
+                productBatchesUnderProduction.add(prodB);
+            }
+        }
+
+        return productBatchesUnderProduction;
+    }
+
+    @Override
+    public List<ProductBatchDTO> getALlProductBatchesFinished() throws SQLException {
+        List<ProductBatchDTO> productBatchesUnderProduction = new ArrayList<>();
+
+        for (ProductBatchDTO prodB : daoProductBatch.readAllProductBatchs()) {
+            if (prodB.getProductionStatus().toLowerCase() == "afsluttet".toLowerCase()) {
+                productBatchesUnderProduction.add(prodB);
+            }
+        }
+
+        return productBatchesUnderProduction;
+    }
+
+    @Override
     public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException {
         return null;
     }
