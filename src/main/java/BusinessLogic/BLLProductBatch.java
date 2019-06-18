@@ -30,44 +30,41 @@ public class BLLProductBatch implements I_BLLProductBatch {
 
                 productBatchResourceBatchList.add(newProductBatchResourceBatch);
             }
-
-            //returns null if the productBatch composes of one or more non-existent resourceBatches
-            if(resourceBatchDouesNotExist) {
-                return null;
-            }
-
-            ProductBatchDTO productBatch = daoProductBatch.createSingleProductBatch(singleProductBatch);
-            bllProductBatchResourceBatch.createMultipleProductBatchResourceBatchs(productBatchResourceBatchList);
-
-            return productBatch;
         }
 
+        //returns null if the productBatch composes of one or more non-existent resourceBatches
+        if(resourceBatchDouesNotExist) {
+            return null;
+        }
+        ProductBatchDTO productBatch = daoProductBatch.createSingleProductBatch(singleProductBatch);
+        bllProductBatchResourceBatch.createMultipleProductBatchResourceBatchs(productBatchResourceBatchList);
 
+        return productBatch;
+    }
+
+//    @Override
+//    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
+//        return null;
+//    }
+
+    @Override
+    public ProductBatchDTO getProductBatchById(int productBatchId) throws SQLException {
+        return daoProductBatch.readSingleProductBatchById(productBatchId);
     }
 
     @Override
-    public List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException {
-        return null;
+    public List<ProductBatchDTO> getProductBatchesByList(List<Integer> listOfProductBatchIds) throws SQLException {
+        return daoProductBatch.readMultipleProductBatchsByList(listOfProductBatchIds);
     }
 
     @Override
-    public ProductBatchDTO readSingleProductBatchById(int productBatchId) throws SQLException {
-        return null;
+    public List<ProductBatchDTO> getProductBatchBySearch(String keyword) throws SQLException {
+        return daoProductBatch.readProductBatchBySearch(keyword);
     }
 
     @Override
-    public List<ProductBatchDTO> readMultipleProductBatchsByList(List<Integer> listOfProductBatchIds) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<ProductBatchDTO> readProductBatchBySearch(String keyword) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<ProductBatchDTO> readAllProductBatchs() throws SQLException {
-        return null;
+    public List<ProductBatchDTO> getAllProductBatchs() throws SQLException {
+        return daoProductBatch.readAllProductBatchs();
     }
 
     @Override
