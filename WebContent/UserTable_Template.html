@@ -1,0 +1,50 @@
+<tr>
+    <td class="dto-table-column dto-table-selected">
+        <input class="commit-state" type="checkbox" name="checkBox" checked="false" >
+    </td>
+    <td class="dto-table-column">
+        <input class="dele-state" type="checkbox" checked="false" style="visibility: hidden; display: none;" >
+        <input class="edit-state" type="checkbox" checked="false" style="visibility: hidden; display: none;" >
+
+        <form class="dto-table-column-DTO _1x5grid">
+
+            <input  class="dto-table-column-DTO-formElement" name="userId"    value="1" type="text"             disabled>
+
+            <input  class="dto-table-column-DTO-formElement" name="username"  value="Marshmiella Skumfilidus"   disabled>
+
+            <input  class="dto-table-column-DTO-formElement" name="initials"  value="MS"                        disabled>
+
+            <!--  <select class="dto-table-column-DTO-formElement" name="inactive"                                    disabled>
+                  <option value="false">false</option>
+                  <option value="true">true</option>
+              </select> -->
+            <ul class="dto-table-column-DTO-formElement" >
+                <li>
+                    <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > aktive </button>
+                    <ul>
+                        <li> <input class="dto-table-drop-check" type="radio" name="aktivity" checked="false"> <span> aktive    </span> </li>
+                        <li> <input class="dto-table-drop-check" type="radio" name="aktivity" checked="false"> <span> in-aktive </span> </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="dto-table-column-DTO-formElement" >
+                <li>
+                    <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > -- Roles -- </button>
+                    <ul>
+                        <li> <input class="dto-table-drop-check" type="checkbox" checked="false"> <span> rolename 1 </span> </li>
+                        <li> <input class="dto-table-drop-check" type="checkbox" checked="false"> <span> rolename 2 </span> </li>
+                        <li> <input class="dto-table-drop-check" type="checkbox" checked="false"> <span> rolename 3 </span> </li>
+                        <li> <input class="dto-table-drop-check" type="checkbox" checked="false"> <span> rolename 4 </span> </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </form>
+    </td>
+    <td class="dto-table-column dto-table-menu _1x3grid" name="hejcolumn" >
+        <button class="dto-table-button" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)" >update</button>
+        <button class="dto-table-button" name="delete" onclick="dto_table_row_deleteToggle(this.parentElement.parentElement)">delete</button>
+        <button class="dto-table-button" name="find" >look at</button>
+    </td>
+</tr>

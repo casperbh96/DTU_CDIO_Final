@@ -5,15 +5,19 @@
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1" >
 
-<!-- Jquery -->
-    <script src="js/jquery-3.1.1.js" ></script>
+    <!-- Jquery -->
+    <script src="js/jquery-3.4.1.js" ></script>
     <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="StyleSheet/ui.dropdownchecklist.themeroller.css">
+     <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.min.css
+         <script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+         <link rel="stylesheet" href="StyleSheet/jquery.multiselect.css">-->
     <script src="js/jquery-ui-1.12.1/jquery-ui.js" ></script>
-    <!-- Setting up Jquery Classes functions  -->
-    <script src="js/JqueryUI_functioner.js" ></script>
-    <script src="js/c_Jquery_AjaxFunctioner.js" ></script>
-    <script src="js/jquery.serialize-object.js" ></script>
+    <script type="text/javascript" src="js/ui.dropdownchecklist-1.5-min.js"></script>
 
+    <!-- Setting up Jquery Classes functions
+    <script src="js/JqueryUI_functioner.js" ></script> -->
+    <script src="js/c_Jquery_AjaxFunctioner.js" ></script>
 
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,194 +28,66 @@
 
     <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/styleReset.css" />
-
-    <!-- Grids  -->
+    <link rel="stylesheet" href="StyleSheet/style.css" />
     <link rel="stylesheet" href="StyleSheet/grids.css" />
-    <!-- Sorting Through Users by Window Size -->
-    <link rel="stylesheet" href="StyleSheet/style_1280.css" />
-    <link rel="stylesheet" href="StyleSheet/style_1920.css" />
+    <style>
+    </style>
 
 </head>
 <body style="font-size: 65%">
-    <div id="pageFrame">
-
-        <div id="mainMenuFrame"></div>
-        <div id="contentFrame">
-            <div id="contentMenu" >
-                    <form class="contentMenu_replaceAbleMenu" action="#">
-    <!-- 2x2Grid -->    <div id="SelecterSortCategory" class="_3x2Grid contentMenu_element" >
-                                <div class="contentMenu_element contentMenu_element_label" >Sorting with Roles</div>
-                                <div class="contentMenu_element contentMenu_element_label" >from x to y</div>
-                                <div class="contentMenu_element" >
-                                   <select class="SelectionRangeOptions">
-                                        <option>no sorting</option>
-                                        <option>laborant</option>
-                                        <option>pharmacist</option>
-                                        <option>Production Leaders</option>
-                                        <option>Administrators</option>
-                                    </select>
-                                </div>
-                                <div class="contentMenu_element" >
-                                    <div class="SelectionRangeSlider"></div>
-                                </div>
-                        </div>
-    <!-- 2x2Grid -->    <div id="User_Sort_FromCategorySearch" class="contentMenu_element _3x2Grid" >
-                            <div class="contentMenu_element contentMenu_element_label">Category to Search </div>
-                            <div class="contentMenu_element contentMenu_element_label"> Search keywords </div>
-                            <div class="contentMenu_element" >
-                                <select class="SelectionRangeOptions" >
-                                    <option>no sorting</option>
-                                    <option>laborant</option>
-                                    <option>pharmacist</option>
-                                    <option>Production Leaders</option>
-                                    <option>Administrators</option>
-                                </select>
-                            </div>
-                            <div class="contentMenu_element">
-                                <input id="searchField" name="searchField" type="search">
-                            </div>
-
-                        </div>
-                        <div class="radioContent_container" >
-                                <label for="aktive">in-Aktive</label>
-                                <input class="toggle brand-toggle" type="checkbox" name="aktive" id="aktive">
-                                <label for="inaktive">Aktive</label>
-                                <input class="toggle brand-toggle" type="checkbox" name="inaktive" id="inaktive">
-                        </div>
-                        <table id="categoricalHeaderTable">
-                            <tr><th>h</th><th>h</th><th>h</th><th>h</th><th>h</th></tr>
-                        </table>
-                    </form>
-            </div>
-
-            <div id="contentViewer">
-                <div class="buttonContainer" style=" height: 100px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; " >
-                    <button onclick="
-                    post($('#UserDTO').serializeJSON(),
-                           '/rest/users/create/' + 62,
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:1/2; grid-row: 1/2; background-color: #ffc264;"> createUser('UserDTO')</button>
-                    <button onclick="
-                    get('/rest/users/get/' + $('#searchField').val(),
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:2/3; grid-row: 1/2; background-color: #fffc9e;"> getUser('searchById')</button>
-                    <button onclick="
-                    get('/rest/users/get/search/' + $('#searchField').val(),
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:3/4; grid-row: 1/2; background-color: #478e3a;"> getUser('searchByAnyThing')</button>
-                    <button onclick="
-                    get('/rest/users/get',
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:4/5; grid-row: 1/2; background-color: #2e5944;"> getAllUsers('')</button>
-                    <button onclick="
-                    put( 1,
-                           '/rest/users/update',
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:5/6; grid-row: 1/2; background-color: #2b5470;"> updateUser('UserDTO')</button>
-                    <button onclick="
-                    put(1,
-                           '/rest/users/update/roles',
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:6/7; grid-row: 1/2; background-color: #37518b;"> Can't update multiple </button>
-                    <button onclick="
-                    Delete(1,
-                           '/rest/users/delete',
-                           function (data) {
-                                $('#UsersContentFlasher').html( JSON.stringify(data) );
-                           },
-                           function (data) {
-                                $('#UsersContentFlasher').html(' Error ');
-                           },
-                           )" style=" grid-column:7/8; grid-row: 1/2; background-color: #836e8d;"> getAllUsers('')</button>
-                    <div id="UsersContentFlasher"  style=" grid-column:1/8; grid-row: 2/3; background-color: #9a977a;" > ... text her ... </div>
-                </div>
-            </div>
+<div id="pageFrame">
+    <div id="menu-frame">
+        <div id="menu-header">
+            <ul id="MainMenu">
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+            </ul>
         </div>
+        <button onclick="commitTableChanges()" style="width: 50px; height: 50px; background-color: #cd0a0a;" ></button>
     </div>
+    <div id="top-menuFrame">
+        <button id="CommitChanges" class="top-menu-Element" onclick="commitChanges_btn()"></button>
+        <div id="searchContainer"></div>
+    </div>
+    <!-- -->
+    <div id="content-container">
+        <table id="dto-table-container" data-ActiveTable="" >
 
-    <DIV class="container">
-        <form id="UserDTO">
-            <div>
-                <input id="userId" name="userId" type="number" value="1">
-            </div>
-            <div>
-                <input id="username" name="username" type="text" value="henrik">
-            </div>
-            <div>
-                <input id="initials" name="initials" type="text" value="HPH">
-            </div>
-            <div>
-                <input id="inactive" name="inactive" value=false>
-            </div>
-        </form>
-    </DIV>
 
-    <DIV class="container">
-        <form id="JSON_User_RoleUserDTO">
 
-        </form>
-    </DIV>
 
+
+
+        </table>
+        <div style=" background-color:lightsteelblue; width: 100%;">
+            <button style=" background-color:red; width:100px; height:100px;" id="testbtn" onclick="loadUser(this.parentElement)"></button>
+            <table style="width:100%;" id="testdiv" ></table>
+        </div>
+
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="StyleSheet/jquery.multiselect.css">
+<script src="js/jquery.multiselect.js"></script>
+<script>
+
+    function toggleDropDown(self){
+
+        var dropDown = $(self).siblings('ul');
+        var h = (dropDown.outerHeight(true) + 5);
+
+        dropDown.toggle();
+        dropDown.css("margin-top", "5px");
+        dropDown.css("margin-bottom", -h);
+
+    }
+
+
+</script>
 </body>
 </html>
-
-
-
-
-
-
-<!--
-<div class="contentMenu_element" ><Sorting with Roles</div>
-<div class="contentMenu_element" > from x to y </div>
-<div class="contentMenu_element" >
-     <select name="userRoles" id="userRoles">
-         <option>no sorting</option>
-         <option>laborant</option>
-         <option>pharmacist</option>
-         <option>Production Leaders</option>
-         <option>Administrators</option>
-     </select>
-</div>
-<div class="contentMenu_element" >
-    <div class="contentMenu_slider"></div>
-</div>-->
-
-
-
-
-
-
-
-
-
-

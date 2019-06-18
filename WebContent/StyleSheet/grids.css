@@ -42,3 +42,17 @@
         grid-column: 2/4;
         grid-row: 2/3;
     }
+
+
+#pageFrame{
+    display: inline-grid;
+    grid-template-columns: 1fr 11fr;
+    grid-template-rows: 50px 1fr;
+}
+    #menu-frame{
+        grid-column: 1/2;
+        grid-row:1/3;
+
+    }
+
+    /* commit Dette */
