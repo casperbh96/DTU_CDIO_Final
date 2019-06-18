@@ -93,7 +93,7 @@ public class WeightConnector {
 
             for(int i = 0; i < recipeIngredientsList.size(); i++){
                 int resId = recipeIngredientsList.get(i).getResouceId();
-                weightConverter.writeLongTextToDisplay("råvareBatch: " + String.valueOf(resId));
+                weightConverter.writeLongTextToDisplay("raavareBatch: " + String.valueOf(resId));
 
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
@@ -123,7 +123,11 @@ public class WeightConnector {
                     weightConverter.writeLongTextToDisplay("tryk ->0<- og afvej " + resourceAmount);
                     weightConverter.backToWeightDisplay();
 
+                    Thread.sleep(20000);
 
+                    while(weightConverter.statusForUserResponse() == false){
+                        weightConverter.writeInWeightDisplay("er afvejning korrekt");
+                    }
 
                     netAmount = weightConverter.getWeight();
                     System.out.println(netAmount);
