@@ -116,6 +116,23 @@ public class DAO_REL_ProductBatchResourceBatch implements I_DAL_REL_ProductBatch
     }
 
     @Override
+    public List<REL_ProductBatchResourceBatchDTO> readAllProductBatchResourceBatchByProductBatchId(int productBatchId) throws SQLException {
+        List<REL_ProductBatchResourceBatchDTO> relProductBatchResourceBatch = new ArrayList<>();
+
+        try (Connection conn = static_createConnection()) {
+            PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_productBatches_resourceBatches WHERE product_batch_id = ?");
+
+            pStmt.setInt(1, productBatchId);
+            ResultSet resultset = pStmt.executeQuery();
+
+            relProductBatchResourceBatch = resultSetWhileLoop(resultset);
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+        return relProductBatchResourceBatch;
+    }
+
+    @Override
     public List<REL_ProductBatchResourceBatchDTO> readMultipleProductBatchResourceBatchsByList(List<Integer> listOfResourceBatchIds, List<Integer> listOfProductBatchIds) throws SQLException {
         List<REL_ProductBatchResourceBatchDTO> relProductBatchResourceBatchList = new ArrayList<>();
 

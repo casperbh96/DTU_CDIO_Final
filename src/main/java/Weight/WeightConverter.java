@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Thread.*;
@@ -21,6 +24,9 @@ public class WeightConverter {
     private PrintWriter out = null;
     private boolean resultFromUserInput = false;
     private String send = "";
+    private List<String> wrongInputList = new ArrayList<>(Arrays.asList("RM20 L", "RM20 I", "RM20 C"));
+    private boolean shouldContinueFromInput = true;
+
 
     public void weightCommand(String cmd){
         String command = cmd;
@@ -30,7 +36,18 @@ public class WeightConverter {
 
             out.flush();
             out.println(command);
-            inRead = in.readLine();
+            String tempReadLine = in.readLine();
+            for(String stringFromList : wrongInputList){
+                if(tempReadLine.toLowerCase().equals(stringFromList.toLowerCase())){
+                    shouldContinueFromInput = false;
+                }
+            }
+            if(!shouldContinueFromInput){
+                inRead = in.readLine();
+                System.out.println(inRead);
+                shouldContinueFromInput = true;
+            }
+
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -120,6 +137,10 @@ public class WeightConverter {
 
         }
             in.readLine();
+    }
+
+    public void resetInputString(){
+        inRead = "";
     }
 
 

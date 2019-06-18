@@ -114,7 +114,8 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
             resultset.beforeFirst();
             resultset.next();
 
-            productBatch = new ProductBatchDTO(resultset.getInt(1), resultset.getDate(2), resultset.getString(3), resultset.getDate(4),resultset.getBoolean(5),resultset.getInt(6),resultset.getDate(7),resultset.getInt(8));        } catch (SQLException ex) {
+            productBatch = new ProductBatchDTO(resultset.getInt(1), resultset.getDate(2), resultset.getString(3), resultset.getDate(4),resultset.getBoolean(5),resultset.getInt(6),resultset.getDate(7),resultset.getInt(8));        }
+        catch (SQLException ex) {
             throw new SQLException(ex);
         }
         return productBatch;
