@@ -20,4 +20,5 @@ public interface I_DAL_REL_ProductBatchResourceBatch {
 
     void deleteSingleProductBatchResourceBatch(int resourceBatchId, int productBatchId) throws SQLException;
     void deleteMultipleProductBatchResourceBatchs(List<Integer> resourceBatchIds, List<Integer> productBatchIds) throws SQLException;
+
 }
