@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("resources")
