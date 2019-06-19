@@ -70,6 +70,19 @@ public class RestListener_User implements I_RestListener_User {
         return Response.ok(user).build();
     }
 
+    @Path("get/newid")
+    @GET
+    public Response getNewUserId() {
+        int user;
+        try {
+            user = userBLL.getNewUserId();
+        } catch (SQLException ex) {
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(user).build();
+    }
+
     @Path("get/search/{keyword}")
     @GET
     public Response getUsersBySearch(@PathParam("keyword") String search) {

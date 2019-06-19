@@ -100,6 +100,16 @@ public class BLLUser implements I_BLLUser {
         return DAL_user.readAllUsers();
     }
 
+    @Override
+    public Integer getNewUserId() throws SQLException {
+        int returnId = 1;
+        List<UserDTO> userList = DAL_user.readAllUsers();
+
+        returnId = userList.get(userList.size()).getUserId() + 1;
+
+        return returnId;
+    }
+
     // Booleans because we might return more than one role
     @Override
     public Object[] getAllUsers(boolean roles, boolean admins, boolean labTech, boolean pharmacist, boolean prodLeader) throws SQLException {
