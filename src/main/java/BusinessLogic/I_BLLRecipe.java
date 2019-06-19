@@ -2,6 +2,7 @@ package main.java.BusinessLogic;
 
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
+import main.java.Core.ResourceDTO;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public interface I_BLLRecipe {
 
+    RecipeDTO createRecipeButNotIncludedResources(RecipeDTO recipe) throws SQLException;
     RecipeDTO createRecipe(RecipeDTO singleRecipe, List<Integer> listOfResourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException;
     List<RecipeDTO> createRecipes(List<RecipeDTO> listOfRecipes, List<List<Integer>> listOfListOfResourceIds, List<List<Double>> listOfListOfResourceAmounts, List<List<Double>> listOfListOfTolerances) throws SQLException;
 
@@ -20,6 +22,7 @@ public interface I_BLLRecipe {
     List<RecipeDTO> getAllActiveRecipes() throws SQLException;
     List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException;
 
+    RecipeDTO updateRecipeButNotResources(RecipeDTO recipe) throws SQLException;
     RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException;
 //    List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 

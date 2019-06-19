@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface I_BLLProductBatch {
 
+    ProductBatchDTO createProductBatchButNotIncludedResourceBatches(ProductBatchDTO productBatchDTO) throws SQLException;
     ProductBatchDTO createProductBatch(ProductBatchDTO singleProductBatch, List<Integer> listOfResourceBatchIds, List<Double> listOfNetAmounts, List<Integer> listOfTaras) throws SQLException;
 //    List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches ) throws SQLException;
 
@@ -17,8 +18,9 @@ public interface I_BLLProductBatch {
     List<ProductBatchDTO> getAllProductBatchesUnderProduction() throws SQLException;
     List<ProductBatchDTO> getALlProductBatchesFinished() throws SQLException;
 
-    ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
-    List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
+    ProductBatchDTO updateProductBatchButNotResourceBatches(ProductBatchDTO productBatchDTO) throws SQLException;
+    ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch, List<Integer> resourceIds, List<Double> netAmounts, List<Double> taras) throws SQLException;
+//    List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;
 
     ProductBatchDTO setInactiveSingleProductBatch(int productBatchId) throws SQLException;
     List<ProductBatchDTO> setInactiveMultipleProductBatchs(List<Integer> listOfProductBatchIds) throws SQLException;

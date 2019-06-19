@@ -27,6 +27,11 @@ public class BLLProductBatchResourceBatch implements I_BLLProductBatchResourceBa
     }
 
     @Override
+    public List<REL_ProductBatchResourceBatchDTO> readAllProductBatchResourceBatchByProductBatchId(int productBatchId) throws SQLException {
+        return daoProdBatchResBatch.readAllProductBatchResourceBatchByProductBatchId(productBatchId);
+    }
+
+    @Override
     public List<REL_ProductBatchResourceBatchDTO> readMultipleProductBatchResourceBatchsByList(List<Integer> listOfResourceBatchIds, List<Integer> listOfProductBatchIds) throws SQLException {
         return daoProdBatchResBatch.readMultipleProductBatchResourceBatchsByList(listOfResourceBatchIds, listOfProductBatchIds);
     }
