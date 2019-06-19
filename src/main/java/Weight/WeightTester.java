@@ -8,13 +8,13 @@ public class WeightTester {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         WeightConverter weightConverter = new WeightConverter();
-
-        //System.out.println(weightConverter.getWeight());
+        String result = weightConverter.getWeight();
+        System.out.println(result);
 
         //System.out.println(weightConverter.weightTara());
 
         //weightConverter.writeLongTextToDisplay("Tryk OK hvis korrekt");
-        weightConverter.respondWithEnter();
+        //weightConverter.respondWithEnter();
 
         //weightConverter.backToWeightDisplay();
 

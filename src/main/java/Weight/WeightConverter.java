@@ -1,6 +1,7 @@
 package main.java.Weight;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import sun.misc.FloatingDecimal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,24 +58,41 @@ public class WeightConverter {
         }
     }
 
+    public void weightCommandWithoutWrongInput(String cmd){
+        String command = cmd;
+        try (Socket socket = new Socket("169.254.2.3", 8000)) {
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            out.flush();
+            out.println(command);
+            inRead = in.readLine();
+        }catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public String getWeight() throws IOException {
-        weightCommand("S");
+        weightCommandWithoutWrongInput("S");
         String[] split = inRead.split(" ");
         String send = "";
-        for(int i = 0; i < split.length -1 ; i++){
+        for(int i = 0; i < split.length -1; i++){
             send = split[i];
         }
+
         if(inRead.contains("S S")){
             return send;
         } else {
             return null;
         }
-
-        //double result = Double.parseDouble(send);
     }
 
     public String weightTara() throws IOException, InterruptedException {
-        weightCommand("T");
+        weightCommandWithoutWrongInput("T");
         String[] split = inRead.split(" ");
         String send = "";
         for (int i = 0; i < split.length - 1; i++) {
@@ -142,10 +160,6 @@ public class WeightConverter {
         inRead = "";
     }
 
-    public void resetDisplayString() throws IOException{
-        writeLongTextToDisplay("");
-        writeShortTextToDisplay("");
-    }
 
 
 

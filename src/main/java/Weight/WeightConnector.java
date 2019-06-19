@@ -45,6 +45,7 @@ public class WeightConnector {
         REL_ProductBatchResourceBatchDTO productBatchResourceBatchDTO = null;
         String respond = null;
         String netAmount;
+        boolean status = false;
 
 
         try {
@@ -113,26 +114,27 @@ public class WeightConnector {
                 double amountWithTolerencePos = resourceAmount + (resourceAmount * (Tolerence/100));
                 double amountWithTolerenceNeg = resourceAmount - (resourceAmount * (Tolerence/100));
 
-                weightConverter.resetInputString();
-                while(weightConverter.statusForUserResponse() == false) {
-                    weightConverter.writeInWeightDisplay("afvej " + resourceAmount);
-                }
+                //weightConverter.resetInputString();
+                //while(weightConverter.statusForUserResponse() == false) {
+                    //weightConverter.writeInWeightDisplay("fjern beholder");
+                //}
 
                 do {
 
-                    weightConverter.writeLongTextToDisplay("tryk ->0<- og afvej " + resourceAmount);
+                    weightConverter.writeLongTextToDisplay("Batchnr: " + String.valueOf(resId) + ", afvej " + resourceAmount + " kg ");
                     weightConverter.backToWeightDisplay();
 
-                    Thread.sleep(20000);
-
-                    while(weightConverter.statusForUserResponse() == false){
-                        weightConverter.writeInWeightDisplay("er afvejning korrekt");
-                    }
+                    Thread.sleep(30000);
 
                     netAmount = weightConverter.getWeight();
                     System.out.println(netAmount);
 
-                } while((Double.parseDouble(netAmount) >= amountWithTolerenceNeg & Double.parseDouble(netAmount) <= amountWithTolerencePos) == false);
+                    status = (Double.valueOf(netAmount) >= amountWithTolerenceNeg) & (Double.valueOf(netAmount) <= amountWithTolerencePos);
+
+                    System.out.println(status);
+
+
+                } while(status == false);
 
 
 
