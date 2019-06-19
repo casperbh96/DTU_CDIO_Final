@@ -1,13 +1,15 @@
 package main.java.Rest;
 
-import main.java.BusinessLogic.BLLProductBatch;
-import main.java.BusinessLogic.I_BLLProductBatch;
+import main.java.BusinessLogic.*;
 import main.java.Core.ProductBatchDTO;
+import main.java.Core.REL_ProductBatchResourceBatchDTO;
+import main.java.Core.ResourceBatchDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -16,6 +18,8 @@ import java.util.List;
 @Path("productbatch")
 public class RestListener_ProductBatch implements I_RestListener_ProductBatch {
     I_BLLProductBatch productBatchBLL = new BLLProductBatch();
+    I_BLLProductBatchResourceBatch productBatchResourceBatchBLL = new BLLProductBatchResourceBatch();
+    I_BLLResourceBatch resourceBatchBLL = new BLLResourceBatch();
 
     @Path("create")
     @POST
@@ -57,6 +61,29 @@ public class RestListener_ProductBatch implements I_RestListener_ProductBatch {
         }
 
         return Response.ok(productBatch).build();
+    }
+
+    @Path("get/{productbatchid}")
+    @GET
+    public Response getAllResourceBatchesByProductBatchId(@PathParam("productbatchid") int productBatchId) {
+        System.out.println(productBatchId);
+        List<REL_ProductBatchResourceBatchDTO> productBatchResourceBatchList = null;
+        List<ResourceBatchDTO> resourceBatchList = new ArrayList<>();
+        List<Integer> listOfResourceBatchIds = new ArrayList<>();
+        try{
+            productBatchResourceBatchList = productBatchResourceBatchBLL.readAllProductBatchResourceBatchByProductBatchId(productBatchId);
+
+            for(REL_ProductBatchResourceBatchDTO pbrb : productBatchResourceBatchList){
+                listOfResourceBatchIds.add(pbrb.getResourceBatchId());
+            }
+            if(listOfResourceBatchIds.size() > 0){
+                resourceBatchList = resourceBatchBLL.readMultipleResourceBatchsByList(listOfResourceBatchIds);
+            }
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(resourceBatchList).build();
     }
 
     @Path("get/search/{keyword}")

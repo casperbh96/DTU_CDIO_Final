@@ -25,31 +25,31 @@ public class RestListener_User implements I_RestListener_User {
         System.out.println(user);
 
         UserDTO returnUser = null;
-        try{
+        try {
             returnUser = userBLL.createUser(user);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
         return Response.ok(returnUser).build();
     }
 
-    @Path("get")// {onlyactive}
     @GET
-    public Response getAllUsers() { // @PathParam("onlyactive") boolean active
+    @Path("{active}")
+    public Response getAllUsers(@PathParam("active") boolean active) {
         List<UserDTO> userList = null;
-        try{
+        try {
             userList = userBLL.getAllUsers();
-            if(false){
+            if (active) {
                 List<UserDTO> activeUsersList = new ArrayList<>();
-                for(UserDTO user : userList){
-                    if(user.isInactive() == false){
+                for (UserDTO user : userList) {
+                    if (user.isInactive() == false) {
                         activeUsersList.add(user);
                     }
                 }
                 return Response.ok(activeUsersList).build();
             }
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -61,9 +61,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response getUserById(@PathParam("id") int userId) {
         System.out.println(userId);
         UserDTO user = null;
-        try{
+        try {
             user = userBLL.getUserById(userId);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -75,9 +75,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response getUsersBySearch(@PathParam("keyword") String search) {
         System.out.println(search);
         List<UserDTO> user = null;
-        try{
+        try {
             user = userBLL.getUserBySearch(search);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -89,9 +89,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response updateUser(UserDTO user) {
         System.out.println(user);
         UserDTO returnUser = null;
-        try{
+        try {
             returnUser = userBLL.updateUser(user);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -103,7 +103,7 @@ public class RestListener_User implements I_RestListener_User {
     public Response deleteUser(UserDTO user) {
         System.out.println(user);
         UserDTO returnUser = null;
-        try{
+        try {
             returnUser = userBLL.deleteUser(user.getUserId());
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();

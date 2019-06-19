@@ -1,8 +1,6 @@
 package main.java.DataAccess.dao;
 
-import com.sun.org.apache.regexp.internal.RE;
 import main.java.Core.REL_RoleUserDTO;
-import main.java.Core.RoleDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
