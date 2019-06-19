@@ -150,12 +150,6 @@ public class WeightConverter {
         weightCommand("D \"" + text + "\" crlf");
     }
 
-    public String respondWithEnter() throws IOException {
-        weightCommand("K 3");
-        String respond = inRead;
-        return respond;
-    }
-
     public void resetInputString(){
         inRead = "";
     }

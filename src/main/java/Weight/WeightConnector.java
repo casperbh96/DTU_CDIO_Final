@@ -114,11 +114,6 @@ public class WeightConnector {
                 double amountWithTolerencePos = resourceAmount + (resourceAmount * (Tolerence/100));
                 double amountWithTolerenceNeg = resourceAmount - (resourceAmount * (Tolerence/100));
 
-                //weightConverter.resetInputString();
-                //while(weightConverter.statusForUserResponse() == false) {
-                    //weightConverter.writeInWeightDisplay("fjern beholder");
-                //}
-
                 do {
 
                     weightConverter.writeLongTextToDisplay("Batchnr: " + String.valueOf(resId) + ", afvej " + resourceAmount + " kg ");
