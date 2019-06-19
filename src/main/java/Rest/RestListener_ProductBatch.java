@@ -63,7 +63,7 @@ public class RestListener_ProductBatch implements I_RestListener_ProductBatch {
         return Response.ok(productBatch).build();
     }
 
-    @Path("get/{productbatchid}")
+    @Path("get/resources/{productbatchid}")
     @GET
     public Response getAllResourceBatchesByProductBatchId(@PathParam("productbatchid") int productBatchId) {
         System.out.println(productBatchId);
