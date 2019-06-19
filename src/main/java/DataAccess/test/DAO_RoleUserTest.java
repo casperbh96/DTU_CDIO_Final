@@ -79,7 +79,7 @@ public class DAO_RoleUserTest {
     @org.junit.Test
     public void readSingleRoleUserByIdTest() {
         try {
-            List<REL_RoleUserDTO> userRolesList = dao.readUsersRoles(558);
+            List<REL_RoleUserDTO> userRolesList = dao.readUsersRoles(22);
             Assertions.assertNotNull(userRolesList);
 
             for(REL_RoleUserDTO i : userRolesList){

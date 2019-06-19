@@ -1,6 +1,7 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLResource;
+import main.java.BusinessLogic.I_BLLResource;
 import main.java.Core.ResourceDTO;
 
 import javax.ws.rs.*;
@@ -9,10 +10,13 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("resources")
 public class RestListener_Resource implements I_RestListener_Resource {
+    I_BLLResource resourceBLL = new BLLResource();
+
     @Path("create")
     @POST
     public Response createResource(ResourceDTO res) {
@@ -20,7 +24,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
 
         ResourceDTO returnRes = null;
         try{
-            returnRes = new BLLResource().createSingleResource(res);
+            returnRes = resourceBLL.createSingleResource(res);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -33,7 +37,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
     public Response getAllResources() {
         List<ResourceDTO> res = null;
         try{
-            res = new BLLResource().readAllResources();
+            res = resourceBLL.readAllResources();
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -47,7 +51,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
         System.out.println(resId);
         ResourceDTO res = null;
         try{
-            res = new BLLResource().readSingleResourcebyId(resId);
+            res = resourceBLL.readSingleResourcebyId(resId);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -61,7 +65,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
         System.out.println(search);
         List<ResourceDTO> res = null;
         try{
-            res = new BLLResource().readResourcebySearch(search);
+            res = resourceBLL.readResourcebySearch(search);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -75,7 +79,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
         System.out.println(res);
         ResourceDTO returnResource = null;
         try{
-            returnResource = new BLLResource().updateSingleResource(res);
+            returnResource = resourceBLL.updateSingleResource(res);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -89,7 +93,7 @@ public class RestListener_Resource implements I_RestListener_Resource {
         System.out.println(res);
         ResourceDTO returnResource = null;
         try{
-            returnResource = new BLLResource().setInactiveSingleResource(res.getResourceId());
+            returnResource = resourceBLL.setInactiveSingleResource(res.getResourceId());
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }

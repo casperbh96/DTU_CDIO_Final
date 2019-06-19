@@ -1,6 +1,7 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLRecipeResource;
+import main.java.BusinessLogic.I_BLLRecipeResource;
 import main.java.Core.REL_RecipeResourceDTO;
 
 import javax.ws.rs.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("reciperesources")
 public class RestListener_RecipeResource implements I_RestListener_RecipeResource{
-
+    I_BLLRecipeResource recipeResourceBLL = new BLLRecipeResource();
     @Path("create")
     @POST
     public Response createRecipeResource(REL_RecipeResourceDTO recRes) {
@@ -23,7 +24,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
 
         REL_RecipeResourceDTO returnRecipeResource = null;
         try{
-            returnRecipeResource = new BLLRecipeResource().createSingleRecipeResource(recRes);
+            returnRecipeResource = recipeResourceBLL.createSingleRecipeResource(recRes);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -36,7 +37,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
     public Response getAllRecipeResources() {
         List<REL_RecipeResourceDTO> returnRecipeResourceList = null;
         try{
-            returnRecipeResourceList = new BLLRecipeResource().readAllRecipeResources();
+            returnRecipeResourceList = recipeResourceBLL.readAllRecipeResources();
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -54,7 +55,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
 
         REL_RecipeResourceDTO recipeResource = null;
         try{
-            recipeResource = new BLLRecipeResource().readSingleRecipeResourcebyId(resourceId, recipeId, Date.valueOf(recipeEndDate));
+            recipeResource = recipeResourceBLL.readSingleRecipeResourcebyId(resourceId, recipeId, Date.valueOf(recipeEndDate));
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -68,7 +69,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
         System.out.println(search);
         List<REL_RecipeResourceDTO> recipeResourceList = null;
         try{
-            recipeResourceList = new BLLRecipeResource().readRecipeResourcebySearch(search);
+            recipeResourceList = recipeResourceBLL.readRecipeResourcebySearch(search);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -82,7 +83,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
         System.out.println(recRes);
         REL_RecipeResourceDTO recipeResource = null;
         try{
-            recipeResource = new BLLRecipeResource().updateSingleRecipeResource(recRes);
+            recipeResource = recipeResourceBLL.updateSingleRecipeResource(recRes);
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -99,7 +100,7 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
         System.out.println(recipeEndDate);
 
         try{
-            new BLLRecipeResource().deleteSingleRecipeResource(resourceId, recipeId, Date.valueOf(recipeEndDate));
+            recipeResourceBLL.deleteSingleRecipeResource(resourceId, recipeId, Date.valueOf(recipeEndDate));
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }

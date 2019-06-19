@@ -1,12 +1,14 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.BLLUser;
+import main.java.BusinessLogic.I_BLLUser;
 import main.java.Core.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,32 +17,43 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("users")
 public class RestListener_User implements I_RestListener_User {
+    I_BLLUser userBLL = new BLLUser();
+
     @Path("create")
     @POST
     public Response createUser(UserDTO user) {
         System.out.println(user);
 
         UserDTO returnUser = null;
-        try{
-            returnUser = new BLLUser().createUser(user);
-        } catch (SQLException ex){
+        try {
+            returnUser = userBLL.createUser(user);
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
         return Response.ok(returnUser).build();
     }
 
-    @Path("get")
     @GET
-    public Response getAllUsers() {
-        List<UserDTO> user = null;
-        try{
-            user = new BLLUser().getAllUsers();
-        } catch (SQLException ex){
+    @Path("{active}")
+    public Response getAllUsers(@PathParam("active") boolean active) {
+        List<UserDTO> userList = null;
+        try {
+            userList = userBLL.getAllUsers();
+            if (active) {
+                List<UserDTO> activeUsersList = new ArrayList<>();
+                for (UserDTO user : userList) {
+                    if (user.isInactive() == false) {
+                        activeUsersList.add(user);
+                    }
+                }
+                return Response.ok(activeUsersList).build();
+            }
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(user).build();
+        return Response.ok(userList).build();
     }
 
     @Path("get/{id}")
@@ -48,9 +61,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response getUserById(@PathParam("id") int userId) {
         System.out.println(userId);
         UserDTO user = null;
-        try{
-            user = new BLLUser().getUserById(userId);
-        } catch (SQLException ex){
+        try {
+            user = userBLL.getUserById(userId);
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -62,9 +75,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response getUsersBySearch(@PathParam("keyword") String search) {
         System.out.println(search);
         List<UserDTO> user = null;
-        try{
-            user = new BLLUser().getUserBySearch(search);
-        } catch (SQLException ex){
+        try {
+            user = userBLL.getUserBySearch(search);
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -76,9 +89,9 @@ public class RestListener_User implements I_RestListener_User {
     public Response updateUser(UserDTO user) {
         System.out.println(user);
         UserDTO returnUser = null;
-        try{
-            returnUser = new BLLUser().updateUser(user);
-        } catch (SQLException ex){
+        try {
+            returnUser = userBLL.updateUser(user);
+        } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
@@ -90,13 +103,12 @@ public class RestListener_User implements I_RestListener_User {
     public Response deleteUser(UserDTO user) {
         System.out.println(user);
         UserDTO returnUser = null;
-        try{
-            returnUser = new BLLUser().deleteUser(user.getUserId());
+        try {
+            returnUser = userBLL.deleteUser(user.getUserId());
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
         return Response.ok(returnUser).build();
     }
-
 }
