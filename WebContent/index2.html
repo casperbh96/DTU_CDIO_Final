@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
+
+    <!-- Reset StyleSheet-->
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/style.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
+
+</head>
+<body style="font-size: 65%">
+<div id="pageFrame">
+    <div id="menu-frame">
+        <div id="menu-header">
+            <ul id="MainMenu">
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+                <li> menuPoint 1</li>
+            </ul>
+        </div>
+        <!--<button onclick="commitTableChanges()" style="width: 50px; height: 50px; background-color: #cd0a0a;" ></button>-->
+    </div>
+    <div id="top-menuFrame">
+        <button id="CommitChanges" class="top-menu-Element" onclick="commit_tableUsersChanges()"></button>
+        <button style="width: 25px; background-color: #a52e46;" class="top-menu-Element"
+                onclick="CreateNew_UserRow()"></button>
+        <div id="searchContainer"></div>
+    </div>
+    <!-- -->
+    <div id="content-container">
+        <table id="dto-table-container" data-ActiveTable="">
+            <tr data-editState="edit" data-aktiveEditing="false" style="min-width:100%;" >
+                <td class="dto-table-column dto-table-selected">
+                    <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">
+                </td>
+                <td class="dto-table-column">
+                    <form class="dto-table-column-DTO" >
+                        <input class="dto-table-column-DTO-formElement P_Id"            name="P_Id"             value="P_Id"            >
+                        <input class="dto-table-column-DTO-formElement P_creation_Date" name="P_creation_Date"  value="P_creation_Date" >
+                        <input class="dto-table-column-DTO-formElement R_Name"          name="R_Name"           value="R_Name"          >
+                        <input class="dto-table-column-DTO-formElement R_EndDate"       name="R_EndDate"        value="R_EndDate"       >
+                        <input class="dto-table-column-DTO-formElement P_Status"        name="Status"           value="Status"          >
+                        <ul class="dto-table-column-DTO-formElement" >
+                            <li>
+                                <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > -- Roles -- </button>
+                                <ul class="ResourceBatchDropDown" style="display: none">
+                                    <table>
+                                        <tr class="_1x4grid" ><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                        <tr class="_1x4grid" ><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                        <tr class="_1x4grid" > <td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                    </table>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </form>
+                </td>
+            </tr>
+
+
+        </table>
+        <div style=" background-color:lightsteelblue; width: 100%;">
+            <button style=" background-color:red; width:100px; height:100px;" id="testbtn"
+                    onclick="loadtable_Productions(this.parentElement)"></button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function toggleDropDown(self) {
+        var dropDown = $(self).siblings('ul');
+        var h = (dropDown.outerHeight(true) + 5);
+
+        dropDown.toggle();
+        dropDown.css("margin-top", "5px");
+        dropDown.css("margin-bottom", -h);
+    }
+
+</script>
+</body>
+</html>
