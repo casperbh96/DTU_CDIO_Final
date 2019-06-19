@@ -158,6 +158,7 @@ public class WeightConnector {
                 if (i == 0) {
                     productBatchDTO.setCreationDate(new Date(System.currentTimeMillis()));
                     productBatchDTO.setProductionStatus("under produktion");
+                    dao_productBatch.updateSingleProductBatch(productBatchDTO);
                 }
 
                 // instantiere resourceBatchDTO med resourceBatchnummer, det samme med rel_productBatchResourceBatchDTO
@@ -167,9 +168,13 @@ public class WeightConnector {
                 // Når råvarebatch i er mindre eller samme størrelse som listen gemmes resourceAmount - nettovægt som er vejet i resourceBatch
                 // Derudover gemmes tara og nettoAmount fra vægtproceduren under den bestemte råvarebatchid-procedure
                 if (i <= resourceBatchDTOList.size()) {
+
                     resourceBatchDTO.setResourceBatchAmount(resourceBatchDTO.getResourceBatchAmount() - Double.parseDouble(netAmount));
+                    dao_resourceBatch.updateSingleResourceBatch(resourceBatchDTO);
+
                     rel_productBatchResourceBatchDTO.setTara(Double.valueOf(tara));
                     rel_productBatchResourceBatchDTO.setNetAmount(Double.valueOf(netAmount));
+                    productBatchResourceBatch.updateSingleProductBatchResourceBatch(rel_productBatchResourceBatchDTO);
                 }
 
                 // Hvis råvaren er den sidste i listen, og der ikke skal vejes flere råvarebatches afslutter programmet
@@ -177,6 +182,7 @@ public class WeightConnector {
 
                     productBatchDTO.setProductionStatus("afsluttet");
                     productBatchDTO.setProductionEndDate(new Date(System.currentTimeMillis()));
+                    dao_productBatch.updateSingleProductBatch(productBatchDTO);
                     weightConverter.writeInWeightDisplay("farvel");
                     Thread.sleep(3000);
 
