@@ -76,10 +76,11 @@
         }
 
     .dto-table-column-DTO .dto-table-column-DTO-formElement{
-        height:100%;
         max-width: 200px;
         height: 100%;
         float:left;
+        background-color: transparent;
+        border: none;
     }
         .dto-table-column-DTO{
            float:left;
@@ -93,6 +94,14 @@
         margin:0;
         border:1px solid #ccc;
     }
+    /* specifik DropDowns */
+        .ResourceBatchDropDown{
+            width: 200%;
+            margin:0 -50% 0 -50%;
+        }
+        .ResourceBatchDropDown table{
+            width: 100%;
+        }
 /* drop down menu func styles */
     .dto-table-column-DTO-formElement > li > ul {
         display:none;

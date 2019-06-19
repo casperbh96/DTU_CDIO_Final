@@ -1,7 +1,11 @@
 /* Document Wide Variables */
-var tableName_UserAdmin = "userTable";
+var HTML_RolesDropDownListElements ="";
+var HTML_Pro_Res_DropDownhtml ="";
 var ROWINDEX = 1;
 
+var TABLENAME_USERADMIN = "userTable";
+var TABLENAME_PRODUCTION = "Production";
+TABLENAME_PRODUCTION
 /* Generel Rest Funktions */
 // these are used by all CRUDE functions
 function get(url, sFunc, eFunc){
@@ -52,16 +56,15 @@ function Delete(data, url, sFunc){
 
 // as soon as loaded, Generate a Rolls DropDown List for all Users.
 $( document ).ready(function(){
-
-    get('/rest/roles/get/', function (data) {
-
+    /*get('/rest/roles/get/false', function (data) {
         $.each(data, function (i, role) {
             HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check roleId_'+ role.roleId +'" type="checkbox" checked="false" data-roleName="'+ role.rolename +'" data-roleId="'+ role.roleId +'" ><span>'+role.rolename+'</span></li> \n';
         });
-    });
+    });*/
+
 
 });
-var HTML_RolesDropDownListElements ="";
+
 function CreateNew_UserRow(){
     var createRowId = "createRow_"+ROWINDEX;
     var userDTOHeaders = {
@@ -120,7 +123,36 @@ function HTML_generateUserDTO(userDto, RowId )  {
         '                </td>\n' +
         '            </tr>';
 }
-
+function HTML_generateProductionDTO()  {
+    return '' +
+        '           <tr data-editState="edit" data-aktiveEditing="false" style="min-width:100%;" >\n' +
+        '                <td class="dto-table-column dto-table-selected">\n' +
+        '                    <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">\n' +
+        '                </td>\n' +
+        '                <td class="dto-table-column">\n' +
+        '                    <form class="dto-table-column-DTO" >\n' +
+        '                        <input class="dto-table-column-DTO-formElement P_Id"            name="P_Id"             value="P_Id"            >\n' +
+        '                        <input class="dto-table-column-DTO-formElement P_creation_Date" name="P_creation_Date"  value="P_creation_Date" >\n' +
+        '                        <input class="dto-table-column-DTO-formElement R_Name"          name="R_Name"           value="R_Name"          >\n' +
+        '                        <input class="dto-table-column-DTO-formElement R_EndDate"       name="R_EndDate"        value="R_EndDate"       >\n' +
+        '                        <input class="dto-table-column-DTO-formElement P_Status"        name="Status"           value="Status"          >\n' +
+        '                        <ul class="dto-table-column-DTO-formElement" >\n' +
+        '                            <li>\n' +
+        '                                <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > -- Roles -- </button>\n' +
+        '                                <ul class="ResourceBatchDropDown" style="display: none">\n' +
+        '                                    <table>\n' +
+        '                                        <tr class="_1x4grid"><td>resourceName</td><td>resBatchId</td><td>afMåltMængde</td><td>remaining</td></tr>\n' +
+        '                                        <tr class="_1x4grid"><td>resourceName</td><td>resBatchId</td><td>afMåltMængde</td><td>remaining</td></tr>\n' +
+        '                                        <tr class="_1x4grid"><td>resourceName</td><td>resBatchId</td><td>afMåltMængde</td><td>remaining</td></tr>\n' +
+        '                                    </table>\n' +
+        '                                </ul>\n' +
+        '\n' +
+        '                            </li>\n' +
+        '                        </ul>\n' +
+        '                    </form>\n' +
+        '                </td>\n' +
+        '            </tr>';
+}
 
 
 
@@ -170,6 +202,36 @@ function dto_table_row_deleteToggle(row){
 }
 
 /* -- CRUDE -- */
+/* -- Producktions -- */
+/*CREATE*/
+
+/*RUD*/
+
+function loadtable_Productions() {
+    /* change table Data to show it is the UsersAdmin that is Active */
+    changeTable_Data(TABLENAME_USERADMIN);
+   // get('/rest/productbatchresourcebatch/get', function (data) { 	// Get ALL UserDto's
+        ROWINDEX = 1;
+        $("#dto-table-container").empty();
+      //  $.each(data, function (i,production){  		// for Each User
+        for(var i = 0; i < 10 ; i++){
+            // Create HTML
+            var rowId = 'rowNumber_' +ROWINDEX;
+            $('#dto-table-container').append(HTML_generateProductionDTO()); // Create all HTML for a Single User.
+/*
+            var row = $('#'+rowId+'');
+            row.find('.commit-state').prop("checked",false);					 // make sure the Commit button isent activated
+            row.find('.RolesDropDown').find(' input').prop("checked",false);// make sure all Roles are Deactivated. the plan is to later activate those referenced to the user
+
+            //Activating Checkboxes to the roles, this user has
+            loadRolesPrUser(User,row);;*/
+            ROWINDEX = ROWINDEX + 1
+        }
+      //  });
+   // });
+}
+
+
 
 /* -- USERS -- */
 function createUser(self) {
@@ -186,8 +248,9 @@ function createUser(self) {
 }
 function loadtable_User() {
     /* change table Data to show it is the UsersAdmin that is Active */
-    changeTable_Data(tableName_UserAdmin);
-    get('/rest/users/true', function (data) { 	// Get ALL UserDto's
+    ROWINDEX = 1;
+    changeTable_Data(TABLENAME_USERADMIN);
+    get('/rest/users/get', function (data) { 	// Get ALL UserDto's
 
         $("#dto-table-container").empty();
         $.each(data, function (i,User){  		// for Each User
@@ -301,415 +364,6 @@ function commitTableChanges(){
 
 
 
-
-
-
-
-
-
-function getUsersAll(aktivity){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/users',
-            data:{ searchMethod:searchMethod , String:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getUsersById(id){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/users',
-            data:{ searchMethod:searchMethod , String:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function searchUsersByRow(userTableRow, aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/users/search', // SearchId or SearchRow
-            data:{ searchMethod:searchMethod , keyword:keyword },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
-
-
-
-function createRoles(role){
-
-    $(function (){
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/create',
-            data:restRoleDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getRolesAll(aktivity){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/get',
-            data:{ searchMethod:searchMethod , Id:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getRolesById(id){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/get',
-            data:{ searchMethod:searchMethod , Id:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function searchRoles(keyword, aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/search', // SearchId or SearchRow
-            data:{keyword:keyword },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-function updateRoles(role){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/update', // SearchId or SearchRow
-            data:restRoleDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
-function deleteRoles(role){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/roles/delete',
-            data:restRoleDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#RolesContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#RolesContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-
-function createResource(resource){
-
-    $(function (){
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/create',
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getResourcesAll(aktivity){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/get',
-            data:{ searchMethod:searchMethod , Id:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getResourcesById(id){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/get',
-            data:{ searchMethod:searchMethod , Id:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function searchResourceByRow(resourceRow ,aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/search', // SearchId or SearchRow
-            data:{searchMethod:searchMethod,keyword:keyword },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-function searchResourceByKey(keyword ,aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/search', // SearchId or SearchRow
-            data:{searchMethod:searchMethod,keyword:keyword },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-function updateResource(resource){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/update', // SearchId or SearchRow
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
-function deleteResource(resource){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/delete',
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-function getReOrdersResource(aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/reorders',
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-
-function createRecipe(recipe, resources){
-
-    $(function (){
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/create',
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getRecipeAll(aktivity){
-
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/get',
-            data:{ searchMethod:searchMethod , Id:Id },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-
-}
-function getRecipeAllVersion(id){}
-function getRecipeSpecifik(id, date){}
-function getRecipeResources(recipe){}
-function searchRecipesKeyword(keyword){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/search', // SearchId or SearchRow
-            data:{searchMethod:searchMethod,keyword:keyword },
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
-function searchRecipesFromResources(resources){}
-function searchRecipeByRow(recipeRow){}
-function updateRecipe(recipe, resources){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/update', // SearchId or SearchRow
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
-function deleteRecipe(recipe){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/resource/delete',
-            data:ResourceDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#IngredientContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#IngredientContentFlasher").html(" Error ");
-            }
-        });
-    });
-}
 
 
 

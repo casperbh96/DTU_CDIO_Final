@@ -10,7 +10,7 @@
     }
 ._1x3grid{
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
     ._1x3grid *:nth-child(1){
         grid-column: 1/2;
@@ -23,7 +23,7 @@
     }
 ._1x4grid{
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
     ._1x4grid *:nth-child(1){
         grid-column: 1/2;
@@ -39,7 +39,7 @@
     }
 ._1x5grid{
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
     ._1x5grid *:nth-child(1){
         grid-column: 1/2;
