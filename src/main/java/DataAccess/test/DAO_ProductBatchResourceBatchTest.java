@@ -32,14 +32,14 @@ public class DAO_ProductBatchResourceBatchTest {
             List<REL_ProductBatchResourceBatchDTO> relProductBatchResourceBatchDTOS = new ArrayList<>();
 
             List<ProductBatchDTO> prodBatchList = new ArrayList<>();
-            ProductBatchDTO productBatch1 = new ProductBatchDTO(700, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"),false, 60, Date.valueOf("9999-12-31"), 61);
-            ProductBatchDTO productBatch2 = new ProductBatchDTO(700, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"), false,61, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO productBatch1 = new ProductBatchDTO(80, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"),false, 3, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO productBatch2 = new ProductBatchDTO(90, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"), false,4, Date.valueOf("9999-12-31"), 61);
             prodBatchList.add(productBatch1);
             prodBatchList.add(productBatch2);
 
             List<ResourceBatchDTO> resBatchList = new ArrayList<>();
-            ResourceBatchDTO resBatch1 = new ResourceBatchDTO(300, 123, "sup1", false, 60);
-            ResourceBatchDTO resBatch2 = new ResourceBatchDTO(301, 456, "sup2", false, 61);
+            ResourceBatchDTO resBatch1 = new ResourceBatchDTO(5, 123, "sup1", false, 1);
+            ResourceBatchDTO resBatch2 = new ResourceBatchDTO(6, 456, "sup2", false, 2);
             resBatchList.add(resBatch1);
             resBatchList.add(resBatch2);
 
@@ -48,7 +48,7 @@ public class DAO_ProductBatchResourceBatchTest {
             for(int i = 0; i < prodBatchList.size() && i < resBatchList.size(); i++){
                 relProductBatchResourceBatchDTOS.add(new REL_ProductBatchResourceBatchDTO(
                         resBatchList.get(i).getResourceBatchId(), prodBatchList.get(i).getProductBatchId(),
-                        123,45));
+                        0.150,3));
             }
 
             daoProdBatch.createMultipleProductBatchs(prodBatchList);
@@ -142,7 +142,7 @@ public class DAO_ProductBatchResourceBatchTest {
     public void updateSingleRecipeResourceTest(){
         try{
             REL_ProductBatchResourceBatchDTO prodBatchResBatch = dao.updateSingleProductBatchResourceBatch(
-                    new REL_ProductBatchResourceBatchDTO(60, 70 , 33.00, 2.5));
+                    new REL_ProductBatchResourceBatchDTO(1, 80 , 0, 2.5));
             Assertions.assertNotNull(prodBatchResBatch);
 
             System.out.println(prodBatchResBatch);
@@ -155,8 +155,8 @@ public class DAO_ProductBatchResourceBatchTest {
     public void updateMultipleRecipeResourceTest(){
         try{
             List<REL_ProductBatchResourceBatchDTO> prodBatchResBatchList = new ArrayList<>();
-            REL_ProductBatchResourceBatchDTO pbrb1 = new REL_ProductBatchResourceBatchDTO(980, 980, 55.55, 3.5);
-            REL_ProductBatchResourceBatchDTO pbrb2 = new REL_ProductBatchResourceBatchDTO(981, 981, 56.56, 4.5);
+            REL_ProductBatchResourceBatchDTO pbrb1 = new REL_ProductBatchResourceBatchDTO(1, 80, 0, 3.5);
+            REL_ProductBatchResourceBatchDTO pbrb2 = new REL_ProductBatchResourceBatchDTO(2, 80, 0, 4.5);
             prodBatchResBatchList.add(pbrb1);
             prodBatchResBatchList.add(pbrb2);
 

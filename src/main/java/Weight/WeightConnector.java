@@ -98,6 +98,7 @@ public class WeightConnector {
             for(REL_ProductBatchResourceBatchDTO rel : resourceBatchDTOList){
                 System.out.println(rel);
                 for(int i = 0 ; i < resourceBatchDTOList.size() ; i++){
+                    resourceBatchList = new int[resourceBatchDTOList.size()];
                     resourceBatchList[i] = rel.getResourceBatchId();
                 }
             }
@@ -153,30 +154,34 @@ public class WeightConnector {
 
                 } while(status == false);
 
+                // efter første vægtprocedure gemmes startdate og status i productbatch tabellen i databasen
                 if (i == 0) {
                     productBatchDTO.setCreationDate(new Date(System.currentTimeMillis()));
                     productBatchDTO.setProductionStatus("under produktion");
                 }
 
+                // instantiere resourceBatchDTO med resourceBatchnummer, det samme med rel_productBatchResourceBatchDTO
                 ResourceBatchDTO resourceBatchDTO = dao_resourceBatch.readSingleResourceBatchById(resourceBatchList[i]);
                 REL_ProductBatchResourceBatchDTO rel_productBatchResourceBatchDTO = productBatchResourceBatch.readSingleProductBatchResourceBatchbyId(resourceBatchList[i], productbatchId);
 
-                if (i < recipeIngredientsList.size()) {
+                // Når råvarebatch i er mindre eller samme størrelse som listen gemmes resourceAmount - nettovægt som er vejet i resourceBatch
+                // Derudover gemmes tara og nettoAmount fra vægtproceduren under den bestemte råvarebatchid-procedure
+                if (i <= resourceBatchDTOList.size()) {
                     resourceBatchDTO.setResourceBatchAmount(resourceBatchDTO.getResourceBatchAmount() - Double.parseDouble(netAmount));
                     rel_productBatchResourceBatchDTO.setTara(Double.valueOf(tara));
                     rel_productBatchResourceBatchDTO.setNetAmount(Double.valueOf(netAmount));
                 }
 
+                // Hvis råvaren er den sidste i listen, og der ikke skal vejes flere råvarebatches afslutter programmet
                 if (i == resourceBatchDTOList.size() -1) {
 
                     productBatchDTO.setProductionStatus("afsluttet");
                     productBatchDTO.setProductionEndDate(new Date(System.currentTimeMillis()));
-                    weightConverter.resetInputString();
-                    while(weightConverter.statusForUserResponse()) {
-                        weightConverter.writeInWeightDisplay("afslut vægt");
-                        //programmet slutter
-                        System.exit(0);
-                    }
+                    weightConverter.writeInWeightDisplay("farvel");
+                    Thread.sleep(3000);
+
+                    //programmet slutter
+                    System.exit(0);
                 }
 
 
