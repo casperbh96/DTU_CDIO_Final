@@ -87,4 +87,19 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
 
         return Response.ok(roleUser).build();
     }
+
+    @Path("delete/{userid}")
+    @DELETE
+    public Response deleteAllRoleUserByUserId(@PathParam("userid") int userId) {
+        System.out.println(userId);
+
+        try{
+            List<REL_RoleUserDTO> allUserRoles = roleUserBLL.readUsersRoles(userId);
+            roleUserBLL.deleteMultipleUserRole(allUserRoles);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok().build();
+    }
 }
