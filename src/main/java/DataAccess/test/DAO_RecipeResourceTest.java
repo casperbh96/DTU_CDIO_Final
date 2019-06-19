@@ -34,14 +34,13 @@ public class DAO_RecipeResourceTest {
 
             List<REL_RecipeResourceDTO> recResList = new ArrayList<>();
 
-            recResList.add(new REL_RecipeResourceDTO(60, 60, Date.valueOf("9999-12-31"), 222, 2));
-            recResList.add(new REL_RecipeResourceDTO(61, 60, Date.valueOf("9999-12-31"), 222, 2));
-            recResList.add(new REL_RecipeResourceDTO(64, 60, Date.valueOf("9999-12-31"), 112, 1));
-            recResList.add(new REL_RecipeResourceDTO(65, 60, Date.valueOf("9999-12-31"), 222, 2));
+            recResList.add(new REL_RecipeResourceDTO(60, 60, Date.valueOf("9999-12-31"), 0.15, 2));
+            recResList.add(new REL_RecipeResourceDTO(61, 60, Date.valueOf("9999-12-31"), 0.2, 2));
+            recResList.add(new REL_RecipeResourceDTO(64, 60, Date.valueOf("9999-12-31"), 0.3, 3));
+            recResList.add(new REL_RecipeResourceDTO(65, 60, Date.valueOf("9999-12-31"), 0.23, 2.5));
 
 
-
-            dao.createMultipleRecipeResources(recResList);
+            dao.updateMultipleRecipeResources(recResList);
             System.out.println(recResList);
 
         } catch (SQLException e) {
