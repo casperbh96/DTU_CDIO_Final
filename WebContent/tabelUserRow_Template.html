@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Jquery -->
+    <!-- Jquery
     <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
     <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
-    <script type="text/javascript" src="js/ProductionFormJS.js"></script>
+    <script type="text/javascript" src="js/ProductionFormJS.js"></script>-->
 
     <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
@@ -21,11 +21,23 @@
 
 </head>
 <body>
-<div id="testShowContainer">
-    <tr  class="DTO_Table_Row" data-editstate="edit" data-aktiveediting="false">
 
-    </tr>
-</div>
+    <table id="dto-table-container" data-ActiveTable="">
+        <tr class="DTO_Table_Row" data-editstate="edit" data-aktiveediting="false" >
+            <td><input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">                     </td>
+            <td><div class="dto-table-column-DTO-formElement P_Id"              name="UserID" > P_Id </div>          </td>
+            <td><input class="dto-table-column-DTO-formElement P_creation_Date" name="UserName" value="UserName" >   </td>
+            <td><input class="dto-table-column-DTO-formElement R_Name"          name="UserINI"  value="UserINI"  >   </td>
+            <td><ul>
+                <li>
+                    <input class="dto-table-drop-check" type="checkbox" checked="false" data-roleName="'+ role.rolename +'" data-roleId="'+ role.roleId +'" >
+                    <span>'+role.rolename+'</span>
+                </li>
+            </ul></td>
+
+        </tr>
+    </table>
+
 </body>
 </html>
 
