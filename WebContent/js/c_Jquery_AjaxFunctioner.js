@@ -12,7 +12,7 @@ function get(url, sFunc){
         }
     });
 }
-function post(data, url, sFunc, eFunc){
+function post(data, url, sFunc){
     alert(data + url);
     $.ajax({
         type:'POST',
@@ -21,13 +21,11 @@ function post(data, url, sFunc, eFunc){
         data:data,
         success: function (data) {
             sFunc(data);
-        },
-        error: function (data) {
-            eFunc(data);
         }
     });
 }
-function put(data, url, sFunc, eFunc){
+function put(data, url, sFunc){
+    alert(data + url);
     $.ajax({
         type:'PUT',
         url: url,
@@ -35,13 +33,10 @@ function put(data, url, sFunc, eFunc){
         data:data,
         success: function (data) {
             sFunc(data);
-        },
-        error: function (data) {
-            eFunc(data);
         }
     });
 }
-function Delete(data, url, sFunc, eFunc){
+function Delete(data, url, sFunc){
     $.ajax({
         type:'DELETE',
         url: url,
@@ -50,11 +45,9 @@ function Delete(data, url, sFunc, eFunc){
         success: function (data) {
             sFunc(data);
         },
-        error: function (data) {
-            eFunc(data);
-        }
     });
 }
+
 var HTML_RolesDropDownListElements ="";
 $( document ).ready(function(){
 
@@ -69,52 +62,64 @@ $( document ).ready(function(){
 
 var tableName_UserAdmin = "userTable";
 
-
-function loadUser() {
+var index = 1;
+function loadtable_User() {
     /* change table Data to show it is the UsersAdmin that is Active */
     changeTable_Data(tableName_UserAdmin);
-
-    var index = 1;
     get('/rest/users/get', function (data) {
         $("#dto-table-container").empty();
         $.each(data, function (i,User){
 
-           // Create HTML
+            // Create HTML
             var rowId = "rowNumber_"+index;
-           // alert(rowId);
+            // alert(rowId);
 
             $('#dto-table-container').append(HTML_generateUserDTO(User, rowId));
             $('#'+rowId+'').find('.commit-state').prop( "checked", false );
-            $('#'+rowId+'').find('.dele-state').prop( "checked", false );
-            $('#'+rowId+'').find('.edit-state').prop( "checked", false );
 
+            // updating Roles Pr User
+            get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
+                 $.each(UserRoles, function (i, roles) {
+                     //     HTML_update_UserRolesPrUser( rowId, roles );
+                 });
+             });
 
-            // Update RolesDropDown to Current Roles
-            /*get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
-                $.each(UserRoles, function (i, roles) {
-                    //     HTML_update_UserRolesPrUser( rowId, roles );
-                });
-            });
-*/
             index = index + 1;
-        });
+       });
     });
+}
+function HTML_generateNewCreateRow(){
+    var createRowId = "createRow_"+index;
+    var userDTOHeaders = {
+        userId:"userId",
+        username:"username",
+        initials:"initials",
+        inactive:" aktive "
+    };
+    $('#dto-table-container').append(HTML_generateUserDTO( userDTOHeaders , createRowId));
+    $('#'+createRowId+'').css("background-color", "green");
+    $('#'+createRowId+'').attr("data-aktiveEditing","create");
+    $('#'+createRowId+'').find(' form').find(' .dto-table-column-DTO-formElement').each(function () {
+        $(this).prop('disabled', false);
+    });
+    $('#'+createRowId+'').attr("data-editstate","create");
+    $('#'+createRowId+'').find('.activeColumn').hide();
+    index = index +1;
+
 
 }
-function HTML_generateUserDTO(userDto, RowId ) {
+function HTML_generateUserDTO(userDto, RowId )  {
 
-    return '<tr id="'+RowId+'">\n' +
+    return '<tr id="'+RowId+'" data-editState="edit" data-aktiveEditing="false" >\n' +
         '                <td class="dto-table-column dto-table-selected">\n' +
         '                    <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked" >\n' +
         '                </td>\n' +
-        '                <td class="dto-table-column">\n' +
-        '                    <input class="dele-state" type="checkbox" checked="false" style="visibility: hidden; display: none;" >\n' +
-        '                    <input class="edit-state" type="checkbox" checked="false" style="visibility: hidden; display: none;" >\n' +
+        '                <td class="dto-table-column" >\n' +
         '                    <form class="dto-table-column-DTO _1x5grid">\n' +
-        '                        <input  class="dto-table-column-DTO-formElement" name="userId"    value="' + userDto.userId + '" type="text" disabled>\n' +
-        '                        <input  class="dto-table-column-DTO-formElement" name="username"  value="' + userDto.username + '"disabled>\n' +
-        '                        <input  class="dto-table-column-DTO-formElement" name="initials"  value="' + userDto.initials + '" disabled>\n' +
-        '                        <ul class="dto-table-column-DTO-formElement" >\n' +
+        '                        <input class="dto-table-column-DTO-formElement userId"   name="userId"    value="' + userDto.userId + '" type="text" disabled>\n' +
+        '                        <input class="dto-table-column-DTO-formElement username" name="username"  value="' + userDto.username + '"disabled>\n' +
+        '                        <input class="dto-table-column-DTO-formElement initials" name="initials"  value="' + userDto.initials + '" disabled>\n' +
+        '                        <ul style="display: none;" class="dto-table-column-DTO-formElement activeColumn" >\n' +
         '                            <li>\n' +
         '                                <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > ' + userDto.inactive + ' </button>\n' +
         '                                <ul>\n' +
@@ -138,114 +143,153 @@ function HTML_generateUserDTO(userDto, RowId ) {
         '                <td class="dto-table-column dto-table-menu _1x3grid" name="hejcolumn" >\n' +
         '                    <button class="dto-table-button" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)" >update</button>\n' +
         '                    <button class="dto-table-button" name="delete" onclick="dto_table_row_deleteToggle(this.parentElement.parentElement)">delete</button>\n' +
-        '                    <button class="dto-table-button" name="find" >look at</button>\n' +
         '                </td>\n' +
         '            </tr>';
 }
 function HTML_update_UserRolesPrUser( rowId, rowData){
     alert(rowId);
- //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
-  //  $(container).css("background-color","blue");
-  //  container.children('li').each(function () {
+    //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
+    //  $(container).css("background-color","blue");
+    //  container.children('li').each(function () {
 
-        //$(this).parent('.RolesDropDown')
+    //$(this).parent('.RolesDropDown')
 
-   //     var roleId = $(this).children(' input').attr("data-roleid");
-   //     var roleName = $(this).children(' span').text();
+    //     var roleId = $(this).children(' input').attr("data-roleid");
+    //     var roleName = $(this).children(' span').text();
     //    alert(roleId + " ," + roleName);
 
-   // })
+    // })
 }
 
-/* Commit Data things . */
-function commit_tableUsersChanges() {
-    $('#dto-table-container').children('tr').each( function () {
-        var commitState = $(this).find('.commit-state').prop("checked");
 
-        if(commitState){
-            if( $(this).find('.dele-state').prop("checked") ){
-                alert(commitState);
-                alert("delete Row " + $(this).attr("id"));
-            }
-            else{
-                alert("edit Row " + $(this).attr("id"));
-            }
-        }
-    });
-}
+
 
 
 function changeTable_Data(identifyer){
     $('#dto-table-container').attr("data-activetable",identifyer);
 }
 function dto_table_row_updateToggle(row){
-   if ($(row).find('.edit-state').is(':checked')) {
+    switch ($(row).attr("data-aktiveEditing")) {
+        case "false":
 
-        $(row).find(' form').find(' .dto-table-column-DTO-formElement').each(function () {
-            $(this).prop('disabled', false);
+            $(row).find(' form').find(' .dto-table-column-DTO-formElement').each(function () {
+                $(this).prop('disabled', false);
 
-        });
-        $(row).find('.edit-state').prop( "checked", false );
+            });
+            $(row).css("background-color", "yellow");
+            $(row).attr("data-aktiveEditing","true");
+            break;
 
-    }else{
+        case "true":
 
-        $(row).find(' form').find(' .dto-table-column-DTO-formElement').each(function () {
-            $(this).prop('disabled', true);
-        });
-        $(row).find('.edit-state').prop( "checked", true );
-
+            $(row).find(' form').find(' .dto-table-column-DTO-formElement').each(function () {
+                $(this).prop('disabled', true);
+            });
+            $(row).attr("data-aktiveEditing","false");
+            break;
     }
-
 }
 function dto_table_row_deleteToggle(row){
-
-    if ($(row).find('.dele-state').is(':checked')) {
-        $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
-            $(this).hide();
-        });
-        $(row).find('.dele-state').prop( "checked", false );
-    }else{
-        $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
-            $(this).show();
-        });
-        $(row).find('.dele-state').prop( "checked", true );
+    switch ( $(row).attr("data-editState") ) {
+        case "delete":
+            $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
+                $(this).show();
+            });
+            $(row).attr("data-editState","edit");
+            break;
+        case "edit":
+            $(row).find('.dto-table-column-DTO').find(' .dto-table-column-DTO-formElement').each(function () {
+                $(this).hide();
+            });
+            $(row).attr("data-editState","delete");
+            break;
+        case "create":
+            $(row).remove();
+            break;
     }
-
 }
 
+/* CRUDE */
 
+/* --- USERS --- */
+function createUser(self) {
+    alert("Creating now");
+    var userdto = UserDTO = {
+        userId: self.find('.userId').val(),
+        username:self.find('.username').val(),
+        initials:self.find('.initials').val(),
+        inactive: false
+    };
+    alert("about to send ");
+    post( JSON.stringify(userdto) ,"rest/users/create" , function (data) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function createUser(user){
-    $(function (){
-        $.ajax({
-            type:'GET',
-            url:'/rest/users/create',
-            data:user,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").html(" Error ");
-            }
-        });
     });
 }
+function deleteUser(self) {
+    var userdto = UserDTO ={
+        userId: self.find('.userId').val(),
+        username:self.find('.username').val(),
+        initials:self.find('.initials').val(),
+        inactive: false
+    };
+    Delete( JSON.stringify(userdto), "rest/users/delete" , function (data) {
+
+    });
+}
+function updateUser(self){
+    var userdto = UserDTO ={
+        userId: self.find('.userId').val(),
+        username:self.find('.username').val(),
+        initials:self.find('.initials').val(),
+        inactive: false
+    };
+    put( JSON.stringify(userdto), "rest/users/update" , function (data) {
+
+    });
+}
+function commit_tableUsersChanges(){
+
+    //$(row).attr("data-editState")
+    $('#dto-table-container').children('tr').each( function () {
+        var commitState = $(this).find('.commit-state').prop("checked");
+        var id = $(this).attr("id");
+
+        if(commitState){
+            switch ( $(this).attr("data-editstate") ) {
+                case "delete":
+                    alert("delete row"+id);
+                    deleteUser( $(this) );
+                    break;
+                case "edit":
+                    alert("edit Row " + id);
+                    updateUser( $(this) );
+                    break;
+                case "create":
+                    alert("create row "+id);
+                    //alert("create row"+ $(this).find('.userId').val() +","+ $(this).find('.username').val() +","+ $(this).find('.initials').val() +"");
+                    createUser( $(this) );
+                    break;
+            }
+        }
+        //$('#dto-table-container').empty();
+
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getUsersAll(aktivity){
 
     $(function () {
@@ -301,40 +345,8 @@ function searchUsersByRow(userTableRow, aktivity){
         });
     });
 }
-function updateUserByKey(keyword ,aktivity){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/users/update', // SearchId or SearchRow
-            data:restUserNRolesDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
-function deleteUser(user){
-    $(function () {
-        $.ajax({
-            type:'GET',
-            url:'/rest/users/delete',
-            data:restUserNRolesDTO,
-            contentType:'application/json',
-            dataType: 'json',
-            success: function (data) {
-                $("#UsersContentFlasher").html( JSON.stringify(data) );
-            },
-            error: function () {
-                $("#UsersContentFlasher").append(" Error ");
-            }
-        });
-    });
-}
+
+
 
 function createRoles(role){
 
