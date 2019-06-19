@@ -1,0 +1,116 @@
+/* Framing */
+#pageFrame{
+    width: 100%;
+    height:100%;
+}
+#top-menuFrame {
+    background-color: #555555;
+    min-width: 700px;
+}
+#menu-frame{
+    background-color: #555555;
+}
+#content-container{
+}
+/* menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- menu --- */
+        #MainMenu {
+            padding:50px 0 0 0;
+        }
+            #MainMenu li{
+                font-size: 14pt;
+                color: white;
+                padding: 2px 0 2px 0;
+                text-align: center;
+                height: 15pt;
+            }
+
+    #searchContainer{
+        float: right;
+        height:100%;
+    }
+
+    #dto-table-container{
+        width: 100%;
+        min-width: 700px;
+    }
+    .top-menu-Element{
+        height:100%;
+    }
+    #CommitChanges{
+        width:100px;
+        background-color: greenyellow;
+    }
+
+
+/* TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS --- TABLE CSS ---  */
+.dto-table-column-DTO-formElement{
+ min-width: 100px;
+}
+    .dto-table-column-DTO-formElement[type=text]:disabled, input[type=checkbox]:disabled, .dto-table-column-DTO-formElement, button{
+        text-align: center;
+        cursor: pointer;
+    }
+    .dto-table-column-DTO-formElement[type=text]:enabled{
+        background-color: white;
+    }
+
+.dto-table-menu button{
+    background-color: #ddd;
+    box-shadow:inset 0px 1px 10px 10px white;
+    border:0px;
+    transition: 1s;
+}
+
+.dto-table-menu button:hover{
+    border:0px;
+
+}
+
+    #dto-table-container tr{
+        width: 100%;
+        min-height:35px;
+        border:1px solid black;
+    }
+        #dto-table-container tr td{
+            float:left;
+        }
+
+    .dto-table-column-DTO .dto-table-column-DTO-formElement{
+        height:100%;
+        max-width: 200px;
+        height: 100%;
+        float:left;
+    }
+        .dto-table-column-DTO{
+           float:left;
+        }
+    .dto-table-dropDownList-btn{
+        border:1px solid #bbb;
+    }
+    .dto-table-dropDownList{
+        width:100%;
+        height:100%;
+        margin:0;
+        border:1px solid #ccc;
+    }
+/* drop down menu func styles */
+    .dto-table-column-DTO-formElement > li > ul {
+        display:none;
+        background-color: white;
+
+        box-shadow: 0px 0px 10px -5px black;
+        padding:10px 0 10px 0;
+        border-radius: 5px;
+
+        position: relative;
+        z-index: 1;
+
+    }
+        .dto-table-column-DTO-formElement > li{
+            width: 100%;
+            height:100%;
+        }
+        .dto-table-column-DTO-formElement > li > .dto-table-drop-btn{
+            width: 100%;
+            height:100%;
+        }/* commit Dette */
