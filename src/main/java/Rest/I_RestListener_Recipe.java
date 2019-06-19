@@ -9,6 +9,6 @@ public interface I_RestListener_Recipe {
     Response getAllRecipes();
     Response getRecipeById(int recipeId, String recipeEndDate);
     Response getRecipesBySearch(String search);
-    Response updateRecipe(RecipeDTO user);
+    Response updateRecipe(RecipeDTO recipe);
     Response deleteRecipe(int recipeId, String recipeEndDate);
 }

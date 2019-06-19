@@ -17,6 +17,11 @@ public class BLLRecipe implements I_BLLRecipe {
 
 
     @Override
+    public RecipeDTO createRecipeButNotIncludedResources(RecipeDTO recipe) throws SQLException {
+        return daoRecipe.createSingleRecipe(recipe);
+    }
+
+    @Override
     public RecipeDTO createRecipe(RecipeDTO singleRecipe, List<Integer> listOfResourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException {
         boolean resourceDoesNotExist = false;
 
@@ -125,6 +130,11 @@ public class BLLRecipe implements I_BLLRecipe {
     @Override
     public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException {
         return bllRecipeResource.readResourcesForRecipe(recipeId, Date.valueOf("9999-12-31"));
+    }
+
+    @Override
+    public RecipeDTO updateRecipeButNotResources(RecipeDTO recipe) throws SQLException {
+        return daoRecipe.updateSingleRecipe(recipe);
     }
 
     @Override
