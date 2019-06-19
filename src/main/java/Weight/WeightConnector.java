@@ -155,6 +155,9 @@ public class WeightConnector {
 
                 } while(status == false);
 
+                //programmet slutter
+                System.exit(0);
+
 
 
                 //TOD0 gemme opdatering i databasen
