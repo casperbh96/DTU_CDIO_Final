@@ -142,7 +142,7 @@ public class DAO_ProductBatchResourceBatchTest {
     public void updateSingleRecipeResourceTest(){
         try{
             REL_ProductBatchResourceBatchDTO prodBatchResBatch = dao.updateSingleProductBatchResourceBatch(
-                    new REL_ProductBatchResourceBatchDTO(980, 980, 33.33, 2.5));
+                    new REL_ProductBatchResourceBatchDTO(60, 70 , 33.00, 2.5));
             Assertions.assertNotNull(prodBatchResBatch);
 
             System.out.println(prodBatchResBatch);
