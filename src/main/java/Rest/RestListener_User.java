@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,17 +34,26 @@ public class RestListener_User implements I_RestListener_User {
         return Response.ok(returnUser).build();
     }
 
-    @Path("get")
+    @Path("get/{onlyactive}")
     @GET
-    public Response getAllUsers() {
-        List<UserDTO> user = null;
+    public Response getAllUsers(@PathParam("onlyactive") boolean active) {
+        List<UserDTO> userList = null;
         try{
-            user = userBLL.getAllUsers();
+            userList = userBLL.getAllUsers();
+            if(active){
+                List<UserDTO> activeUsersList = new ArrayList<>();
+                for(UserDTO user : userList){
+                    if(user.isInactive() == false){
+                        activeUsersList.add(user);
+                    }
+                }
+                return Response.ok(activeUsersList).build();
+            }
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(user).build();
+        return Response.ok(userList).build();
     }
 
     @Path("get/{id}")
