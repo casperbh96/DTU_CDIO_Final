@@ -14,6 +14,8 @@ public interface I_BLLProductBatch {
     List<ProductBatchDTO> getProductBatchesByList (List<Integer> listOfProductBatchIds) throws SQLException;
     List<ProductBatchDTO> getProductBatchBySearch(String keyword) throws SQLException;
     List<ProductBatchDTO> getAllProductBatchs() throws SQLException;
+    List<ProductBatchDTO> getAllProductBatchesUnderProduction() throws SQLException;
+    List<ProductBatchDTO> getALlProductBatchesFinished() throws SQLException;
 
     ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException;
     List<ProductBatchDTO> updateMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches) throws SQLException;

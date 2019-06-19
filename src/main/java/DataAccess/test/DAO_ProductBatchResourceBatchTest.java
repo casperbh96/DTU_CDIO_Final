@@ -32,14 +32,14 @@ public class DAO_ProductBatchResourceBatchTest {
             List<REL_ProductBatchResourceBatchDTO> relProductBatchResourceBatchDTOS = new ArrayList<>();
 
             List<ProductBatchDTO> prodBatchList = new ArrayList<>();
-            ProductBatchDTO productBatch1 = new ProductBatchDTO(980, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"),false, 60, Date.valueOf("9999-12-31"), 61);
-            ProductBatchDTO productBatch2 = new ProductBatchDTO(981, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"), false,61, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO productBatch1 = new ProductBatchDTO(700, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"),false, 60, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO productBatch2 = new ProductBatchDTO(700, Date.valueOf("9999-12-31"), "under produktion", Date.valueOf("2000-12-31"), false,61, Date.valueOf("9999-12-31"), 61);
             prodBatchList.add(productBatch1);
             prodBatchList.add(productBatch2);
 
             List<ResourceBatchDTO> resBatchList = new ArrayList<>();
-            ResourceBatchDTO resBatch1 = new ResourceBatchDTO(980, 123, "sup1", false, 60);
-            ResourceBatchDTO resBatch2 = new ResourceBatchDTO(981, 456, "sup2", false, 61);
+            ResourceBatchDTO resBatch1 = new ResourceBatchDTO(300, 123, "sup1", false, 60);
+            ResourceBatchDTO resBatch2 = new ResourceBatchDTO(301, 456, "sup2", false, 61);
             resBatchList.add(resBatch1);
             resBatchList.add(resBatch2);
 

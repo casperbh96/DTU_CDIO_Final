@@ -11,6 +11,7 @@ public interface I_DAL_REL_ProductBatchResourceBatch {
     List<REL_ProductBatchResourceBatchDTO> createMultipleProductBatchResourceBatchs(List<REL_ProductBatchResourceBatchDTO> listOfProductBatchResourceBatchs ) throws SQLException;
 
     REL_ProductBatchResourceBatchDTO readSingleProductBatchResourceBatchbyId(int resourceBatchId, int productBatchId) throws SQLException;
+    List<REL_ProductBatchResourceBatchDTO> readAllProductBatchResourceBatchByProductBatchId(int productBatchId) throws SQLException;
     List<REL_ProductBatchResourceBatchDTO> readMultipleProductBatchResourceBatchsByList(List<Integer> listOfResourceBatchIds, List<Integer> listOfProductBatchIds) throws SQLException;
     List<REL_ProductBatchResourceBatchDTO> readProductBatchResourceBatchbySearch(String keyword) throws SQLException;
     List<REL_ProductBatchResourceBatchDTO> readAllProductBatchResourceBatchs() throws SQLException;

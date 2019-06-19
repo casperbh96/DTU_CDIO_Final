@@ -29,13 +29,35 @@ public class DAO_RecipeResourceTest {
     // Single create
 
     @org.junit.Test
+    public void test(){
+        try {
+
+            List<REL_RecipeResourceDTO> recResList = new ArrayList<>();
+
+            recResList.add(new REL_RecipeResourceDTO(60, 60, Date.valueOf("9999-12-31"), 222, 2));
+            recResList.add(new REL_RecipeResourceDTO(61, 60, Date.valueOf("9999-12-31"), 222, 2));
+            recResList.add(new REL_RecipeResourceDTO(64, 60, Date.valueOf("9999-12-31"), 112, 1));
+            recResList.add(new REL_RecipeResourceDTO(65, 60, Date.valueOf("9999-12-31"), 222, 2));
+
+
+
+            dao.createMultipleRecipeResources(recResList);
+            System.out.println(recResList);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @org.junit.Test
     public void createMultipleRecipeResourceTest() {
         try {
             List<REL_RecipeResourceDTO> recResDTO = new ArrayList<>();
 
             List<RecipeDTO> recList = new ArrayList<>();
-            RecipeDTO rec1 = new RecipeDTO(180, Date.valueOf("9999-12-31"), "recipe3", 123,61);
-            RecipeDTO rec2 = new RecipeDTO(181, Date.valueOf("9999-12-31"), "recipe4", 321, 61);
+            RecipeDTO rec1 = new RecipeDTO(70, Date.valueOf("9999-12-31"), "recipe3", 123,61);
+            RecipeDTO rec2 = new RecipeDTO(60, Date.valueOf("9999-12-31"), "recipe4", 321, 61);
             recList.add(rec1);
             recList.add(rec2);
 
@@ -50,7 +72,7 @@ public class DAO_RecipeResourceTest {
             for(int i = 0; i < recList.size() && i < resList.size(); i++){
                 recResDTO.add(new REL_RecipeResourceDTO(
                         resList.get(i).getResourceId(), recList.get(i).getRecipeId(),
-                        recList.get(i).getRecipeEndDate(), 22.22, 1.2));
+                        recList.get(i).getRecipeEndDate(), 25.22, 1.2));
             }
 
             daoRec.createMultipleRecipes(recList);
