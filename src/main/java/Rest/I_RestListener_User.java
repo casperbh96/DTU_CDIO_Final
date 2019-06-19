@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 public interface I_RestListener_User {
     Response createUser(UserDTO user);
-    Response getAllUsers();//boolean active);
+    Response getAllUsers(boolean active);
     Response getUserById(int userId);
     Response getUsersBySearch(String search);
     Response updateUser(UserDTO user);

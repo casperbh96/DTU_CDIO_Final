@@ -53,7 +53,7 @@ function Delete(data, url, sFunc){
 // as soon as loaded, Generate a Rolls DropDown List for all Users.
 $( document ).ready(function(){
 
-    get('/rest/roles/get', function (data) {
+    get('/rest/roles/get/', function (data) {
 
         $.each(data, function (i, role) {
             HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check roleId_'+ role.roleId +'" type="checkbox" checked="false" data-roleName="'+ role.rolename +'" data-roleId="'+ role.roleId +'" ><span>'+role.rolename+'</span></li> \n';
@@ -187,7 +187,7 @@ function createUser(self) {
 function loadtable_User() {
     /* change table Data to show it is the UsersAdmin that is Active */
     changeTable_Data(tableName_UserAdmin);
-    get('/rest/users/get', function (data) { 	// Get ALL UserDto's
+    get('/rest/users/true', function (data) { 	// Get ALL UserDto's
 
         $("#dto-table-container").empty();
         $.each(data, function (i,User){  		// for Each User

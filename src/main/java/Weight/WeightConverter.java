@@ -13,9 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Thread.*;
-import static sun.misc.MessageUtils.out;
-
 public class WeightConverter {
 
     private Scanner scanner = new Scanner(System.in);
