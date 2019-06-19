@@ -42,12 +42,31 @@
     <!-- -->
     <div id="content-container">
         <table id="dto-table-container" data-ActiveTable="">
-            <tr data-editState="edit" data-aktiveEditing="false">
+            <tr data-editState="edit" data-aktiveEditing="false" style="min-width:100%;" >
                 <td class="dto-table-column dto-table-selected">
                     <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">
                 </td>
-                <td class="dto-table-column">
-
+                <td class="dto-table-column" style="width:auto; padding:0 5px 0 5px; background-color: #a52e46;">
+                    <form class="dto-table-column-DTO" >
+                        <input class="dto-table-column-DTO-formElement P_Id"            name="P_Id"             value="P_Id"            type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #E2E3DF;"    >
+                        <input class="dto-table-column-DTO-formElement P_creation_Date" name="P_creation_Date"  value="P_creation_Date" type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #3f8a56;"    >
+                        <input class="dto-table-column-DTO-formElement R_Name"          name="R_Name"           value="R_Name"          type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #E2E3DF;"    >
+                        <input class="dto-table-column-DTO-formElement R_EndDate"       name="R_EndDate"        value="R_EndDate"       type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: lightgrey;"  >
+                        <input class="dto-table-column-DTO-formElement P_Status"        name="Status"           value="Status"          type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: lightgrey;"  >
+                        <ul class="dto-table-column-DTO-formElement" >
+                            <li>
+                                <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > -- Roles -- </button>
+                                <ul class="RolesDropDown" >
+                                    <table style="width: 100%">
+                                        <tr class="_1x4grid" ><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                        <tr class="_1x4grid" ><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                        <tr class="_1x4grid" > <td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                    </table>
+                                </ul>
+                            </li>
+                        </ul>
+                    </form>
+                </td>
             </tr>
 
 

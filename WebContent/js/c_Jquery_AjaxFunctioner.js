@@ -1,6 +1,6 @@
 /* Document Wide Variables */
 var tableName_UserAdmin = "userTable";
-var RowIndex = 1;
+var ROWINDEX = 1;
 
 /* Generel Rest Funktions */
 // these are used by all CRUDE functions
@@ -58,14 +58,14 @@ $( document ).ready(function(){
     get('/rest/roles/get', function (data) {
 
         $.each(data, function (i, role) {
-            HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check" type="checkbox" checked="false" data-roleId="'+ role.roleId +'"><span>'+role.rolename+'</span></li> \n';
+            HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check roleId_'+ role.roleId +'" type="checkbox" checked="false" data-roleId="'+ role.roleId +'"><span>'+role.rolename+'</span></li> \n';
         });
     });
 
 });
 var HTML_RolesDropDownListElements ="";
 function CreateNew_UserRow(){
-    var createRowId = "createRow_"+RowIndex;
+    var createRowId = "createRow_"+ROWINDEX;
     var userDTOHeaders = {
         userId:"userId",
         username:"username",
@@ -80,7 +80,7 @@ function CreateNew_UserRow(){
     });
     $('#'+createRowId+'').attr("data-editstate","create");
     $('#'+createRowId+'').find('.activeColumn').hide();
-    RowIndex = RowIndex +1;
+    ROWINDEX = ROWINDEX +1;
 
 
 }
@@ -188,29 +188,35 @@ function createUser(self) {
 function loadtable_User() {
     /* change table Data to show it is the UsersAdmin that is Active */
     changeTable_Data(tableName_UserAdmin);
-    get('/rest/users/get', function (data) {
+    get('/rest/users/get', function (data) { 	// Get ALL UserDto's
+
         $("#dto-table-container").empty();
-        $.each(data, function (i,User){
+        $.each(data, function (i,User){  		// for Each User
 
             // Create HTML
-            var rowId = "rowNumber_"+RowIndex;
+            var rowId = 'rowNumber_' +ROWINDEX;
+            $('#dto-table-container').append(HTML_generateUserDTO(User, rowId)); // Create all HTML for a Single User.
 
-            $('#dto-table-container').append(HTML_generateUserDTO(User, rowId));
-            $('#'+rowId+'').find('.commit-state').prop( "checked", false );
+            var row = $('#'+rowId+'');
+            row.find('.commit-state').prop("checked",false);					 // make sure the Commit button isent activated
+            row.find('.RolesDropDown').find(' input').prop("checked",false);// make sure all Roles are Deactivated. the plan is to later activate those referenced to the user
 
-            // updating Roles Pr User
-            get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
-                $.each(UserRoles, function () {
-                    role = $(this);
-                    alert(" RoleName " + role.rolename);
-                         HTML_update_UserRolesPrUser( rowId, roles );
-                });
-            });
+            //Activating Checkboxes to the roles, this user has
+            loadRolesPrUser(User,row);
+            ROWINDEX = ROWINDEX + 1;
 
-            RowIndex = RowIndex + 1;
         });
     });
 }
+function loadRolesPrUser(User, row) {
+    get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {	// Get ALL RolesDto's
+        $.each(UserRoles, function (u,Role) {									// for every role
+            alert('User '+ User.userId + ' roleId_'+ Role.roleId +'');
+            row.find('.roleId_'+ Role.roleId +'').prop("checked", true );
+        });
+    });
+}
+
 function updateUser(self){
     var userdto = UserDTO ={
         userId: self.find('.userId').val(),
@@ -233,21 +239,7 @@ function deleteUser(self) {
 
     });
 }
-/* UserRoles - Necesary for users*/
-function update_UserRolesPrUser( rowId, rowData){
 
-    //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
-    //  $(container).css("background-color","blue");
-    //  container.children('li').each(function () {
-
-    //$(this).parent('.RolesDropDown')
-
-    //     var roleId = $(this).children(' input').attr("data-roleid");
-    //     var roleName = $(this).children(' span').text();
-    //    alert(roleId + " ," + roleName);
-
-    // })
-}
 
 /* Commit Changes Functions */
 function commit_tableUsersChanges(){
