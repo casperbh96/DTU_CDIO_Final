@@ -155,6 +155,11 @@ public class WeightConnector {
 
                 } while(status == false);
 
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse()){
+                    weightConverter.writeInWeightDisplay("afslut vægt");
+                }
+
                 //programmet slutter
                 System.exit(0);
 
