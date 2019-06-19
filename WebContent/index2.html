@@ -11,11 +11,10 @@
     <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
 
     <!-- Reset StyleSheet-->
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
     <link rel="stylesheet" href="StyleSheet/styleReset.css">
     <link rel="stylesheet" href="StyleSheet/style.css">
     <link rel="stylesheet" href="StyleSheet/grids.css">
-    <style>
-    </style>
 
 </head>
 <body style="font-size: 65%">
@@ -46,13 +45,13 @@
                 <td class="dto-table-column dto-table-selected">
                     <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">
                 </td>
-                <td class="dto-table-column" style="width:auto; padding:0 5px 0 5px; background-color: #a52e46;">
+                <td class="dto-table-column">
                     <form class="dto-table-column-DTO" >
-                        <input class="dto-table-column-DTO-formElement P_Id"            name="P_Id"             value="P_Id"            type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #E2E3DF;"    >
-                        <input class="dto-table-column-DTO-formElement P_creation_Date" name="P_creation_Date"  value="P_creation_Date" type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #3f8a56;"    >
-                        <input class="dto-table-column-DTO-formElement R_Name"          name="R_Name"           value="R_Name"          type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: #E2E3DF;"    >
-                        <input class="dto-table-column-DTO-formElement R_EndDate"       name="R_EndDate"        value="R_EndDate"       type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: lightgrey;"  >
-                        <input class="dto-table-column-DTO-formElement P_Status"        name="Status"           value="Status"          type="text" disabled style="width:auto; padding:0 5px 0 5px; background-color: lightgrey;"  >
+                        <input class="dto-table-column-DTO-formElement P_Id"            name="P_Id"             value="P_Id"            >
+                        <input class="dto-table-column-DTO-formElement P_creation_Date" name="P_creation_Date"  value="P_creation_Date" >
+                        <input class="dto-table-column-DTO-formElement R_Name"          name="R_Name"           value="R_Name"          >
+                        <input class="dto-table-column-DTO-formElement R_EndDate"       name="R_EndDate"        value="R_EndDate"       >
+                        <input class="dto-table-column-DTO-formElement P_Status"        name="Status"           value="Status"          >
                         <ul class="dto-table-column-DTO-formElement" >
                             <li>
                                 <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button" > -- Roles -- </button>
@@ -74,7 +73,7 @@
         </table>
         <div style=" background-color:lightsteelblue; width: 100%;">
             <button style=" background-color:red; width:100px; height:100px;" id="testbtn"
-                    onclick="loadtable_User(this.parentElement)"></button>
+                    onclick="loadtable_Productions(this.parentElement)"></button>
         </div>
     </div>
 </div>
