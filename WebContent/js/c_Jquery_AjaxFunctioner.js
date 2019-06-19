@@ -1,13 +1,17 @@
+/* Document Wide Variables */
+var tableName_UserAdmin = "userTable";
+var RowIndex = 1;
 
-
-function get(url, sFunc){
+/* Generel Rest Funktions */
+// these are used by all CRUDE functions
+function get(url, sFunc, eFunc){
     $.ajax({
         type:'GET',
         url: url,
         success: function (data) {
             sFunc(data);
         },
-        error: function() {
+        error: function(data) {
             alert("connection Error with url" + url+ ";");
         }
     });
@@ -48,7 +52,7 @@ function Delete(data, url, sFunc){
     });
 }
 
-var HTML_RolesDropDownListElements ="";
+// as soon as loaded, Generate a Rolls DropDown List for all Users.
 $( document ).ready(function(){
 
     get('/rest/roles/get', function (data) {
@@ -59,37 +63,9 @@ $( document ).ready(function(){
     });
 
 });
-
-var tableName_UserAdmin = "userTable";
-
-var index = 1;
-function loadtable_User() {
-    /* change table Data to show it is the UsersAdmin that is Active */
-    changeTable_Data(tableName_UserAdmin);
-    get('/rest/users/get', function (data) {
-        $("#dto-table-container").empty();
-        $.each(data, function (i,User){
-
-            // Create HTML
-            var rowId = "rowNumber_"+index;
-            // alert(rowId);
-
-            $('#dto-table-container').append(HTML_generateUserDTO(User, rowId));
-            $('#'+rowId+'').find('.commit-state').prop( "checked", false );
-
-            // updating Roles Pr User
-            get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
-                 $.each(UserRoles, function (i, roles) {
-                     //     HTML_update_UserRolesPrUser( rowId, roles );
-                 });
-             });
-
-            index = index + 1;
-       });
-    });
-}
-function HTML_generateNewCreateRow(){
-    var createRowId = "createRow_"+index;
+var HTML_RolesDropDownListElements ="";
+function CreateNew_UserRow(){
+    var createRowId = "createRow_"+RowIndex;
     var userDTOHeaders = {
         userId:"userId",
         username:"username",
@@ -104,7 +80,7 @@ function HTML_generateNewCreateRow(){
     });
     $('#'+createRowId+'').attr("data-editstate","create");
     $('#'+createRowId+'').find('.activeColumn').hide();
-    index = index +1;
+    RowIndex = RowIndex +1;
 
 
 }
@@ -146,25 +122,11 @@ function HTML_generateUserDTO(userDto, RowId )  {
         '                </td>\n' +
         '            </tr>';
 }
-function HTML_update_UserRolesPrUser( rowId, rowData){
-    alert(rowId);
-    //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
-    //  $(container).css("background-color","blue");
-    //  container.children('li').each(function () {
-
-    //$(this).parent('.RolesDropDown')
-
-    //     var roleId = $(this).children(' input').attr("data-roleid");
-    //     var roleName = $(this).children(' span').text();
-    //    alert(roleId + " ," + roleName);
-
-    // })
-}
 
 
 
 
-
+/* -- Menu Functions -- */
 function changeTable_Data(identifyer){
     $('#dto-table-container').attr("data-activetable",identifyer);
 }
@@ -209,19 +171,54 @@ function dto_table_row_deleteToggle(row){
     }
 }
 
-/* CRUDE */
+/* -- CRUDE -- */
 
-/* --- USERS --- */
+/* -- USERS -- */
 function createUser(self) {
-    alert("Creating now");
     var userdto = UserDTO = {
         userId: self.find('.userId').val(),
         username:self.find('.username').val(),
         initials:self.find('.initials').val(),
         inactive: false
     };
-    alert("about to send ");
     post( JSON.stringify(userdto) ,"rest/users/create" , function (data) {
+
+    });
+}
+function loadtable_User() {
+    /* change table Data to show it is the UsersAdmin that is Active */
+    changeTable_Data(tableName_UserAdmin);
+    get('/rest/users/get', function (data) {
+        $("#dto-table-container").empty();
+        $.each(data, function (i,User){
+
+            // Create HTML
+            var rowId = "rowNumber_"+RowIndex;
+
+            $('#dto-table-container').append(HTML_generateUserDTO(User, rowId));
+            $('#'+rowId+'').find('.commit-state').prop( "checked", false );
+
+            // updating Roles Pr User
+           /* get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
+                $.each(UserRoles, function () {
+                    role = $(this);
+                    alert(" RoleName " + role.rolename);
+                         HTML_update_UserRolesPrUser( rowId, roles );
+                });
+            });*/
+
+            RowIndex = RowIndex + 1;
+        });
+    });
+}
+function updateUser(self){
+    var userdto = UserDTO ={
+        userId: self.find('.userId').val(),
+        username:self.find('.username').val(),
+        initials:self.find('.initials').val(),
+        inactive: false
+    };
+    put( JSON.stringify(userdto), "rest/users/update" , function (data) {
 
     });
 }
@@ -236,17 +233,23 @@ function deleteUser(self) {
 
     });
 }
-function updateUser(self){
-    var userdto = UserDTO ={
-        userId: self.find('.userId').val(),
-        username:self.find('.username').val(),
-        initials:self.find('.initials').val(),
-        inactive: false
-    };
-    put( JSON.stringify(userdto), "rest/users/update" , function (data) {
+/* UserRoles - Necesary for users*/
+function update_UserRolesPrUser( rowId, rowData){
 
-    });
+    //   $('#'+rowId+'').find('.RolesDropDown').css("background-color", "yellow");
+    //  $(container).css("background-color","blue");
+    //  container.children('li').each(function () {
+
+    //$(this).parent('.RolesDropDown')
+
+    //     var roleId = $(this).children(' input').attr("data-roleid");
+    //     var roleName = $(this).children(' span').text();
+    //    alert(roleId + " ," + roleName);
+
+    // })
 }
+
+/* Commit Changes Functions */
 function commit_tableUsersChanges(){
 
     //$(row).attr("data-editState")
@@ -257,15 +260,12 @@ function commit_tableUsersChanges(){
         if(commitState){
             switch ( $(this).attr("data-editstate") ) {
                 case "delete":
-                    alert("delete row"+id);
                     deleteUser( $(this) );
                     break;
                 case "edit":
-                    alert("edit Row " + id);
                     updateUser( $(this) );
                     break;
                 case "create":
-                    alert("create row "+id);
                     //alert("create row"+ $(this).find('.userId').val() +","+ $(this).find('.username').val() +","+ $(this).find('.initials').val() +"");
                     createUser( $(this) );
                     break;
@@ -276,7 +276,12 @@ function commit_tableUsersChanges(){
 
     });
 }
+function commitTableChanges(){
 
+
+
+
+}
 
 
 
