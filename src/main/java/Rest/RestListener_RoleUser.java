@@ -59,6 +59,11 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
         List<Integer> listOfRoleIds = new ArrayList<>();
         try{
             roleUserList = roleUserBLL.readUsersRoles(userId);
+
+            if(roleUserList.size() < 1){
+                return Response.ok(null).build();
+            }
+
             for(REL_RoleUserDTO roleUser : roleUserList){
                 listOfRoleIds.add(roleUser.getRoleId());
             }
