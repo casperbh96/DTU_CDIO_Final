@@ -17,6 +17,11 @@ public class BLLRecipe implements I_BLLRecipe {
 
 
     @Override
+    public RecipeDTO createRecipeButNotIncludedResources(RecipeDTO recipe) throws SQLException {
+        return daoRecipe.createSingleRecipe(recipe);
+    }
+
+    @Override
     public RecipeDTO createRecipe(RecipeDTO singleRecipe, List<Integer> listOfResourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException {
         boolean resourceDoesNotExist = false;
 
