@@ -199,13 +199,13 @@ function loadtable_User() {
             $('#'+rowId+'').find('.commit-state').prop( "checked", false );
 
             // updating Roles Pr User
-           /* get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
+            get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {
                 $.each(UserRoles, function () {
                     role = $(this);
                     alert(" RoleName " + role.rolename);
                          HTML_update_UserRolesPrUser( rowId, roles );
                 });
-            });*/
+            });
 
             RowIndex = RowIndex + 1;
         });

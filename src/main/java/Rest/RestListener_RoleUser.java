@@ -60,14 +60,13 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
         try{
             roleUserList = roleUserBLL.readUsersRoles(userId);
 
-            if(roleUserList.size() < 1){
-                return Response.ok(null).build();
-            }
-
             for(REL_RoleUserDTO roleUser : roleUserList){
                 listOfRoleIds.add(roleUser.getRoleId());
             }
-            roleList = roleBLL.getRolesByList(listOfRoleIds);
+            if(roleUserList.size() > 0){
+                roleList = roleBLL.getRolesByList(listOfRoleIds);
+            }
+
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
