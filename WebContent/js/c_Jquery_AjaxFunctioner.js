@@ -347,8 +347,8 @@ function commit_tableUsersChanges(){
                     break;
             }
         }
-      //  $('#dto-table-container').empty();
-      //  loadtable_User();
+        //  $('#dto-table-container').empty();
+        //  loadtable_User();
     });
 }
 function commitTableChanges(){
