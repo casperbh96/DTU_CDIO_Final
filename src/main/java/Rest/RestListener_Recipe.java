@@ -1,7 +1,7 @@
 package main.java.Rest;
 
-import main.java.BusinessLogic.BLLRecipe;
-import main.java.BusinessLogic.I_BLLRecipe;
+import main.java.BusinessLogic.*;
+import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
 import main.java.Core.ResourceDTO;
 
@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -18,6 +19,8 @@ import java.util.List;
 @Path("recipe")
 public class RestListener_Recipe implements I_RestListener_Recipe{
     I_BLLRecipe recipeBLL = new BLLRecipe();
+    I_BLLRecipeResource recipeResourceBLL = new BLLRecipeResource();
+    I_BLLResource resourceBLL = new BLLResource();
 
     @Path("create")
     @POST
@@ -43,6 +46,28 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
         }
 
         return Response.ok(recipeList).build();
+    }
+
+    @Path("get/{recipeid}")
+    @GET
+    public Response getAllResourcesByRecipeId(@PathParam("recipeid") int recipeId) {
+        List<REL_RecipeResourceDTO> recipeResourceList = null;
+        List<ResourceDTO> resourceList = new ArrayList<>();
+        List<Integer> listOfResourceIds = new ArrayList<>();
+
+        try{
+            recipeResourceList = recipeResourceBLL.readAllRecipeResourcesByRecipeId(recipeId);
+            for(REL_RecipeResourceDTO recRes : recipeResourceList){
+                listOfResourceIds.add(recRes.getResouceId());
+            }
+            if(listOfResourceIds.size() > 0){
+                resourceList = resourceBLL.readMultipleResourcesByList(listOfResourceIds);
+            }
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(resourceList).build();
     }
 
     @Path("get/{recipeid}/{enddate}")
