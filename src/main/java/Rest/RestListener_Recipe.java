@@ -3,6 +3,7 @@ package main.java.Rest;
 import main.java.BusinessLogic.BLLRecipe;
 import main.java.BusinessLogic.I_BLLRecipe;
 import main.java.Core.RecipeDTO;
+import main.java.Core.ResourceDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,7 +20,12 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
     @Path("create")
     @POST
     public Response createRecipe(RecipeDTO recipe) {
-        return null;
+        try{
+            recipeBLL.createRecipe(null, null, null, null);
+        } catch(SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+        return Response.ok().build();
     }
 
     @Path("get")
