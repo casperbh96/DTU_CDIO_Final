@@ -133,6 +133,11 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
+    public RecipeDTO updateRecipeButNotResources(RecipeDTO recipe) throws SQLException {
+        return daoRecipe.updateSingleRecipe(recipe);
+    }
+
+    @Override
     public RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException {
         List<Integer> recIdHolder = new ArrayList<>();
         recIdHolder.add(recipe.getRecipeId());

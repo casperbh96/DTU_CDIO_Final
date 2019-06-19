@@ -22,6 +22,7 @@ public interface I_BLLRecipe {
     List<RecipeDTO> getAllActiveRecipes() throws SQLException;
     List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException;
 
+    RecipeDTO updateRecipeButNotResources(RecipeDTO recipe) throws SQLException;
     RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException;
 //    List<RecipeDTO> updateMultipleRecipes(List<RecipeDTO> listOfRecipes) throws SQLException;
 

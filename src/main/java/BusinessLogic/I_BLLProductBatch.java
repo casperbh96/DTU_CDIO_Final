@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface I_BLLProductBatch {
 
+    ProductBatchDTO createProductBatchButNotIncludedResourceBatches(ProductBatchDTO productBatchDTO) throws SQLException;
     ProductBatchDTO createProductBatch(ProductBatchDTO singleProductBatch, List<Integer> listOfResourceBatchIds, List<Double> listOfNetAmounts, List<Integer> listOfTaras) throws SQLException;
 //    List<ProductBatchDTO> createMultipleProductBatchs(List<ProductBatchDTO> listOfProductBatches ) throws SQLException;
 

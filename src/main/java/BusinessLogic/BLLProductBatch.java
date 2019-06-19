@@ -15,6 +15,11 @@ public class BLLProductBatch implements I_BLLProductBatch {
     BLLResourceBatch bllResourceBatch = new BLLResourceBatch();
 
     @Override
+    public ProductBatchDTO createProductBatchButNotIncludedResourceBatches(ProductBatchDTO productBatchDTO) throws SQLException {
+        return daoProductBatch.createSingleProductBatch(productBatchDTO);
+    }
+
+    @Override
     public ProductBatchDTO createProductBatch(ProductBatchDTO singleProductBatch, List<Integer> listOfResourceBatchIds, List<Double> listOfNetAmounts, List<Integer> listOfTaras) throws SQLException {
         boolean resourceBatchDouesNotExist = false;
 
