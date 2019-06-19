@@ -75,9 +75,15 @@
             float:left;
         }
 
-    .dto-table-column-DTO{
+    .dto-table-column-DTO .dto-table-column-DTO-formElement{
+        height:100%;
+        max-width: 200px;
         height: 100%;
+        float:left;
     }
+        .dto-table-column-DTO{
+           float:left;
+        }
     .dto-table-dropDownList-btn{
         border:1px solid #bbb;
     }

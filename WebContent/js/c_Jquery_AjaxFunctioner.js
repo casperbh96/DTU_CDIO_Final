@@ -17,7 +17,6 @@ function get(url, sFunc, eFunc){
     });
 }
 function post(data, url, sFunc){
-    alert(data + url);
     $.ajax({
         type:'POST',
         url: url,
@@ -29,7 +28,6 @@ function post(data, url, sFunc){
     });
 }
 function put(data, url, sFunc){
-    alert(data + url);
     $.ajax({
         type:'PUT',
         url: url,
@@ -58,7 +56,7 @@ $( document ).ready(function(){
     get('/rest/roles/get', function (data) {
 
         $.each(data, function (i, role) {
-            HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check roleId_'+ role.roleId +'" type="checkbox" checked="false" data-roleId="'+ role.roleId +'"><span>'+role.rolename+'</span></li> \n';
+            HTML_RolesDropDownListElements = HTML_RolesDropDownListElements + '    <li><input class="dto-table-drop-check roleId_'+ role.roleId +'" type="checkbox" checked="false" data-roleName="'+ role.rolename +'" data-roleId="'+ role.roleId +'" ><span>'+role.rolename+'</span></li> \n';
         });
     });
 
@@ -184,6 +182,7 @@ function createUser(self) {
     post( JSON.stringify(userdto) ,"rest/users/create" , function (data) {
 
     });
+   // updateRolesForUser(self);
 }
 function loadtable_User() {
     /* change table Data to show it is the UsersAdmin that is Active */
@@ -211,12 +210,10 @@ function loadtable_User() {
 function loadRolesPrUser(User, row) {
     get('/rest/roleuser/get/'+ User.userId +'', function (UserRoles) {	// Get ALL RolesDto's
         $.each(UserRoles, function (u,Role) {									// for every role
-            alert('User '+ User.userId + ' roleId_'+ Role.roleId +'');
             row.find('.roleId_'+ Role.roleId +'').prop("checked", true );
         });
     });
 }
-
 function updateUser(self){
     var userdto = UserDTO ={
         userId: self.find('.userId').val(),
@@ -227,6 +224,8 @@ function updateUser(self){
     put( JSON.stringify(userdto), "rest/users/update" , function (data) {
 
     });
+
+    updateRolesForUser(self);
 }
 function deleteUser(self) {
     var userdto = UserDTO ={
@@ -239,7 +238,29 @@ function deleteUser(self) {
 
     });
 }
+// CRUDE for USERROLES
+function updateRolesForUser(self){
 
+    var userId = self.find('.userId').val();
+    Delete(JSON.stringify(null), "rest/roleuser/delete/"+userId,function () {
+        alert("deleted Roles from " + userId);
+    });
+
+    $(self).find('.RolesDropDown').find(' input').each(function () {
+        setTimeout(1000);
+        var roleId = $(this).attr("data-roleId");
+
+
+          var REL_RoleUserDTO ={
+              userId:self.find('.userId').val(),
+              roleId:roleId
+        };
+
+          post(JSON.stringify(REL_RoleUserDTO), "rest/roleuser/create/", function (data) {
+              alert("added Role " + roleId + "from " + userId);
+          });
+    });
+}
 
 /* Commit Changes Functions */
 function commit_tableUsersChanges(){
@@ -263,9 +284,8 @@ function commit_tableUsersChanges(){
                     break;
             }
         }
-        //$('#dto-table-container').empty();
-
-
+      //  $('#dto-table-container').empty();
+      //  loadtable_User();
     });
 }
 function commitTableChanges(){
