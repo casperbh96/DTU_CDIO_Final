@@ -34,13 +34,13 @@ public class RestListener_User implements I_RestListener_User {
         return Response.ok(returnUser).build();
     }
 
-    @Path("get/{onlyactive}")
+    @Path("get")// {onlyactive}
     @GET
-    public Response getAllUsers(@PathParam("onlyactive") boolean active) {
+    public Response getAllUsers() { // @PathParam("onlyactive") boolean active
         List<UserDTO> userList = null;
         try{
             userList = userBLL.getAllUsers();
-            if(active){
+            if(false){
                 List<UserDTO> activeUsersList = new ArrayList<>();
                 for(UserDTO user : userList){
                     if(user.isInactive() == false){

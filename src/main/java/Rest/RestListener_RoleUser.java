@@ -91,7 +91,7 @@ public class RestListener_RoleUser implements I_RestListener_RoleUser {
     @Path("delete/{userid}")
     @DELETE
     public Response deleteAllRoleUserByUserId(@PathParam("userid") int userId) {
-        System.out.println(userId);
+        System.out.println("deleting users roles: " + userId);
 
         try{
             List<REL_RoleUserDTO> allUserRoles = roleUserBLL.readUsersRoles(userId);

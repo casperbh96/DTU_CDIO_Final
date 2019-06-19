@@ -76,7 +76,7 @@ public class DAO_ResourceBatchTest {
     @org.junit.Test
     public void readSingleResourceBatchByIdTest() {
         try {
-            ResourceBatchDTO res = dao.readSingleResourceBatchById(65);
+            ResourceBatchDTO res = dao.readSingleResourceBatchById(60);
             assertNotNull(res);
 
             System.out.println(res);
