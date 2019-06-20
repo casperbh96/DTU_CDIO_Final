@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -175,6 +176,8 @@ public class WeightConnector {
 
         }catch(SQLException e){
 
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
