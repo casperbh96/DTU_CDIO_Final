@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+  <!--  <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
+    <script type="text/javascript" src="js/ProductionFormJS.js"></script>-->
+    <script type="text/javascript" src="js/TableCommands_ResourceTable.js"></script>
+
+    <!-- Reset StyleSheet -->
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/tableUserRole_Template.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
+
+    <script type="text/javascript" src="js/TableCommands_UserTable.js"></script>
+
+</head>
+<body>
+    <table id="dto-table-container" data-ActiveTable="">
+        <tr class="DTO_Table_Row DTO_RESOURCE_GRID" data-editstate="edit" data-aktiveediting="false" >
+            <td ><input class="commit-state" type="checkbox"        name="checkBox" checked="unchecked"></td>
+            <td><div    class="dto-table-column-DTO-formElement "   name="Res_Id" > Res_Id</div>          </td>
+            <td><input  class="dto-table-column-DTO-formElement "   name="Res_Name" value="Res_Name" >   </td>
+            <td><select class="dto-table-column-DTO-formElement "   name="Res_ReOrder"  value="Res_ReOrder" >
+                <option value="true"> Re-Order </option>
+                <option value="true"> No Re-Order </option>
+            </select>
+            <td><p  class="dto-table-column-DTO-formElement "       name="Res_active"  value="Res_active"> active </p></td>
+            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">
+                <button class="dto-table-button resTableBtn_update" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>
+                <button class="dto-table-button resTableBtn_delete" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>
+            </td>
+        </tr>
+    </table>
+    <button style="height:50px; width:50px; background-color: red;"         onclick="LoadResources()    " style="float:left;">load</button>
+    <button style="height:50px; width:50px; background-color: greenyellow;" onclick="ResTable_UI_insertCreaterRow()" style="float:left;">new</button>
+    <button style="height:50px; width:50px; background-color: beige;" onclick="ResourceTable_commitTable()" style="float:left;">commit</button>
+<table id="#dto-table-container" >
+
+
+</table>
+</body>
+</html>
+
+<!--
+
+
+    <button style="height:50px; width:50px; background-color: burlywood;" onclick="userTable_commit_tableUsersChanges()" style="float:left;"></button>
+    <button style="height:50px; width:50px; background-color: blueviolet;" onclick="userTable_getNewId()" style="float:left;"></button>
+<td class="dto-table-column dto-table-selected">
+            <input class="commit-state" type="checkbox" name="checkBox" checked="unchecked">
+        </td>
+        <td class="dto-table-column">
+            <form class="dto-table-column-DTO _1x5grid">
+                <input class="dto-table-column-DTO-formElement userId" name="userId" value="555" type="text" disabled="">
+                <input class="dto-table-column-DTO-formElement username" name="username" value="updatedUSER" disabled="">
+                <input class="dto-table-column-DTO-formElement initials" name="initials" value="CT1" disabled="">
+                <ul style="display: none;" class="dto-table-column-DTO-formElement activeColumn">
+                    <li>
+                        <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button"> true </button>
+                        <ul>
+                            <li> <input class="dto-table-drop-check" type="radio" name="aktivity" checked="false"> <span> aktive    </span> </li>
+                            <li> <input class="dto-table-drop-check" type="radio" name="aktivity" checked="false"> <span> in-aktive </span> </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="dto-table-column-DTO-formElement">
+                    <li>
+                        <button class="dto-table-drop-btn" onclick="toggleDropDown(this)" type="button"> -- Roles -- </button>
+                        <ul class="RolesDropDown">
+
+                        </ul>
+                    </li>
+                </ul>
+
+            </form>
+        </td>
+        <td class="dto-table-column dto-table-menu _1x3grid" name="hejcolumn">
+            <button class="dto-table-button" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)">update</button>
+            <button class="dto-table-button" name="delete" onclick="dto_table_row_deleteToggle(this.parentElement.parentElement)">delete</button>
+        </td>
+
+
+-->

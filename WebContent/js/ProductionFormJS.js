@@ -143,17 +143,17 @@ function HTML_CreateResourceBach_Form(){
     return '<form class="Create_FormContainer" data-table="'+NAME_RESO_FORM+'" >\n' +
         '    <h1> RESOURCE </h1>\n' +
         '    <table class="Creation_subPartContainer">\n' +
-        '        <tr>\n' +
+        '        <tr >\n' +
         '            <td>BatchId</td>\n' +
-        '            <td><input type="number "></td>\n' +
+        '            <td><input class="ResourceDTO_BatchID" type="number " value="" placeholder="Enter Batch Id "></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
         '            <td>Ammount</td>\n' +
-        '            <td><input type="number "></td>\n' +
+        '            <td><input class="ResourceDTO_Amount" type="number "></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
         '            <td>Supplier</td>\n' +
-        '            <td><input type="text"></td>\n' +
+        '            <td><input class="ResourceDTO_Supplier" type="text"></td>\n' +
         '        </tr>\n' +
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
@@ -190,11 +190,21 @@ function commitCreateTable(self){
 }
 // Rest
 function commitResourceTable(table){
-    get('rest/resources/get',function (data) {
-        // todo update tabel
-    },function (data) {
-        alert(data);
-    });
+
+   var ResourceDTO ={
+       resourceBatchId:  table.find('.ResourceDTO_BatchID').val(),
+       resourceBatchAmount:table.find('.ResourceDTO_Amount').val(),
+       supplierName:     table.find('.ResourceDTO_Supplier').val(),
+       isLeftover: "false",
+       resourceId:    table.find('#CreationForm_SelectContainer').find('select').val(),
+    };
+
+
+     get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
+       alert("succes");
+     },function (data) {
+         alert(data);
+     });
 }
 
 // Useability Functions
