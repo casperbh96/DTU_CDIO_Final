@@ -20,7 +20,6 @@ import java.util.Scanner;
 
 public class WeightConnector {
 
-
     public static void main(String[] args) throws IOException, InterruptedException, SQLException {
 
         WeightConverter weightConverter = new WeightConverter();
@@ -44,10 +43,7 @@ public class WeightConnector {
         String netAmount;
         boolean status = false;
 
-
-
         try {
-
             // while loop som kører indtil der kommer svar fra user input på vægten
             while (weightConverter.statusForUserResponse() == false) { //sørger for at input fra vægten bliver læst korrekt
 
@@ -57,12 +53,38 @@ public class WeightConnector {
                 //System.out.println(userInput);
             }
 
+            boolean isUserInputEmpty = false;
+
+
+            if(userInput.equals("")){
+                //hvis userInput er en tom string kører programmet forfra
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("proev igen");
+                }
+                weightConverter.resetInputString();
+                main(args);
+            }
+
+
             // konvertere input fra vægt fra string til integer
             userId = Integer.parseInt(userInput.replaceAll("\\D", ""));
+            boolean isUserFound = false;
 
+            try{
+                isUserFound = user.getUserById(userId).getUserId() == userId;
+            } catch(SQLException ex){
+                //hvis useren ikke findes i databasen kører programmet forfra
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("proev igen");
+                }
+                weightConverter.resetInputString();
+                main(args);
+            }
 
             //sørger for at useren findes i databasen
-            if (user.getUserById(userId).getUserId() == userId) {
+            if (isUserFound) {
                 userObject = user.getUserById(userId);
                 System.out.println(userObject.toString());
                 weightConverter.resetInputString();
@@ -70,9 +92,6 @@ public class WeightConnector {
                     weightConverter.writeInWeightDisplay(user.getUserById(userId).getUsername());
                 }
                 //weightConverter.writeLongTextToDisplay(user.getUserById(userId).getUsername());
-            } else {
-                //hvis useren ikke findes i databasen afslutter programmet
-                System.exit(0);
             }
 
             // nulstiller string i vægtinput
@@ -85,6 +104,19 @@ public class WeightConnector {
             }
 
             productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
+            boolean isProductBatchFound = false;
+
+            try{
+                isProductBatchFound = dao_productBatch.readSingleProductBatchById(productbatchId).getProductBatchId() == productbatchId;
+            } catch(SQLException ex){
+                //hvis productbatchID ikke findes i databasen kører programmet forfra
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("proev igen");
+                }
+                weightConverter.resetInputString();
+                main(args);
+            }
 
             // henter productBatchDTO som skal gemmes i senere i proceduren
             ProductBatchDTO productBatchDTO = dao_productBatch.readSingleProductBatchById(productbatchId);
@@ -94,6 +126,17 @@ public class WeightConnector {
 
             // henter en liste af REL_ProductResourceBatchDTOér
             List<REL_ProductBatchResourceBatchDTO> resourceBatchDTOList = productBatchResourceBatch.readAllProductBatchResourceBatchByProductBatchId(productbatchId);
+
+            if(resourceBatchDTOList.size() == 0){
+                //hvis listen har nul elementer kører programmet forfra
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("proev igen");
+                }
+                weightConverter.resetInputString();
+                main(args);
+            }
+
             // sætter alle resourcebatchnr ind som en ny resourcebatchId liste
             for(REL_ProductBatchResourceBatchDTO rel : resourceBatchDTOList){
                 System.out.println(rel);
