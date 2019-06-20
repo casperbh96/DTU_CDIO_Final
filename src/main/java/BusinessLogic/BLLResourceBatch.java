@@ -1,11 +1,14 @@
 package main.java.BusinessLogic;
 
 import main.java.Core.ResourceBatchDTO;
+import main.java.DataAccess.dao.DAO_ResourceBatch;
+import main.java.DataAccess.dao.I_DAL_ResourceBatch;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class BLLResourceBatch implements I_BLLResourceBatch {
+    I_DAL_ResourceBatch dao = new DAO_ResourceBatch();
     @Override
     public ResourceBatchDTO createSingleResourceBatch(ResourceBatchDTO singleResourceBatch) throws SQLException {
         return null;
@@ -33,7 +36,7 @@ public class BLLResourceBatch implements I_BLLResourceBatch {
 
     @Override
     public List<ResourceBatchDTO> readAllResourceBatchs() throws SQLException {
-        return null;
+        return dao.readAllResourceBatchs();
     }
 
     @Override

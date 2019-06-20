@@ -114,8 +114,8 @@ public class BLLRecipe implements I_BLLRecipe {
         List<ResourceBatchDTO> allResourceBatches = bllResourceBatch.readAllResourceBatchs();
 
         for(int i : listOfResourceIds){
-            List<ResourceBatchDTO> testList = allResourceBatches.stream().filter(ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i).collect(Collectors.toList());
-            listOfResBatLists.add(testList);
+            List<ResourceBatchDTO> newList = allResourceBatches.stream().filter(ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i).collect(Collectors.toList());
+            listOfResBatLists.add(newList);
         }
 
         return new Object[]{resList, listOfResBatLists};
