@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+    <!--  <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
+      <script type="text/javascript" src="js/ProductionFormJS.js"></script>-->
+    <script type="text/javascript" src="js/TableCommands_productionTable.js"></script>
+
+
+    <!-- Reset StyleSheet
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">-->
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/tableUserRole_Template.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
+
+    <script type="text/javascript" src="js/TableCommands_UserTable.js"></script>
+
+</head>
+<body>
+<table id="dto-table-container" data-ActiveTable="">
+    <tr class="DTO_Table_Row DTO_PROD_GRID" data-editstate="edit" data-aktiveediting="false" >
+        <td><div    class="dto-table-column-DTO-formElement "   name=" P_Id" > P_Id </div>          </td>
+        <td><p  type="text" class="dto-table-column-DTO-formElement "   name="R_name" value="R_name" ></p>R_name</td>
+        <td><p  type="date" class="dto-table-column-DTO-formElement "   name="P_creation_Date"  value="P_Creation_Date"  >P_Creation_Date</p>  </td>
+        <td><p class="dto-table-column-DTO-formElement "   name="P_Status"  value="P_Status" > status </p>
+        <td><p type="number" class="dto-table-column-DTO-formElement "   name="P_authorId"  value="Production Leader Id"  ></p>Production Leader Id </td>
+        <td class="DTO_Table_Row_beneathRow" style="grid-row: 2/3; grid-column: 1/7;" >
+            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1" > Resources Used. </button>
+            <table  class="DTO_PROD_DropDown" style="display:none; position:relative; z-index:1;"  >
+                <tr class="_1x4grid" >
+                    <td class="resourceBatch_Id"    name="RB_id"> RB_id </td>
+                    <td class="recipe_name"         name="I_Name"> I_Name </td>
+                    <td class="rel_net_Amount"      name="Net_Amount"> Net_Amount </td>
+                    <td class="rel_tara"            name="Tara"> Tara </td>
+                </tr>
+                <tr class="_1x4grid" >
+                    <td name="RB_id"> RB_id </td>
+                    <td name="I_Name"> I_Name </td>
+                    <td name="Net_Amount"> Net_Amount </td>
+                    <td name="Tara"> Tara </td>
+                </tr>
+                <tr class="_1x4grid" >
+                    <td name="RB_id"> RB_id </td>
+                    <td name="I_Name"> I_Name </td>
+                    <td name="Net_Amount"> Net_Amount </td>
+                    <td name="Tara"> Tara </td>
+                </tr>
+                <tr class="_1x4grid" >
+                    <td name="RB_id"> RB_id </td>
+                    <td name="I_Name"> I_Name </td>
+                    <td name="Net_Amount"> Net_Amount </td>
+                    <td name="Tara"> Tara </td>
+                </tr>
+                <tr class="_1x4grid" >
+                    <td name="RB_id"> RB_id </td>
+                    <td name="I_Name"> I_Name </td>
+                    <td name="Net_Amount"> Net_Amount </td>
+                    <td name="Tara"> Tara </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+
+<!--<button style="height:50px; width:50px; background-color: red;" onclick="userTable_loadTable()" style="float:left;"> userTable_loadTable() </button>-->
+<button style="height:50px; width:50px; background-color: greenyellow;" onclick="LoadProductions()" style="float:left;"> LoadProductions() </button>
+<!--<button style="height:50px; width:50px; background-color: burlywood;" onclick="userTable_commit_tableUsersChanges()" style="float:left;"></button>
+<button style="height:50px; width:50px; background-color: blueviolet;" onclick="userTable_getNewId()" style="float:left;"></button>-->
+<table id="#dto-table-container" >
+
+
+</table>
+</body>
+</html>

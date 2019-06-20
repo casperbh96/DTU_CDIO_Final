@@ -8,10 +8,10 @@
     <!-- Jquery -->
     <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
-    <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
-    <script type="text/javascript" src="js/ProductionFormJS.js"></script>
+    <!-- <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>-->
+     <script type="text/javascript" src="js/ProductionFormJS.js"></script>
 
-    <!-- Reset StyleSheet-->
+     <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
     <link rel="stylesheet" href="StyleSheet/styleReset.css">
     <link rel="stylesheet" href="StyleSheet/style.css">
@@ -54,9 +54,9 @@
         <!--// column 2 -->
         <div class="ProductionForm_ListContainer" id="ProductionForm_BatchContainer" >
             <select size="10" name="selectionField" multiple="yes" style="width: 100%" data-refere="Ing_opt_1">
-                <option value="CA" data-Selected="">California -- CA </option>
-                <option value="CA" data-Selected="">California -- CA </option>
-                <option value="CA" data-Selected="">California -- CA </option>
+                <option style="display:none;" value="CA" data-Selected=""> HEJ asdasdad</option>
+                <option style="display:none;" value="CA" data-Selected="">California -- CA </option>
+                <option style="display:none;" value="CA" data-Selected="">California -- CA </option>
                 <option value="CA" data-Selected="">California -- CA </option>
                 <option value="CA" data-Selected="">California -- CA </option>
                 <option value="CA" data-Selected="">California -- CA </option>
@@ -77,45 +77,9 @@
         </table>
     </div>
 </form>
-
+<button style="height:50px; width:50px; background-color: red;" onclick="start()" style="float:left;"></button>
 <div id="generatedForm">
-    <form id="ProductionFormContainer">
-        <h1> title </h1>
-        <table class="ProductionForm_subPartContainer">
-            <tr><td> <span>id</span> </td><td>   <input type="number" value="x"> </td></tr>
-            <tr><td>
-                <span>Recipe_id</span>
-            </td><td>
-                <select>
 
-                </select>
-            </td></tr>
-        </table>
-        <div class="ProductionForm_subPartContainer _1x2grid" style="grid-column-gap:15px;" >
-            <!--// column 1 -->
-            <div class="ProductionForm_ListContainer" id="ProductionForm_ResourceContainer" style="" >
-                <select size="10" name="selectionField" multiple="yes" style="width: 100%">
-
-                </select>
-            </div>
-            <!--// column 2 -->
-            <div class="ProductionForm_ListContainer" id="ProductionForm_BatchContainer" >
-                <select size="10" name="selectionField" multiple="yes" style="width: 100%" data-refere="Ing_opt_1">
-
-                </select>
-            </div>
-        </div>
-        <div class="ProductionForm_subPartContainer" style="grid-column-gap:15px;" >
-            <!--// column 1 -->
-            <table style="width: 100%" >
-                <tr class="_1x2grid" style="width: 100%" >
-                    <td><span> Production Leader Id </span></td>
-                    <td><input id="ProductionForm_produktLeaderID" type="text" style="float:right;"></td>
-                </tr>
-
-            </table>
-        </div>
-    </form>
 </div>
 
 </body>
