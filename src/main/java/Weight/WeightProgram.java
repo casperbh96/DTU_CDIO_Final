@@ -65,11 +65,10 @@ public class WeightProgram {
                 main(args);
             }
 
-
             // konvertere input fra vægt fra string til integer
             userId = Integer.parseInt(userInput.replaceAll("\\D", ""));
-            boolean isUserFound = false;
 
+            boolean isUserFound = false;
             try{
                 isUserFound = user.getUserById(userId).getUserId() == userId;
             } catch(SQLException ex){
