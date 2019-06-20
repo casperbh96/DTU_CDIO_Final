@@ -54,33 +54,36 @@ var RECIPE_OPTION_CLASSNAME = "RecipeOption_";
 function setUpRecipe_OptionsHTML(container){
 
     var sel = $('<select>').prop("size","10");
+
     sel.prop("multiple","yes");
     sel.css("width","100%");
-  //sel.change(setUpViewOfResourceVSResourceBatches);
-
     sel.appendTo(container);
+
+
+
 
     get('/rest/recipe/get', function (data) {
 
            $.each(data, function (u, Recipe) {
 
-                var tag = '<option value="test"> test </option>';
-                /*var tag = '<option class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                //var tag = '<option value="test"> test </option>';
+                var tag = '<option onclick="switchResourcesView(this.parentElement)" class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
                                'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
                                'data-recipeId="'+ Recipe.recipeId +'" ' +
                                'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
                                'data-recipeName="'+ Recipe.recipeName +'" ' +
                                'data-productAmount="'+ Recipe.productAmount +'" ' +
-                               'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';*/
+                               'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';
                RECIPEROW = RECIPEROW + 1;
                sel.append($(tag));
 
            });
    });
-}/*
-function setUpViewOfResourceVSResourceBatches(selection){
-    alert("change");
 
+}
+function switchResourcesView(selection){
+    alert("change");
+/*
     var sel = $('<select>').prop("size","10");
     sel.prop("multiple","yes");
     sel.css("width","100%");
@@ -101,8 +104,8 @@ function setUpViewOfResourceVSResourceBatches(selection){
             sel.append($(tag));
 
         });
-    });
-}*/
+    });*/
+}
 function prodCreateTable_HTML(){
     return '<form class="ProductionFormContainer1">\n' +
         '    <h1> title </h1>\n' +
@@ -142,6 +145,8 @@ function start(){
 
     $('#generatedForm').append(prodCreateTable_HTML());
     setUpRecipe_OptionsHTML($('#ProductionForm_RecipeContainer'));
+    var SelectTag = $('#ProductionForm_RecipeContainer').find(' option');
+    SelectTag.change();
 
    // $('#ProductionForm_RecipeContainer').append(GetRecipes());
 
