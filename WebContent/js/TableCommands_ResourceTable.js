@@ -66,8 +66,8 @@ function HTML_GenerateResourceRow(Resource,RowName){
         '            </select>\n' +
         '            <td class="dto-table-column-DTO-formElement "><p value="'+Resource.inactive+'"> '+ Resource.inactive +' </p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">\n' +
-        '                <button class="dto-table-button" name="update" onclick="ResTable_UI_updateRow(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
-        '                <button class="dto-table-button" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
+        '                <button class="dto-table-button resTableBtn_update" name="update" onclick="ResTable_UI_updateRow(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
+        '                <button class="dto-table-button resTableBtn_delete" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
         '            </td>\n' +
         '        </tr>';
 }
@@ -98,25 +98,28 @@ function ResTable_UI_deleteRow(row){
 function ResTable_UI_insertCreaterRow(){
 
     RES_ID_NAMING = "resource_";
-    var ROWINDEX = 1;
     // Create the Row
-    var rowId = RES_ID_NAMING +ROWINDEX ;
-    var user = {
-         resourceId;
-     resourceName;
-     reorder;
-     inactive;
-    }
-    $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
-    userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
-    // uncheck all Users Roles
-    var thisRow = $('#'+rowId+'');
-    thisRow.children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
-    thisRow.css("background-color","green");
-    thisRow.find('.User_UpdateBtn').hide();
-    thisRow.find(' input').prop('disabled', false);
-    // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
+    var RowName = RES_ID_NAMING + ROWINDEX ;
+    var Resource = {
+         resourceId: "Id to come",
+        resourceName:"resourceName",
+        reorder: "reOrder",
+        inactive:false
+    };
+    $('#dto-table-container').append(HTML_GenerateResourceRow(Resource,RowName))
 
+        ROWINDEX = ROWINDEX + 1 ;
+        // uncheck all Users Roles
+        var thisRow = $('#'+RowName+'');
+        thisRow.attr("data-editstate",Res_STATE_createReady);
+
+        thisRow.find('.resTableBtn_update').hide();
+        thisRow.find(' input').prop('disabled', false);
+        thisRow.find(' select').prop('disabled', false);
+        thisRow.css("background-color","green");
+
+
+    // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
 }
 
 /*function userTable_CREATE_insertCreaterRow(){
@@ -158,18 +161,20 @@ function ResourceTable_REST_createResource(row){
     //ResTable_getNewId(function (data) {
 
         var userdto ={
-            userId:  11 ,
-            username:$(row).find('.username').val(),
-            initials:$(row).find('.initials').val(),
-            inactive:$(row).attr("data-inactive-User")
+            resourceId:  11 ,
+            resourceName:$(row).find('.resourceName').val(),
+            reorder:$(row).find('.reorder').val(),
+            inactive:false
         };
-        post( JSON.stringify(userdto) ,"rest/resources/create" , function (data) {
+
+        alert("resourceId :"+userdto.resourceId+" , resourceName:"+ userdto.resourceName+" , reorder:"+ userdto.reorder +"inactive :" + userdto.inactive)
+        /*post( JSON.stringify( userdto ) ,"rest/resources/create" , function (data) {
             alert("created " + userdto.toString());
-        });
+        });*/
 
     //});
 }
-function ResourceTable_commit_tableUsersChanges(){
+function ResourceTable_commitTable(){
     //$(row).attr("data-editState")
     $('#dto-table-container').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
