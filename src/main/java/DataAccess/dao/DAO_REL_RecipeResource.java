@@ -3,6 +3,8 @@ package main.java.DataAccess.dao;
 import main.java.Core.REL_RecipeResourceDTO;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,8 +130,14 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE recipe_id = ? AND NOT recipe_end_date = ?");
 
+            System.out.println("it updated");
+            String dateToParse="9999/12/30";
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = sdf1.parse(dateToParse);
+            java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+
             pStmt.setInt(1, recipeId);
-            pStmt.setDate(2, Date.valueOf("9999/12/30"));
+            pStmt.setDate(2, sqlStartDate);
             ResultSet resultset = pStmt.executeQuery();
 
             resultset.beforeFirst();
@@ -139,6 +147,8 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
             }
         } catch (SQLException ex) {
             throw new SQLException(ex);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return relRecipeResourceList;
     }
