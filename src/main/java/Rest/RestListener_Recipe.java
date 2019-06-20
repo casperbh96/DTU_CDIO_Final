@@ -74,7 +74,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
     @GET
     public Response getRecipeById(@PathParam("recipeid") int recipeId, @PathParam("enddate") String recipeEndDate) {
         System.out.println(recipeId);
-        System.out.println(recipeEndDate);
+        System.out.println(Date.valueOf(recipeEndDate));
 
         RecipeDTO recipe = null;
         try{
