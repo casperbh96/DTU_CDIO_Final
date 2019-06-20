@@ -1,21 +1,22 @@
 package main.java.BusinessLogic;
 
-import main.java.Core.REL_RecipeResourceDTO;
-import main.java.Core.RecipeDTO;
-import main.java.Core.StringToSqlDateConverter;
+import main.java.Core.*;
 import main.java.DataAccess.dao.*;
 
+import javax.annotation.Resource;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BLLRecipe implements I_BLLRecipe {
     private DAO_Recipe daoRecipe = new DAO_Recipe();
     private BLLRecipeResource bllRecipeResource = new BLLRecipeResource();
     private BLLResource bllResource = new BLLResource();
+    private BLLResourceBatch bllResourceBatch = new BLLResourceBatch();
 
 
     @Override
@@ -94,6 +95,30 @@ public class BLLRecipe implements I_BLLRecipe {
     @Override
     public RecipeDTO getRecipeById(int recipeId, Date recipeEndDate) throws SQLException {
         return daoRecipe.readSingleRecipeById(recipeId,recipeEndDate);
+    }
+
+    public Object[] getAllResourcesAndResourceBatchesByRecipeId(int recipeId) throws SQLException {
+        List<ResourceDTO> resList = new ArrayList<>();
+        List<List<ResourceBatchDTO>> listOfResBatLists = new ArrayList<>();
+        List<REL_RecipeResourceDTO> recipeResourceList = null;
+        List<Integer> listOfResourceIds = new ArrayList<>();
+
+        recipeResourceList = bllRecipeResource.readAllRecipeResourcesByRecipeId(recipeId);
+        for(REL_RecipeResourceDTO recRes : recipeResourceList){
+            listOfResourceIds.add(recRes.getResouceId());
+        }
+        if(listOfResourceIds.size() > 0){
+            resList = bllResource.readMultipleResourcesByList(listOfResourceIds);
+        }
+
+        List<ResourceBatchDTO> allResourceBatches = bllResourceBatch.readAllResourceBatchs();
+
+        for(int i : listOfResourceIds){
+            List<ResourceBatchDTO> testList = allResourceBatches.stream().filter(ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i).collect(Collectors.toList());
+            listOfResBatLists.add(testList);
+        }
+
+        return new Object[]{resList, listOfResBatLists};
     }
 
     @Override

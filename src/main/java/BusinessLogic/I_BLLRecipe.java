@@ -17,6 +17,7 @@ public interface I_BLLRecipe {
 
     RecipeDTO getRecipeById(int recipeId, Date recipeEndDate) throws SQLException;
     RecipeDTO getActiveRecipeById(int recipeId) throws SQLException, ParseException;
+    Object[] getAllResourcesAndResourceBatchesByRecipeId(int recipeId) throws SQLException;
     List<RecipeDTO> getRecipesByList(List<Integer> listOfRecipeIds, List<Date> listOfRecipeEndDates) throws SQLException;
     List<RecipeDTO> getRecipeBySearch(String keyword) throws SQLException;
     List<RecipeDTO> getAllRecipes() throws SQLException;

@@ -132,7 +132,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE recipe_id = ? AND NOT recipe_end_date = ?");
 
             pStmt.setInt(1, recipeId);
-            pStmt.setDate(2, new StringToSqlDateConverter().convertStringToDate("9999/12/30"));
+            pStmt.setDate(2, new StringToSqlDateConverter().convertStringToDate("9999-12-30"));
             ResultSet resultset = pStmt.executeQuery();
 
             resultset.beforeFirst();
