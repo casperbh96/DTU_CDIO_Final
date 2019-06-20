@@ -44,89 +44,107 @@ function Delete(data, url, sFunc){
     });
 }
 
-var RECIPE_ID_NAME ="recipe_";
-var RECIPE_RES_ID_NAME ="res_Recipe_";
-var RECIPE_OPTIONS ="\n";
-var INGREDIENTS_OPTIONS ="\n";
-// Frequently Updated;
-var CURRENT_RECIPE;
 
-get('/rest/recipe/get', function (data) {
-    $.each(data, function (i, Recipe) {
-        RECIPE_OPTIONS = RECIPE_OPTIONS + '<option class="'+RECIPE_ID_NAME+Recipe.recipeId+'" value="'+ Recipe.recipeId +'" data-recipeId="'+Recipe.productAmount+'" data-authorId="'+Recipe.authorUserId+'">'+Recipe.recipeName+'</option> \n';
-        INGREDIENTS_OPTIONS = INGREDIENTS_OPTIONS + '<optgroup id="'+RECIPE_RES_ID_NAME+'" label="'+Recipe.recipeName+'">';
-        CURRENT_RECIPE = Recipe;
 
-        get('/rest/recipe/get/'+CURRENT_RECIPE.recipeId+'', function (data) {
+var RECIPEROW = 0;
+var RECIPE_OPTION_CLASSNAME = "RecipeOption_";
 
-            INGREDIENTS_OPTIONS = INGREDIENTS_OPTIONS + '<option value="volvo">Volvo</option>';
+
+
+function setUpRecipe_OptionsHTML(container){
+
+    var sel = $('<select>').prop("size","10");
+    sel.prop("multiple","yes");
+    sel.css("width","100%");
+  //sel.change(setUpViewOfResourceVSResourceBatches);
+
+    sel.appendTo(container);
+
+    get('/rest/recipe/get', function (data) {
+
+           $.each(data, function (u, Recipe) {
+
+                var tag = '<option value="test"> test </option>';
+                /*var tag = '<option class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                               'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                               'data-recipeId="'+ Recipe.recipeId +'" ' +
+                               'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
+                               'data-recipeName="'+ Recipe.recipeName +'" ' +
+                               'data-productAmount="'+ Recipe.productAmount +'" ' +
+                               'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';*/
+               RECIPEROW = RECIPEROW + 1;
+               sel.append($(tag));
+
+           });
+   });
+}/*
+function setUpViewOfResourceVSResourceBatches(selection){
+    alert("change");
+
+    var sel = $('<select>').prop("size","10");
+    sel.prop("multiple","yes");
+    sel.css("width","100%");
+    sel.appendTo(container);
+
+    get('/rest/recipe/get', function (data) {
+
+        $.each(data, function (u, Recipe) {
+
+            var tag = '<option class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                'data-recipeId="'+ Recipe.recipeId +'" ' +
+                'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
+                'data-recipeName="'+ Recipe.recipeName +'" ' +
+                'data-productAmount="'+ Recipe.productAmount +'" ' +
+                'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';
+            RECIPEROW = RECIPEROW + 1;
+            sel.append($(tag));
 
         });
-
     });
-});
-
-function HTML_GenerateForm(){
-    return '\n' +
-    '    <form id="ProductionFormContainer">\n' +
-        '        <h1> title </h1>\n' +
-        '        <table class="ProductionForm_subPartContainer">\n' +
-        '            <tr><td> <span>id</span> </td><td>   <input type="number" value="x"> </td></tr>\n' +
-        '            <tr><td>\n' +
-        '                <span>Recipe_id</span>\n' +
-        '            </td><td>\n' +
-        '                <select id="ProductionForm_RecipeContainer">\n' +
-        ''+  RECIPE_OPTIONS +
-        '                </select>\n' +
-        '            </td></tr>\n' +
+}*/
+function prodCreateTable_HTML(){
+    return '<form class="ProductionFormContainer1">\n' +
+        '    <h1> title </h1>\n' +
+        '    <table class="ProductionForm_subPartContainer">\n' +
+        '       <tr><td> <span>id</span> </td><td>   <input type="number" value="x"> </td></tr>\n' +
+        '    </table>\n' +
+        '    <div class="ProductionForm_subPartContainer " style="grid-column-gap:15px;" >\n' +
+        '        <!--// column 1 -->\n' +
+        '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
+        '        <div class="ProductionForm_ListContainer" id="ProductionForm_RecipeContainer" style="" >\n' +
+        ''+
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <div class="ProductionForm_subPartContainer " style="grid-column-gap:15px;" >\n' +
+        '        <!--// column 1 -->\n' +
+        '        <h1> ResourceBatches Assigned </h1>\n' +
+        '        <div class="ProductionForm_ListContainer" id="ProductionForm_ResourceContainer" style="" >\n' +
+        '            <select size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
+        '                <option id="Ing_opt_1" value="CA" >California -- CA </option>\n' +
+        '            </select>\n' +
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <div class="ProductionForm_subPartContainer" style="grid-column-gap:15px;" >\n' +
+        '        <!--// column 1 -->\n' +
+        '        <table style="width: 100%" >\n' +
+        '            <tr class="_1x2grid" style="width: 100%" >\n' +
+        '                <td><span> Production Leader Id </span></td>\n' +
+        '                <td><input id="ProductionForm_produktLeaderID" type="text" style="float:right;"></td>\n' +
+        '            </tr>\n' +
+        '\n' +
         '        </table>\n' +
-        '        <div class="ProductionForm_subPartContainer _1x2grid" style="grid-column-gap:15px;" >\n' +
-        '            <!--// column 1 -->\n' +
-        '            <div class="ProductionForm_ListContainer" id="ProductionForm_ResourceContainer" style="" >\n' +
-        '                <select size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
-        '\n' +
-        '                </select>\n' +
-        '            </div>\n' +
-        '            <!--// column 2 -->\n' +
-        '            <div class="ProductionForm_ListContainer" id="ProductionForm_BatchContainer" >\n' +
-        '                <select size="10" name="selectionField" multiple="yes" style="width: 100%" data-refere="Ing_opt_1">\n' +
-        '\n' +
-        '                </select>\n' +
-        '            </div>\n' +
-        '        </div>\n' +
-        '        <div class="ProductionForm_subPartContainer" style="grid-column-gap:15px;" >\n' +
-        '            <!--// column 1 -->\n' +
-        '            <table style="width: 100%" >\n' +
-        '                <tr class="_1x2grid" style="width: 100%" >\n' +
-        '                    <td><span> Production Leader Id </span></td>\n' +
-        '                    <td><input id="ProductionForm_produktLeaderID" type="text" style="float:right;"></td>\n' +
-        '                </tr>\n' +
-        '\n' +
-        '            </table>\n' +
-        '        </div>\n' +
-        '    </form>';
-
+        '    </div>\n' +
+        '</form>';
 
 }
-
-/* These are played in Sequence, each activated by previous */
 function start(){
-   $('#generatedForm').append(HTML_GenerateForm()).done(function() {
-       UI_setupOnChangeRecipe();
-   });
-}
-// on chance Recipe.
-function UI_setupOnChangeRecipe(){
-    $('#ProductionForm_RecipeContainer').change(function(){
+
+    $('#generatedForm').append(prodCreateTable_HTML());
+    setUpRecipe_OptionsHTML($('#ProductionForm_RecipeContainer'));
+
+   // $('#ProductionForm_RecipeContainer').append(GetRecipes());
 
 
-
-
-
-    });
 }
 
-// on change ingredients
-
-
-// select a ResouceBatch
