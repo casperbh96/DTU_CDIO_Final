@@ -73,6 +73,31 @@
         grid-row:1/3;
 
     }
+.DTO_Table_Row_MenuBox{
+    display: inline-grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+
+}
+.DTO_Table_Row_MenuBox button{
+    height:100%;
+    border-radius: 2px;
+    background-color: blanchedalmond;
+    border:1px solid black;
+}
+.DTO_Table_Row_beneathRow ul{
+    display: flex;
+}
+.dto-table-RowBeneath-field{
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: 1fr;
+    text-align:left;
+}
+
+
+
+
     .DTO_USER_GRID{
         display: inline-grid;
         grid-template-columns: 15px 40px 1fr 1fr 100px;
@@ -114,25 +139,19 @@
             width: 100%;
             grid-row: 1/3;
         }
-        .DTO_Table_Row_MenuBox{
-            display: inline-grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 1fr;
 
+    .DTO_RESOURCE_BATCH_GRID{
+        padding:5px 0 5px 0;
+        display: inline-grid;
+        grid-template-columns:  25px 40px 1fr 1fr 1fr 110px;
+        grid-template-rows:none; !important;
+        grid-column-gap: 5px;
+        height:auto; !important;
+    }
+        .DTO_RESOURCE_BATCH_GRID td{
+            width: 100%;
+            float:left;
         }
-            .DTO_Table_Row_MenuBox button{
-                height:100%;
-                border-radius: 2px;
-                background-color: blanchedalmond;
-                border:1px solid black;
-            }
-            .DTO_Table_Row_beneathRow ul{
-                display: flex;
-            }
-                .dto-table-RowBeneath-field{
-                    display: grid;
-                    grid-template-columns: 25px 1fr;
-                    grid-template-rows: 1fr;
-                    text-align:left;
-                }
+
+
     /* commit Dette bub*/

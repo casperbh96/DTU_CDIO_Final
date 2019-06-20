@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+    <!-- <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>-->
+     <script type="text/javascript" src="js/ProductionFormJS.js"></script>
+
+
+     <!-- Reset StyleSheet-->
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/style.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
+
+
+</head>
+<body>
+<div id="overlay"></div>
+<button onclick="pop_resourceForm(this)" data-active="false" > Load Resource Form </button>
+<button onclick="pop_recipeForm(this)" data-active="false" > Load Resource Form </button>
+<form class="Create_FormContainer" >
+    <h1> RESOURCE </h1>
+    <table class="Creation_subPartContainer">
+        <tr>
+            <td>BatchId</td>
+            <td><input type="number "></td>
+        </tr>
+        <tr>
+            <td>Ammount</td>
+            <td><input type="number "></td>
+        </tr>
+        <tr>
+            <td>Supplier</td>
+            <td><input type="text"></td>
+        </tr>
+    </table>
+    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
+        <!--// column 1 -->
+        <h1 style="margin-top: 15px;margin-bottom: -15px;">Select as a Batch of a Resource</h1>
+        <div class="CreationForm_ListContainer ResourceForm_RecipeContainer" style="">
+            <select size="10" multiple="" style="width: 100%;">
+            <!--    <option onclick="switchResourcesView(this)" class="RecipeOption_0" value="RecipeOption_0" data-recipeid="60" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
+                <option onclick="switchResourcesView(this)" class="RecipeOption_1" value="RecipeOption_1" data-recipeid="61" data-recipeenddate="9999-12-30" data-recipename="rec2" data-productamount="321" data-authoruserid="61">rec2</option>
+                <option onclick="switchResourcesView(this)" class="RecipeOption_2" value="RecipeOption_2" data-recipeid="65" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
+           --> </select>
+        </div>
+    </div>
+    <button > commit </button>
+</form>
+
+<form class="Create_FormContainer">
+    <h1> RECIPE </h1>
+    <table class="Creation_subPartContainer">
+        <tr>
+            <td>Recipe Name</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Ammount</td>
+            <td><input type="number "></td>
+        </tr>
+        <tr>
+            <td>Author id</td>
+            <td><input type="number"></td>
+        </tr>
+    </table>
+    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
+        <h1 style="margin-top: 15px;">Recipes Available</h1>
+        <div class="ProductionForm_ListContainer" class="ProductionForm_RecipeContainer" style="">
+            <select size="10" multiple="" style="width: 100%;">
+                <option onclick="switchResourcesView(this)" class="RecipeOption_0" value="RecipeOption_0" data-recipeid="60" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
+                <option onclick="switchResourcesView(this)" class="RecipeOption_1" value="RecipeOption_1" data-recipeid="61" data-recipeenddate="9999-12-30" data-recipename="rec2" data-productamount="321" data-authoruserid="61">rec2</option>
+                <option onclick="switchResourcesView(this)" class="RecipeOption_2" value="RecipeOption_2" data-recipeid="65" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
+            </select></div>
+    </div>
+    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
+
+        <Button> add ingredient </Button>
+        <Button> remove ingredient </Button>
+        <div class="ProductionForm_ListContainer" class="ProductionForm_ResourceContainer" style="">
+            <table size="10" name="selectionField" multiple="yes" style="width: 100%">
+                <tr><td>name</td><td><input type="number" placeholder="ammount Kg"></td><td><input type="number" placeholder="Tolerance%"></td></tr>
+                <tr><td>name</td><td><input type="number" placeholder="ammount"></td><td><input type="number" placeholder="Tolerance%"></td></tr>
+            </table>
+        </div>
+    </div>
+    <div class="Creation_subPartContainer" style="grid-column-gap:15px;">
+
+        <table style="width: 100%">
+            <tbody><tr class="_1x2grid" style="width: 100%">
+                <td><span> Production Leader Id </span></td>
+                <td><input class="ProductionForm_produktLeaderID" type="text" style="float:right;"></td>
+            </tr>
+
+            </tbody></table>
+    </div>
+    <button > commit </button>
+</form>
+
+<form class="Create_FormContainer">
+    <h1> title </h1>
+    <table class="Creation_subPartContainer">
+    </table>
+    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
+
+        <h1 style="margin-top: 15px;">Recipes Available</h1>
+        <div class="ProductionForm_ListContainer" class="ProductionForm_RecipeContainer" style="">
+            <select size="10" multiple="" style="width: 100%;">
+                <option onclick="switchResourcesView(this)" class="RecipeOption_0" value="RecipeOption_0" data-recipeid="60" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
+            </select>
+        </div>
+    </div>
+    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
+
+        <h1> ResourceBatches Assigned </h1>
+        <div class="ProductionForm_ListContainer" class="ProductionForm_ResourceContainer" style="">
+            <select size="10" name="selectionField" multiple="yes" style="width: 100%">
+                <option id="Ing_opt_1" value="CA">California -- CA </option>
+            </select>
+        </div>
+    </div>
+    <div class="Creation_subPartContainer" style="grid-column-gap:15px;">
+
+        <table style="width: 100%">
+            <tr class="_1x2grid" style="width: 100%">
+                <td><span> Production Leader Id </span></td>
+                <td><input class="ProductionForm_produktLeaderID" type="text" style="float:right;"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<div id="generatedForm">
+
+</div>
+
+</body>
+</html>

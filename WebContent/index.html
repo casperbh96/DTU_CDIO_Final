@@ -12,57 +12,16 @@
 
     <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/styleReset.css">
-    <link rel="stylesheet" href="StyleSheet/style.css">
+    <link rel="stylesheet" href="StyleSheet/tableUserRole_Template.css">
     <link rel="stylesheet" href="StyleSheet/grids.css">
-    <style>
-    </style>
+
 
 </head>
 <body style="font-size: 65%">
+<div id="overlay"></div>
 <div id="pageFrame">
-    <div id="menu-frame">
-        <div id="menu-header">
-            <ul id="MainMenu">
-                <li> menuPoint 1</li>
-                <li> menuPoint 1</li>
-                <li> menuPoint 1</li>
-                <li> menuPoint 1</li>
-                <li> menuPoint 1</li>
-                <li> menuPoint 1</li>
-            </ul>
-        </div>
-        <!--<button onclick="commitTableChanges()" style="width: 50px; height: 50px; background-color: #cd0a0a;" ></button>-->
-    </div>
-    <div id="top-menuFrame">
-        <button id="CommitChanges" class="top-menu-Element" onclick="commit_tableUsersChanges()"></button>
-        <button style="width: 25px; background-color: #a52e46;" class="top-menu-Element" onclick="CreateNew_UserRow()"></button>
-        <div id="searchContainer"></div>
-    </div>
-    <!-- -->
-    <div id="content-container">
-        <table id="dto-table-container" data-ActiveTable="" >
-
-
-
-
-
-        </table>
-        <div style=" background-color:lightsteelblue; width: 100%;">
-            <button style=" background-color:red; width:100px; height:100px;" id="testbtn" onclick="loadtable_User(this.parentElement)"></button>
-        </div>
-    </div>
+    <div id="mainMenuFrame"></div>
+    <div id="SideMenu"></div>
 </div>
-<script type="text/javascript" >
-
-    function toggleDropDown(self){
-        var dropDown = $(self).siblings('ul');
-        var h = (dropDown.outerHeight(true) + 5);
-
-        dropDown.toggle();
-        dropDown.css("margin-top", "5px");
-        dropDown.css("margin-bottom", -h);
-    }
-
-</script>
 </body>
 </html>
