@@ -76,10 +76,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
     @Path("get/{recipeid}/{enddate}")
     @GET
     public Response getRecipeById(@PathParam("recipeid") int recipeId, @PathParam("enddate") String recipeEndDate) throws ParseException {
-        System.out.println(recipeId);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date date = sdf1.parse(recipeEndDate);
-        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+        //System.out.println(recipeId + " " + new StringToSqlDateConverter().convertStringToDate(recipeEndDate));
 
         RecipeDTO recipe = null;
         try{
