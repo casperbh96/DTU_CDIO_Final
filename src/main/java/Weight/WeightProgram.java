@@ -18,7 +18,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
-public class WeightConnector {
+public class WeightProgram {
 
     public static void main(String[] args) throws IOException, InterruptedException, SQLException {
 
@@ -54,7 +54,6 @@ public class WeightConnector {
             }
 
             boolean isUserInputEmpty = false;
-
 
             if(userInput.equals("")){
                 //hvis userInput er en tom string kører programmet forfra
