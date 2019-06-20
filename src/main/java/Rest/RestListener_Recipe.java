@@ -4,6 +4,7 @@ import main.java.BusinessLogic.*;
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
 import main.java.Core.ResourceDTO;
+import main.java.Core.StringToSqlDateConverter;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -82,7 +83,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
 
         RecipeDTO recipe = null;
         try{
-            recipe = recipeBLL.getRecipeById(recipeId, Date.valueOf(recipeEndDate));
+            recipe = recipeBLL.getRecipeById(recipeId, new StringToSqlDateConverter().convertStringToDate(recipeEndDate));
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
@@ -126,9 +127,11 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
 
         RecipeDTO recipe = null;
         try{
-            recipe = recipeBLL.setRecipeEndDateSingleRecipe(recipeId, Date.valueOf(recipeEndDate));
+            recipe = recipeBLL.setRecipeEndDateSingleRecipe(recipeId, new StringToSqlDateConverter().convertStringToDate(recipeEndDate));
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        } catch (ParseException e) {
+            return Response.status(400).entity("ParseException: " + e.getMessage()).build();
         }
 
         return Response.ok(recipe).build();

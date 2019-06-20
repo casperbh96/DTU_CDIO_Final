@@ -3,12 +3,14 @@ package main.java.Rest;
 import main.java.BusinessLogic.BLLRecipeResource;
 import main.java.BusinessLogic.I_BLLRecipeResource;
 import main.java.Core.REL_RecipeResourceDTO;
+import main.java.Core.StringToSqlDateConverter;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -55,9 +57,11 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
 
         REL_RecipeResourceDTO recipeResource = null;
         try{
-            recipeResource = recipeResourceBLL.readSingleRecipeResourcebyId(resourceId, recipeId, Date.valueOf(recipeEndDate));
+            recipeResource = recipeResourceBLL.readSingleRecipeResourcebyId(resourceId, recipeId, new StringToSqlDateConverter().convertStringToDate(recipeEndDate));
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        } catch (ParseException e) {
+            return Response.status(400).entity("ParseException: " + e.getMessage()).build();
         }
 
         return Response.ok(recipeResource).build();
@@ -100,9 +104,11 @@ public class RestListener_RecipeResource implements I_RestListener_RecipeResourc
         System.out.println(recipeEndDate);
 
         try{
-            recipeResourceBLL.deleteSingleRecipeResource(resourceId, recipeId, Date.valueOf(recipeEndDate));
+            recipeResourceBLL.deleteSingleRecipeResource(resourceId, recipeId, new StringToSqlDateConverter().convertStringToDate(recipeEndDate));
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        } catch (ParseException e) {
+            return Response.status(400).entity("ParseException: " + e.getMessage()).build();
         }
 
         return Response.ok().build();

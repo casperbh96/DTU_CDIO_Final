@@ -1,6 +1,7 @@
 package main.java.DataAccess.dao;
 
 import main.java.Core.REL_RecipeResourceDTO;
+import main.java.Core.StringToSqlDateConverter;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -130,13 +131,8 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE recipe_id = ? AND NOT recipe_end_date = ?");
 
-            String dateToParse="9999/12/30";
-            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date date = sdf1.parse(dateToParse);
-            java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-
             pStmt.setInt(1, recipeId);
-            pStmt.setDate(2, sqlStartDate);
+            pStmt.setDate(2, new StringToSqlDateConverter().convertStringToDate("9999/12/30"));
             ResultSet resultset = pStmt.executeQuery();
 
             resultset.beforeFirst();

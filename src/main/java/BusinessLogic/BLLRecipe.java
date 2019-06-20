@@ -2,10 +2,12 @@ package main.java.BusinessLogic;
 
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
+import main.java.Core.StringToSqlDateConverter;
 import main.java.DataAccess.dao.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,8 +97,8 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
-    public RecipeDTO getActiveRecipeById(int recipeId) throws SQLException {
-        return daoRecipe.readSingleRecipeById(recipeId, Date.valueOf("9999-12-31"));
+    public RecipeDTO getActiveRecipeById(int recipeId) throws SQLException, ParseException {
+        return daoRecipe.readSingleRecipeById(recipeId, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));
     }
 
     @Override
@@ -115,11 +117,11 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
-    public List<RecipeDTO> getAllActiveRecipes() throws SQLException {
+    public List<RecipeDTO> getAllActiveRecipes() throws SQLException, ParseException {
         List<RecipeDTO> activeRecipes = new ArrayList<>();
 
         for (RecipeDTO rec : daoRecipe.readAllRecipes()) {
-            if (rec.getRecipeEndDate() == Date.valueOf("9999-12-31")) {
+            if (rec.getRecipeEndDate() == new StringToSqlDateConverter().convertStringToDate("9999-12-31")) {
                 activeRecipes.add(rec);
             }
         }
@@ -128,8 +130,8 @@ public class BLLRecipe implements I_BLLRecipe {
     }
 
     @Override
-    public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException {
-        return bllRecipeResource.readResourcesForRecipe(recipeId, Date.valueOf("9999-12-31"));
+    public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException, ParseException {
+        return bllRecipeResource.readResourcesForRecipe(recipeId, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));
     }
 
     @Override

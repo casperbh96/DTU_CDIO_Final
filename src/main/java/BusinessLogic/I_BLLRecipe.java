@@ -6,6 +6,7 @@ import main.java.Core.ResourceDTO;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface I_BLLRecipe {
@@ -15,12 +16,12 @@ public interface I_BLLRecipe {
     List<RecipeDTO> createRecipes(List<RecipeDTO> listOfRecipes, List<List<Integer>> listOfListOfResourceIds, List<List<Double>> listOfListOfResourceAmounts, List<List<Double>> listOfListOfTolerances) throws SQLException;
 
     RecipeDTO getRecipeById(int recipeId, Date recipeEndDate) throws SQLException;
-    RecipeDTO getActiveRecipeById(int recipeId) throws SQLException;
+    RecipeDTO getActiveRecipeById(int recipeId) throws SQLException, ParseException;
     List<RecipeDTO> getRecipesByList(List<Integer> listOfRecipeIds, List<Date> listOfRecipeEndDates) throws SQLException;
     List<RecipeDTO> getRecipeBySearch(String keyword) throws SQLException;
     List<RecipeDTO> getAllRecipes() throws SQLException;
-    List<RecipeDTO> getAllActiveRecipes() throws SQLException;
-    List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException;
+    List<RecipeDTO> getAllActiveRecipes() throws SQLException, ParseException;
+    List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException, ParseException;
 
     RecipeDTO updateRecipeButNotResources(RecipeDTO recipe) throws SQLException;
     RecipeDTO updateRecipe(RecipeDTO recipe, List<Integer> resourceIds, List<Double> resourceAmounts, List<Double> tolerances) throws SQLException;
