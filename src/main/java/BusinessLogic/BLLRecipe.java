@@ -99,9 +99,12 @@ public class BLLRecipe implements I_BLLRecipe {
 
     public Object[] getAllResourcesAndResourceBatchesByRecipeId(int recipeId) throws SQLException {
         List<ResourceDTO> resList = new ArrayList<>();
-        List<List<ResourceBatchDTO>> listOfResBatLists = new ArrayList<>();
+        List<ResourceBatchDTO> listOfResBatLists = new ArrayList<>();
         List<REL_RecipeResourceDTO> recipeResourceList = null;
         List<Integer> listOfResourceIds = new ArrayList<>();
+
+        double amount = 0.0;
+        double tolerance = 0.0;
 
         recipeResourceList = bllRecipeResource.readAllRecipeResourcesByRecipeId(recipeId);
         for(REL_RecipeResourceDTO recRes : recipeResourceList){
@@ -114,11 +117,32 @@ public class BLLRecipe implements I_BLLRecipe {
         List<ResourceBatchDTO> allResourceBatches = bllResourceBatch.readAllResourceBatchs();
 
         for(int i : listOfResourceIds){
-            List<ResourceBatchDTO> newList = allResourceBatches.stream().filter(ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i).collect(Collectors.toList());
-            listOfResBatLists.add(newList);
-        }
+            List<ResourceBatchDTO> newList = allResourceBatches.stream().filter(
+                    ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i ).collect(Collectors.toList());
 
-        return new Object[]{resList, listOfResBatLists};
+            for(REL_RecipeResourceDTO recRes : recipeResourceList){
+                if(recRes.getResouceId() == i){
+                    amount = recRes.getResourceAmount();
+                    tolerance = recRes.getTolerance();
+                }
+            }
+            int index = 0;
+            ResourceBatchDTO resourceBatchToChoose = null;
+            for(ResourceBatchDTO resBatch : newList){
+                if(resBatch.getResourceBatchAmount() > amount - (amount * (tolerance/100))){
+                    if(index == 0) resourceBatchToChoose = resBatch;
+                    else if(resBatch.getResourceBatchAmount() > resourceBatchToChoose.getResourceBatchAmount()){
+                        resourceBatchToChoose = resBatch;
+                    }
+                }
+                index++;
+            }
+            listOfResBatLists.add(resourceBatchToChoose);
+        }
+        if(listOfResBatLists.size() > 0){
+            return new Object[]{resList, listOfResBatLists};
+        }
+        return new Object[]{resList, new ArrayList<>()};
     }
 
     @Override
