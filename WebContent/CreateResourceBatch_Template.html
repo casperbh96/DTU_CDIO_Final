@@ -9,8 +9,8 @@
     <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
     <!-- <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>-->
-     <script type="text/javascript" src="js/ResourceBatchCreationForm_templateJS.js"></script>
-    <script type="text/javascript" src="js/ResourceBatchCreationForm_templateJS.js"></script>
+     <script type="text/javascript" src="js/ProductionFormJS.js"></script>
+
 
      <!-- Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">
@@ -21,7 +21,9 @@
 
 </head>
 <body>
-<form class="Create_FormContainer" onclick="HTML_setUpIngredients_Opt(this)" >
+<div id="overlay"></div>
+<button onclick="pop_resourceForm(this)" data-active="false" > Load Resource Form </button>
+<form class="Create_FormContainer" >
     <h1> RESOURCE </h1>
     <table class="Creation_subPartContainer">
         <tr>
@@ -40,7 +42,7 @@
     <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
         <!--// column 1 -->
         <h1 style="margin-top: 15px;margin-bottom: -15px;">Select as a Batch of a Resource</h1>
-        <div class="CreationForm_ListContainer ProductionForm_RecipeContainer" style="">
+        <div class="CreationForm_ListContainer ResourceForm_RecipeContainer" style="">
             <select size="10" multiple="" style="width: 100%;">
             <!--    <option onclick="switchResourcesView(this)" class="RecipeOption_0" value="RecipeOption_0" data-recipeid="60" data-recipeenddate="9999-12-30" data-recipename="rec1" data-productamount="123" data-authoruserid="61">rec1</option>
                 <option onclick="switchResourcesView(this)" class="RecipeOption_1" value="RecipeOption_1" data-recipeid="61" data-recipeenddate="9999-12-30" data-recipename="rec2" data-productamount="321" data-authoruserid="61">rec2</option>
@@ -68,7 +70,6 @@
         </tr>
     </table>
     <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
-        <!--// column 1 -->
         <h1 style="margin-top: 15px;">Recipes Available</h1>
         <div class="ProductionForm_ListContainer" class="ProductionForm_RecipeContainer" style="">
             <select size="10" multiple="" style="width: 100%;">
@@ -78,7 +79,7 @@
             </select></div>
     </div>
     <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
-        <!--// column 1 -->
+
         <Button> add ingredient </Button>
         <Button> remove ingredient </Button>
         <div class="ProductionForm_ListContainer" class="ProductionForm_ResourceContainer" style="">
@@ -89,7 +90,7 @@
         </div>
     </div>
     <div class="Creation_subPartContainer" style="grid-column-gap:15px;">
-        <!--// column 1 -->
+
         <table style="width: 100%">
             <tbody><tr class="_1x2grid" style="width: 100%">
                 <td><span> Production Leader Id </span></td>
@@ -106,7 +107,7 @@
     <table class="Creation_subPartContainer">
     </table>
     <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
-        <!--// column 1 -->
+
         <h1 style="margin-top: 15px;">Recipes Available</h1>
         <div class="ProductionForm_ListContainer" class="ProductionForm_RecipeContainer" style="">
             <select size="10" multiple="" style="width: 100%;">
@@ -115,7 +116,7 @@
         </div>
     </div>
     <div class="Creation_subPartContainer " style="grid-column-gap:15px;">
-        <!--// column 1 -->
+
         <h1> ResourceBatches Assigned </h1>
         <div class="ProductionForm_ListContainer" class="ProductionForm_ResourceContainer" style="">
             <select size="10" name="selectionField" multiple="yes" style="width: 100%">
@@ -124,7 +125,7 @@
         </div>
     </div>
     <div class="Creation_subPartContainer" style="grid-column-gap:15px;">
-        <!--// column 1 -->
+
         <table style="width: 100%">
             <tr class="_1x2grid" style="width: 100%">
                 <td><span> Production Leader Id </span></td>

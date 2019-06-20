@@ -44,39 +44,35 @@ function Delete(data, url, sFunc){
     });
 }
 
-
-var NAME_PROD_FORM="";
-var NAME_RESO_FORM="";
-var NAME_RECI_FORM="";
-var RECIPEROW = 0;
 var RECIPE_OPTION_CLASSNAME = "RecipeOption_";
+var RESOURCE_OPTION_CLASSNAME="Resource_Opt_";
+var NAME_PROD_FORM="ProductionForm";
+var NAME_RESO_FORM="ResourceForm";
+var NAME_RECI_FORM="RecipeForm";
+var CreateROW = 0;
+
 
 
 // HTML functions --- --- --- --- --- --- --- --- ---
-function HTML_setUpIngredients_Opt(FormContainer){
-
+function HTML_setUpIngredients_Opt( container ){
+    CreateROW = 0;
 
     var sel = $('<select>').prop("size","10");
-    sel.prop("multiple","no");
-    sel.css("width","100%");
-    sel.appendTo(container);
+    $(sel).prop("multiple","no");
+    $(sel).css("width","100%");
+    $(sel).appendTo(container);
 
 
-    get('/rest/recipe/get', function (data) {
+    get('/rest/resources/get', function (data) {
 
-        $.each(data, function (u, Recipe) {
+         $.each(data, function (u, Resource ) {
 
-            //var tag = '<option value="test"> test </option>';
-            var tag = '<option class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
-                'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
-                'data-recipeId="'+ Recipe.recipeId +'" ' +
-                'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
-                'data-recipeName="'+ Recipe.recipeName +'" ' +
-                'data-productAmount="'+ Recipe.productAmount +'" ' +
-                'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';
-            RECIPEROW = RECIPEROW + 1;
+             //var tag = '<option value="test"> test </option>';
+            // var tag = '<option value="test"> test </option> \n ';
+             var tag = '<option value="'+ Resource.resourceId +'"  data-ResourceId="'+ Resource.resourceId +'" ' +
+                 'data-resourceName="'+ Resource.resourceName +'" data-reorder="'+ Resource.reorder +'" ' +
+                 'data-inactive="'+ Resource.inactive +'">'+ Resource.resourceName +'</option>';
             sel.append($(tag));
-
         });
     });
 }
@@ -91,17 +87,17 @@ function HTML_setUpRecipe_Options(container){
 
     get('/rest/recipe/get', function (data) {
 
-           $.each(data, function (u, Recipe) {
+           $.each(data, function (i, Recipe) {
 
                 //var tag = '<option value="test"> test </option>';
-                var tag = '<option onclick="switchResourcesView(this)" class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
-                               'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+                var tag = '<option onclick="switchResourcesView(this)" class="'+RECIPE_OPTION_CLASSNAME+CreateROW+'" ' +
+                               'value="'+RECIPE_OPTION_CLASSNAME+CreateROW+'" ' +
                                'data-recipeId="'+ Recipe.recipeId +'" ' +
                                'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
                                'data-recipeName="'+ Recipe.recipeName +'" ' +
                                'data-productAmount="'+ Recipe.productAmount +'" ' +
                                'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';
-               RECIPEROW = RECIPEROW + 1;
+               CreateROW = CreateROW + 1;
                sel.append($(tag));
 
            });
@@ -144,28 +140,62 @@ function HTML_CreateProduction_Form(){
 
 }
 function HTML_CreateResourceBach_Form(){
-    return '';
+    return '<form class="Create_FormContainer" data-table="'+NAME_RESO_FORM+'" >\n' +
+        '    <h1> RESOURCE </h1>\n' +
+        '    <table class="Creation_subPartContainer">\n' +
+        '        <tr>\n' +
+        '            <td>BatchId</td>\n' +
+        '            <td><input type="number "></td>\n' +
+        '        </tr>\n' +
+        '        <tr>\n' +
+        '            <td>Ammount</td>\n' +
+        '            <td><input type="number "></td>\n' +
+        '        </tr>\n' +
+        '        <tr>\n' +
+        '            <td>Supplier</td>\n' +
+        '            <td><input type="text"></td>\n' +
+        '        </tr>\n' +
+        '    </table>\n' +
+        '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
+        '        <!--// column 1 -->\n' +
+        '        <h1 style="margin-top: 15px;margin-bottom: -15px;">Select as a Batch of a Resource</h1>\n' +
+        '        <div class="CreationForm_ListContainer ResourceForm_RecipeContainer" id="CreationForm_SelectContainer" data-test="test" >\n' +
+
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <button type="button" onclick="commitCreateTable(this)" > commit </button>\n' +
+        '</form>';
 }
 function HTML_CreateRecipeBach_Form(){
     return '';
 }
 
 //Commits --- --- --- --- --- --- --- --- --- ---
-function Commit(self, container){
-    switch (self.attr("CreationTableName")) {
-        case NAME_PROD_FORM:
+function commitCreateTable(self){
 
+    var table = $(self).parent('.Create_FormContainer');
+
+    switch (table.attr("data-Table")) {
+        case NAME_PROD_FORM:
+            alert("Commit Production");
             break;
         case NAME_RESO_FORM:
-
+            commitResourceTable(table);
+            alert("Commit Resource");
             break;
         case NAME_RECI_FORM:
-
+            alert("Commit Recipe");
             break;
     }
 }
 // Rest
-
+function commitResourceTable(table){
+    get('rest/resources/get',function (data) {
+        // todo update tabel
+    },function (data) {
+        alert(data);
+    });
+}
 
 // Useability Functions
 //production
@@ -180,14 +210,14 @@ function switchResourcesView(self){
 
             alert("got some");
             /*//var tag = '<option value="test"> test </option>';
-            var tag = '<option onclick="switchResourcesView(this)" class="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
-                'value="'+RECIPE_OPTION_CLASSNAME+RECIPEROW+'" ' +
+            var tag = '<option onclick="switchResourcesView(this)" class="'+RECIPE_OPTION_CLASSNAME+CreateROW+'" ' +
+                'value="'+RECIPE_OPTION_CLASSNAME+CreateROW+'" ' +
                 'data-recipeId="'+ Recipe.recipeId +'" ' +
                 'data-recipeEndDate="'+ Recipe.recipeEndDate +'" ' +
                 'data-recipeName="'+ Recipe.recipeName +'" ' +
                 'data-productAmount="'+ Recipe.productAmount +'" ' +
                 'data-authorUserId="'+ Recipe.authorUserId +'">'+ Recipe.recipeName +'</option>\n';
-            RECIPEROW = RECIPEROW + 1;
+            CreateROW = CreateROW + 1;
             sel.append($(tag));*/
 
         });
@@ -199,6 +229,19 @@ function switchResourcesView(self){
 
 // Resource
 
+// Initiators
+function pop_resourceForm(self){
+    if($(self).attr("data-active") === "true"){
+        $('#overlay').empty();
+        $(self).attr("data-active","false");
+    }else{
+        var html = HTML_CreateResourceBach_Form();
+        $('#overlay').append(html);
+        var SelectContainer = $('#CreationForm_SelectContainer');
+        HTML_setUpIngredients_Opt(SelectContainer);
+        $(self).attr("data-active","true");
+    }
+}
 
 function start(){
 

@@ -1,3 +1,12 @@
+#overlay{
+    width:0;
+    height:0;
+    background-color: #a52e46;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: visible;
+}
 
 .Create_FormContainer{
     padding:10px;
