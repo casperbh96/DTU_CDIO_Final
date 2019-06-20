@@ -15,6 +15,7 @@ public class ResourceBatchDTO {
         this.isLeftover = isLeftover;
         this.resourceId = resourceId;
     }
+    public ResourceBatchDTO(){}
 
     public int getResourceBatchId() {
         return resourceBatchId;

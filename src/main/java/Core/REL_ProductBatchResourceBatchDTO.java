@@ -12,6 +12,7 @@ public class REL_ProductBatchResourceBatchDTO {
         this.netAmount = netAmount;
         this.tara = tara;
     }
+    public REL_ProductBatchResourceBatchDTO(){}
 
     public int getResourceBatchId() {
         return resourceBatchId;
