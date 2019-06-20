@@ -130,7 +130,6 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM rel_recipes_resources WHERE recipe_id = ? AND NOT recipe_end_date = ?");
 
-            System.out.println("it updated");
             String dateToParse="9999/12/30";
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date date = sdf1.parse(dateToParse);
