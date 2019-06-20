@@ -103,6 +103,17 @@ public class WeightConnector {
                 productbatchNumber = weightConverter.convertInputFromDisplayToString(productbatchNumber);
             }
 
+
+            if(productbatchNumber.equals("")){
+                //hvis userInput er en tom string kører programmet forfra
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("proev igen");
+                }
+                weightConverter.resetInputString();
+                main(args);
+            }
+
             productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
             boolean isProductBatchFound = false;
 
