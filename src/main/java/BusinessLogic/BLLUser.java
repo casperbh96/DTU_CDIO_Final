@@ -105,7 +105,7 @@ public class BLLUser implements I_BLLUser {
         int returnId = 1;
         List<UserDTO> userList = DAL_user.readAllUsers();
 
-        returnId = userList.get(userList.size()).getUserId() + 1;
+        returnId = userList.get(userList.size()-1).getUserId() + 1;
 
         return returnId;
     }

@@ -9,6 +9,7 @@ public class REL_RoleUserDTO {
         this.userId = userId;
         this.roleId = roleId;
     }
+    public REL_RoleUserDTO(){}
 
     public int getUserId() {
         return userId;

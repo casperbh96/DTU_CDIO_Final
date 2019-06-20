@@ -79,8 +79,9 @@ public class RestListener_User implements I_RestListener_User {
         } catch (SQLException ex) {
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
-
-        return Response.ok(user).build();
+        UserDTO myDto = new UserDTO();
+        myDto.setUserId(user);
+        return Response.ok( myDto ).build();
     }
 
     @Path("get/search/{keyword}")

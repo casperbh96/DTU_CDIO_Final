@@ -108,7 +108,7 @@ function userTable_CREATE_insertCreaterRow(){
             // Create the Row
             var rowId = 'rowNumber_'+userTable_ROWINDEX;
             var user = {
-                userId:24,
+                userId: "x",
                 username:"newUserName",
                 initials:"Initals",
                 inactive:false
@@ -151,39 +151,42 @@ function userTable_READ_loadUserTable(){
 }
 
 // REST Functions
-// todo implement id generator and Start REST methods.
-function userTable_REST_createUser(row){
 
-    var userdto ={
-        userId:  $(row).find('.userId').text(),
-        username:$(row).find('.username').val(),
-        initials:$(row).find('.initials').val(),
-        inactive:$(row).attr("data-inactive-User")
-    };
-    alert("Create Denied until ID Generator Made");
-    //alert("Create" +  + " , " + $(row).find('.username').val()  + " , " + $(row).find('.initials').val()  + " , " + $(row).attr("data-inactive-User"));
-    /*post( JSON.stringify(userdto) ,"rest/users/create" , function (data) {
-
-    });*/
-
-    // HANDELING ROLES ---------------------------------------------------------------------------------------------
-    // FOR each Activated ROLE
-   /* $(row).find('.UserRoleCheckBox').each(function () {
+function userTable_REST_addUserRoles_toUser(row, userdto){
+    $(row).find('.UserRoleCheckBox').each(function () {
         if($(this).prop("checked")) {
             //alert($(this).attr("data-roleName") + " is active on " + userdto.username + "," + userdto.userId);
 
             var REL_RoleUserDTO = {
                 userId: userdto.userId,
-                roleId: $(this).roleId
+                roleId: $(this).attr("data-roleId")
             };
 
-            post(JSON.stringify(REL_RoleUserDTO), "rest/roleuser/create/", function (data) {
+            post(JSON.stringify(REL_RoleUserDTO), "rest/roleuser/create", function (data) {
                 alert("added Role " + REL_RoleUserDTO.roleId + " for " + userdto.userId);
             });
 
         }
 
-    });*/
+    });
+}
+function userTable_REST_createUser(row){
+    userTable_getNewId(function (data) {
+
+        var userdto ={
+            userId:  data ,
+            username:$(row).find('.username').val(),
+            initials:$(row).find('.initials').val(),
+            inactive:$(row).attr("data-inactive-User")
+        };
+
+        //alert( userdto.userId +","+ newId);
+        //alert("Create" +  + " , " + $(row).find('.username').val()  + " , " + $(row).find('.initials').val()  + " , " + $(row).attr("data-inactive-User"));
+        post( JSON.stringify(userdto) ,"rest/users/create" , function (data) {
+            userTable_REST_addUserRoles_toUser(row, userdto)
+        });
+
+    });
 }
 function userTable_REST_updateUser(row){
     var userdto ={
@@ -192,35 +195,17 @@ function userTable_REST_updateUser(row){
         initials:row.find('.initials').val(),
         inactive: row.attr("data-inactive-User")
     };
-    alert("Update Denied until ID Generator Made");
-   /* put( JSON.stringify(userdto), "rest/users/update" , function (data) {
 
-    });*/
+    put( JSON.stringify(userdto), "rest/users/update" , function (data) {
 
-   // HANDELING ROLES -------------------------------------------------------------------------
 
-    // First Delete all RoleRelations to this User
-   /* Delete(JSON.stringify(null), "rest/roleuser/delete/"+userdto.userId,function () {
-        alert("deleted roles for the User"+ userdto.userId + " : " +userdto.username );
+        // First Delete all RoleRelations to this User
+        Delete(JSON.stringify(null), "rest/roleuser/delete/"+userdto.userId.toString().replace(/\s/g, '')   ,function () {
+            userTable_REST_addUserRoles_toUser(row, userdto)
+        });
+
+
     });
-
-    // FOR each Activated ROLE
-    $(row).find('.UserRoleCheckBox').each(function () {
-        if($(this).prop("checked")) {
-            //alert($(this).attr("data-roleName") + " is active on " + userdto.username + "," + userdto.userId);
-
-            var REL_RoleUserDTO = {
-                userId: userdto.userId,
-                roleId: $(this).roleId
-            };
-
-            post(JSON.stringify(REL_RoleUserDTO), "rest/roleuser/create/", function (data) {
-                alert("added Role " + REL_RoleUserDTO.roleId + " for " + userdto.userId);
-            });
-
-        }
-
-    });*/
 }
 function userTable_REST_deleteUser(row){
     var userdto ={
@@ -229,10 +214,9 @@ function userTable_REST_deleteUser(row){
         initials:row.find('.initials').val(),
         inactive: row.attr("data-inactive-User")
     };
-    alert("Delete Denied until ID Generator Made");
-   /* Delete( JSON.stringify(userdto), "rest/users/delete" , function (data) {
+    Delete( JSON.stringify(userdto), "rest/users/delete" , function (data) {
 
-    });*/
+    });
 }
 function userTable_commit_tableUsersChanges(){
     //$(row).attr("data-editState")
@@ -258,6 +242,14 @@ function userTable_commit_tableUsersChanges(){
         }
     });
 }
+function userTable_getNewId( sfunc ){
+     get("/rest/users/get/newid", function (data) {
+         //alert(JSON.parse(data,1));;
+        sfunc( data.userId );
+
+     });
+}
+
 
 function userTable_loadTable(){
     userTable_READ_loadUserTable()
