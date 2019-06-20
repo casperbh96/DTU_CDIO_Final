@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +74,11 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
 
     @Path("get/{recipeid}/{enddate}")
     @GET
-    public Response getRecipeById(@PathParam("recipeid") int recipeId, @PathParam("enddate") String recipeEndDate) {
+    public Response getRecipeById(@PathParam("recipeid") int recipeId, @PathParam("enddate") String recipeEndDate) throws ParseException {
         System.out.println(recipeId);
-        System.out.println(Date.valueOf(recipeEndDate));
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = sdf1.parse(recipeEndDate);
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 
         RecipeDTO recipe = null;
         try{
