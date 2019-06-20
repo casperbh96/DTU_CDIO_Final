@@ -18,6 +18,7 @@ public class RecipeDTO {
         this.productAmount = productAmount;
         this.authorUserId = authorUserId;
     }
+    public RecipeDTO(){}
 
     public int getRecipeId() {
         return recipeId;

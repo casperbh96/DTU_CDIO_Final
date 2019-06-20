@@ -13,6 +13,7 @@ public class ResourceDTO {
         this.reorder = reorder;
         this.inactive = inactive;
     }
+    public ResourceDTO(){}
 
     public int getResourceId() {
         return resourceId;

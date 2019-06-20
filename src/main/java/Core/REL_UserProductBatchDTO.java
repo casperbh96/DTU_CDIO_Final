@@ -9,6 +9,7 @@ public class REL_UserProductBatchDTO {
         this.userId = userId;
         this.productBatchId = productBatchId;
     }
+    public REL_UserProductBatchDTO(){}
 
     public int getUserId() {
         return userId;

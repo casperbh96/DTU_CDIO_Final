@@ -23,6 +23,7 @@ public class ProductBatchDTO {
         this.recipeEndDate = recipeEndDate;
         this.productionLeaderUserId = productionLeaderUserId;
     }
+    public ProductBatchDTO(){}
 
     public int getProductBatchId() {
         return productBatchId;

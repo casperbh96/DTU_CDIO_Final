@@ -10,6 +10,7 @@ public class JSON_User_RoleUserDTO implements Serializable {
         this.user = user;
         this.roleUser = roleUser;
     }
+    public JSON_User_RoleUserDTO(){}
 
     public UserDTO getUser() {
         return user;

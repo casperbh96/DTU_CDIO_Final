@@ -16,6 +16,9 @@ public class REL_RecipeResourceDTO {
         this.resourceAmount = resourceAmount;
         this.tolerance = tolerance;
     }
+    public REL_RecipeResourceDTO(){
+
+    }
 
     public int getResouceId() {
         return resourceId;
