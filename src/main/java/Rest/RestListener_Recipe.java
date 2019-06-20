@@ -99,6 +99,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
+        System.out.println(recipe.toString());
         return Response.ok(recipe).build();
     }
 

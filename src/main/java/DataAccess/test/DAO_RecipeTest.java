@@ -8,7 +8,9 @@ import main.java.DataAccess.dao.DAO_Recipe;
 import java.sql.BatchUpdateException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -79,7 +81,7 @@ public class DAO_RecipeTest {
     @org.junit.Test
     public void readSingleRecipeByIdTest() {
         try {
-            RecipeDTO dto = dao.readSingleRecipeById(61, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));
+            RecipeDTO dto = dao.readSingleRecipeById(1, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));
             assertNotNull(dto);
 
             System.out.println(dto);

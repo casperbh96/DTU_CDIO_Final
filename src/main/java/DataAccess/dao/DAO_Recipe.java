@@ -2,8 +2,10 @@ package main.java.DataAccess.dao;
 
 import main.java.Core.RecipeDTO;
 import main.java.Core.ResourceBatchDTO;
+import main.java.Core.StringToSqlDateConverter;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +104,7 @@ public class DAO_Recipe implements I_DAL_Recipe {
     @Override
     public RecipeDTO readSingleRecipeById(int recipeId, Date recipeEndDate) throws SQLException {
         RecipeDTO recipe = null;
+        System.out.println("SQL DATE: " + recipeEndDate);
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id = ? AND recipe_end_date = ?");

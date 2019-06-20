@@ -50,11 +50,9 @@ function LoadProductions(){
     // GET all ProductBatcehs
     get("/rest/productbatch/get",function (data) {
         $.each(data, function (i, productbatch) {
-
-            if(productbatch.recipeEndDate == '9999-12-30'){
-                productbatch.recipeEndDate = '9999-12-31';
+            if(productbatch.recipeEndDate == '9999-12-31'){
+                productbatch.recipeEndDate = '9999-12-30';
             }
-
             get("/rest/recipe/get/"+productbatch.recipeId+"/"+productbatch.recipeEndDate+" ",function (recipe) {
 
             var RelResourceList = "\n";
