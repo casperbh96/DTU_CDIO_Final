@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class BLLRoleUser implements I_BLLRoleUser{
-    I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
+    private I_DAL_REL_RoleUser DAL_roleUser = new DAO_REL_RoleUser();
 
     @Override
     public boolean assignUserRole(REL_RoleUserDTO singleUserRole) throws SQLException {

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class BLLProductBatchResourceBatch implements I_BLLProductBatchResourceBatch {
-    private DAO_REL_ProductBatchResourceBatch daoProdBatchResBatch = new DAO_REL_ProductBatchResourceBatch();
+    private I_DAL_REL_ProductBatchResourceBatch daoProdBatchResBatch = new DAO_REL_ProductBatchResourceBatch();
 
     @Override
     public REL_ProductBatchResourceBatchDTO createSingleProductBatchResourceBatch(REL_ProductBatchResourceBatchDTO singleProductBatchResourceBatch) throws SQLException {

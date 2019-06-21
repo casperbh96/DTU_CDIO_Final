@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class BLLRecipeResource implements I_BLLRecipeResource {
-    I_DAL_REL_RecipeResource daoRecRes = new DAO_REL_RecipeResource();
+    private I_DAL_REL_RecipeResource daoRecRes = new DAO_REL_RecipeResource();
 
     @Override
     public REL_RecipeResourceDTO createSingleRecipeResource(REL_RecipeResourceDTO singleRecipeResource) throws SQLException {

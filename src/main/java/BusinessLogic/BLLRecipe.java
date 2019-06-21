@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BLLRecipe implements I_BLLRecipe {
-    private DAO_Recipe daoRecipe = new DAO_Recipe();
+    private I_DAL_Recipe daoRecipe = new DAO_Recipe();
     private BLLRecipeResource bllRecipeResource = new BLLRecipeResource();
     private BLLResource bllResource = new BLLResource();
     private BLLResourceBatch bllResourceBatch = new BLLResourceBatch();

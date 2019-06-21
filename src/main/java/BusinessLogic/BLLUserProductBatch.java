@@ -2,12 +2,13 @@ package main.java.BusinessLogic;
 
 import main.java.Core.REL_UserProductBatchDTO;
 import main.java.DataAccess.dao.DAO_REL_UserProductBatch;
+import main.java.DataAccess.dao.I_DAL_REL_UserProductBacth;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class BLLUserProductBatch implements I_BLLUserProductBatch {
-    DAO_REL_UserProductBatch daoUserProductBatch = new DAO_REL_UserProductBatch();
+    private I_DAL_REL_UserProductBacth daoUserProductBatch = new DAO_REL_UserProductBatch();
 
     @Override
     public boolean assignSingleProductBatchUser(REL_UserProductBatchDTO singleUserProductBatch) throws SQLException {

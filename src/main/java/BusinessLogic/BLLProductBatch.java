@@ -3,13 +3,14 @@ package main.java.BusinessLogic;
 import main.java.Core.ProductBatchDTO;
 import main.java.Core.REL_ProductBatchResourceBatchDTO;
 import main.java.DataAccess.dao.DAO_ProductBatch;
+import main.java.DataAccess.dao.I_DAL_ProductBatch;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BLLProductBatch implements I_BLLProductBatch {
-    DAO_ProductBatch daoProductBatch = new DAO_ProductBatch();
+    private I_DAL_ProductBatch daoProductBatch = new DAO_ProductBatch();
     BLLUserProductBatch bllUserProductBatch = new BLLUserProductBatch();
     BLLProductBatchResourceBatch bllProductBatchResourceBatch = new BLLProductBatchResourceBatch();
     BLLResourceBatch bllResourceBatch = new BLLResourceBatch();

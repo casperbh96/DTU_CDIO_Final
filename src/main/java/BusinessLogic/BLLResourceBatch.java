@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class BLLResourceBatch implements I_BLLResourceBatch {
-    I_DAL_ResourceBatch dao = new DAO_ResourceBatch();
+    private I_DAL_ResourceBatch dao = new DAO_ResourceBatch();
     @Override
     public ResourceBatchDTO createSingleResourceBatch(ResourceBatchDTO singleResourceBatch) throws SQLException {
         return dao.createSingleResourceBatch(singleResourceBatch);

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class BLLResource implements I_BLLResource {
-    I_DAL_Resource daoRes = new DAO_Resource();
+    private I_DAL_Resource daoRes = new DAO_Resource();
 
     @Override
     public ResourceDTO createSingleResource(ResourceDTO singleResource) throws SQLException {
