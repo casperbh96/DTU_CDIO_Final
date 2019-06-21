@@ -152,11 +152,14 @@ public class BLLRecipe implements I_BLLRecipe {
 
         recResList = bllRecipeResource.readAllRecipeResourcesByRecipeId(recipeId);
 
-        for(REL_RecipeResourceDTO recRes : recResList){
-            listOfIds.add(recRes.getResouceId());
+        if(recResList.size() > 0){
+            for(REL_RecipeResourceDTO recRes : recResList){
+                listOfIds.add(recRes.getResouceId());
+            }
+            resList = bllResource.readMultipleResourcesByList(listOfIds);
+        } else{
+            return new Object[]{null, null};
         }
-
-        resList = bllResource.readMultipleResourcesByList(listOfIds);
 
         return new Object[]{recResList, resList};
     }
