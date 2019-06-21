@@ -47,7 +47,7 @@ function Delete(data, url, sFunc){
 var RECIPE_OPTION_CLASSNAME = "RecipeOption_";
 var RESOURCE_OPTION_CLASSNAME="Resource_Opt_";
 var NAME_PROD_FORM="ProductionForm";
-var NAME_RESO_FORM="ResourceForm";
+var NAME_RESBatch_FORM="ResourceForm";
 var NAME_RECI_FORM="RecipeForm";
 var CreateROW = 0;
 
@@ -153,8 +153,8 @@ function HTML_CreateProduction_Form(){
 
 }
 function HTML_CreateResourceBach_Form(){
-    return '<form class="Create_FormContainer" data-table="'+NAME_RESO_FORM+'" >\n' +
-        '    <h1> RESOURCE </h1>\n' +
+    return '<form class="Create_FormContainer" data-table="'+NAME_RESBatch_FORM+'" >\n' +
+        '    <h1> Resource Batch </h1>\n' +
         '    <table class="Creation_subPartContainer">\n' +
         '        <tr >\n' +
         '            <td>BatchId</td>\n' +
@@ -176,7 +176,7 @@ function HTML_CreateResourceBach_Form(){
 
         '        </div>\n' +
         '    </div>\n' +
-        '    <button type="button" onclick="commitCreateTable(this)" > commit </button>\n' +
+        '    <button type="button" onclick="commitResourceTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
 function HTML_CreateRecipeBach_Form(){
@@ -217,39 +217,22 @@ function HTML_CreateRecipeBach_Form(){
 }
 //Commits --- --- --- --- --- --- --- --- --- ---
 
-function commitCreateTable(self){
-
-    var table = $(self).parent('.Create_FormContainer');
-
-    switch (table.attr("data-Table")) {
-        case NAME_PROD_FORM:
-            alert("Commit Production");
-            break;
-        case NAME_RESO_FORM:
-            commitResourceTable(table);
-            alert("Commit Resource");
-            break;
-        case NAME_RECI_FORM:
-            alert("Commit Recipe");
-            break;
-    }
-}
 function commitResourceTable(table){
 
     var ResourceDTO ={
-        resourceBatchId:  table.find('.ResourceDTO_BatchID').val(),
-        resourceBatchAmount:table.find('.ResourceDTO_Amount').val(),
-        supplierName:     table.find('.ResourceDTO_Supplier').val(),
+        resourceBatchId:  $(table).find('.ResourceDTO_BatchID').val(),
+        resourceBatchAmount:$(table).find('.ResourceDTO_Amount').val(),
+        supplierName:     $(table).find('.ResourceDTO_Supplier').val(),
         isLeftover: "false",
-        resourceId:    table.find('#CreationForm_SelectContainer').find('select').val(),
+        resourceId:    $(table).find('#CreationForm_SelectContainer').find('select').val(),
     };
-
-
+    
     get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
         alert("succes");
     },function (data) {
         alert(data);
     });
+
 }
 function commitRecipeTable(container){
     var RecipeDTO;
@@ -324,20 +307,7 @@ function switchResourcesView(self){
     });
 }
 // Useability Functions
-function RecepyPop_AddResource(container){
 
-    var resource = $(container).find('.ProductionForm_ResourceContainer select option:selected');
-
-    var ResourceDTO = {
-        resourceId: resource.attr("data-resourceid"),
-        resourceName: resource.attr("data-resourceName"),
-        reorder: resource.attr("data-reorder"),
-        inactive: resource.attr("data-inactive")
-    };
-    if(typeof resource.attr("data-resourceid") !== "undefined") {
-        HTML_recipeResourceRow($(container).find('.ProductionForm_ResourceRelContainer table'), ResourceDTO);
-    }
-}
 
 // Resource
 

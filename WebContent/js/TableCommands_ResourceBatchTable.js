@@ -123,14 +123,15 @@ function LoadResourcesBatches(){
 }
 
 // REST Functions
-function ResourceBatchTable_REST_createResource(row){
+function ResourceBatchTable_REST_createResource(container){
+    //alert($(container).find(".CreationForm_ListContainer select option:selected").val());
 
     var ResourceBatch = {
-        resourceBatchId:$(row).find('.ResBatch_Id'),
-        resourceBatchAmount:$(row).find('.ResBatch_Ammount'),
-        supplierName:$(row).find('.ResBatch_supplier'),
-        isLeftover:$(row).find('.ResBatch_isLeftover'),
-        resourceId:$(row).find('.ResBatch_resourceId')
+        resourceBatchId:$(container).find('.ResourceDTO_BatchID'),
+        resourceBatchAmount:$(container).find('.ResourceDTO_Amount'),
+        supplierName:$(container).find('.ResourceDTO_Supplier'),
+        isLeftover:"false",
+        resourceId:$(container).find(".CreationForm_ListContainer select option:selected").val()
     };
     post( JSON.stringify( ResourceBatch ) ,"rest/resourcebatch/create" , function (data) {
         alert("created " + ResourceBatch.toString());
