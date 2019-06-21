@@ -11,27 +11,27 @@ public class BLLResourceBatch implements I_BLLResourceBatch {
     I_DAL_ResourceBatch dao = new DAO_ResourceBatch();
     @Override
     public ResourceBatchDTO createSingleResourceBatch(ResourceBatchDTO singleResourceBatch) throws SQLException {
-        return null;
+        return dao.createSingleResourceBatch(singleResourceBatch);
     }
 
     @Override
     public List<ResourceBatchDTO> createMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) throws SQLException {
-        return null;
+        return dao.createMultipleResourceBatchs(listOfResourceBatchs);
     }
 
     @Override
     public ResourceBatchDTO readSingleResourceBatchById(int resourceBatchId) throws SQLException {
-        return null;
+        return dao.readSingleResourceBatchById(resourceBatchId);
     }
 
     @Override
     public List<ResourceBatchDTO> readMultipleResourceBatchsByList(List<Integer> listOfResourceBatchIds) throws SQLException {
-        return null;
+        return dao.readMultipleResourceBatchsByList(listOfResourceBatchIds);
     }
 
     @Override
     public List<ResourceBatchDTO> readResourceBatchBySearch(String keyword) throws SQLException {
-        return null;
+        return dao.readResourceBatchBySearch(keyword);
     }
 
     @Override
@@ -41,21 +41,21 @@ public class BLLResourceBatch implements I_BLLResourceBatch {
 
     @Override
     public ResourceBatchDTO updateSingleResourceBatch(ResourceBatchDTO resourceBatch) throws SQLException {
-        return null;
+        return updateSingleResourceBatch(resourceBatch);
     }
 
     @Override
     public List<ResourceBatchDTO> updateMultipleResourceBatchs(List<ResourceBatchDTO> listOfResourceBatchs) throws SQLException {
-        return null;
+        return updateMultipleResourceBatchs(listOfResourceBatchs);
     }
 
     @Override
     public ResourceBatchDTO setIsLeftoverSingleResourceBatch(int resourceBatchId) throws SQLException {
-        return null;
+        return dao.setIsLeftoverSingleResourceBatch(resourceBatchId);
     }
 
     @Override
     public List<ResourceBatchDTO> setIsLeftoverMultipleResourceBatchs(List<Integer> listOfResourceBatchIds) throws SQLException {
-        return null;
+        return dao.setIsLeftoverMultipleResourceBatchs(listOfResourceBatchIds);
     }
 }
