@@ -54,10 +54,52 @@ var userTable_STATE_NOCHANGE      ="none";
 // UI
 // data-editstate
 // data-aktiveediting
-function UI_RecipedeleteRow(self){
 
+function UI_RecipedeleteRow(row){
+    if($(row).attr("data-editstate") != userTable_STATE_deleteReady ){
+        $(row).find('.dto-table-column-DTO-formElement').hide();
+        $(row).find('.DTO_PROD_DropButton').hide();
+        $(row).attr("data-editstate",userTable_STATE_deleteReady)
 
+    }else{
+        $(row).find('.dto-table-column-DTO-formElement').show();
+        $(row).find('.DTO_PROD_DropButton').hide();
+        $(row).attr("data-editstate",userTable_STATE_NOCHANGE)
+    }
 }
+function REST_recipeDeleteRow(row){
+
+    var RecDTO = {
+        recipeId: $(row).find('.recipeId').attr("data-value"),
+        recipeEndDate: $(row).find('.recipeEndDate').attr("data-value"),
+        recipeName: $(row).find('.recipeName').attr("data-value"),
+        productAmount: $(row).find('.productAmount').attr("data-value"),
+        authorUserId: $(row).find('.authorUserId').attr("data-value"),
+    };
+
+    Delete(null,"rest/recipe/delete/"+RecDTO.recipeId+"/"+RecDTO.recipeEndDate,function () {
+    })
+}
+function CommitRecipeTableChanges(){
+    $('#pageContent').find(' tr').each(function () {
+
+        var commitState = $(this).find('.commit-state').prop("checked");
+
+        if(commitState){
+            switch ( $(this).attr("data-editstate") ) {
+                case userTable_STATE_deleteReady:
+                    REST_recipeDeleteRow( $(this) );
+                    break;
+                case userTable_STATE_NOCHANGE:
+                    break;
+            }
+        }
+    })
+}
+
+
+
+
 
 function HTML_CreateRecipeBach_Row(Recipe ,RowName){
     return '    ' +
@@ -75,7 +117,7 @@ function HTML_CreateRecipeBach_Row(Recipe ,RowName){
         '        </td>\n' +
         '        <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3;">\n' +
         '            <button class="dto-table-button" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
-        '            <button class="dto-table-button" name="delete" onclick="dto_table_row_deleteToggle(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
+        '            <button class="dto-table-button" name="delete" onclick="UI_RecipedeleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
         '        </td>\n' +
         ' </tr>';
 }
@@ -108,8 +150,6 @@ function loadRecipeTable() {
 
             get('/rest/recipe/get/resources/resourcebatches/' + Recipe.recipeId + '', function (data) {
 
-
-
                 var ResourcesArr = data[0];
                 var ResourceBathcesArr = data[1];
 
@@ -117,6 +157,10 @@ function loadRecipeTable() {
                     myhtml_Ingredients = HTML_CreateRecipeRelResRow( ResourcesArr[q] , ResourceBathcesArr[q] );
                     Row.find('.DTO_PROD_DropDown').append( myhtml_Ingredients );
                 }
+
+                var btn = Row.find('.DTO_PROD_DropButton');
+                var text1 =btn.text();
+                btn.text( text1 + ResourcesArr.length );
 
             });
 
