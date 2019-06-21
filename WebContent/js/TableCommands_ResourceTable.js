@@ -155,12 +155,11 @@ function LoadResources(){
             // reOrder
             var selectTag = $('#'+RowName+'').find('.reorder');
             if(Resource.reorder == false) {
-              $(selectTag).find(' option[value=2]').attr('selected', 'selected');
+                //$(selectTag).find(' option[value=2]').attr('selected', 'selected');
+                $(selectTag).val('false').change();
 
             }else{
-                alert("reorder true");
-                $(selectTag).find(' option[value=1]').attr('selected', 'selected');
-
+                $(selectTag).val('true').change();
             }
 
             ROWINDEX = ROWINDEX +1
@@ -201,9 +200,9 @@ function ResourceTable_REST_updateRow(row){
     };
 
     alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
-    put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
+    /*put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
 
-    });
+    });*/
 }
 function ResourceTable_REST_deleteRow(row){
     var ResourceDTO ={
