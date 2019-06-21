@@ -102,11 +102,13 @@ function loadRecipeTable() {
             var RowName = RowNameInput + u;
             alert("inside resource for " + RowName);
             $('#pageContent').append(HTML_CreateRecipeBach_Row(Recipe, RowName));
+            var Row = $('#' + RowName + '');
+
+            Row.find('.commit-state').prop("checked",false);
 
             get('/rest/recipe/get/resources/resourcebatches/' + Recipe.recipeId + '', function (data) {
 
 
-                var Row = $('#' + RowName + '');
 
                 var ResourcesArr = data[0];
                 var ResourceBathcesArr = data[1];

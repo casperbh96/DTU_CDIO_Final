@@ -212,7 +212,7 @@ function HTML_CreateRecipeBach_Form(){
         '    <div class="Creation_subPartContainer" style="grid-column-gap:15px;">\n' +
         '\n' +
         '    </div>\n' +
-        '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
+        '    <button type="button" onclick="commitRecipeTable_Create(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
 //Commits --- --- --- --- --- --- --- --- --- ---
@@ -226,7 +226,7 @@ function commitResourceTable(table){
         isLeftover: "false",
         resourceId:    $(table).find('#CreationForm_SelectContainer').find('select').val(),
     };
-    
+
     get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
         alert("succes");
     },function (data) {
@@ -234,36 +234,54 @@ function commitResourceTable(table){
     });
 
 }
-function commitRecipeTable(container){
-    var RecipeDTO;
-    post("rest/recipe/get/newid", function (newData) {
 
-        RecipeDTO ={
-            recipeId:$(newData).recipeId,
-            recipeEndDate: null ,
-            recipeName:$(container).find('.Recipe_name').val(),
-            productAmount:$(container).find('.Recipe_Ammount').val(),
-            authorUserId:$(container).find('.Recipe_Author').val(),
-        }
+function commitRecipeTable_Create(container) {
+    get("rest/recipe/get/newid", function (newIdRecipe) {
 
-    });
-    $.each(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function (row) {
-
-        var RelResRed = {
-            resourceId:row.find('.resourceDataHolder').attr("data-R_ID"),
-            recipeId:newData.recipeId,
-            recipeEndDate:null,
-            resourceAmount:row.find('.Ammount'),
-            tolerance:row.find('.Tolerance')
+        var newID = newIdRecipe.recipeId;
+        var RecipeDTO = {
+            recipeId: newID,
+            recipeEndDate: null,
+            recipeName: $(container).find('.Recipe_name').val(),
+            productAmount: $(container).find('.Recipe_Ammount').val(),
+            authorUserId: $(container).find('.Recipe_Author').val(),
         };
+        
+        post(data, url, function () {
 
-        get(JSON.parse(RelResRed),"rest/reciperesources/create", function (newData) {
 
+
+
+            //FOR ALLE RELATIONER TIL RESOURCES
+            $(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function () {
+                var row = $(this);
+                alert("Relation");
+                /*
+                            private int resourceId;
+                            private int recipeId;
+                            private Date recipeEndDate;
+                            private double resourceAmount;
+                            private double tolerance;
+                // */
+                var RelationRecipeResource = {
+                    resourceId: row.find('.resourceDataHolder').attr("data-R_ID"),
+                    recipeId: newID,
+                    recipeEndDate: null,
+                    resourceAmount: row.find('.Ammount').val(),
+                    tolerance: row.find('.Tolerance').val()
+                };
+                //alert(RelationRecipeResource.resourceId +";"+RelationRecipeResource.recipeId +";"+ RelationRecipeResource.recipeEndDate +";"+ RelationRecipeResource.resourceAmount +";"+RelationRecipeResource.tolerance)
+
+                get(JSON.parse(RelationRecipeResource), "rest/reciperesources/create", function (newData) {
+
+                });
+
+            });
         });
-
-    })
-
+    });
 }
+
+
 
 
 // Useability Functions
