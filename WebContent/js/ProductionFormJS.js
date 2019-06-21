@@ -108,7 +108,7 @@ function HTML_recipeResourceRow(container , ResourceDTO){
 
     var html ='' +
         '<tr>' +
-        '   <td data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
+        '   <td class="resourceDataHolder" data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
         '   <td><input class="Recipe_REL_resource" type="number" placeholder="ammount Kg"></td>' +
         '   <td><input class="Recipe_REL_resource" type="number" placeholder="Tolerance%"></td>' +
         '</tr>';
@@ -253,24 +253,29 @@ function commitResourceTable(table){
 }
 function commitRecipeTable(container){
     var RecipeDTO;
-    get("rest/recipe/get/newid", function (data) {
+    get("rest/recipe/get/newid", function (newData) {
 
         RecipeDTO ={
-            recipeId:$(data).recipeId,
-            recipeEndDate:Date().toString(),
+            recipeId:$(newData).recipeId,
+            recipeEndDate: null ,
             recipeName:$(container).find('.Recipe_name').val(),
             productAmount:$(container).find('.Recipe_Ammount').val(),
             authorUserId:$(container).find('.Recipe_Author').val(),
         }
 
     });
+    $.each(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function (row) {
+        /*
+        var RelResRed = {
+            resourceId:row.find('.resourceDataHolder').attr("data-R_ID"),
+            recipeId:newData.recipeId,
+            recipeEndDate:null,
+            resourceAmount:null,
+            tolerance:null
+        };*/
 
+    })
 
-        get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
-          alert("succes");
-      },function (data) {
-          alert(data);
-      });
 }
 
 
