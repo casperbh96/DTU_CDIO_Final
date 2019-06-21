@@ -235,11 +235,26 @@ function switchResourcesView(self){
 }
 
 
-// Recipe
+// Useability Functions
+function RecepyPop_AddResource(container){
+
+    var resource = $(container).find('.ProductionForm_ResourceContainer select option:selected');
+
+    var ResourceDTO = {
+        resourceId: resource.attr("data-resourceid"),
+        resourceName: resource.attr("data-resourceName"),
+        reorder: resource.attr("data-reorder"),
+        inactive: resource.attr("data-inactive")
+    };
+    if(typeof resource.attr("data-resourceid") !== "undefined") {
+        HTML_recipeResourceRow($(container).find('.ProductionForm_ResourceRelContainer table'), ResourceDTO);
+    }
+}
 
 // Resource
 
 // Initiators
+
 function pop_resourceForm(self){
     if($(self).attr("data-active") === "true"){
         $('#overlay').empty();
@@ -248,6 +263,18 @@ function pop_resourceForm(self){
         var html = HTML_CreateResourceBach_Form();
         $('#overlay').append(html);
         var SelectContainer = $('#CreationForm_SelectContainer');
+        HTML_setUpIngredients_Opt(SelectContainer);
+        $(self).attr("data-active","true");
+    }
+}
+function pop_recipeForm(self){
+    if($(self).attr("data-active") === "true"){
+        $('#overlay').empty();
+        $(self).attr("data-active","false");
+    }else{
+        var html = HTML_CreateRecipeBach_Form();
+        $('#overlay').append(html);
+        var SelectContainer = $('.ProductionForm_ResourceContainer');
         HTML_setUpIngredients_Opt(SelectContainer);
         $(self).attr("data-active","true");
     }
