@@ -106,19 +106,7 @@ function HTML_setUpRecipe_Options(container){
         });
     });
 }
-function HTML_recipeResourceRow(container , ResourceDTO){
 
-
-    var html ='' +
-        '<tr>' +
-        '   <td class="resourceDataHolder" data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource Ammount" step="any" type="number" placeholder="ammount Kg"></td>' +
-        '   <td><input class="Recipe_REL_resource Tolerance" step="any" type="number" placeholder="Tolerance%"></td>' +
-        '</tr>';
-    container.append(html);
-
-
-}
 
 // tables
 function HTML_CreateProduction_Form(){
@@ -183,42 +171,7 @@ function HTML_CreateResourceBach_Form(){
         '    <button type="button" onclick="commitResourceTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
-function HTML_CreateRecipeBach_Form(editState){
-    return '' +
-        '<form class="Create_FormContainer" data-test="jeg er parent Containeren"  data-editstate="'+editState+'">\n' +
-        '    <h1> RECIPE </h1>\n' +
-        '    <table class="Creation_subPartContainer">\n' +
-        '        <tr>\n' +
-        '            <td>Recipe Name</td>\n' +
-        '            <td><input class="Recipe_name" type="text"></td>\n' +
-        '        </tr>\n' +
-        '        <tr>\n' +
-        '            <td>Ammount</td>\n' +
-        '            <td><input class="Recipe_Ammount"  step="any" type="number "></td>\n' +
-        '        </tr>\n' +
-        '        <tr>\n' +
-        '            <td>Author id</td>\n' +
-        '            <td><input class="Recipe_Author"  type="number"></td>\n' +
-        '        </tr>\n' +
-        '    </table>\n' +
-        '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
-        '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceContainer" style="">\n' +
-        '       </div>\n' +
-        '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
-        '\n' +
-        '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > add ingredient </Button>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceRelContainer" style="">\n' +
-        '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
-        '           </table>\n' +
-        '        </div>\n' +
-        '    </div>\n' +
-        '    <div class="Creation_subPartContainer" style="grid-column-gap:15px;">\n' +
-        '\n' +
-        '    </div>\n' +
-        '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
-        '</form>';
-}
+
 
 //Commits --- --- --- --- --- --- --- --- --- ---
 function commitResourceTable(table){
@@ -239,56 +192,6 @@ function commitResourceTable(table){
 
 }
 
-function commitRecipeTable(container) {
-    var switchStatement = $(container).attr("data-editstate");
-    switch(switchStatement){
-        case POPUP_STATE_update:
-            break;
-        case POPUP_STATE_createReady:
-            commitCreateRecipe(container);
-            break;
-    }
-}
-    function commitCreateRecipe(container){
-        alert("create");
-        get("rest/recipe/get/newid", function (newIdRecipe) {
-
-            var d = new Date();
-            var month = d.getMonth() + 1;
-            var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
-            alert(  dateString );
-
-            var newID = newIdRecipe.recipeId;
-            var RecipeDTO = {
-                recipeId: newID,
-                recipeEndDate: dateString,
-                recipeName: $(container).find('.Recipe_name').val(),
-                productAmount: $(container).find('.Recipe_Ammount').val(),
-                authorUserId: $(container).find('.Recipe_Author').val(),
-            };
-
-            post(JSON.stringify(RecipeDTO), "rest/recipe/create", function () {
-
-                //FOR ALLE RELATIONER TIL RESOURCES
-                $(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function () {
-                    var row = $(this);
-
-                    var RelationRecipeResource = {
-                        resourceId: row.find('.resourceDataHolder').attr("data-R_ID"),
-                        recipeId: newID,
-                        recipeEndDate: dateString,
-                        resourceAmount: row.find('.Ammount').val(),
-                        tolerance: row.find('.Tolerance').val()
-                    };
-
-                    post(JSON.stringify(RelationRecipeResource), "/rest/reciperesources/create", function (newData) {
-
-                    });
-                });
-            });
-            alert("Created Recipe");
-        });
-    }
 
 // Useability Functions --- --- --- --- --- --- --
 function switchResourcesView(self){
@@ -339,37 +242,6 @@ function pop_resourceForm(self){
         var html = HTML_CreateResourceBach_Form();
         $('#overlay').append(html);
         var SelectContainer = $('#CreationForm_SelectContainer');
-        HTML_setUpIngredients_Opt(SelectContainer);
-        $(self).attr("data-active","true");
-    }
-}
-
-function pop_recipeForm_create(self){
-    if($(self).attr("data-active") === "true"){
-
-        $('#overlay').empty();
-        $(self).attr("data-active","false");
-
-    }else{
-
-        var html = HTML_CreateRecipeBach_Form(POPUP_STATE_createReady);
-        $('#overlay').append(html);
-        var SelectContainer = $('.ProductionForm_ResourceContainer');
-        HTML_setUpIngredients_Opt(SelectContainer);
-        $(self).attr("data-active","true");
-
-    }
-}
-function pop_recipeForm_update(self){
-
-    if($(self).attr("data-active") === "true"){
-        $('#overlay').empty();
-        $(self).attr("data-active","false");
-    }else{
-        var html = HTML_CreateRecipeBach_Form(POPUP_STATE_update);
-        $('#overlay').append(html);
-
-        var SelectContainer = $('.ProductionForm_ResourceContainer');
         HTML_setUpIngredients_Opt(SelectContainer);
         $(self).attr("data-active","true");
     }
