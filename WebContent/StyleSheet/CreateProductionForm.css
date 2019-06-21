@@ -19,6 +19,10 @@
     border:1px solid black;
     border-radius: 3px;
 
+    position: fixed;
+    left: 35%;
+    right: 50%;
+    top: 25%;
 }
     .Creation_subPartContainer{
         height:auto;
