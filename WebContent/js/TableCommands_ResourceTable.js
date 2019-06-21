@@ -200,9 +200,9 @@ function ResourceTable_REST_updateRow(row){
     };
 
     alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
-    /*put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
+    put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
 
-    });*/
+    });
 }
 function ResourceTable_REST_deleteRow(row){
     var ResourceDTO ={
