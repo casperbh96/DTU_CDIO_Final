@@ -110,7 +110,7 @@ function HTML_generateResourceBatchRow(RelResourceBatch){
         '                <tr class="_1x4grid" >\n' +
         '                    <td class="resourceBatch_Id"    name="RB_id"> '+RelResourceBatch.resourceBatchId+' </td>\n' +
         '                    <td class="recipe_name"         name="I_Name"> I_Name </td>\n' + //todo ResourceName
-        '                    <td class="rel_net_Amount"      name="Net_Amount"> '+netAmount+' </td>\n' +
+        '                    <td class="rel_net_Amount"      name="Net_Amount"> netAmount </td>\n' +
         '                    <td class="rel_tara"            name="Tara"> '+RelResourceBatch.tara+' </td>\n' +
         '                </tr>';
 }

@@ -62,17 +62,6 @@
         grid-row: 1/2;
     }
 
-
-#pageFrame{
-    display: inline-grid;
-    grid-template-columns: 1fr 11fr;
-    grid-template-rows: 50px 1fr;
-}
-    #menu-frame{
-        grid-column: 1/2;
-        grid-row:1/3;
-
-    }
 .DTO_Table_Row_MenuBox{
     display: inline-grid;
     grid-template-columns: 1fr;
@@ -152,6 +141,14 @@
             width: 100%;
             float:left;
         }
+    .DTO_RECI_GRID{
+        display: inline-grid;
+        grid-template-columns: 40px 50px 1fr 1fr 1fr 1fr 100px;
+        grid-template-rows: 1fr 1fr;
+    }
+     .DTO_RECI_GRID *{
+         width: 100%;
+     }
 
 
     /* commit Dette bub*/

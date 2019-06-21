@@ -1,48 +1,3 @@
-function get(url, sFunc, eFunc){
-    $.ajax({
-        type:'GET',
-        url: url,
-        success: function (data) {
-            sFunc(data);
-        },
-        error: function(data) {
-            alert("connection Error with url" + url+ ";");
-        }
-    });
-}
-function post(data, url, sFunc){
-    $.ajax({
-        type:'POST',
-        url: url,
-        contentType:'application/json',
-        data:data,
-        success: function (data) {
-            sFunc(data);
-        }
-    });
-}
-function put(data, url, sFunc){
-    $.ajax({
-        type:'PUT',
-        url: url,
-        contentType:'application/json',
-        data:data,
-        success: function (data) {
-            sFunc(data);
-        }
-    });
-}
-function Delete(data, url, sFunc){
-    $.ajax({
-        type:'DELETE',
-        url: url,
-        contentType:'application/json',
-        data:data,
-        success: function (data) {
-            sFunc(data);
-        },
-    });
-}
 
 var userTable_STATE_deleteReady   ="delete";
 var userTable_STATE_editReady     ="edit";
@@ -53,7 +8,9 @@ var userTable_ROLEidClassName= 'ROLEID_';
 var userTable_ROWINDEX = 1;
 var userTable_HTML_SingleROLE ="\n";
 var userTable_HTML_GeneralRoles="\n";
+
 // CREATING GENERAL ROLE HTML
+
 $( document ).ready(function(){
     get('/rest/roles/get', function (data) {
         $.each(data, function (i, role) {
@@ -112,32 +69,36 @@ function userTable_CREATE_insertCreaterRow(){
                 username:"newUserName",
                 initials:"Initals",
                 inactive:false
-            }
+            };
             $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
             userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
             // uncheck all Users Roles
             var thisRow = $('#'+rowId+'');
-    thisRow.children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
-    thisRow.css("background-color","green");
-    thisRow.find('.User_UpdateBtn').hide();
-    thisRow.find(' input').prop('disabled', false);
+                thisRow.children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
+                thisRow.css("background-color","green");
+                thisRow.find('.User_UpdateBtn').hide();
+                thisRow.find(' input').prop('disabled', false);
             // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
 
 }
 
 // UI AND REST FUNCTIONS
 function userTable_READ_loadUserTable(){
+
+
+
     get('/rest/users/true', function (data) {
         $.each(data, function (i, user) {
-            // Create the Row
+
             var rowId = 'rowNumber_'+userTable_ROWINDEX;
-            $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
+            $('#pageContent table').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
             userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
-            // uncheck all Users Roles
+
+
             var thisRow = $('#'+rowId+'');
             $('#'+rowId+'').children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
             $('#'+rowId+'').find('.commit-state').prop("checked",false);
-            // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
+
 
             get('/rest/roleuser/get/'+user.userId+'', function (data) {
                 $.each(data, function (i, role) {
@@ -151,7 +112,6 @@ function userTable_READ_loadUserTable(){
 }
 
 // REST Functions
-
 function userTable_REST_addUserRoles_toUser(row, userdto){
     $(row).find('.UserRoleCheckBox').each(function () {
         if($(this).prop("checked")) {
@@ -241,6 +201,9 @@ function userTable_commit_tableUsersChanges(){
             }
         }
     });
+
+        userTable_loadTable();
+
 }
 function userTable_getNewId( sfunc ){
      get("/rest/users/get/newid", function (data) {

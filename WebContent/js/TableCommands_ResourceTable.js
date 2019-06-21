@@ -1,5 +1,4 @@
 
-
 function get(url, sFunc, eFunc){
     $.ajax({
         type:'GET',
@@ -123,34 +122,13 @@ function ResTable_UI_insertCreaterRow(){
     // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
 }
 
-/*function userTable_CREATE_insertCreaterRow(){
-    // Create the Row
-    var rowId = 'rowNumber_'+userTable_ROWINDEX;
-    var user = {
-        userId: "x",
-        username:"newUserName",
-        initials:"Initals",
-        inactive:false
-    }
-    $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
-    userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
-    // uncheck all Users Roles
-    var thisRow = $('#'+rowId+'');
-    thisRow.children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
-    thisRow.css("background-color","green");
-    thisRow.find('.User_UpdateBtn').hide();
-    thisRow.find(' input').prop('disabled', false);
-    // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
-
-}*/
-
 // UI AND REST FUNCTIONS
 function LoadResources(){
     // GET all ProductBatcehs
     get("/rest/resources/get",function (data) {
         $.each(data, function (i, Resource) {
             var RowName = RES_ID_NAMING + ROWINDEX;
-            $('#dto-table-container').append(HTML_GenerateResourceRow(Resource,RowName));
+            $('#pageFrame').append(HTML_GenerateResourceRow(Resource,RowName));
 
             $('#'+RowName+'').find('.commit-state').prop("checked",false);
             var ActiveTag  = $('#'+RowName+'').find('.active');
@@ -213,7 +191,7 @@ function ResourceTable_REST_deleteUser(row){
 
 function ResourceTable_commitTable(){
     //$(row).attr("data-editState")
-    $('#dto-table-container').children('tr').each( function () {
+    $('#pageContent').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 
