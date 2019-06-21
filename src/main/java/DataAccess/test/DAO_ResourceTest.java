@@ -104,7 +104,7 @@ public class DAO_ResourceTest {
     @org.junit.Test
     public void updateSingleResourceTest(){
         try{
-            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(998, "testing1234", false, false));
+            ResourceDTO res = dao.updateSingleResource(new ResourceDTO(1123, "TestUpd", false, false));
             assertNotNull(res);
 
             System.out.println(res);
