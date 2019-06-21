@@ -233,12 +233,26 @@ public class WeightProgram {
 
                     System.out.println(status);
 
+                    if(status == true){
+                        weightConverter.resetInputString();
+                        while(weightConverter.statusForUserResponse() == false){
+                            weightConverter.writeInWeightDisplay("afvejning korrekt");
+                        }
+                    }
+
 
 
 
                 } while(status == false);
 
                 i++;
+
+                weightConverter.resetInputString();
+                while(weightConverter.statusForUserResponse() == false){
+                    weightConverter.writeInWeightDisplay("fjern beholder");
+                }
+
+                weightConverter.backToWeightDisplay();
 
                 if (i == 0) {
                     productBatchDTO.setCreationDate(new StringToSqlDateConverter().convertStringToDate(new Date(System.currentTimeMillis()).toString()));
