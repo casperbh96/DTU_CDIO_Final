@@ -51,6 +51,21 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
         return Response.ok(recipeList).build();
     }
 
+    @Path("get/newid")
+    @GET
+    public Response getNewRecipeId() {
+        List<RecipeDTO> recipeList = null;
+        RecipeDTO rec = new RecipeDTO();
+        try{
+            recipeList = recipeBLL.getAllRecipes();
+            rec.setRecipeId(recipeList.get(recipeList.size()).getRecipeId()+1);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(recipeList).build();
+    }
+
     @Path("get/{recipeid}")
     @GET
     public Response getAllResourcesByRecipeId(@PathParam("recipeid") int recipeId) {

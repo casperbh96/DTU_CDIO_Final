@@ -3,6 +3,7 @@ package main.java.DataAccess.test;
 import main.java.Core.REL_RecipeResourceDTO;
 import main.java.Core.RecipeDTO;
 import main.java.Core.ResourceDTO;
+import main.java.Core.StringToSqlDateConverter;
 import main.java.DataAccess.dao.DAO_REL_RecipeResource;
 import main.java.DataAccess.dao.DAO_Recipe;
 import main.java.DataAccess.dao.DAO_Resource;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import java.sql.BatchUpdateException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -161,13 +163,15 @@ public class DAO_RecipeResourceTest {
     public void updateSingleRecipeResourceTest(){
         try{
             REL_RecipeResourceDTO resRec = dao.updateSingleRecipeResource(
-                    new REL_RecipeResourceDTO(280, 180,
-                            Date.valueOf("9999-12-31"), 33.33, 2.5));
+                    new REL_RecipeResourceDTO(2, 1,
+                            new StringToSqlDateConverter().convertStringToDate("9999-12-30"), 0.15, 5));
             Assertions.assertNotNull(resRec);
 
             System.out.println(resRec);
         } catch (SQLException ex){
             ex.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

@@ -17,7 +17,7 @@ public class BLLRecipe_Test {
     @org.junit.Test
     public void readAllRecipesTest() {
         try {
-            Object[] objects = bll.getAllResourcesAndResourceBatchesByRecipeId(60);
+            Object[] objects = bll.getAllResourcesAndResourceBatchesByRecipeId(2);
             ArrayList<Object> list = new ArrayList(Arrays.asList(objects));
             for(Object o : list){
                 System.out.println(o.toString());

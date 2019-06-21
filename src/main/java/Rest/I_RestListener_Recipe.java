@@ -8,6 +8,7 @@ import java.text.ParseException;
 public interface I_RestListener_Recipe {
     Response createRecipe(RecipeDTO recipe);
     Response getAllRecipes();
+    Response getNewRecipeId();
     Response getRecipeById(int recipeId, String recipeEndDate) throws ParseException;
     Response getRecipesBySearch(String search);
     Response getAllResourcesByRecipeId(int recipeId);
