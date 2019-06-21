@@ -95,13 +95,13 @@ function ResBatchTable_UI_deleteRow(row){
 }
 function ResBatchTable_UI_insertCreaterRow(ResourceBatch,RecipeName){
     var rowName = RESBatch_ID_NAMING + ROWINDEX;
-    $('#dto-table-container').append(HTML_GenerateResourceRow(ResourceBatch,RecipeName, rowName));
+    $('#pageContent').append(HTML_GenerateResourceRow(ResourceBatch,RecipeName, rowName));
 
-        ROWINDEX = ROWINDEX + 1 ;
-        // uncheck all Users Roles
-        var thisRow = $('#'+RowName+'');
-        thisRow.attr("data-editstate",Res_STATE_createReady);
-        thisRow.css("background-color","green");
+    ROWINDEX = ROWINDEX + 1 ;
+    // uncheck all Users Roles
+    var thisRow = $('#'+RowName+'');
+    thisRow.attr("data-editstate",Res_STATE_createReady);
+    thisRow.css("background-color","green");
 
     // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
 }
@@ -113,7 +113,7 @@ function LoadResourcesBatches(){
             get("/rest/resources/get/"+Resource.resourceId+"",function (resources) {
 
                 var RowName = RESBatch_ID_NAMING + ROWINDEX;
-                $('#dto-table-container').append(HTML_GenerateResourceRow(Resource,resources.resourceName,RowName));
+                $('#pageContent').append(HTML_GenerateResourceRow(Resource,resources.resourceName,RowName));
                 $('.'+RowName+'').find('.commit-state').prop("checked",false);
                 ROWINDEX = ROWINDEX +1;
 
@@ -132,9 +132,9 @@ function ResourceBatchTable_REST_createResource(row){
         isLeftover:$(row).find('.ResBatch_isLeftover'),
         resourceId:$(row).find('.ResBatch_resourceId')
     };
-       post( JSON.stringify( ResourceBatch ) ,"rest/resourcebatch/create" , function (data) {
-            alert("created " + ResourceBatch.toString());
-       });
+    post( JSON.stringify( ResourceBatch ) ,"rest/resourcebatch/create" , function (data) {
+        alert("created " + ResourceBatch.toString());
+    });
 }
 function ResourceBatchTable_REST_DeleteResource(row){
 
@@ -151,7 +151,7 @@ function ResourceBatchTable_REST_DeleteResource(row){
 }
 function ResourceTable_commitTable(){
     //$(row).attr("data-editState")
-    $('#dto-table-container').children('tr').each( function () {
+    $('#pageContent').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 
