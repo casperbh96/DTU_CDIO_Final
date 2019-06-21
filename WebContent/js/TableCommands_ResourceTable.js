@@ -56,15 +56,15 @@ var RES_ID_NAMING = "resource_";
 var ROWINDEX = 1;
 
 function HTML_GenerateResourceRow(Resource,RowName){
-     alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
+    // alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
     return '\n' +
         '<tr class="DTO_Table_Row DTO_RESOURCE_GRID" id="'+RowName +'" data-editstate="'+Res_STATE_NOCHANGE+'" data-aktiveediting="false" >\n' +
         '            <td ><input  class="commit-state" type="checkbox"        name="checkBox" checked="unchecked" ></td>\n' +
         '            <td class="dto-table-column-DTO-formElement"><div      class="resourceId"> '+Resource.resourceId+'</div>          </td>\n' +
         '            <td class="dto-table-column-DTO-formElement"><input    class="resourceName" value="'+Resource.resourceName+'" disabled>   </td>\n' +
         '            <td class="dto-table-column-DTO-formElement"><select   class="reorder" disabled> \n' +
-        '                <option value="true"> Re-Order </option>\n' +
-        '                <option value="false"> No Re-Order </option>\n' +
+        '                <option value="1"> Re-Order </option>\n' +
+        '                <option value="2"> No Re-Order </option>\n' +
         '            </select>\n' +
         '            <td class="dto-table-column-DTO-formElement "><p       class="active" data-activestate=""  > INACTIVE DATA HERE </p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">\n' +
@@ -135,9 +135,9 @@ function LoadResources(){
             var RowName = RES_ID_NAMING + ROWINDEX;
            $('#pageContent').append(HTML_GenerateResourceRow(Resource,RowName));
 
-
-            /*
-            $('#'+RowName+'').find('.commit-state').prop("checked",false);
+            var row = $('#'+RowName+'');
+            // inactive data
+            row.find('.commit-state').prop("checked",false);
             var ActiveTag  = $('#'+RowName+'').find('.active');
             if(Resource.inactive == false) {
                 ActiveTag.text("active");
@@ -145,7 +145,24 @@ function LoadResources(){
             }else{
                 ActiveTag.text("in active ");
                 ActiveTag.prop("data-activestate","true");
-            }*/
+            }
+
+      /*      alert(row.find('.reorder').val());
+            row.find('.reorder option[value=2]').attr('selected', 'selected');
+           $("#myselect option[value=3]").attr('selected', 'selected');*/
+
+
+            // reOrder
+            var selectTag = $('#'+RowName+'').find('.reorder');
+            if(Resource.reorder == false) {
+              $(selectTag).find(' option[value=2]').attr('selected', 'selected');
+
+            }else{
+                alert("reorder true");
+                $(selectTag).find(' option[value=1]').attr('selected', 'selected');
+
+            }
+
             ROWINDEX = ROWINDEX +1
         });
     })
