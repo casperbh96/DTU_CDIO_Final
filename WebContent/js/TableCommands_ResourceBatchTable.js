@@ -149,7 +149,7 @@ function ResourceBatchTable_REST_DeleteResource(row){
 
     });
 }
-function ResourceTable_commitTable(){
+function ResourceBatchTable_commitTable(){
     //$(row).attr("data-editState")
     $('#pageContent').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");

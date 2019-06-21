@@ -186,7 +186,7 @@ function ResourceTable_REST_createResource(row){
 
     //});
 }
-function ResourceTable_REST_updateUser(row){
+function ResourceTable_REST_updateRow(row){
 
 
     var ResourceDTO ={
@@ -201,7 +201,7 @@ function ResourceTable_REST_updateUser(row){
 
     });
 }
-function ResourceTable_REST_deleteUser(row){
+function ResourceTable_REST_deleteRow(row){
     var ResourceDTO ={
         resourceId:  $(row).find('.resourceId').text(),
         resourceName:$(row).find('.resourceName').val(),
@@ -222,14 +222,18 @@ function ResourceTable_commitTable(){
         if(commitState){
             switch ( $(this).attr("data-editstate") ) {
                 case Res_STATE_NOCHANGE:
+                    alert("no changes detected, commit ignored");
                     break;
                 case Res_STATE_deleteReady:
-                    ResourceTable_REST_deleteUser( $(this) );
+                    alert("delete user");
+                    ResourceTable_REST_deleteRow( $(this) );
                     break;
                 case Res_STATE_editReady:
-                    ResourceTable_REST_updateUser( $(this) );
+                    alert("updated user");
+                    ResourceTable_REST_updateRow( $(this) );
                     break;
                 case Res_STATE_createReady:
+                    alert("created user");
                     ResourceTable_REST_createResource( $(this) );
                     break;
             }
