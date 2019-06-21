@@ -63,8 +63,8 @@ function HTML_GenerateResourceRow(Resource,RowName){
         '            <td class="dto-table-column-DTO-formElement"><div      class="resourceId"> '+Resource.resourceId+'</div>          </td>\n' +
         '            <td class="dto-table-column-DTO-formElement"><input    class="resourceName" value="'+Resource.resourceName+'" disabled>   </td>\n' +
         '            <td class="dto-table-column-DTO-formElement"><select   class="reorder" disabled> \n' +
-        '                <option value="1"> Re-Order </option>\n' +
-        '                <option value="2"> No Re-Order </option>\n' +
+        '                <option value="true"> Re-Order </option>\n' +
+        '                <option value="false"> No Re-Order </option>\n' +
         '            </select>\n' +
         '            <td class="dto-table-column-DTO-formElement "><p       class="active" data-activestate=""  > INACTIVE DATA HERE </p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">\n' +
@@ -155,12 +155,11 @@ function LoadResources(){
             // reOrder
             var selectTag = $('#'+RowName+'').find('.reorder');
             if(Resource.reorder == false) {
-              $(selectTag).find(' option[value=2]').attr('selected', 'selected');
+                //$(selectTag).find(' option[value=2]').attr('selected', 'selected');
+                $(selectTag).val('false').change();
 
             }else{
-                alert("reorder true");
-                $(selectTag).find(' option[value=1]').attr('selected', 'selected');
-
+                $(selectTag).val('true').change();
             }
 
             ROWINDEX = ROWINDEX +1
@@ -173,11 +172,15 @@ function ResourceTable_REST_createResource(row){
     //ResTable_getNewId(function (data) {
 
     var ResourceDTO ={
-        resourceId:  1123,
+        resourceId:  0,
         resourceName:$(row).find('.resourceName').val(),
         reorder:$(row).find('.reorder').val(),
         inactive:false
     };
+
+    get("rest/resources/get/newid", function (data) {
+        ResourceDTO.resourceId = data.resourceId;
+    });
 
     alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
     post( JSON.stringify( ResourceDTO ) ,"rest/resources/create" , function (data) {

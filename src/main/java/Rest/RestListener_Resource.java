@@ -59,6 +59,22 @@ public class RestListener_Resource implements I_RestListener_Resource {
         return Response.ok(res).build();
     }
 
+    @Path("get/newid")
+    @GET
+    public Response getNewResourceId() {
+        List<ResourceDTO> res = null;
+        ResourceDTO resDTO = new ResourceDTO();
+        int id;
+        try{
+            res = resourceBLL.readAllResources();
+            resDTO.setResourceId(res.get(res.size()-1).getResourceId()+1);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(resDTO).build();
+    }
+
     @Path("get/search/{keyword}")
     @GET
     public Response getResourcesBySearch(@PathParam("keyword") String search) {
