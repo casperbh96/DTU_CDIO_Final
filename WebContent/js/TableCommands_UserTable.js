@@ -105,23 +105,23 @@ function userTable_UI_deleteRow(row){
     }
 }
 function userTable_CREATE_insertCreaterRow(){
-            // Create the Row
-            var rowId = 'rowNumber_'+userTable_ROWINDEX;
-            var user = {
-                userId: "x",
-                username:"newUserName",
-                initials:"Initals",
-                inactive:false
-            }
-            $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
-            userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
-            // uncheck all Users Roles
-            var thisRow = $('#'+rowId+'');
+    // Create the Row
+    var rowId = 'rowNumber_'+userTable_ROWINDEX;
+    var user = {
+        userId: "x",
+        username:"newUserName",
+        initials:"Initals",
+        inactive:false
+    }
+    $('#pageContent').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
+    userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
+    // uncheck all Users Roles
+    var thisRow = $('#'+rowId+'');
     thisRow.children('.DTO_Table_Row_beneathRow').find(' input').prop("checked",false);
     thisRow.css("background-color","green");
     thisRow.find('.User_UpdateBtn').hide();
     thisRow.find(' input').prop('disabled', false);
-            // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
+    // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
 
 }
 
@@ -131,7 +131,7 @@ function userTable_READ_loadUserTable(){
         $.each(data, function (i, user) {
             // Create the Row
             var rowId = 'rowNumber_'+userTable_ROWINDEX;
-            $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
+            $('#pageContent').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
             userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
             // uncheck all Users Roles
             var thisRow = $('#'+rowId+'');
@@ -220,7 +220,7 @@ function userTable_REST_deleteUser(row){
 }
 function userTable_commit_tableUsersChanges(){
     //$(row).attr("data-editState")
-    $('#dto-table-container').children('tr').each( function () {
+    $('#pageContent').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 
@@ -243,11 +243,11 @@ function userTable_commit_tableUsersChanges(){
     });
 }
 function userTable_getNewId( sfunc ){
-     get("/rest/users/get/newid", function (data) {
-         //alert(JSON.parse(data,1));;
+    get("/rest/users/get/newid", function (data) {
+        //alert(JSON.parse(data,1));;
         sfunc( data.userId );
 
-     });
+    });
 }
 
 
