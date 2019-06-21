@@ -112,54 +112,53 @@ function HTML_CreateRecipeBach_Row(Recipe ,RowName){
         '        </td>\n' +
         ' </tr>';
 }
-function HTML_CreateRecipeRelResRow(resource,resourceBatch){
+function HTML_CreateRecipeRelResRow(resource,resourceRelation){
     return'\n' +
-        '               <tr class="_1x4grid">\n' +
-        '                    <td class="rel_resourceId"     > ' + resource.resourceId + ' </td>\n' +
-        '                    <td class="recipe_name"        > ' + resource.resourceName + ' </td>\n' +
-        '                    <td class="rel_Amount"         > ' + resourceBatch.resourceAmount + ' </td>\n' +
-        '                    <td class="rel_tolerance"      > ' + resourceBatch.tolerance + ' </td>\n' +
-        '                </tr>' +
-        '\n';
-
+        '               <tr class="_1x4grid" >\n' +
+        '                    <td class="resourceId"									> ' + resource.resourceId + ' 			</td>\n' +
+        '                    <td class="resourceName"								     > ' + resource.resourceName + ' 		</td>\n' +
+        '                    <td class="resourceAmount"								 > ' + resourceRelation.resourceAmount + ' 	</td>\n' +
+        '                    <td class="tolerance"      							     > ' + resourceRelation.tolerance + ' 		</td>\n' +
+        '                    <td class="reorder  absHidden"   				  data-content="'+ resource.reorder + '">   			</td>\n' +
+    '                        <td class="inactive abshidden"                 data-content="'+ resource.inactive+ '">  			</td>\n' +
+    '                </tr>' +
+    '\n';
 }
 
 function loadRecipeTable(){
 
+    // standard for naming the Rows.
     var RowNameInput = "rowNumber_";
-    var myhtml_Ingredients;
 
+    // For Each Recipe, getting oll the Recipes, with an iteration index of u
     get('/rest/recipe/get', function (data) {
         $.each(data, function (u, Recipe) {
 
             var RowName = RowNameInput + u;
-            alert("inside resource for " + RowName);
             $('#pageContent').append(HTML_CreateRecipeBach_Row(Recipe, RowName));
             var Row = $('#' + RowName + '');
-
             Row.find('.commit-state').prop("checked",false);
 
+            // Getting a double array arr[0] Resources and arr[1] is the RelationResourceRecipe
             get('/rest/recipe/get/resources/resourcebatches/' + Recipe.recipeId + '', function (data) {
 
                 var ResourcesArr = data[0];
-                var ResourceBathcesArr = data[1];
+                var ResourceRelations = data[1];
 
+                // for all Resources, add a them as HTML to the drop down
                 for (var q = 0; q < ResourcesArr.length; q++) {
-                    myhtml_Ingredients = HTML_CreateRecipeRelResRow( ResourcesArr[q] , ResourceBathcesArr[q] );
+                    var myhtml_Ingredients = HTML_CreateRecipeRelResRow( ResourcesArr[q] , ResourceRelations[q] );
                     Row.find('.DTO_PROD_DropDown').append( myhtml_Ingredients );
                 }
 
+                // updating number of the button, shows how many elements are in the dropdown.
                 var btn = Row.find('.DTO_PROD_DropButton');
                 var text1 =btn.text();
                 btn.text( text1 + ResourcesArr.length );
 
             });
-
         });
-
-
     })
-
 }
 
 
@@ -175,7 +174,7 @@ function pop_recipeForm_create(self){
 
         var html = HTML_CreateRecipeBach_Form(POPUP_STATE_createReady);
         $('#overlay').append(html);
-        var SelectContainer = $('.ProductionForm_ResourceContainer');
+        var SelectContainer = $('.RecipeForm_ResourceContainer');
         HTML_setUpIngredients_Opt(SelectContainer);
         $(self).attr("data-active","true");
 
@@ -185,8 +184,6 @@ function pop_recipeForm_update(container){
 
 
     if( $(container).attr("data-active") === "true"){
-
-        alert("not popping the modal ");
         $('#overlay').empty();
         $(container).attr("data-active","false");
 
@@ -205,22 +202,30 @@ function pop_recipeForm_update(container){
         var html = HTML_CreateRecipePop_filled(RecipeDTO);
         $('#overlay').append(html);
 
-        var SelectContainer = $('.ProductionForm_ResourceContainer');
+        var SelectContainer = $('.RecipeForm_ResourceContainer');
         HTML_setUpIngredients_Opt(SelectContainer);
         $(container).attr("data-active","true");
 
         var rowRelationResources = $(container).find('.DTO_PROD_DropDown');
+        var container = $('#ModalResourceContainer table');
         $(rowRelationResources).children(' tr').each(function () {
 
+            var ResourceDTO ={
+                resourceId:"",
+                resourceName:"",
+                reorder:"",
+                inactive:""
+            };
             var RelationDTO ={
                 resourceId:$(this).children('.rel_resourceId').text(),
                 recipeId:$(this).children('.recipe_name').text(),
                 recipeEndDate:RecipeDTO.recipeEndDate,
                 resourceAmount:$(this).children('.rel_Amount').text(),
                 tolerance:$(this).children('.rel_tolerance').text()
-            }
+            };
 
 
+            RecepyPop_AddResourceDTO(container,RelationDTO);
         });
 
     }
@@ -239,13 +244,11 @@ function commitRecipeTable(container) {
     }
 }
 function commitCreateRecipe(container){
-    alert("create");
     get("rest/recipe/get/newid", function (newIdRecipe) {
 
         var d = new Date();
         var month = d.getMonth() + 1;
         var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
-        alert(  dateString );
 
         var newID = newIdRecipe.recipeId;
         var RecipeDTO = {
@@ -259,7 +262,7 @@ function commitCreateRecipe(container){
         post(JSON.stringify(RecipeDTO), "rest/recipe/create", function () {
 
             //FOR ALLE RELATIONER TIL RESOURCES
-            $(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function () {
+            $(container).find('.RecipeForm_ResourceRelContainer table').children(' tr').each(function () {
                 var row = $(this);
 
                 var RelationRecipeResource = {
@@ -300,12 +303,12 @@ function HTML_CreateRecipeBach_Form(editState){
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceContainer" style="">\n' +
+        '        <div class="ProductionForm_ListContainer RecipeForm_ResourceContainer" style="">\n' +
         '       </div>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '\n' +
         '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > add ingredient </Button>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceRelContainer" style="">\n' +
+        '        <div class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
         '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
         '           </table>\n' +
         '        </div>\n' +
@@ -336,12 +339,12 @@ function HTML_CreateRecipePop_filled(DTO){
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceContainer" style="">\n' +
+        '        <div class="ProductionForm_ListContainer RecipeForm_ResourceContainer" style="">\n' +
         '       </div>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '\n' +
         '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > add ingredient </Button>\n' +
-        '        <div class="ProductionForm_ListContainer ProductionForm_ResourceRelContainer" style="">\n' +
+        '        <div id="ModalResourceContainer" class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
         '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
         '           </table>\n' +
         '        </div>\n' +
@@ -354,14 +357,14 @@ function HTML_CreateRecipePop_filled(DTO){
 
 
 }
-function HTML_recipeResourceRow(container , ResourceDTO){
-    var html ='' +
+function HTML_recipeResourceRow(ResourceDTO, RelationDTO){
+    return '' +
         '<tr>' +
-        '   <td class="resourceDataHolder" data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource Ammount" step="any" type="number" placeholder="ammount Kg"></td>' +
-        '   <td><input class="Recipe_REL_resource Tolerance" step="any" type="number" placeholder="Tolerance%"></td>' +
+        '   <td class="resourceDataHolder" data-r_id="'+ResourceDTO.resourceId+'" >'+ResourceDTO.resourceName+'</td>' +
+        '   <td><input class="Recipe_REL_resource Ammount" value="" step="any" type="number" placeholder="ammount Kg"></td>' +
+        '   <td><input class="Recipe_REL_resource Tolerance" value="" step="any" type="number" placeholder="Tolerance%"></td>' +
         '</tr>';
-    container.append(html);
+
 }
 function HTML_setUpIngredients_Opt( container ){
     CreateROW = 0;
@@ -388,19 +391,22 @@ function HTML_setUpIngredients_Opt( container ){
 
 // Useability Functions --- --- --- --- --- --- --
 function RecepyPop_AddResource(container){
-
-    var resource = $(container).find('.ProductionForm_ResourceContainer select option:selected');
-
+    var resource = $(container).find('.RecipeForm_ResourceContainer select option:selected');
     var ResourceDTO = {
         resourceId: resource.attr("data-resourceid"),
         resourceName: resource.attr("data-resourceName"),
         reorder: resource.attr("data-reorder"),
         inactive: resource.attr("data-inactive")
     };
+
     if(typeof resource.attr("data-resourceid") !== "undefined") {
-        HTML_recipeResourceRow($(container).find('.ProductionForm_ResourceRelContainer table'), ResourceDTO);
+        $(container).find('.RecipeForm_ResourceRelContainer table').append(HTML_recipeResourceRow(ResourceDTO));
     }
 
+}
+function RecepyPop_AddResourceDTO(container , ResourceDTO){
+    alert("child detected");
+    $(container).append(HTML_recipeResourceRow(ResourceDTO, RelationDTO));
 }
 
 
