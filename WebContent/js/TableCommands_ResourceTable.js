@@ -102,22 +102,22 @@ function ResTable_UI_insertCreaterRow(){
     // Create the Row
     var RowName = RES_ID_NAMING + ROWINDEX ;
     var Resource = {
-         resourceId: "Id to come",
+        resourceId: "Id to come",
         resourceName:"resourceName",
         reorder: "reOrder",
         inactive:false
     };
-    $('#dto-table-container').append(HTML_GenerateResourceRow(Resource,RowName))
+    $('#pageContent').append(HTML_GenerateResourceRow(Resource,RowName))
 
-        ROWINDEX = ROWINDEX + 1 ;
-        // uncheck all Users Roles
-        var thisRow = $('#'+RowName+'');
-        thisRow.attr("data-editstate",Res_STATE_createReady);
+    ROWINDEX = ROWINDEX + 1 ;
+    // uncheck all Users Roles
+    var thisRow = $('#'+RowName+'');
+    thisRow.attr("data-editstate",Res_STATE_createReady);
 
-        thisRow.find('.resTableBtn_update').hide();
-        thisRow.find(' input').prop('disabled', false);
-        thisRow.find(' select').prop('disabled', false);
-        thisRow.css("background-color","green");
+    thisRow.find('.resTableBtn_update').hide();
+    thisRow.find(' input').prop('disabled', false);
+    thisRow.find(' select').prop('disabled', false);
+    thisRow.css("background-color","green");
 
 
     // Get All Roles Belonging to the User. and for each, check the Belonging checkbox if he has it.
@@ -132,7 +132,7 @@ function ResTable_UI_insertCreaterRow(){
         initials:"Initals",
         inactive:false
     }
-    $('#dto-table-container').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
+    $('#pageContent').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
     userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
     // uncheck all Users Roles
     var thisRow = $('#'+rowId+'');
@@ -150,7 +150,7 @@ function LoadResources(){
     get("/rest/resources/get",function (data) {
         $.each(data, function (i, Resource) {
             var RowName = RES_ID_NAMING + ROWINDEX;
-            $('#dto-table-container').append(HTML_GenerateResourceRow(Resource,RowName));
+            $('#pageContent').append(HTML_GenerateResourceRow(Resource,RowName));
 
             $('#'+RowName+'').find('.commit-state').prop("checked",false);
             var ActiveTag  = $('#'+RowName+'').find('.active');
@@ -170,17 +170,17 @@ function LoadResources(){
 function ResourceTable_REST_createResource(row){
     //ResTable_getNewId(function (data) {
 
-        var ResourceDTO ={
-            resourceId:  1123,
-            resourceName:$(row).find('.resourceName').val(),
-            reorder:$(row).find('.reorder').val(),
-            inactive:false
-        };
+    var ResourceDTO ={
+        resourceId:  1123,
+        resourceName:$(row).find('.resourceName').val(),
+        reorder:$(row).find('.reorder').val(),
+        inactive:false
+    };
 
-        alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
-        post( JSON.stringify( ResourceDTO ) ,"rest/resources/create" , function (data) {
-            alert("created " + ResourceDTO.toString());
-        });
+    alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
+    post( JSON.stringify( ResourceDTO ) ,"rest/resources/create" , function (data) {
+        alert("created " + ResourceDTO.toString());
+    });
 
     //});
 }
@@ -195,9 +195,9 @@ function ResourceTable_REST_updateUser(row){
     };
 
     alert("resourceId :"+ ResourceDTO.resourceId +" , resourceName:"+ ResourceDTO.resourceName +" , reorder:"+ ResourceDTO.reorder +" ,inactive :" + ResourceDTO.inactive);
-     put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
+    put( JSON.stringify(ResourceDTO), "rest/resources/update" , function (data) {
 
-     });
+    });
 }
 function ResourceTable_REST_deleteUser(row){
     var ResourceDTO ={
@@ -213,7 +213,7 @@ function ResourceTable_REST_deleteUser(row){
 
 function ResourceTable_commitTable(){
     //$(row).attr("data-editState")
-    $('#dto-table-container').children('tr').each( function () {
+    $('#pageContent').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 
