@@ -158,7 +158,7 @@ public class BLLRecipe implements I_BLLRecipe {
             }
             resList = bllResource.readMultipleResourcesByList(listOfIds);
         } else{
-            return new Object[]{null, null};
+            return new Object[]{new ArrayList<>(), new ArrayList<>()};
         }
 
         return new Object[]{recResList, resList};
