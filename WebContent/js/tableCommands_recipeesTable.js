@@ -71,7 +71,7 @@ function HTML_CreateRecipeBach_Row(Recipe, ResourcesContent){
         '        <td class="DTO_Table_Row_beneathRow" style="grid-row: 2/3; grid-column: 1/7;"                                               >\n' +
         '            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1"                                     > Resources included.</button>\n' +
         '            <table  class="DTO_PROD_DropDown" style="display:none; position:relative; z-index:1;"                                   >\n' +
-        '' + ResourcesContent +
+        ''                      + ResourcesContent +
         '            </table>\n' +
         '        </td>\n' +
         '        <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3;">\n' +
@@ -80,32 +80,35 @@ function HTML_CreateRecipeBach_Row(Recipe, ResourcesContent){
         '        </td>\n' +
         ' </tr>';
 }
-function HTML_CreateRecipeRelResRow(Relation_Rec_Res){
-    var html = '' +
-        '               <tr class="_1x4grid" >\n' +
-        '                   <td class="resourceId"     > '+Relation_Rec_Res.resourceId+'         </td>\n' +
-        '                   <td class="resourceName"   > '+Relation_Rec_Res.resourceName+'        </td>\n' +
-        '                   <td class="resourceAmount" > '+Relation_Rec_Res.resourceAmount+'      </td>\n' +
-        '                   <td class="tolerance"      > '+Relation_Rec_Res.tolerance+'    </td>\n' +
+
+function HTML_CreateRecipeRelResRow(resource,RelRecRes){
+    return'' +
+        '               <tr class="_1x4grid">\n' +
+        '                    <td class="rel_resourceId"     > ' + RelRecRes.resourceId + ' </td>\n' +
+        '                    <td class="recipe_name"        > ' + resource.resourceName + ' </td>\n' +
+        '                    <td class="rel_Amount"         > ' + RelRecRes.resourceAmount + ' </td>\n' +
+        '                    <td class="rel_tolerance"      > ' + RelRecRes.tolerance + ' </td>\n' +
         '                </tr>';
-    return html;
+
 }
 function loadRecipeTable(){
 
     get('/rest/recipe/get',function (data) {
         $.each(data, function (u, Recipe){
 
-            get('/rest/reciperesources/get/resources/resourcebatches/' + Recipe.recipeId +'',function (data) {
+            var ResourcesContent = "\n";
+            get('/rest/recipe/get/resources/resourcebatches/' + Recipe.recipeId +'',function (data) {
                 $.each(data, function (i, RelRecRes){
 
-
+                    get('/rest/resources/get/' + RelRecRes.resourceId +'',function (resource) {
+                        myResouces = myResouces +HTML_CreateRecipeRelResRow(resource,RelRecRes);
+                    });
 
                 });
             },);
-
-            var html = HTML_CreateRecipeBach_Row(Recipe,relationalTable);
-            $("#dto-table-container").append(html);
+            $('#pageContent table').append(HTML_CreateRecipeBach_Row(Recipe, ResourcesContent));
         });
+
     },)
 
 }

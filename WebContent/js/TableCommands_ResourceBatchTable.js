@@ -61,7 +61,7 @@ var ResourceBatch = {
     isLeftover:"",
     resourceId:""
 };
-function HTML_GenerateResourceRow(ResourceBatch,RecipeName,rowName){
+function HTML_GenerateResourceBatchRow(ResourceBatch, RecipeName, rowName){
     return '' +
         '       <tr class="DTO_Table_Row DTO_RESOURCE_BATCH_GRID '+rowName+'"       data-editstate="'+ResBatch_STATE_NOCHANGE+'" data-aktiveediting="false" >\n' +
         '            <td><input class="commit-state" type="checkbox"        name="checkBox" checked="unchecked"></td>\n' +
@@ -95,7 +95,7 @@ function ResBatchTable_UI_deleteRow(row){
 }
 function ResBatchTable_UI_insertCreaterRow(ResourceBatch,RecipeName){
     var rowName = RESBatch_ID_NAMING + ROWINDEX;
-    $('#pageContent').append(HTML_GenerateResourceRow(ResourceBatch,RecipeName, rowName));
+    $('#pageContent').append(HTML_GenerateResourceBatchRow(ResourceBatch,RecipeName, rowName));
 
     ROWINDEX = ROWINDEX + 1 ;
     // uncheck all Users Roles
@@ -113,7 +113,7 @@ function LoadResourcesBatches(){
             get("/rest/resources/get/"+Resource.resourceId+"",function (resources) {
 
                 var RowName = RESBatch_ID_NAMING + ROWINDEX;
-                $('#pageContent').append(HTML_GenerateResourceRow(Resource,resources.resourceName,RowName));
+                $('#pageContent').append(HTML_GenerateResourceBatchRow(Resource,resources.resourceName,RowName));
                 $('.'+RowName+'').find('.commit-state').prop("checked",false);
                 ROWINDEX = ROWINDEX +1;
 

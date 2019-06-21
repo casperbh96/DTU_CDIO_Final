@@ -109,8 +109,8 @@ function HTML_recipeResourceRow(container , ResourceDTO){
     var html ='' +
         '<tr>' +
         '   <td class="resourceDataHolder" data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource" type="number" placeholder="ammount Kg"></td>' +
-        '   <td><input class="Recipe_REL_resource" type="number" placeholder="Tolerance%"></td>' +
+        '   <td><input class="Recipe_REL_resource Ammount" step="any" type="number" placeholder="ammount Kg"></td>' +
+        '   <td><input class="Recipe_REL_resource Tolerance" step="any" type="number" placeholder="Tolerance%"></td>' +
         '</tr>';
     container.append(html);
 
@@ -190,11 +190,11 @@ function HTML_CreateRecipeBach_Form(){
         '        </tr>\n' +
         '        <tr>\n' +
         '            <td>Ammount</td>\n' +
-        '            <td><input class="Recipe_Ammount" type="number "></td>\n' +
+        '            <td><input class="Recipe_Ammount"  step="any" type="number "></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
         '            <td>Author id</td>\n' +
-        '            <td><input class="Recipe_Author" type="number"></td>\n' +
+        '            <td><input class="Recipe_Author"  type="number"></td>\n' +
         '        </tr>\n' +
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
@@ -253,7 +253,7 @@ function commitResourceTable(table){
 }
 function commitRecipeTable(container){
     var RecipeDTO;
-    get("rest/recipe/get/newid", function (newData) {
+    post("rest/recipe/get/newid", function (newData) {
 
         RecipeDTO ={
             recipeId:$(newData).recipeId,
@@ -265,14 +265,18 @@ function commitRecipeTable(container){
 
     });
     $.each(container).find('.ProductionForm_ResourceRelContainer table').children(' tr').each(function (row) {
-        /*
+
         var RelResRed = {
             resourceId:row.find('.resourceDataHolder').attr("data-R_ID"),
             recipeId:newData.recipeId,
             recipeEndDate:null,
-            resourceAmount:null,
-            tolerance:null
-        };*/
+            resourceAmount:row.find('.Ammount'),
+            tolerance:row.find('.Tolerance')
+        };
+
+        get(JSON.parse(RelResRed),"rest/reciperesources/create", function (newData) {
+
+        });
 
     })
 
