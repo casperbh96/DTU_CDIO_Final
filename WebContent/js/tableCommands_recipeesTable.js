@@ -101,7 +101,7 @@ function loadRecipeTable() {
 
             var RowName = RowNameInput + u;
             alert("inside resource for " + RowName);
-            $('#pageContent').append(HTML_CreateRecipeBach_Row(Recipe, RowName));
+            $('.Page_Content_pasterTable').append(HTML_CreateRecipeBach_Row(Recipe, RowName));
             var Row = $('#' + RowName + '');
 
             Row.find('.commit-state').prop("checked",false);

@@ -152,7 +152,7 @@ function LoadProductions(){
                     });
                 });
 
-                $('#pageContent').append(HTML_generateProductionRow( productbatch, recipe , RelResourceList, intResourceCounters));
+                $('.Page_Content_pasterTable').append(HTML_generateProductionRow( productbatch, recipe , RelResourceList, intResourceCounters));
 
 
 

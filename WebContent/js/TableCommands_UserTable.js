@@ -113,7 +113,7 @@ function userTable_CREATE_insertCreaterRow(){
         initials:"Initals",
         inactive:false
     }
-    $('#pageContent').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
+    $('.Page_Content_pasterTable').append(userTable_HTML_GenerateUserRow(user,rowId,userTable_STATE_createReady ));
     userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
     // uncheck all Users Roles
     var thisRow = $('#'+rowId+'');
@@ -131,7 +131,7 @@ function userTable_READ_loadUserTable(){
         $.each(data, function (i, user) {
             // Create the Row
             var rowId = 'rowNumber_'+userTable_ROWINDEX;
-            $('#pageContent').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
+            $('.Page_Content_pasterTable').append(userTable_HTML_GenerateUserRow(user,rowId, userTable_STATE_NOCHANGE ));
             userTable_ROWINDEX = userTable_ROWINDEX + 1 ;
             // uncheck all Users Roles
             var thisRow = $('#'+rowId+'');
@@ -220,7 +220,7 @@ function userTable_REST_deleteUser(row){
 }
 function userTable_commit_tableUsersChanges(){
     //$(row).attr("data-editState")
-    $('#pageContent').children('tr').each( function () {
+    $('.Page_Content_pasterTable').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 

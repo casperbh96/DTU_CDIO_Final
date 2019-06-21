@@ -19,5 +19,7 @@ function loadReciAdminTable(){
     $('.topMenu_point').hide();
     $('#topMenu_RecipeBatch').show();
 }
-
+function clearTable(){
+    $(".Page_Content_pasterTable").empty();
+}
 

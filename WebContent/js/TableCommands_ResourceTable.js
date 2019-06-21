@@ -109,7 +109,7 @@ function ResTable_UI_insertCreaterRow(){
         reorder: "reOrder",
         inactive:false
     };
-    $('#pageContent').append(HTML_GenerateResourceRow(Resource,RowName))
+    $('.Page_Content_pasterTable').append(HTML_GenerateResourceRow(Resource,RowName))
 
     ROWINDEX = ROWINDEX + 1 ;
     // uncheck all Users Roles
@@ -133,7 +133,7 @@ function LoadResources(){
         $.each(data, function (i, Resource) {
            // alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
             var RowName = RES_ID_NAMING + ROWINDEX;
-           $('#pageContent').append(HTML_GenerateResourceRow(Resource,RowName));
+           $('.Page_Content_pasterTable').append(HTML_GenerateResourceRow(Resource,RowName));
 
             var row = $('#'+RowName+'');
             // inactive data
@@ -218,7 +218,7 @@ function ResourceTable_REST_deleteRow(row){
 
 function ResourceTable_commitTable(){
     //$(row).attr("data-editState")
-    $('#pageContent').children('tr').each( function () {
+    $('.Page_Content_pasterTable').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 

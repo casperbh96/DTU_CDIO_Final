@@ -95,7 +95,7 @@ function ResBatchTable_UI_deleteRow(row){
 }
 function ResBatchTable_UI_insertCreaterRow(ResourceBatch,RecipeName){
     var rowName = RESBatch_ID_NAMING + ROWINDEX;
-    $('#pageContent').append(HTML_GenerateResourceBatchRow(ResourceBatch,RecipeName, rowName));
+    $('.Page_Content_pasterTable').append(HTML_GenerateResourceBatchRow(ResourceBatch,RecipeName, rowName));
 
     ROWINDEX = ROWINDEX + 1 ;
     // uncheck all Users Roles
@@ -113,7 +113,7 @@ function LoadResourcesBatches(){
             get("/rest/resources/get/"+Resource.resourceId+"",function (resources) {
 
                 var RowName = RESBatch_ID_NAMING + ROWINDEX;
-                $('#pageContent').append(HTML_GenerateResourceBatchRow(Resource,resources.resourceName,RowName));
+                $('.Page_Content_pasterTable').append(HTML_GenerateResourceBatchRow(Resource,resources.resourceName,RowName));
                 $('.'+RowName+'').find('.commit-state').prop("checked",false);
                 ROWINDEX = ROWINDEX +1;
 
@@ -152,7 +152,7 @@ function ResourceBatchTable_REST_DeleteResource(row){
 }
 function ResourceBatchTable_commitTable(){
     //$(row).attr("data-editState")
-    $('#pageContent').children('tr').each( function () {
+    $('.Page_Content_pasterTable').children('tr').each( function () {
         var commitState = $(this).find('.commit-state').prop("checked");
         var id = $(this).attr("id");
 
