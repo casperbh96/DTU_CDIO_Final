@@ -71,6 +71,26 @@ function HTML_GenerateResourceRow(Resource,RowName){
         '                <button class="dto-table-button resTableBtn_delete" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
         '            </td>\n' +
         '        </tr>';
+
+
+
+
+
+    /*'\n' +
+        '<tr class="DTO_Table_Row DTO_RESOURCE_GRID" id="'+RowName +'" data-editstate="'+Res_STATE_NOCHANGE+'" data-aktiveediting="false" >\n' +
+        '            <td ><input  class="commit-state" type="checkbox"        name="checkBox" checked="unchecked" ></td>\n' +
+        '            <td class="dto-table-column-DTO-formElement"><div      class="resourceId"> '+Resource.resourceId+'</div>          </td>\n' +
+        '            <td class="dto-table-column-DTO-formElement"><input    class="resourceName" value="'+Resource.resourceName+'" disabled>   </td>\n' +
+        '            <td class="dto-table-column-DTO-formElement"><select   class="reorder" disabled> \n' +
+        '                <option value="true"> Re-Order </option>\n' +
+        '                <option value="false"> No Re-Order </option>\n' +
+        '            </select>\n' +
+        '            <td class="dto-table-column-DTO-formElement "><p       class="active" data-activestate=""  > INACTIVE DATA HERE </p></td>\n' +
+        '            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">\n' +
+        '                <button class="dto-table-button resTableBtn_update" name="update" onclick="ResTable_UI_updateRow(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
+        '                <button class="dto-table-button resTableBtn_delete" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
+        '            </td>\n' +
+        '        </tr>';*/
 }
 
 //UI functions

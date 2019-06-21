@@ -212,13 +212,11 @@ function HTML_CreateRecipeBach_Form(){
         '    <div class="Creation_subPartContainer" style="grid-column-gap:15px;">\n' +
         '\n' +
         '    </div>\n' +
-        '    <button type="submit" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
+        '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
 //Commits --- --- --- --- --- --- --- --- --- ---
 
-
-//Commits --- --- --- --- --- --- --- --- --- ---
 function commitCreateTable(self){
 
     var table = $(self).parent('.Create_FormContainer');
@@ -254,23 +252,26 @@ function commitResourceTable(table){
     });
 }
 function commitRecipeTable(container){
+    var RecipeDTO;
+    get("rest/recipe/get/newid", function (data) {
 
-    //todo CREATE RECIPE DTO AND RELS.
-    /*  var ResourceDTO ={
-          resourceBatchId:  table.find('.ResourceDTO_BatchID').val(),
-          resourceBatchAmount:table.find('.ResourceDTO_Amount').val(),
-          supplierName:     table.find('.ResourceDTO_Supplier').val(),
-          isLeftover: "false",
-          resourceId:    table.find('#CreationForm_SelectContainer').find('select').val(),
-      };*/
+        RecipeDTO ={
+            recipeId:$(data).recipeId,
+            recipeEndDate:Date().toString(),
+            recipeName:$(container).find('.Recipe_name').val(),
+            productAmount:$(container).find('.Recipe_Ammount').val(),
+            authorUserId:$(container).find('.Recipe_Author').val(),
+        }
 
-    /*  get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
+    });
+
+
+        get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
           alert("succes");
       },function (data) {
           alert(data);
-      });*/
+      });
 }
-
 
 
 // Useability Functions
@@ -313,7 +314,6 @@ function switchResourcesView(self){
         });
     });
 }
-
 // Useability Functions
 function RecepyPop_AddResource(container){
 
