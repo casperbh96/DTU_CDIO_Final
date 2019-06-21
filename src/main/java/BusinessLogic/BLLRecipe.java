@@ -145,6 +145,22 @@ public class BLLRecipe implements I_BLLRecipe {
         return new Object[]{resList, new ArrayList<>()};
     }
 
+    public Object[] getAllRelRecipeResourcesAndResourcesByRecipeId(int recipeId) throws SQLException {
+        List<REL_RecipeResourceDTO> recResList = new ArrayList<>();
+        List<ResourceDTO> resList = new ArrayList<>();
+        List<Integer> listOfIds = new ArrayList<>();
+
+        recResList = bllRecipeResource.readAllRecipeResourcesByRecipeId(recipeId);
+
+        for(REL_RecipeResourceDTO recRes : recResList){
+            listOfIds.add(recRes.getResouceId());
+        }
+
+        resList = bllResource.readMultipleResourcesByList(listOfIds);
+
+        return new Object[]{recResList, resList};
+    }
+
     @Override
     public RecipeDTO getActiveRecipeById(int recipeId) throws SQLException, ParseException {
         return daoRecipe.readSingleRecipeById(recipeId, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));

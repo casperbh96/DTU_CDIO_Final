@@ -12,6 +12,7 @@ public interface I_RestListener_Recipe {
     Response getRecipeById(int recipeId, String recipeEndDate) throws ParseException;
     Response getRecipesBySearch(String search);
     Response getAllResourcesByRecipeId(int recipeId);
+    Response getAllRelRecipeResourcesAndResourcesByRecipeId(int recipeId);
     Response updateRecipe(RecipeDTO recipe);
     Response deleteRecipe(int recipeId, String recipeEndDate);
 }

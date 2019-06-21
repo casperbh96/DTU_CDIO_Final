@@ -102,6 +102,20 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
         return Response.ok(recipeResourceList).build();
     }
 
+    @Path("get/relreciperesources/resources/{recipeid}")
+    @GET
+    public Response getAllRelRecipeResourcesAndResourcesByRecipeId(@PathParam("recipeid") int recipeId) {
+        Object[] relRecipeResourceAndResourceList;
+
+        try{
+            relRecipeResourceAndResourceList = recipeBLL.getAllRelRecipeResourcesAndResourcesByRecipeId(recipeId);
+        } catch (SQLException ex){
+            return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
+        }
+
+        return Response.ok(relRecipeResourceAndResourceList).build();
+    }
+
     @Path("get/{recipeid}/{enddate}")
     @GET
     public Response getRecipeById(@PathParam("recipeid") int recipeId, @PathParam("enddate") String recipeEndDate) throws ParseException {
