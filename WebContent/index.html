@@ -11,19 +11,22 @@
     <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
     <!-- UI libraries, one for each table -->
     <script type="text/javascript" src="js/IndexCommands.js"></script>
-     <script type="text/javascript" src="js/TableCommands_UserTable.js"></script>
-    <script type="text/javascript" src="js/TableCommands_ResourceTable.js"></script>
-         <script type="text/javascript" src="js/TableCommands_ResourceBatchTable.js"></script>
-      <script type="text/javascript" src="js/TableCommands_productionTable.js"></script>
     <script type="text/javascript" src="js/ProductionFormJS.js"></script>
+
+    <script type="text/javascript" src="js/TableCommands_UserTable.js"></script>
+    <script type="text/javascript" src="js/TableCommands_ResourceTable.js"></script>
+    <script type="text/javascript" src="js/TableCommands_ResourceBatchTable.js"></script>
+    <script type="text/javascript" src="js/TableCommands_productionTable.js"></script>
     <script type="text/javascript" src="js/tableCommands_recipeesTable.js"></script>
 
      <!--    Reset StyleSheet-->
     <link rel="stylesheet" href="StyleSheet/styleReset.css">
-    <link rel="stylesheet" href="StyleSheet/index.css">
+
     <link rel="stylesheet" href="StyleSheet/tableUserRole_Template.css">
     <link rel="stylesheet" href="StyleSheet/grids.css">
     <link rel="stylesheet" href="StyleSheet\CreateProductionForm.css">
+
+    <link rel="stylesheet" href="StyleSheet/index.css">
 
 </head>
 <body style="font-size: 65%">
@@ -62,7 +65,7 @@
         <div class="topMenu_point" id="topMenu_RecipeBatch" style="display: none">
             <button onclick="loadRecipeTable()" onclick="pop_recipeForm_create(this)" data-active="false"> Load Recipes           </button>
             <button onclick="pop_recipeForm_create(self)" onclick="pop_recipeForm_create(this)" data-active="false"> Create Recipe           </button>
-
+            <button onclick="CommitRecipeTableChanges()" onclick="pop_recipeForm_create(this)" data-active="false"> Commit           </button>
         </div>
     </div>
     <div id="pageContent">
