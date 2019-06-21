@@ -180,7 +180,7 @@ public class BLLRecipe implements I_BLLRecipe {
 
     @Override
     public List<REL_RecipeResourceDTO> getAllResourcesForRecipe(int recipeId) throws SQLException, ParseException {
-        return bllRecipeResource.readResourcesForRecipe(recipeId, new StringToSqlDateConverter().convertStringToDate("9999-12-31"));
+        return bllRecipeResource.readResourcesForRecipe(recipeId, new StringToSqlDateConverter().convertStringToDate("9999-12-30"));
     }
 
     @Override

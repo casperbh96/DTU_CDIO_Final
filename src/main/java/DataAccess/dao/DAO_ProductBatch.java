@@ -64,7 +64,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO createSingleProductBatch(ProductBatchDTO singleProductBatch) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, order_status, production_EndDate, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
 
             setCreatePreparedStatement(pStmt, singleProductBatch);
 
@@ -81,7 +81,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, production_status, production_end_date, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pStmt = conn.prepareStatement("INSERT INTO product_batches (product_batch_id, creation_date, order_status, production_EndDate, inactive, recipe_id, recipe_end_date, productionleader_id_user_id) VALUES (?,?,?,?,?,?,?,?)");
 
             for (ProductBatchDTO productBatch : listOfProductBatches) {
                 idList.add(productBatch.getProductBatchId());
@@ -147,7 +147,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("select * from product_batches " +
-                    "WHERE product_batch_id LIKE ? OR creation_date LIKE ? OR production_status LIKE ? OR production_end_date LIKE ? OR inactive LIKE ? OR recipe_id LIKE ? OR recipe_end_date LIKE ? OR productionleader_id_user_id LIKE ?");
+                    "WHERE product_batch_id LIKE ? OR creation_date LIKE ? OR order_status LIKE ? OR production_EndDate LIKE ? OR inactive LIKE ? OR recipe_id LIKE ? OR recipe_end_date LIKE ? OR productionleader_id_user_id LIKE ?");
             pStmt.setString(1, "%" + keyword + "%");
             pStmt.setString(2, "%" + keyword + "%");
             pStmt.setString(3, "%" + keyword + "%");
@@ -185,7 +185,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, production_status = ?, production_end_date = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, order_status = ?, production_EndDate = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
 
             setUpdatePreparedStatement(pStmt, productBatch);
 
@@ -202,7 +202,7 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
 
         try (Connection conn = static_createConnection()) {
             static_startTransAction(conn);
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, production_status = ?, production_end_date = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, order_status = ?, production_EndDate = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
 
             for (ProductBatchDTO resourceBatch : listOfProductBatches) {
                 idList.add(resourceBatch.getProductBatchId());
