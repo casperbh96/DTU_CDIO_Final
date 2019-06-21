@@ -45,18 +45,18 @@ public class WeightProgram {
 
         try {
             // while loop som kører indtil der kommer svar fra user input på vægten
-            while (weightConverter.statusForUserResponse() == false) { //sørger for at input fra vægten bliver læst korrekt
+            while (weightConverter.statusForUserResponse() == false) {
 
                 userInput = weightConverter.writeInWeightDisplay("Indtast UserID");
                 userInput = weightConverter.convertInputFromDisplayToString(userInput);
 
-                //System.out.println(userInput);
             }
 
             boolean isUserInputEmpty = false;
 
+            //hvis userInput er en tom string kører programmet forfra
             if(userInput.equals("")){
-                //hvis userInput er en tom string kører programmet forfra
+
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
                     weightConverter.writeInWeightDisplay("proev igen");
@@ -68,6 +68,7 @@ public class WeightProgram {
             // konvertere input fra vægt fra string til integer
             userId = Integer.parseInt(userInput.replaceAll("\\D", ""));
 
+            // sørger for at useren findes i databasen
             boolean isUserFound = false;
             try{
                 isUserFound = user.getUserById(userId).getUserId() == userId;
@@ -81,16 +82,10 @@ public class WeightProgram {
                 main(args);
             }
 
-            //sørger for at useren findes i databasen
-            if (isUserFound) {
-                userObject = user.getUserById(userId);
-                System.out.println(userObject.toString());
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
                     weightConverter.writeInWeightDisplay(user.getUserById(userId).getUsername());
                 }
-                //weightConverter.writeLongTextToDisplay(user.getUserById(userId).getUsername());
-            }
 
             // nulstiller string i vægtinput
             weightConverter.resetInputString();
@@ -166,7 +161,7 @@ public class WeightProgram {
                 // skriver en besked til brugeren på vægten, som så skal svare ok på vægten
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
-                    weightConverter.writeInWeightDisplay("Afbalanceret vaegt");
+                    weightConverter.writeInWeightDisplay("Afbalanceret vaegt?");
                 }
 
                 // skriver en besked til brugeren på vægten, som så skal svare ok på vægten
