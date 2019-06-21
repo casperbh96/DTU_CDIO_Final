@@ -54,6 +54,18 @@ var Res_STATE_NOCHANGE      ="none";
 
 var RES_ID_NAMING = "resource_";
 var ROWINDEX = 1;
+function HTML_GenerateHeader(){
+    // alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
+    return '\n' +
+        '<tr class="DTO_Table_Row DTO_RESOURCE_GRID" id="RowHeader">\n' +
+        '            <td >Prepare Commit</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">Råvare ID</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">Råvare Navn</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">Genbestilling</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement "><p> Inaktiv </p></td>\n' +
+        '        </tr>';
+
+}
 
 function HTML_GenerateResourceRow(Resource,RowName){
     // alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
@@ -128,6 +140,7 @@ function ResTable_UI_insertCreaterRow(){
 
 // UI AND REST FUNCTIONS
 function LoadResources(){
+    $('.Page_Content_pasterTable').append(HTML_GenerateHeader());
     // GET all ProductBatcehs
     get("/rest/resources/get",function (data) {
         $.each(data, function (i, Resource) {

@@ -61,6 +61,18 @@ var ResourceBatch = {
     isLeftover:"",
     resourceId:""
 };
+
+function HTML_CreateTableHeaderResBat() {
+    return '    ' +
+        '       <tr class="DTO_Table_Row DTO_RESOURCE_BATCH_GRID '+'RowHeader'+'">\n' +
+        '        <td>Prepare Commit</td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Id" value="Res_active">        '+'ID'+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_ResName" value="Res_active">   '+'Opskrift Navn'+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+'RåvareBatch Mængde'+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_supplier" value="Res_active">  '+'Leverandør'+' </p></td>\n' +
+        ' </tr>';
+}
+
 function HTML_GenerateResourceBatchRow(ResourceBatch, RecipeName, rowName){
     return '' +
         '       <tr class="DTO_Table_Row DTO_RESOURCE_BATCH_GRID '+rowName+'"       data-editstate="'+ResBatch_STATE_NOCHANGE+'" data-aktiveediting="false" >\n' +
@@ -107,6 +119,7 @@ function ResBatchTable_UI_insertCreaterRow(ResourceBatch,RecipeName){
 }
 // UI AND REST FUNCTIONS
 function LoadResourcesBatches(){
+    $('.Page_Content_pasterTable').append(HTML_CreateTableHeaderResBat());
     // GET all ProductBatcehs
     get("/rest/resourcebatch/get",function (data) {
         $.each(data, function (i, Resource) {

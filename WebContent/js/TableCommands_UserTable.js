@@ -65,6 +65,18 @@ $( document ).ready(function(){
         });
     });
 });
+function HTML_GenerateUserHeader(){
+    // alert(Resource.resourceId+";"+Resource.resourceName+";"+Resource.reorder+";"+Resource.inactive+";");
+    return '\n' +
+        '<tr class="DTO_Table_Row DTO_RESOURCE_GRID" id="RowHeader">\n' +
+        '            <td >Prepare Commit</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">User ID</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">Fulde Navn</td>\n' +
+        '            <td class="dto-table-column-DTO-formElement">Initialer</td>\n' +
+        '        </tr>';
+
+}
+
 function userTable_HTML_GenerateUserRow(user, rowId, editState){
     return '' +
         '       <tr id="'+rowId+'"class="DTO_Table_Row DTO_USER_GRID" data-editstate="'+editState+'" data-aktiveediting="false" data-inactive-User="'+user.inactive+'">\n' +
@@ -127,6 +139,7 @@ function userTable_CREATE_insertCreaterRow(){
 
 // UI AND REST FUNCTIONS
 function userTable_READ_loadUserTable(){
+    $('.Page_Content_pasterTable').append(HTML_GenerateUserHeader());
     get('/rest/users/true', function (data) {
         $.each(data, function (i, user) {
             // Create the Row
@@ -144,8 +157,6 @@ function userTable_READ_loadUserTable(){
                     $('#'+rowId+'').children('.DTO_Table_Row_beneathRow').find('.'+userTable_ROLEidClassName+role.roleId+'').children(' input').prop("checked",true);
                 });
             });
-
-
         });
     });
 }

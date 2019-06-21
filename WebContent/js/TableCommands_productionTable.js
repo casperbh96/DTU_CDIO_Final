@@ -45,7 +45,7 @@ function Delete(data, url, sFunc){
     });
 }
 //CRUDE
-function LoadProductions(){
+/*function LoadProductions(){
     // GET all ProductBatcehs
     get("/rest/productbatch/get",function (data) {
         $.each(data, function (i, productbatch) {
@@ -69,6 +69,33 @@ function LoadProductions(){
 
 
 
+
+            });
+        });
+    })
+}*/
+
+function LoadProductions(){
+    // GET all ProductBatcehs
+    get("/rest/productbatch/get",function (data) {
+        $.each(data, function (i, productbatch) {
+            if(productbatch.recipeEndDate == '9999-12-31'){
+                productbatch.recipeEndDate = '9999-12-30';
+            }
+            get("/rest/recipe/get/"+productbatch.recipeId+"/"+productbatch.recipeEndDate+" ",function (recipe) {
+
+                var RelResourceList = "\n";
+                var intResourceCounters = 0;
+                // GET the product bath's Resource Batches.
+                get("/rest/productbatch/get/resources/"+ productbatch.productBatchId+"",function (data) {
+                    $.each(data, function (i, RelResourceBatch) {
+                        //todo GET Ingredient Name aswell.
+                        RelResourceList = RelResourceList +HTML_generateResourceBatchRow(RelResourceBatch);
+                        intResourceCounters = intResourceCounters + 1;
+                    });
+                });
+
+                $('.Page_Content_pasterTable').append(HTML_generateProductionRow( productbatch, recipe , RelResourceList, intResourceCounters));
 
             });
         });
@@ -132,32 +159,3 @@ function toggleDropDowns(self){
         }
 }
 
-function LoadProductions(){
-    // GET all ProductBatcehs
-    get("/rest/productbatch/get",function (data) {
-        $.each(data, function (i, productbatch) {
-            if(productbatch.recipeEndDate == '9999-12-31'){
-                productbatch.recipeEndDate = '9999-12-30';
-            }
-            get("/rest/recipe/get/"+productbatch.recipeId+"/"+productbatch.recipeEndDate+" ",function (recipe) {
-
-                var RelResourceList = "\n";
-                var intResourceCounters = 0;
-                // GET the product bath's Resource Batches.
-                get("/rest/productbatch/get/resources/"+ productbatch.productBatchId+"",function (data) {
-                    $.each(data, function (i, RelResourceBatch) {
-                        //todo GET Ingredient Name aswell.
-                        RelResourceList = RelResourceList +HTML_generateResourceBatchRow(RelResourceBatch);
-                        intResourceCounters = intResourceCounters + 1;
-                    });
-                });
-
-                $('.Page_Content_pasterTable').append(HTML_generateProductionRow( productbatch, recipe , RelResourceList, intResourceCounters));
-
-
-
-
-            });
-        });
-    })
-}
