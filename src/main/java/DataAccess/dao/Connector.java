@@ -18,8 +18,8 @@ public class Connector {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s185131"
-                    + "?user=s185131&password=f641omiIhm3Ly1oQR5khj");
+            return DriverManager.getConnection("jdbc:mysql://ec2-52-30-211-3.eu-west-1.compute.amazonaws.com/s190344"
+                    + "?user=s190344&password=SvqYIs9WD7cfJsIVax6EW");
         }
     }
     public static void static_startTransAction(Connection con) throws SQLException{
