@@ -124,7 +124,7 @@ function HTML_CreateRecipeRelResRow(resource,resourceBatch){
 
 }
 
-function loadRecipeTable() {
+function loadRecipeTable(){
 
     var RowNameInput = "rowNumber_";
     var myhtml_Ingredients;
@@ -163,7 +163,7 @@ function loadRecipeTable() {
 }
 
 
-// MODAL functions 
+// MODAL functions
 // POPUP METHODS
 function pop_recipeForm_create(self){
     if($(self).attr("data-active") === "true"){
@@ -183,31 +183,48 @@ function pop_recipeForm_create(self){
 }
 function pop_recipeForm_update(container){
 
-    if($(self).attr("data-active") === "true"){
+
+    if( $(container).attr("data-active") === "true"){
+
+        alert("not popping the modal ");
         $('#overlay').empty();
-        $(self).attr("data-active","false");
+        $(container).attr("data-active","false");
+
+
     }else{
 
         var RecipeDTO = {
             recipeId: $(container).find('.recipeId').val(),
-            recipeEndDate: $(container).find('. recipeEndDate').val(),
+            recipeEndDate: $(container).find('.recipeEndDate').val(),
             recipeName: $(container).find('.Recipe_name').val(),
             productAmount: $(container).find('.Recipe_Ammount').val(),
             authorUserId: $(container).find('.Recipe_Author').val(),
         };
 
-        var html = HTML_CreateRecipeBach_Form(POPUP_STATE_update);
+
+        var html = HTML_CreateRecipePop_filled(RecipeDTO);
         $('#overlay').append(html);
 
-
         var SelectContainer = $('.ProductionForm_ResourceContainer');
+        HTML_setUpIngredients_Opt(SelectContainer);
+        $(container).attr("data-active","true");
+
+        var rowRelationResources = $(container).find('.DTO_PROD_DropDown');
+        $(rowRelationResources).children(' tr').each(function () {
+
+            var RelationDTO ={
+                resourceId:$(this).children('.rel_resourceId').text(),
+                recipeId:$(this).children('.recipe_name').text(),
+                recipeEndDate:RecipeDTO.recipeEndDate,
+                resourceAmount:$(this).children('.rel_Amount').text(),
+                tolerance:$(this).children('.rel_tolerance').text()
+            }
 
 
+        });
 
-
-        HTML_CreateRecipePop_filled(SelectContainer);
-        $(self).attr("data-active","true");
     }
+
 }
 
 // popup commit
@@ -338,8 +355,6 @@ function HTML_CreateRecipePop_filled(DTO){
 
 }
 function HTML_recipeResourceRow(container , ResourceDTO){
-
-
     var html ='' +
         '<tr>' +
         '   <td class="resourceDataHolder" data-R_ID="'+ResourceDTO.resourceId+'" data-ReORder="'+ResourceDTO.reorder+'" data-inactive="'+ResourceDTO.inactive+'" >'+ResourceDTO.resourceName+'</td>' +
@@ -347,10 +362,45 @@ function HTML_recipeResourceRow(container , ResourceDTO){
         '   <td><input class="Recipe_REL_resource Tolerance" step="any" type="number" placeholder="Tolerance%"></td>' +
         '</tr>';
     container.append(html);
+}
+function HTML_setUpIngredients_Opt( container ){
+    CreateROW = 0;
+
+    var sel = $('<select>').prop("size","10");
+    $(sel).prop("multiple","no");
+    $(sel).css("width","100%");
+    $(sel).appendTo(container);
 
 
+    get('/rest/resources/get', function (data) {
+
+        $.each(data, function (u, Resource ) {
+
+            //var tag = '<option value="test"> test </option>';
+            // var tag = '<option value="test"> test </option> \n ';
+            var tag = '<option value="'+ Resource.resourceId +'"  data-ResourceId="'+ Resource.resourceId +'" ' +
+                'data-resourceName="'+ Resource.resourceName +'" data-reorder="'+ Resource.reorder +'" ' +
+                'data-inactive="'+ Resource.inactive +'">'+ Resource.resourceName +'</option>';
+            sel.append($(tag));
+        });
+    });
 }
 
+// Useability Functions --- --- --- --- --- --- --
+function RecepyPop_AddResource(container){
 
+    var resource = $(container).find('.ProductionForm_ResourceContainer select option:selected');
+
+    var ResourceDTO = {
+        resourceId: resource.attr("data-resourceid"),
+        resourceName: resource.attr("data-resourceName"),
+        reorder: resource.attr("data-reorder"),
+        inactive: resource.attr("data-inactive")
+    };
+    if(typeof resource.attr("data-resourceid") !== "undefined") {
+        HTML_recipeResourceRow($(container).find('.ProductionForm_ResourceRelContainer table'), ResourceDTO);
+    }
+
+}
 
 

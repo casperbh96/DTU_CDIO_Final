@@ -58,28 +58,7 @@ var POPUP_STATE_createReady ="create";
 var CreateROW = 0;
 
 // HTML functions --- --- --- --- --- --- --- --- ---
-function HTML_setUpIngredients_Opt( container ){
-    CreateROW = 0;
 
-    var sel = $('<select>').prop("size","10");
-    $(sel).prop("multiple","no");
-    $(sel).css("width","100%");
-    $(sel).appendTo(container);
-
-
-    get('/rest/resources/get', function (data) {
-
-        $.each(data, function (u, Resource ) {
-
-            //var tag = '<option value="test"> test </option>';
-            // var tag = '<option value="test"> test </option> \n ';
-            var tag = '<option value="'+ Resource.resourceId +'"  data-ResourceId="'+ Resource.resourceId +'" ' +
-                'data-resourceName="'+ Resource.resourceName +'" data-reorder="'+ Resource.reorder +'" ' +
-                'data-inactive="'+ Resource.inactive +'">'+ Resource.resourceName +'</option>';
-            sel.append($(tag));
-        });
-    });
-}
 function HTML_setUpRecipe_Options(container){
 
     var sel = $('<select>').prop("size","10");
@@ -219,21 +198,7 @@ function switchResourcesView(self){
     });
 }
 
-// Useability Functions --- --- --- --- --- --- --
-function RecepyPop_AddResource(container){
 
-    var resource = $(container).find('.ProductionForm_ResourceContainer select option:selected');
-
-    var ResourceDTO = {
-        resourceId: resource.attr("data-resourceid"),
-        resourceName: resource.attr("data-resourceName"),
-        reorder: resource.attr("data-reorder"),
-        inactive: resource.attr("data-inactive")
-    };
-    if(typeof resource.attr("data-resourceid") !== "undefined") {
-        HTML_recipeResourceRow($(container).find('.ProductionForm_ResourceRelContainer table'), ResourceDTO);
-    }
-}
 function pop_resourceForm(self){
     if($(self).attr("data-active") === "true"){
         $('#overlay').empty();
