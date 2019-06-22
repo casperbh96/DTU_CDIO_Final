@@ -103,7 +103,7 @@ public class WeightConverter {
     }
 
     public void backToWeightDisplay() throws IOException{
-        weightCommand("DW");
+        weightCommandWithoutWrongInput("DW");
     }
 
     public String writeInWeightDisplay(String message) throws IOException, InterruptedException {
