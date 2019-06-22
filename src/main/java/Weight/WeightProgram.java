@@ -107,6 +107,7 @@ public class WeightProgram {
                 main(args);
             }
 
+            //procuctbatchId bliver parset til en integer istedet for en string
             productbatchId = Integer.parseInt(productbatchNumber.replaceAll("\\D+", ""));
 
             // tjekker om productbatchen findes i databasen, hvis ikke startes programmet forfra
@@ -132,8 +133,8 @@ public class WeightProgram {
             // henter en liste af REL_ProductResourceBatchDTOér
             List<REL_ProductBatchResourceBatchDTO> resourceBatchDTOList = productBatchResourceBatch.readAllProductBatchResourceBatchByProductBatchId(productbatchId);
 
+            //hvis listen har nul elementer starter programmet forfra
             if(resourceBatchDTOList.size() == 0){
-                //hvis listen har nul elementer kører programmet forfra
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
                     weightConverter.writeInWeightDisplay("proev igen");
@@ -141,16 +142,14 @@ public class WeightProgram {
                 weightConverter.resetInputString();
                 main(args);
             }
+
             int index = 0;
             resourceBatchList =  new int[resourceBatchDTOList.size()];
+
             // sætter alle resourcebatchnr ind som en ny resourcebatchId liste
             for(REL_ProductBatchResourceBatchDTO rel : resourceBatchDTOList){
                 System.out.println(rel);
                 resourceBatchList[index] = rel.getResourceBatchId();
-                /*for(int i = 0 ; i < resourceBatchDTOList.size() ; i++){
-                    resourceBatchList = new int[resourceBatchDTOList.size()];
-                    resourceBatchList[i] = rel.getResourceBatchId();
-                }*/
                 index++;
             }
 
@@ -163,18 +162,20 @@ public class WeightProgram {
                 main(args);
             }
 
-            //loop som gøre over afvejningsproceduren, når alle råvarebatches er afvejet afslutter programmet
+            //loop som køre med afvejningsproceduren, når alle råvarebatches er afvejet afslutter programmet
             for(int i = 0; i < resourceBatchDTOList.size(); i++){
 
                 //nulstiller vægtdisplay for at gøre klar til ny tare og afvejning på næste råvarebatchID
                 weightConverter.backToWeightDisplay();
 
+                //while loop kører indtil der kommer ressourcebatchid som svar fra user input
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
                     resourceBatchIdAsString = weightConverter.writeInWeightDisplay("Indtast raavarebatchId");
                     resourceBatchIdAsString = weightConverter.convertInputFromDisplayToString(resourceBatchIdAsString);
                 }
 
+                //tjekker om resourcebatchId input fra bruger er en tom string, hvis dette er sandt startes programmet forfra
                 if(resourceBatchIdAsString.equals("")){
 
                     weightConverter.resetInputString();
@@ -187,6 +188,7 @@ public class WeightProgram {
 
                 resourceBatchId = Integer.valueOf(resourceBatchIdAsString);
 
+                //Tjekker om resourcebatchId findes i databasen, hvis ikke starter programmet forfra
                 boolean isResourceBatchIdFound = false;
                 try{
                     isResourceBatchIdFound = dao_resourceBatch.readSingleResourceBatchById(resourceBatchId).getResourceBatchId() == productbatchId;
@@ -200,6 +202,7 @@ public class WeightProgram {
                     main(args);
                 }
 
+                //skriver en besked til brugeren på vægten, som så skal svare ok på vægten
                 weightConverter.resetInputString();
                 while(weightConverter.statusForUserResponse() == false){
                     weightConverter.writeInWeightDisplay("Afbalanceret vaegt?");
@@ -223,7 +226,6 @@ public class WeightProgram {
                 double amountWithTolerenceNeg = resourceAmount - (resourceAmount * (Tolerence/100));
 
                 do {
-
                     //sender besked til brugeren i vægtdisplay for det batchnr og hvor meget der skal vejes af denne ingrediens
                     weightConverter.writeLongTextToDisplay("Batchnr: " + resourceBatchId + ", afvej " + resourceAmount + " kg ");
                     weightConverter.backToWeightDisplay();
@@ -255,8 +257,6 @@ public class WeightProgram {
                 while(weightConverter.statusForUserResponse() == false){
                     weightConverter.writeInWeightDisplay("fjern beholder");
                 }
-
-
 
                 //efter første råvarebatch er afvejet opdateres creationDate og gemmes i databasen, samt produktionsstatus som opdateres til "under produktion".
                 if (i == 0) {
@@ -294,8 +294,6 @@ public class WeightProgram {
                     System.exit(0);
                 }
 
-                //i++;
-
             }
 
         } catch (IOException e) {
@@ -309,9 +307,4 @@ public class WeightProgram {
     }
 
 }
-
-
-
-
-
 
