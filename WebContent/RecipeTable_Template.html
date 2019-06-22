@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.serialize-object.js"></script>
+    <!--  <script type="text/javascript" src="js/c_Jquery_AjaxFunctioner.js"></script>
+      <script type="text/javascript" src="js/ProductionFormJS.js"></script>-->
+    <script type="text/javascript" src="js/tableCommands_RecipeesTable.js"></script>
+    <script type="text/javascript" src="js/TableCommands_productionTable.js"></script>
+
+
+    <!-- Reset StyleSheet
+    <link rel="stylesheet" href="StyleSheet/CreateProductionForm.css">-->
+    <link rel="stylesheet" href="StyleSheet/styleReset.css">
+    <link rel="stylesheet" href="StyleSheet/tableUserRole_Template.css">
+    <link rel="stylesheet" href="StyleSheet/grids.css">
+
+
+</head>
+<body>
+<table id="dto-table-container" data-ActiveTable="">
+  <!--  <tr class="DTO_Table_Row DTO_RECI_GRID" data-editstate="edit" data-aktiveediting="false" >
+        <td ><input class="commit-state" type="checkbox"        name="checkBox" checked="unchecked">        </td>
+        <td><p class="dto-table-column-DTO-formElement "                     >Recipe Id                 </p></td>
+        <td><p   class="dto-table-column-DTO-formElement " value="Creation_Date" style="display: none;visibility: hidden;width: 0;height: 0;">                      </p></td>
+        <td><p   type="date" class="dto-table-column-DTO-formElement "         >Recipe Name             </p></td>
+        <td><p   class="dto-table-column-DTO-formElement "                     >Ammount                 </p></td>
+        <td><p   type="number" class="dto-table-column-DTO-formElement "       >Production Leader Id    </p></td>
+        <td class="DTO_Table_Row_beneathRow" style="grid-row: 2/3; grid-column: 1/7;" >
+            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1" > Resources Used. </button>
+            <table  class="DTO_PROD_DropDown" style="display:none; position:relative; z-index:1;"  >
+                <tr class="_1x3grid" >
+                    <td class="recipe_name"     > RB_id         </td>
+                    <td class="Ammount"         > I_Name        </td>
+                    <td class="tolerance"       > Net_Amount    </td>
+                </tr>
+                <tr class="_1x3grid" >
+                    <td class="recipe_name"     > RB_id         </td>
+                    <td class="Ammount"         > I_Name        </td>
+                    <td class="tolerance"       > Net_Amount    </td>
+                </tr>
+                <tr class="_1x3grid" >
+                    <td class="recipe_name"     > RB_id         </td>
+                    <td class="Ammount"         > I_Name        </td>
+                    <td class="tolerance"       > Net_Amount    </td>
+                </tr>
+                <tr class="_1x3grid" >
+                    <td class="recipe_name"     > RB_id         </td>
+                    <td class="Ammount"         > I_Name        </td>
+                    <td class="tolerance"       > Net_Amount    </td>
+                </tr>
+                <tr class="_1x3grid" >
+                    <td class="recipe_name"     > RB_id         </td>
+                    <td class="Ammount"         > I_Name        </td>
+                    <td class="tolerance"       > Net_Amount    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3;">
+            <button class="dto-table-button" name="update" onclick="dto_table_row_updateToggle(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>
+            <button class="dto-table-button" name="delete" onclick="dto_table_row_deleteToggle(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>
+        </td>
+    </tr>-->
+</table>
+
+
+
+
+
+
+
+
+
+<!--<button style="height:50px; width:50px; background-color: red;" onclick="userTable_loadTable()" style="float:left;"> userTable_loadTable() </button>-->
+<button style="height:50px; width:50px; background-color: greenyellow;" onclick="loadRecipeTable()" style="float:left;"> LoadProductions() </button>
+<!--<button style="height:50px; width:50px; background-color: burlywood;" onclick="userTable_commit_tableUsersChanges()" style="float:left;"></button>
+<button style="height:50px; width:50px; background-color: blueviolet;" onclick="userTable_getNewId()" style="float:left;"></button>-->
+<table id="#dto-table-container" >
+
+
+</table>
+</body>
+</html>

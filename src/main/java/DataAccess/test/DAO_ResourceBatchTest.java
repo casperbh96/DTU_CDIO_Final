@@ -21,8 +21,8 @@ public class DAO_ResourceBatchTest {
     public void createMultipleResourceBatchesTest() {
         try {
             List<ResourceBatchDTO> dtoList = new ArrayList<>();
-            ResourceBatchDTO res1 = new ResourceBatchDTO(65, 123, "sup1", false,61);
-            ResourceBatchDTO res2 = new ResourceBatchDTO(66, 1234.5, "sup2", false, 61);
+            ResourceBatchDTO res1 = new ResourceBatchDTO(3, 100, "sup1", false,1);
+            ResourceBatchDTO res2 = new ResourceBatchDTO(4, 200, "sup2", false, 2);
 
             dtoList.add(res1);
             dtoList.add(res2);

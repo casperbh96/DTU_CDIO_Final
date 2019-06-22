@@ -20,8 +20,8 @@ public class DAO_ProductBatchTest {
     public void createMultipleProductBatchesTest() {
         try {
             List<ProductBatchDTO> dtoList = new ArrayList<>();
-            ProductBatchDTO dto1 = new ProductBatchDTO(70, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), false, 60, Date.valueOf("9999-12-31"), 61);
-            ProductBatchDTO dto2 = new ProductBatchDTO(71, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), false, 61, Date.valueOf("9999-12-31"), 61);
+            ProductBatchDTO dto1 = new ProductBatchDTO(82, Date.valueOf("2000-12-31"), "ikke påbegyndt", Date.valueOf("2000-12-31"), false, 1, Date.valueOf("9999-12-31"), 60);
+            ProductBatchDTO dto2 = new ProductBatchDTO(90, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), false, 2, Date.valueOf("9999-12-31"), 61);
 
             dtoList.add(dto1);
             dtoList.add(dto2);

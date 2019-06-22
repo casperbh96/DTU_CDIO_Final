@@ -26,11 +26,11 @@ public class DAO_RecipeTest {
     public void createMultipleRecipeTest() {
         try {
             List<RecipeDTO> dtoList = new ArrayList<>();
-            RecipeDTO dto1 = new RecipeDTO(70, Date.valueOf("9999-12-31"), "rec1", 123,61);
-            RecipeDTO dto2 = new RecipeDTO(71, Date.valueOf("9999-12-31"), "rec2", 321, 61);
+            RecipeDTO dto1 = new RecipeDTO(2, Date.valueOf("9999-12-31"), "CitronVand", 1,1);
+            //RecipeDTO dto2 = new RecipeDTO(71, Date.valueOf("9999-12-31"), "rec2", 321, 61);
 
             dtoList.add(dto1);
-            dtoList.add(dto2);
+            //dtoList.add(dto2);
 
             List<RecipeDTO> allObjs = dao.createMultipleRecipes(dtoList);
             assertNotNull(allObjs);

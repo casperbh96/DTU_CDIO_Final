@@ -19,8 +19,8 @@ public class DAO_ResourceTest {
     public void createMultipleResourcesTest() {
         try {
             List<ResourceDTO> resList = new ArrayList<>();
-            ResourceDTO res1 = new ResourceDTO(61, "123", false, false);
-            ResourceDTO res2 = new ResourceDTO(62, "1234", false, false);
+            ResourceDTO res1 = new ResourceDTO(1, "salt", false, false);
+            ResourceDTO res2 = new ResourceDTO(2, "vand", false, false);
 
             resList.add(res1);
             resList.add(res2);
