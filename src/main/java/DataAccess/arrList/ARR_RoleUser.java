@@ -31,7 +31,6 @@ public class ARR_RoleUser implements I_DAL_REL_RoleUser {
 
     @Override
     public boolean assignUserMultipleRoles(List<REL_RoleUserDTO> listOfUserRoles) throws SQLException {
-        List<Integer> listOfIds = new ArrayList<>();
         for(REL_RoleUserDTO roleU : listOfUserRoles){
             roleUsers.add(roleU);
         }
@@ -40,26 +39,55 @@ public class ARR_RoleUser implements I_DAL_REL_RoleUser {
 
     @Override
     public boolean doesUserHaveRole(int userId, int roleId) throws SQLException {
+        for(REL_RoleUserDTO roleU : roleUsers){
+            if(roleU.getUserId() == userId && roleU.getRoleId() == roleId){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public List<REL_RoleUserDTO> readUsersRoles(int user_id) throws SQLException {
-        return null;
+        List<REL_RoleUserDTO> roleUserList = new ArrayList<>();
+        for(REL_RoleUserDTO roleU : roleUsers){
+            if(roleU.getUserId() == user_id){
+                roleUserList.add(roleU);
+            }
+        }
+        return roleUserList;
     }
 
     @Override
     public List<REL_RoleUserDTO> readAllUserRoles() throws SQLException {
-        return null;
+        return roleUsers;
     }
 
     @Override
     public void deleteUserRole(int userId, int roleId) throws SQLException {
-
+        REL_RoleUserDTO toRemove = null;
+        for(REL_RoleUserDTO roleU : roleUsers){
+            if(userId == roleU.getUserId() && roleId == roleU.getRoleId()){
+                toRemove = roleU;
+            }
+        }
+        if(toRemove != null){
+            roleUsers.remove(toRemove);
+        }
     }
 
     @Override
     public void deleteMultipleUserRole(List<REL_RoleUserDTO> userRoles) throws SQLException {
+        ArrayList<REL_RoleUserDTO> updatedList = new ArrayList<>();
 
+        for(REL_RoleUserDTO role : roleUsers){
+            for(REL_RoleUserDTO r : userRoles){
+                if(role != r){
+                    updatedList.add(role);
+                }
+            }
+        }
+
+        roleUsers = updatedList;
     }
 }
