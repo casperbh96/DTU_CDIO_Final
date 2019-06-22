@@ -42,13 +42,20 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
     @GET
     public Response getAllRecipes() {
         List<RecipeDTO> recipeList = null;
+        List<RecipeDTO> listToReturn = new ArrayList<>();
         try{
             recipeList = recipeBLL.getAllRecipes();
+            for(RecipeDTO rec : recipeList){
+                if(rec.getRecipeEndDate().toString().equals("9999-12-30")
+                        || rec.getRecipeEndDate().toString().equals("9999-12-31")){
+                    listToReturn.add(rec);
+                }
+            }
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(recipeList).build();
+        return Response.ok(listToReturn).build();
     }
 
     @Path("get/newid")
