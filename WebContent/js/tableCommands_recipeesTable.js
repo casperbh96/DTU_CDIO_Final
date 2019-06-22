@@ -130,7 +130,7 @@ function HTML_CreateRecipeRelResRow(resource,resourceRelation){
     return '\n' +
         '               <tr class="RecipeDropDown_ContentRow _1x4grid" >\n' +
         '                    <td class="resourceId"		 	data-content="' + resource.resourceId + '"				    > ' + resource.resourceId + ' 						</td>\n' +
-        '                    <td class="resourceName"		 	data-content="' + resourceRelation.resourceName + '" 	    > ' + resource.resourceName + ' 					</td>\n' +
+        '                    <td class="resourceName"		 	data-content="' + resource.resourceName + '" 	            > ' + resource.resourceName + ' 					</td>\n' +
         '                    <td class="resourceAmount"	 	data-content="' + resourceRelation.resourceAmount + '" 	> ' + resourceRelation.resourceAmount + ' (kg)' +' </td>\n' +
         '                    <td class="tolerance"      	 	data-content="' + resourceRelation.tolerance + '"		    > ' + resourceRelation.tolerance + ' (%)' + ' 		</td>\n' +
         '                    <td class="reorder  absHidden" 	data-content="' + resource.reorder + '"					>													</td>\n' +
@@ -225,8 +225,6 @@ function pop_recipeForm_update(container, rowId){
             authorUserId: $(exactRow).find('p.authorUserId').data('value'),
         };
 
-        alert("recipeId : " + RecipeDTO.recipeId + " recipeEndDate" + RecipeDTO.recipeEndDate + " recipeName : " + RecipeDTO.recipeName + " productAmount : " + RecipeDTO.productAmount + " authorUserId : " + RecipeDTO.authorUserId)
-
         var html = HTML_CreateRecipePop_filled(RecipeDTO);
         $('#overlay').append(html);
 
@@ -241,16 +239,16 @@ function pop_recipeForm_update(container, rowId){
             }else {
             var ResourceDTO ={
                 resourceId:$(this).find('.resourceId').attr('data-content'),
-                resourceName:$(this).find('.resourceName    ').attr('data-content'),
+                resourceName:$(this).find('.resourceName').attr('data-content'),
                 reorder:$(this).find('.reorder').attr('data-content'),
                 inactive:$(this).find('.inactive').attr('data-content')
             };
             var RelationDTO ={
-                resourceId:$(this).children('.rel_resourceId').text(),
-                recipeId:$(this).children('.recipe_name').text(),
+                resourceId:$(this).children('.resourceId').attr('data-content'),
+                recipeId:RecipeDTO.recipeId,
                 recipeEndDate:RecipeDTO.recipeEndDate,
-                resourceAmount:$(this).children('.rel_Amount').text(),
-                tolerance:$(this).children('.rel_tolerance').text()
+                resourceAmount:$(this).children('.resourceAmount').attr('data-content'),
+                tolerance:$(this).children('.tolerance').attr('data-content')
             };
 
             RecepyPop_AddResourceDTO(container,ResourceDTO,RelationDTO);
@@ -282,7 +280,7 @@ function commitRecipeTable(container, dateValue) {
     var switchStatement = $(container).attr("data-editstate");
     alert(switchStatement);
     switch(switchStatement){
-        case 'update':
+        case POPUP_STATE_update:
             commitUpdateRecipeTable(container, dateValue);
             break;
         case POPUP_STATE_createReady:
@@ -291,6 +289,8 @@ function commitRecipeTable(container, dateValue) {
     }
 }
 function commitUpdateRecipeTable(container) {
+
+
     var RecipeDTO = {
         recipeId: $(container).find('.Creation_subPartContainer').data('id'),
         recipeEndDate: $(container).find('.Creation_subPartContainer').data('date'),
@@ -299,9 +299,12 @@ function commitUpdateRecipeTable(container) {
         authorUserId: $(container).find('.Recipe_Author').val(),
     };
 
-    alert("recipeId " + RecipeDTO.recipeId + " recipeEndDate " + RecipeDTO.recipeEndDate+ " recipeName " + RecipeDTO.recipeName + " productAmount " + RecipeDTO.productAmount + " authorUserId " + RecipeDTO.authorUserId);
     put( JSON.stringify(RecipeDTO), "rest/recipe/update" , function (data) {
         alert('success!!');
+
+
+
+
     });
 }
 function commitCreateRecipe(container){
@@ -369,7 +372,7 @@ function HTML_CreateRecipeBach_Form(editState){
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '\n' +
         '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > Tilføj Ingrediens </Button>\n' +
-        '        <div class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
+        '        <div  id="ModalResourceContainer" class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
         '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
         '           </table>\n' +
         '        </div>\n' +
@@ -417,11 +420,14 @@ function HTML_CreateRecipePop_filled(DTO){
         '</form>';
 }
 function HTML_recipeResourceRow(ResourceDTO, RelationDTO){
+
+    // alert(ResourceDTO.resourceId+";"+  ResourceDTO.resourceName+";"+  ResourceDTO.reorder+";"+ ResourceDTO.inactive);
+    //alert(RelationDTO.resourceAmount +";"+ RelationDTO.tolerance);
     return '' +
         '<tr>' +
         '   <td class="resourceDataHolder" data-r_id="'+ResourceDTO.resourceId+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource Ammount" value="" step="any" type="number" placeholder="Mængde (kg)"></td>' +
-        '   <td><input class="Recipe_REL_resource Tolerance" value="" step="any" type="number" placeholder="Tolerance (%)"></td>' +
+        '   <td><input class="Recipe_REL_resource Ammount" value="'+RelationDTO.resourceAmount+'" step="any" type="number" placeholder="Mængde (kg)"></td>' +
+        '   <td><input class="Recipe_REL_resource Tolerance" value="'+RelationDTO.tolerance+'" step="any" type="number" placeholder="Tolerance (%)"></td>' +
         '</tr>';
 
 }
@@ -451,6 +457,7 @@ function HTML_setUpIngredients_Opt( container ){
 // Useability Functions --- --- --- --- --- --- --
 function RecepyPop_AddResource(container){
     var resource = $(container).find('.RecipeForm_ResourceContainer select option:selected');
+
     var ResourceDTO = {
         resourceId: resource.attr("data-resourceid"),
         resourceName: resource.attr("data-resourceName"),
@@ -458,8 +465,17 @@ function RecepyPop_AddResource(container){
         inactive: resource.attr("data-inactive")
     };
 
+    var RelationDTO ={
+        resourceId:"",
+        recipeId:"",
+        recipeEndDate:"",
+        resourceAmount:"",
+        tolerance:""
+    };
+
+    var InputRelation_container = $('#ModalResourceContainer table');
     if(typeof resource.attr("data-resourceid") !== "undefined") {
-        $(container).find('.RecipeForm_ResourceRelContainer table').append(HTML_recipeResourceRow(ResourceDTO));
+        RecepyPop_AddResourceDTO(InputRelation_container,ResourceDTO,RelationDTO);
     }
 
 }
