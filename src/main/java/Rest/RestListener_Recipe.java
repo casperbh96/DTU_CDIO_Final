@@ -149,7 +149,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
     @Path("update")
     @PUT
     public Response updateRecipe(RecipeDTO recipe) {
-        System.out.println(recipe);
+        System.out.println(recipe.toString());
         RecipeDTO returnUser = null;
         try{
             returnUser = recipeBLL.updateRecipeButNotResources(recipe);

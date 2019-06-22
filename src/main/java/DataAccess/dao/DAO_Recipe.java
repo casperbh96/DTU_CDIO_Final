@@ -7,6 +7,7 @@ import main.java.Core.StringToSqlDateConverter;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static main.java.DataAccess.dao.Connector.static_commitTransAction;
@@ -104,13 +105,12 @@ public class DAO_Recipe implements I_DAL_Recipe {
     @Override
     public RecipeDTO readSingleRecipeById(int recipeId, Date recipeEndDate) throws SQLException {
         RecipeDTO recipe = null;
-        System.out.println("SQL DATE: " + recipeEndDate);
 
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("SELECT * FROM recipes WHERE recipe_id = ? AND recipe_end_date = ?");
 
             pStmt.setInt(1, recipeId);
-            pStmt.setDate(2, recipeEndDate);
+            pStmt.setObject(2, recipeEndDate);
             ResultSet resultset = pStmt.executeQuery();
 
             // Move pointer to first row before Id, then to row with Id (fix)
@@ -199,16 +199,16 @@ public class DAO_Recipe implements I_DAL_Recipe {
 
     @Override
     public RecipeDTO updateSingleRecipe(RecipeDTO recipe) throws SQLException {
+        System.out.println("dao: " + recipe.toString());
         try (Connection conn = static_createConnection()) {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE recipes SET recipe_name = ?, product_amount = ?, author_id_user_id = ? WHERE recipe_id = ? AND recipe_end_date = ?");
 
-            setUpdatePreparedStatement(pStmt, recipe);
-
+            pStmt = setUpdatePreparedStatement(pStmt, recipe);
             pStmt.executeUpdate();
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-        return readSingleRecipeById(recipe.getRecipeId(),recipe.getRecipeEndDate());
+        return readSingleRecipeById(recipe.getRecipeId(), recipe.getRecipeEndDate());
     }
 
     @Override

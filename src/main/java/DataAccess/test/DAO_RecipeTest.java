@@ -120,12 +120,14 @@ public class DAO_RecipeTest {
     @org.junit.Test
     public void updateSingleRecipeTest(){
         try{
-            RecipeDTO dto = dao.updateSingleRecipe(new RecipeDTO(70, Date.valueOf("9999-12-31"), "updatedRec1", 999,61));
+            RecipeDTO dto = dao.updateSingleRecipe(new RecipeDTO(2, new StringToSqlDateConverter().convertStringToDate("2019-09-29"), "CitronVand", 3,1));
             assertNotNull(dto);
 
             System.out.println(dto);
         } catch (SQLException ex){
             ex.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

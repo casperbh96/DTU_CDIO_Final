@@ -97,8 +97,8 @@ function HTML_CreateTableHeader(Recipe) {
         '<tr id="'+'RowHeader'+'" class="DTO_Table_Row DTO_RECI_GRID"  >\n' +
         '        <td>Prepare Commit</td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	data-value="'+Recipe.recipeId+'"                         > '+Recipe.recipeId+'</p></td>\n' +
-        //'        <td><p class="dto-table-column-DTO-formElement     recipeName"     data-value="'+Recipe.recipeEndDate+'" style="display: none;visibility: hidden;width: 0;height: 0;">'+Recipe.recipeEndDate+'</p></td>\n' +
-        '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate" 	data-value="'+Recipe.recipeName+'"                       >'+Recipe.recipeName+'</p></td>\n' +
+        //'        <td><p class="dto-table-column-DTO-formElement     recipeName"     data-value="'+Recipe.recipeName+'" style="display: none;visibility: hidden;width: 0;height: 0;">'+Recipe.recipeName+'</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate" 	data-value="'+Recipe.recipeEndDate+'"                       >'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
         ' </tr>';
@@ -279,19 +279,37 @@ function pop_recipeForm_create(self){
 
 
 // popup commit
-function commitRecipeTable(container) {
+function commitRecipeTable(container, dateValue) {
     var switchStatement = $(container).attr("data-editstate");
     switch(switchStatement){
-        case POPUP_STATE_update:
+        case 'update':
+            commitUpdateRecipeTable(container, dateValue);
             break;
         case POPUP_STATE_createReady:
             commitCreateRecipe(container);
             break;
     }
 }
-function commitCreateRecipe(container){
-    get("rest/recipe/get/newid", function (newIdRecipe) {
 
+function commitUpdateRecipeTable(container) {
+    var RecipeDTO = {
+        recipeId: $(container).find('.Creation_subPartContainer').data('id'),
+        recipeEndDate: $(container).find('.Creation_subPartContainer').data('date'),
+        recipeName: $(container).find('.Recipe_name').val(),
+        productAmount: $(container).find('.Recipe_Ammount').val(),
+        authorUserId: $(container).find('.Recipe_Author').val(),
+    };
+
+    alert("recipeId " + RecipeDTO.recipeId + " recipeEndDate " + RecipeDTO.recipeEndDate+ " recipeName " + RecipeDTO.recipeName + " productAmount " + RecipeDTO.productAmount + " authorUserId " + RecipeDTO.authorUserId);
+    put( JSON.stringify(RecipeDTO), "rest/recipe/update" , function (data) {
+        alert('success!!');
+    });
+}
+
+
+function commitCreateRecipe(container){
+    alert("committing");
+    get("rest/recipe/get/newid", function (newIdRecipe) {
         var d = new Date();
         var month = d.getMonth() + 1;
         var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
@@ -449,7 +467,7 @@ function RecepyPop_AddResource(container){
 
 }
 function RecepyPop_AddResourceDTO(container , ResourceDTO){
-    alert("child detected");
+    //alert("child detected");
     $(container).append(HTML_recipeResourceRow(ResourceDTO, RelationDTO));
 }
 
