@@ -61,10 +61,12 @@ function UI_RecipedeleteRow(row, rowId){
         $(row).find('.DTO_PROD_DropButton').hide();
         $(row).attr("data-editstate",userTable_STATE_NOCHANGE)
     }
+
+    REST_recipeDeleteRow(row);
 }
 function REST_recipeDeleteRow(row){
 
-    var RecDTO = {
+    var RecipeDTO = {
         recipeId: $(row).find('.recipeId').attr("data-value"),
         recipeEndDate: $(row).find('.recipeEndDate').attr("data-value"),
         recipeName: $(row).find('.recipeName').attr("data-value"),
@@ -72,14 +74,15 @@ function REST_recipeDeleteRow(row){
         authorUserId: $(row).find('.authorUserId').attr("data-value"),
     };
 
-    Delete(null,"rest/recipe/delete/"+RecDTO.recipeId+"/"+RecDTO.recipeEndDate,function () {
+    alert("recipeId : " + RecipeDTO.recipeId + " recipeEndDate" + RecipeDTO.recipeEndDate + " recipeName : " + RecipeDTO.recipeName + " productAmount : " + RecipeDTO.productAmount + " authorUserId : " + RecipeDTO.authorUserId)
+
+    Delete(null,"rest/recipe/delete/"+RecipeDTO.recipeId+"/"+RecipeDTO.recipeEndDate,function () {
     })
 }
 function CommitRecipeTableChanges(){
     $('#pageContent').find(' tr').each(function () {
 
         var commitState = $(this).find('.commit-state').prop("checked");
-
         if(commitState){
             switch ( $(this).attr("data-editstate") ) {
                 case userTable_STATE_deleteReady:
@@ -109,7 +112,7 @@ function HTML_CreateRecipeBach_Row(Recipe ,RowName, UpdateButtonName, DeleteButt
         '<tr id="'+RowName+'" class="DTO_Table_Row DTO_RECI_GRID" data-editstate="'+userTable_STATE_NOCHANGE+'" data-aktiveediting="false"  >\n' +
         '        <td><input class="commit-state" type="checkbox" checked="unchecked"                                                         > </td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	  data-value="'+Recipe.recipeId+'"                         >'+Recipe.recipeId+'</p></td>\n' +
-        '        <td style="display: none;visibility: hidden;width: 0;height: 0;" ><p class="dto-table-column-DTO-formElement     recipeEndDate"  data-value="'+Recipe.recipeEndDate+'" >'+Recipe.recipeEndDate+'</p></td>\n' +
+        '        <td  ><p class="dto-table-column-DTO-formElement     recipeEndDate"  data-value="'+Recipe.recipeEndDate+'" >'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeName" 	  data-value="'+Recipe.recipeName+'"                       >'+Recipe.recipeName+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
@@ -281,6 +284,7 @@ function pop_recipeForm_create(self){
 // popup commit
 function commitRecipeTable(container, dateValue) {
     var switchStatement = $(container).attr("data-editstate");
+    alert(switchStatement);
     switch(switchStatement){
         case 'update':
             commitUpdateRecipeTable(container, dateValue);

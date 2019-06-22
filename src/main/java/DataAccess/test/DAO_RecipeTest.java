@@ -156,6 +156,16 @@ public class DAO_RecipeTest {
     // endregion
 
     // region DELETE
-
+    @org.junit.Test
+    public void setInactive(){
+        try{
+            RecipeDTO rec = dao.setRecipeEndDateSingleRecipe(7, new StringToSqlDateConverter().convertStringToDate("2019-06-21"));
+            System.out.println(rec.toString());
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     // endregion
 }

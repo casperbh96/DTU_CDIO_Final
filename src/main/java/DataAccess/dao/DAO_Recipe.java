@@ -241,6 +241,11 @@ public class DAO_Recipe implements I_DAL_Recipe {
     public RecipeDTO setRecipeEndDateSingleRecipe(int recipeId, Date recipeEndDateBefore) throws SQLException {
         java.util.Date uDate = new java.util.Date();
         java.sql.Date currDate = new java.sql.Date(uDate.getTime());
+        try {
+            currDate = new StringToSqlDateConverter().convertStringToDate(currDate.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         try(Connection connection = static_createConnection()){
 
