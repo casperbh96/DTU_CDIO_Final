@@ -68,7 +68,7 @@ function HTML_CreateTableHeaderResBat() {
         '        <td>Prepare Commit</td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Id" value="Res_active">        '+'ID'+' </p></td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_ResName" value="Res_active">   '+'Opskrift Navn'+' </p></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+'RåvareBatch Mængde'+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+'RåvareBatch Mængde (kg)'+' </p></td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_supplier" value="Res_active">  '+'Leverandør'+' </p></td>\n' +
         ' </tr>';
 }
@@ -79,7 +79,7 @@ function HTML_GenerateResourceBatchRow(ResourceBatch, RecipeName, rowName){
         '            <td><input class="commit-state" type="checkbox"        name="checkBox" checked="unchecked"></td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Id" value="Res_active">        '+ResourceBatch.resourceBatchId+' </p></td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_ResName" value="Res_active">   '+RecipeName+' </p></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+ResourceBatch.resourceBatchAmount+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+ResourceBatch.resourceBatchAmount+ ' (kg)' +' </p></td>\n' +
         '            <td><p  class="dto-table-column-DTO-formElement ResBatch_supplier" value="Res_active">  '+ResourceBatch.supplierName+' </p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="display: block" >\n' +
         '                <button class="dto-table-button resTableBtn_delete" name="delete" style="width: 100%" onclick=" ResBatchTable_UI_deleteRow(this.parentElement.parentElement)"  >delete</button>\n' +

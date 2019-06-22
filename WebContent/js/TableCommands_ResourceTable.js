@@ -78,7 +78,7 @@ function HTML_GenerateResourceRow(Resource,RowName){
         '                <option value="true"> Re-Order </option>\n' +
         '                <option value="false"> No Re-Order </option>\n' +
         '            </select>\n' +
-        '            <td class="dto-table-column-DTO-formElement "><p       class="active" data-activestate=""  > INACTIVE DATA HERE </p></td>\n' +
+        '            <td class="dto-table-column-DTO-formElement "><p       class="active" data-activestate=""  > AKTIV (standard) </p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3; grid-column: 6/7;">\n' +
         '                <button class="dto-table-button resTableBtn_update" name="update" onclick="ResTable_UI_updateRow(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
         '                <button class="dto-table-button resTableBtn_delete" name="delete" onclick="ResTable_UI_deleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
@@ -116,8 +116,8 @@ function ResTable_UI_insertCreaterRow(){
     // Create the Row
     var RowName = RES_ID_NAMING + ROWINDEX ;
     var Resource = {
-        resourceId: "Id to come",
-        resourceName:"resourceName",
+        resourceId: "ID",
+        resourceName:"Råvare Navn",
         reorder: "reOrder",
         inactive:false
     };

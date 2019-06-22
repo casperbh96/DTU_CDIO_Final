@@ -50,7 +50,7 @@ var userTable_STATE_createReady   ="create";
 var userTable_STATE_NOCHANGE      ="none";
 
 // TABLE REGULAR
-function UI_RecipedeleteRow(row){
+function UI_RecipedeleteRow(row, rowId){
     if($(row).attr("data-editstate") != userTable_STATE_deleteReady ){
         $(row).find('.dto-table-column-DTO-formElement').hide();
         $(row).find('.DTO_PROD_DropButton').hide();
@@ -99,38 +99,90 @@ function HTML_CreateTableHeader(Recipe) {
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	data-value="'+Recipe.recipeId+'"                         > '+Recipe.recipeId+'</p></td>\n' +
         //'        <td><p class="dto-table-column-DTO-formElement     recipeName"     data-value="'+Recipe.recipeEndDate+'" style="display: none;visibility: hidden;width: 0;height: 0;">'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate" 	data-value="'+Recipe.recipeName+'"                       >'+Recipe.recipeName+'</p></td>\n' +
-        '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' kg</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
         ' </tr>';
 }
 
-function HTML_CreateRecipeBach_Row(Recipe ,RowName){
+function HTML_CreateRecipeBach_Row(Recipe ,RowName, UpdateButtonName, DeleteButtonName){
     return '    ' +
         '<tr id="'+RowName+'" class="DTO_Table_Row DTO_RECI_GRID" data-editstate="'+userTable_STATE_NOCHANGE+'" data-aktiveediting="false"  >\n' +
         '        <td><input class="commit-state" type="checkbox" checked="unchecked"                                                         > </td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	  data-value="'+Recipe.recipeId+'"                         >'+Recipe.recipeId+'</p></td>\n' +
         '        <td style="display: none;visibility: hidden;width: 0;height: 0;" ><p class="dto-table-column-DTO-formElement     recipeEndDate"  data-value="'+Recipe.recipeEndDate+'" >'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeName" 	  data-value="'+Recipe.recipeName+'"                       >'+Recipe.recipeName+'</p></td>\n' +
-        '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+'kg</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
         '        <td class="DTO_Table_Row_beneathRow" style="grid-row: 2/3; grid-column: 1/7;"                                               >\n' +
-        '            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1"                                     > Resources included.</button>\n' +
+        '            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1"                                     > Råvare til Opskriften: </button>\n' +
         '            <table  class="DTO_PROD_DropDown" style="display:none; position:relative; z-index:5;"                                   >\n' +
         '            </table>\n' +
         '        </td>\n' +
         '        <td class="DTO_Table_Row_MenuBox" style="grid-row: 1/3;">\n' +
-        '            <button class="dto-table-button" name="update" onclick="pop_recipeForm_update(this.parentElement.parentElement)" style="grid-row: 1/2;">update</button>\n' +
-        '            <button class="dto-table-button" name="delete" onclick="UI_RecipedeleteRow(this.parentElement.parentElement)" style="grid-row: 2/3;">delete</button>\n' +
+        '            <button id="'+UpdateButtonName+'" name="update" onclick="pop_recipeForm_update(this.parentElement.parentElement, this.id)" style="grid-row: 1/2;">update</button>\n' +
+        '            <button id="'+DeleteButtonName+'" name="delete" onclick="UI_RecipedeleteRow(this.parentElement.parentElement, this.id)" style="grid-row: 2/3;">delete</button>\n' +
         '        </td>\n' +
         ' </tr>';
 }
+
+function pop_recipeForm_update(container, rowId){
+    var rowNumber = rowId.split("_")[1];
+    var exactRow = $('#rowNumber_'+rowNumber);
+
+    if( $(container).attr("data-active") === "true"){
+        $('#overlay').empty();
+        $(container).attr("data-active","false");
+    }else{
+        var RecipeDTO = {
+            recipeId: $(exactRow).find('p.recipeId').data('value'),
+            recipeEndDate: $(exactRow).find('p.recipeEndDate').data('value'),
+            recipeName: $(exactRow).find('p.recipeName').data('value'),
+            productAmount: $(exactRow).find('p.productAmount').data('value'),
+            authorUserId: $(exactRow).find('p.authorUserId').data('value'),
+        };
+
+        alert("recipeId : " + RecipeDTO.recipeId + " recipeEndDate" + RecipeDTO.recipeEndDate + " recipeName : " + RecipeDTO.recipeName + " productAmount : " + RecipeDTO.productAmount + " authorUserId : " + RecipeDTO.authorUserId)
+
+        var html = HTML_CreateRecipePop_filled(RecipeDTO);
+        $('#overlay').append(html);
+
+        var SelectContainer = $('.RecipeForm_ResourceContainer');
+        HTML_setUpIngredients_Opt(SelectContainer);
+        $(container).attr("data-active","true");
+
+        var rowRelationResources = $(container).find('.DTO_PROD_DropDown');
+        var container = $('#ModalResourceContainer table');
+        $(rowRelationResources).children(' tr').each(function () {
+
+            var ResourceDTO ={
+                resourceId:"",
+                resourceName:"",
+                reorder:"",
+                inactive:""
+            };
+            var RelationDTO ={
+                resourceId:$(this).children('.rel_resourceId').text(),
+                recipeId:$(this).children('.recipe_name').text(),
+                recipeEndDate:RecipeDTO.recipeEndDate,
+                resourceAmount:$(this).children('.rel_Amount').text(),
+                tolerance:$(this).children('.rel_tolerance').text()
+            };
+
+
+            RecepyPop_AddResourceDTO(container,RelationDTO);
+        });
+
+    }
+
+}
+
 function HTML_CreateRecipeRelResRow(resource,resourceRelation){
     return'\n' +
         '               <tr class="_1x4grid" >\n' +
         '                    <td class="resourceId"									> ' + resource.resourceId + ' 			</td>\n' +
         '                    <td class="resourceName"								     > ' + resource.resourceName + ' 		</td>\n' +
-        '                    <td class="resourceAmount"								 > ' + resourceRelation.resourceAmount + ' 	</td>\n' +
-        '                    <td class="tolerance"      							     > ' + resourceRelation.tolerance + ' 		</td>\n' +
+        '                    <td class="resourceAmount"								 > ' + resourceRelation.resourceAmount + ' (kg)' +' 	</td>\n' +
+        '                    <td class="tolerance"      							     > ' + resourceRelation.tolerance + ' (%)' + ' 		</td>\n' +
         '                    <td class="reorder  absHidden"   				  data-content="'+ resource.reorder + '">   			</td>\n' +
     '                        <td class="inactive abshidden"                 data-content="'+ resource.inactive+ '">  			</td>\n' +
     '                </tr>' +
@@ -155,8 +207,10 @@ function loadRecipeTable(){
         $.each(data, function (u, Recipe) {
 
             var RowName = RowNameInput + u;
+            var UpdateButtonName = 'dto-table-button-update_' + u;
+            var DeleteButtonName = 'dto-table-button-delete_' + u;
             //alert("inside resource for " + RowName);
-            $('.Page_Content_pasterTable').append(HTML_CreateRecipeBach_Row(Recipe, RowName));
+            $('.Page_Content_pasterTable').append(HTML_CreateRecipeBach_Row(Recipe, RowName, UpdateButtonName, DeleteButtonName));
             var Row = $('#' + RowName + '');
             Row.find('.commit-state').prop("checked",false);
 
@@ -222,57 +276,7 @@ function pop_recipeForm_create(self){
 
     }
 }
-function pop_recipeForm_update(container){
 
-
-    if( $(container).attr("data-active") === "true"){
-        $('#overlay').empty();
-        $(container).attr("data-active","false");
-
-
-    }else{
-
-        var RecipeDTO = {
-            recipeId: $(container).find('.recipeId').val(),
-            recipeEndDate: $(container).find('.recipeEndDate').val(),
-            recipeName: $(container).find('.Recipe_name').val(),
-            productAmount: $(container).find('.Recipe_Ammount').val(),
-            authorUserId: $(container).find('.Recipe_Author').val(),
-        };
-
-
-        var html = HTML_CreateRecipePop_filled(RecipeDTO);
-        $('#overlay').append(html);
-
-        var SelectContainer = $('.RecipeForm_ResourceContainer');
-        HTML_setUpIngredients_Opt(SelectContainer);
-        $(container).attr("data-active","true");
-
-        var rowRelationResources = $(container).find('.DTO_PROD_DropDown');
-        var container = $('#ModalResourceContainer table');
-        $(rowRelationResources).children(' tr').each(function () {
-
-            var ResourceDTO ={
-                resourceId:"",
-                resourceName:"",
-                reorder:"",
-                inactive:""
-            };
-            var RelationDTO ={
-                resourceId:$(this).children('.rel_resourceId').text(),
-                recipeId:$(this).children('.recipe_name').text(),
-                recipeEndDate:RecipeDTO.recipeEndDate,
-                resourceAmount:$(this).children('.rel_Amount').text(),
-                tolerance:$(this).children('.rel_tolerance').text()
-            };
-
-
-            RecepyPop_AddResourceDTO(container,RelationDTO);
-        });
-
-    }
-
-}
 
 // popup commit
 function commitRecipeTable(container) {
@@ -328,28 +332,28 @@ function commitCreateRecipe(container){
 function HTML_CreateRecipeBach_Form(editState){
     return '' +
         '<form class="Create_FormContainer" data-test="jeg er parent Containeren"  data-editstate="'+editState+'">\n' +
-        '    <h1> RECIPE </h1>\n' +
+        '    <h1> OPSKRIFT </h1>\n' +
         '    <table class="Creation_subPartContainer">\n' +
         '        <tr>\n' +
-        '            <td>Recipe Name</td>\n' +
+        '            <td>Opskrift Navn</td>\n' +
         '            <td><input class="Recipe_name" type="text"></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
-        '            <td>Ammount</td>\n' +
+        '            <td>Mængde</td>\n' +
         '            <td><input class="Recipe_Ammount"  step="any" type="number "></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
-        '            <td>Author id</td>\n' +
+        '            <td>Bruger ID</td>\n' +
         '            <td><input class="Recipe_Author"  type="number"></td>\n' +
         '        </tr>\n' +
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
-        '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
+        '        <h1 style="margin-top: 15px;">Tilgængelige Opskrifter</h1>\n' +
         '        <div class="ProductionForm_ListContainer RecipeForm_ResourceContainer" style="">\n' +
         '       </div>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '\n' +
-        '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > add ingredient </Button>\n' +
+        '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > Tilføj Ingrediens </Button>\n' +
         '        <div class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
         '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
         '           </table>\n' +
@@ -364,28 +368,28 @@ function HTML_CreateRecipeBach_Form(editState){
 function HTML_CreateRecipePop_filled(DTO){
     return '' +
         '<form class="Create_FormContainer"  data-editstate="'+POPUP_STATE_update+'">\n' +
-        '    <h1> RECIPE </h1>\n' +
+        '    <h1> OPSKRIFTER </h1>\n' +
         '    <table class="Creation_subPartContainer" data-id="'+DTO.recipeId+'" data-date="'+DTO.recipeEndDate+'">\n' +
         '        <tr>\n' +
-        '            <td>Recipe Name</td>\n' +
+        '            <td>Opskrift Navn</td>\n' +
         '            <td><input class="Recipe_name" value="'+DTO.recipeName+'" type="text"></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
-        '            <td>Ammount</td>\n' +
+        '            <td>Mængde</td>\n' +
         '            <td><input class="Recipe_Ammount"  value="'+DTO.productAmount+'" step="any" type="number "></td>\n' +
         '        </tr>\n' +
         '        <tr>\n' +
-        '            <td>Author id</td>\n' +
+        '            <td>Bruger ID</td>\n' +
         '            <td><input class="Recipe_Author" value="'+DTO.authorUserId+'" type="number"></td>\n' +
         '        </tr>\n' +
         '    </table>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
-        '        <h1 style="margin-top: 15px;">Recipes Available</h1>\n' +
+        '        <h1 style="margin-top: 15px;">Tilgængelige Opskrifter</h1>\n' +
         '        <div class="ProductionForm_ListContainer RecipeForm_ResourceContainer" style="">\n' +
         '       </div>\n' +
         '    <div class="Creation_subPartContainer " style="grid-column-gap:15px;">\n' +
         '\n' +
-        '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > add ingredient </Button>\n' +
+        '        <Button type="button" onclick="RecepyPop_AddResource(this.parentElement.parentElement.parentElement)" > Tilføj Ingrediens </Button>\n' +
         '        <div id="ModalResourceContainer" class="ProductionForm_ListContainer RecipeForm_ResourceRelContainer" style="">\n' +
         '           <table size="10" name="selectionField" multiple="yes" style="width: 100%">\n' +
         '           </table>\n' +
@@ -396,15 +400,13 @@ function HTML_CreateRecipePop_filled(DTO){
         '    </div>\n' +
         '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
-
-
 }
 function HTML_recipeResourceRow(ResourceDTO, RelationDTO){
     return '' +
         '<tr>' +
         '   <td class="resourceDataHolder" data-r_id="'+ResourceDTO.resourceId+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource Ammount" value="" step="any" type="number" placeholder="ammount Kg"></td>' +
-        '   <td><input class="Recipe_REL_resource Tolerance" value="" step="any" type="number" placeholder="Tolerance%"></td>' +
+        '   <td><input class="Recipe_REL_resource Ammount" value="" step="any" type="number" placeholder="Mængde (kg)"></td>' +
+        '   <td><input class="Recipe_REL_resource Tolerance" value="" step="any" type="number" placeholder="Tolerance (%)"></td>' +
         '</tr>';
 
 }

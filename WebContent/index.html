@@ -35,27 +35,27 @@
     <div id="mainMenuFrame">
         <ul>
             <li><button onclick="clearTable()" style="margin-bottom: 15px;">Clear table        </button></li>
-            <li><button onclick="loadUserAdminTable()">User Admin          </button></li>
-            <li><button onclick="loadResoAminTable() ">Resource Admin      </button></li>
-            <li><button onclick="loadReBaAdminTable()">ResourceBatch Admin </button></li>
+            <li><button onclick="loadReciAdminTable()">Opskrift Admin        </button></li>
+            <li><button onclick="loadUserAdminTable()">Bruger Admin          </button></li>
+            <li><button onclick="loadResoAminTable() ">Råvare Admin      </button></li>
+            <li><button onclick="loadReBaAdminTable()">RåvareBatch Admin </button></li>
             <!--<li><button onclick="loadPrBaAdminTable()">ProductBatch Admin  </button></li>-->
-            <li><button onclick="loadReciAdminTable()">Recipe Admin        </button></li>
         </ul>
     </div>
     <div id="topMenu">
         <div class="topMenu_point" id="topMenu_User" style="display: none">
-            <button onclick="userTable_loadTable()" style="float:left;"> ReLoadTable            </button>
-            <button onclick="userTable_CREATE_insertCreaterRow()" style="float:left;">CreateNew </button>
+            <button onclick="userTable_loadTable()" style="float:left;"> Indlæs Bruger Data            </button>
+            <button onclick="userTable_CREATE_insertCreaterRow()" style="float:left;">Opret Ny </button>
             <button type="submit" onclick="userTable_commit_tableUsersChanges()" style="float:left;">Commit   </button>
         </div>
         <div class="topMenu_point" id="topMenu_Resource" style="display: none">
-            <button onclick="LoadResources()" style="float:left;"> Load resource table            </button>
-            <button onclick="ResTable_UI_insertCreaterRow()" style="float:left;">CreateNew </button>
+            <button onclick="LoadResources()" style="float:left;"> Indlæs Råvare Data            </button>
+            <button onclick="ResTable_UI_insertCreaterRow()" style="float:left;">Opret Ny </button>
             <button type="submit" onclick="ResourceTable_commitTable()" style="float:left;">Commit   </button>
         </div>
         <div class="topMenu_point" id="topMenu_ResourceBatch" style="display: none">
-            <button onclick="LoadResourcesBatches()" style="float:left;"> Load resource table            </button>
-            <button onclick="pop_resourceForm(this)" data-active="false" style="float:left;">CreateNew </button>
+            <button onclick="LoadResourcesBatches()" style="float:left;"> Indlæs RåvareBatch Data            </button>
+            <button onclick="pop_resourceForm(this)" data-active="false" style="float:left;">Opret Ny </button>
             <button type="submit" onclick="ResourceBatchTable_commitTable()" style="float:left;">Commit   </button>
         </div>
         <div class="topMenu_point" id="topMenu_ProductBatch"style="display: none">
@@ -63,8 +63,8 @@
 
         </div>
         <div class="topMenu_point" id="topMenu_RecipeBatch" style="display: none">
-            <button onclick="loadRecipeTable()" onclick="pop_recipeForm_create(this)" data-active="false"> Load Recipes           </button>
-            <button onclick="pop_recipeForm_create(self)" onclick="pop_recipeForm_create(this)" data-active="false"> Create Recipe           </button>
+            <button onclick="loadRecipeTable()" onclick="pop_recipeForm_create(this)" data-active="false"> Indlæs Opskrifter Data           </button>
+            <button onclick="pop_recipeForm_create(self)" onclick="pop_recipeForm_create(this)" data-active="false"> Opret Opskrift           </button>
             <button onclick="CommitRecipeTableChanges()" onclick="pop_recipeForm_create(this)" data-active="false"> Commit           </button>
         </div>
     </div>
