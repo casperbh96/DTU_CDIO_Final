@@ -161,10 +161,31 @@ function loadRecipeTable(){
             Row.find('.commit-state').prop("checked",false);
 
             // Getting a double array arr[0] Resources and arr[1] is the RelationResourceRecipe
-            get('/rest/recipe/get/resources/resourcebatches/' + Recipe.recipeId + '', function (data) {
+            // rest/recipe/get/relreciperesources/resources/{recipeid}
+            get('rest/recipe/get/relreciperesources/resources/' + Recipe.recipeId + '', function (data) {
 
-                var ResourcesArr = data[0];
-                var ResourceRelations = data[1];
+                var ResourceRelations = data[0];
+                var ResourcesArr = data[1];
+
+                if(ResourcesArr.length > 0){
+                    var newResource = {
+                        resourceId:"Råvare ID",
+                        resourceName:"Råvare Navn",
+                        reorder:"Genbestilling",
+                        inactive:"Inaktiv"
+                    };
+
+                    var newResourceRelation = {
+                        resourceId:"Råvare ID",
+                        recipeId:"Opskrift ID",
+                        recipeEndDate:"Opskrift Slutdato",
+                        resourceAmount:"Råvare Mængde",
+                        tolerance:"Tolerance"
+                    };
+
+                    var header_ingredients = HTML_CreateRecipeRelResRow( newResource , newResourceRelation );
+                    Row.find('.DTO_PROD_DropDown').append( header_ingredients );
+                }
 
                 // for all Resources, add a them as HTML to the drop down
                 for (var q = 0; q < ResourcesArr.length; q++) {
