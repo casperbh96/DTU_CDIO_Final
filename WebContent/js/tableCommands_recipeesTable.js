@@ -100,10 +100,10 @@ function HTML_CreateTableHeader(Recipe) {
         '<tr id="'+'RowHeader'+'" class="DTO_Table_Row DTO_RECI_GRID"  >\n' +
         '        <td>Prepare Commit</td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	data-value="'+Recipe.recipeId+'"                         > '+Recipe.recipeId+'</p></td>\n' +
-        //'        <td><p class="dto-table-column-DTO-formElement     recipeName"     data-value="'+Recipe.recipeName+'" style="display: none;visibility: hidden;width: 0;height: 0;">'+Recipe.recipeName+'</p></td>\n' +
-        '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate" 	data-value="'+Recipe.recipeEndDate+'"                       >'+Recipe.recipeEndDate+'</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     recipeName"     data-value="'+Recipe.recipeName+'" "                     >'+Recipe.recipeName+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate" 	data-value="'+Recipe.recipeEndDate+'"                       >'+Recipe.recipeEndDate+'</p></td>\n' +
         ' </tr>';
 }
 
@@ -112,10 +112,10 @@ function HTML_CreateRecipeBach_Row(Recipe ,RowName, UpdateButtonName, DeleteButt
         '<tr id="'+RowName+'" class="DTO_Table_Row DTO_RECI_GRID" data-editstate="'+userTable_STATE_NOCHANGE+'" data-aktiveediting="false"  >\n' +
         '        <td><input class="commit-state" type="checkbox" checked="unchecked"                                                         > </td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeId"	  	  data-value="'+Recipe.recipeId+'"                         >'+Recipe.recipeId+'</p></td>\n' +
-        '        <td  ><p class="dto-table-column-DTO-formElement     recipeEndDate"  data-value="'+Recipe.recipeEndDate+'" >'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     recipeName" 	  data-value="'+Recipe.recipeName+'"                       >'+Recipe.recipeName+'</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     productAmount"  data-value="'+Recipe.productAmount+'"                    >'+Recipe.productAmount+' (kg)</p></td>\n' +
         '        <td><p class="dto-table-column-DTO-formElement     authorUserId"   data-value="'+Recipe.authorUserId+'"                     >'+Recipe.authorUserId+'</p></td>\n' +
+        '        <td><p class="dto-table-column-DTO-formElement     recipeEndDate"  data-value="'+Recipe.recipeEndDate+'"                    >'+Recipe.recipeEndDate+'</p></td>\n' +
         '        <td class="DTO_Table_Row_beneathRow" style="grid-row: 2/3; grid-column: 1/7;"                                               >\n' +
         '            <button class="DTO_PROD_DropButton" onclick="toggleDropDowns(this)" data-hidden="1"                                     > Råvare til Opskriften: </button>\n' +
         '            <table  class="DTO_PROD_DropDown" style="display:none; position:relative; z-index:5;"                                   >\n' +
