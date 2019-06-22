@@ -154,17 +154,18 @@ function HTML_CreateResourceBach_Form(){
 
 //Commits --- --- --- --- --- --- --- --- --- ---
 function commitResourceTable(table){
-
-    var ResourceDTO ={
+    var ResourceBatchDTO ={
         resourceBatchId:  $(table).find('.ResourceDTO_BatchID').val(),
         resourceBatchAmount:$(table).find('.ResourceDTO_Amount').val(),
         supplierName:     $(table).find('.ResourceDTO_Supplier').val(),
         isLeftover: "false",
-        resourceId:    $(table).find('#CreationForm_SelectContainer').find('select').val(),
+        resourceId:  $(table).find('#CreationForm_SelectContainer').find('select').val()[0],
     };
 
-    get(JSON.stringify(ResourceDTO),'rest/resources/create',function (data){
-        alert("succes");
+    alert("resourceBatchId :"+ ResourceBatchDTO.resourceBatchId +" , resourceBatchAmount:"+ ResourceBatchDTO.resourceBatchAmount +" , supplierName:"+ ResourceBatchDTO.supplierName +" ,resourceId :" + ResourceBatchDTO.resourceId);
+
+    post(JSON.stringify(ResourceBatchDTO),'rest/resourcebatch/create',function (data){
+        alert("success");
     },function (data) {
         alert(data);
     });
