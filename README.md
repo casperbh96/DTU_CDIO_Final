@@ -1,5 +1,5 @@
 # DTU_CDIO_Final
-This was a project, where a database, backend with REST service and frontend, along with a physical Mettler Toledo weight. This project had includes 4 people's work over 15 days in total.
+This was a project, where a database, backend with REST service and frontend, along with a physical Mettler Toledo weight. This project includes 4 people's work over 15 days in total.
 
 ## Project description
 The purpose of this project was to make interact with the Mettler weight and implement a procedure, ultimately reading from and storing information in the database. We had to implement CRUD functionality and communicate, with JSON through a REST web service, for managing users, products, recipes, resources and resource batches.
