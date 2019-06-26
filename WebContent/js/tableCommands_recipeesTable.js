@@ -420,15 +420,16 @@ function HTML_CreateRecipePop_filled(DTO){
         '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
-function HTML_recipeResourceRow(ResourceDTO, RelationDTO){
+function HTML_modal_RelResourceRow(ResourceDTO, RelationDTO){
 
     // alert(ResourceDTO.resourceId+";"+  ResourceDTO.resourceName+";"+  ResourceDTO.reorder+";"+ ResourceDTO.inactive);
     //alert(RelationDTO.resourceAmount +";"+ RelationDTO.tolerance);
     return '' +
-        '<tr>' +
-        '   <td class="resourceDataHolder" data-r_id="'+ResourceDTO.resourceId+'" >'+ResourceDTO.resourceName+'</td>' +
-        '   <td><input class="Recipe_REL_resource Ammount" value="'+RelationDTO.resourceAmount+'" step="any" type="number" placeholder="Mængde (kg)"></td>' +
-        '   <td><input class="Recipe_REL_resource Tolerance" value="'+RelationDTO.tolerance+'" step="any" type="number" placeholder="Tolerance (%)"></td>' +
+        '<tr>\n' +
+        '   <td class="resourceDataHolder" data-r_id="'+ResourceDTO.resourceId+'" >'+ResourceDTO.resourceName+'</td>\n' +
+        '   <td><input class="Recipe_REL_resource Ammount" value="'+RelationDTO.resourceAmount+'" step="any" type="number" placeholder="Mængde (kg)"></td>\n' +
+        '   <td><input class="Recipe_REL_resource Tolerance" value="'+RelationDTO.tolerance+'" step="any" type="number" placeholder="Tolerance (%)"></td> \n' +
+        '   <td><button type="button" onclick="Modal_deleteRelResourceRow(this.parentElement.parentElement)">X</button></td> \n' +
         '</tr>';
 
 }
@@ -482,7 +483,9 @@ function RecepyPop_AddResource(container){
 }
 function RecepyPop_AddResourceDTO(container , ResourceDTO, RelationDTO){
     //alert("child detected");
-    $(container).append(HTML_recipeResourceRow(ResourceDTO, RelationDTO));
+    $(container).append(HTML_modal_RelResourceRow(ResourceDTO, RelationDTO));
 }
-
+function Modal_deleteRelResourceRow(self){
+   $(self).remove();
+}
 
