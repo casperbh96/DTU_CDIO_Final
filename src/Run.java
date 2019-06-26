@@ -3,7 +3,7 @@ import org.apache.catalina.startup.Tomcat;
 
 import java.io.File;
 
-public class main{
+public class Run {
 
     private static Tomcat tomcat;
 
