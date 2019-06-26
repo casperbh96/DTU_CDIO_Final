@@ -3,12 +3,10 @@ package main.java.BusinessLogic;
 import main.java.Core.*;
 import main.java.DataAccess.dao.*;
 
-import javax.annotation.Resource;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +32,7 @@ public class BLLRecipe implements I_BLLRecipe {
             for(int i = 0; i < listOfResourceIds.size(); i++){
                 REL_RecipeResourceDTO newRecipeResource = new REL_RecipeResourceDTO(listOfResourceIds.get(i), singleRecipe.getRecipeId(), singleRecipe.getRecipeEndDate(), resourceAmounts.get(i), tolerances.get(i));
 
-                if(bllResource.readSingleResourcebyId(newRecipeResource.getResouceId()) != null) {
+                if(bllResource.readSingleResourcebyId(newRecipeResource.getResourceId()) != null) {
                     resourceDoesNotExist = true;
                 }
 
@@ -74,7 +72,7 @@ public class BLLRecipe implements I_BLLRecipe {
 
                         recResList.add(recRes);
 
-                        if(bllResource.readSingleResourcebyId(recRes.getResouceId()) != null) {
+                        if(bllResource.readSingleResourcebyId(recRes.getResourceId()) != null) {
                             resourceDoesNotExist = true;
                         }
                     }
@@ -108,7 +106,7 @@ public class BLLRecipe implements I_BLLRecipe {
 
         recipeResourceList = bllRecipeResource.readAllRecipeResourcesByRecipeId(recipeId);
         for(REL_RecipeResourceDTO recRes : recipeResourceList){
-            listOfResourceIds.add(recRes.getResouceId());
+            listOfResourceIds.add(recRes.getResourceId());
         }
         if(listOfResourceIds.size() > 0){
             resList = bllResource.readMultipleResourcesByList(listOfResourceIds);
@@ -121,7 +119,7 @@ public class BLLRecipe implements I_BLLRecipe {
                     ResourceBatchDTO -> ResourceBatchDTO.getResourceId() == i ).collect(Collectors.toList());
 
             for(REL_RecipeResourceDTO recRes : recipeResourceList){
-                if(recRes.getResouceId() == i){
+                if(recRes.getResourceId() == i){
                     amount = recRes.getResourceAmount();
                     tolerance = recRes.getTolerance();
                 }
@@ -154,7 +152,7 @@ public class BLLRecipe implements I_BLLRecipe {
 
         if(recResList.size() > 0){
             for(REL_RecipeResourceDTO recRes : recResList){
-                listOfIds.add(recRes.getResouceId());
+                listOfIds.add(recRes.getResourceId());
             }
             resList = bllResource.readMultipleResourcesByList(listOfIds);
         } else{

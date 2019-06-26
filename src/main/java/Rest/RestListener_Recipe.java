@@ -9,10 +9,8 @@ import main.java.Core.StringToSqlDateConverter;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +81,7 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
         try{
             recipeResourceList = recipeResourceBLL.readAllRecipeResourcesByRecipeId(recipeId);
             for(REL_RecipeResourceDTO recRes : recipeResourceList){
-                listOfResourceIds.add(recRes.getResouceId());
+                listOfResourceIds.add(recRes.getResourceId());
             }
             if(listOfResourceIds.size() > 0){
                 resourceList = resourceBLL.readMultipleResourcesByList(listOfResourceIds);

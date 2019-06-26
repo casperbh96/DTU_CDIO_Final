@@ -20,11 +20,11 @@ public class REL_RecipeResourceDTO {
 
     }
 
-    public int getResouceId() {
+    public int getResourceId() {
         return resourceId;
     }
 
-    public void setResouceId(int resouceId) {
+    public void setResourceId(int resouceId) {
         this.resourceId = resouceId;
     }
 

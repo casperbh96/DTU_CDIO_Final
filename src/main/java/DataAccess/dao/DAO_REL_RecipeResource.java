@@ -5,13 +5,11 @@ import main.java.Core.StringToSqlDateConverter;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static main.java.DataAccess.dao.Connector.*;
 import static main.java.DataAccess.dao.SQL_Manipulation.static_parameterBuilder;
-import static main.java.DataAccess.dao.SQL_Manipulation.static_setIntPreparedStatements;
 
 public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
 
@@ -33,7 +31,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
 
     private PreparedStatement setCreatePreparedStatement(PreparedStatement pStmt, REL_RecipeResourceDTO relRecipeResource) throws SQLException {
         try{
-            pStmt.setInt(1, relRecipeResource.getResouceId());
+            pStmt.setInt(1, relRecipeResource.getResourceId());
             pStmt.setInt(2, relRecipeResource.getRecipeId());
             pStmt.setDate(3, relRecipeResource.getRecipeEndDate());
             pStmt.setDouble(4, relRecipeResource.getResourceAmount());
@@ -49,7 +47,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         try{
             pStmt.setDouble(1, relRecipeResource.getResourceAmount());
             pStmt.setDouble(2, relRecipeResource.getTolerance());
-            pStmt.setInt(3, relRecipeResource.getResouceId());
+            pStmt.setInt(3, relRecipeResource.getResourceId());
             pStmt.setInt(4, relRecipeResource.getRecipeId());
             pStmt.setDate(5, relRecipeResource.getRecipeEndDate());
         } catch (SQLException ex){
@@ -69,7 +67,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-        return readSingleRecipeResourcebyId(singleRecipeResource.getResouceId(), singleRecipeResource.getRecipeId(), singleRecipeResource.getRecipeEndDate());
+        return readSingleRecipeResourcebyId(singleRecipeResource.getResourceId(), singleRecipeResource.getRecipeId(), singleRecipeResource.getRecipeEndDate());
     }
 
     @Override
@@ -83,7 +81,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
             PreparedStatement pStmt = conn.prepareStatement("INSERT INTO rel_recipes_resources (resource_id, recipe_id, recipe_end_date, resource_amount, tolerance) VALUES (?,?,?,?,?)");
 
             for (REL_RecipeResourceDTO relRecipeResource : listOfRecipeResources) {
-                resIdList.add(relRecipeResource.getResouceId());
+                resIdList.add(relRecipeResource.getResourceId());
                 recIdList.add(relRecipeResource.getRecipeId());
                 recDateList.add(relRecipeResource.getRecipeEndDate());
 
@@ -259,7 +257,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
-        return readSingleRecipeResourcebyId(recipeResource.getResouceId(),recipeResource.getRecipeId(),recipeResource.getRecipeEndDate());
+        return readSingleRecipeResourcebyId(recipeResource.getResourceId(),recipeResource.getRecipeId(),recipeResource.getRecipeEndDate());
     }
 
     @Override
@@ -273,7 +271,7 @@ public class DAO_REL_RecipeResource implements I_DAL_REL_RecipeResource {
             PreparedStatement pStmt = conn.prepareStatement("UPDATE rel_recipes_resources SET resource_amount = ?, tolerance = ? WHERE resource_id = ? AND recipe_id = ? AND recipe_end_date = ?");
 
             for (REL_RecipeResourceDTO relRecipeResource : listOfRecipeResources) {
-                resIdList.add(relRecipeResource.getResouceId());
+                resIdList.add(relRecipeResource.getResourceId());
                 recIdList.add(relRecipeResource.getRecipeId());
                 recDateList.add(relRecipeResource.getRecipeEndDate());
 
