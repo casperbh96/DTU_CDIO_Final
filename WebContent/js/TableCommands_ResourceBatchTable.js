@@ -77,15 +77,15 @@ function HTML_GenerateResourceBatchRow(ResourceBatch, RecipeName, rowName){
     return '' +
         '       <tr class="DTO_Table_Row DTO_RESOURCE_BATCH_GRID '+rowName+'"       data-editstate="'+ResBatch_STATE_NOCHANGE+'" data-aktiveediting="false" >\n' +
         '            <td><input class="commit-state" type="checkbox"        name="checkBox" checked="unchecked"></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Id" value="Res_active">        '+ResourceBatch.resourceBatchId+' </p></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_ResName" value="Res_active">   '+RecipeName+' </p></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" value="Res_active">   '+ResourceBatch.resourceBatchAmount+ ' (kg)' +' </p></td>\n' +
-        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_supplier" value="Res_active">  '+ResourceBatch.supplierName+' </p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Id" 		value="'+ResourceBatch.resourceBatchId+'"		> '+ResourceBatch.resourceBatchId+' 				</p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_ResName" 	value="'+RecipeName+'"							> '+RecipeName+' 									</p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_Ammount" 	value="'+ResourceBatch.resourceBatchAmount+ '"	> '+ResourceBatch.resourceBatchAmount+ ' (kg)' +' 	</p></td>\n' +
+        '            <td><p  class="dto-table-column-DTO-formElement ResBatch_supplier" value="'+ResourceBatch.supplierName+'"			> '+ResourceBatch.supplierName+' 					</p></td>\n' +
         '            <td class="DTO_Table_Row_MenuBox" style="display: block" >\n' +
         '                <button class="dto-table-button resTableBtn_delete" name="delete" style="width: 100%" onclick=" ResBatchTable_UI_deleteRow(this.parentElement.parentElement)"  >delete</button>\n' +
         '            </td>\n' +
-        '			 <td><p  class="dto-table-column-DTO-formElement ResBatch_isLeftover" value="Res_active" style="display:none;width:0;height:0;overflow: hidden;">  '+ResourceBatch.isLeftover+' </p></td>\n' +
-        '			 <td><p  class="dto-table-column-DTO-formElement ResBatch_resourceId" value="Res_active" style="display:none;width:0;height:0;overflow: hidden;">  '+ResourceBatch.resourceId+' </p></td>\n' +
+        '			 <td><p  class="dto-table-column-DTO-formElement ResBatch_isLeftover" value="'+ResourceBatch.isLeftover+'" style="display:none;width:0;height:0;overflow: hidden;">  '+ResourceBatch.isLeftover+' </p></td>\n' +
+        '			 <td><p  class="dto-table-column-DTO-formElement ResBatch_resourceId" value="'+ResourceBatch.resourceId+'" style="display:none;width:0;height:0;overflow: hidden;">  '+ResourceBatch.resourceId+' </p></td>\n' +
         '        </tr>';
 }
 
@@ -151,17 +151,18 @@ function ResourceBatchTable_REST_createResource(container){
     });
 }
 function ResourceBatchTable_REST_DeleteResource(row){
-
     var ResourceBatch = {
-        resourceBatchId:$(row).find('.ResBatch_Id'),
-        resourceBatchAmount:$(row).find('.ResBatch_Ammount'),
-        supplierName:$(row).find('.ResBatch_supplier'),
-        isLeftover:$(row).find('.ResBatch_isLeftover'),
-        resourceId:$(row).find('.ResBatch_resourceId')
+        resourceBatchId:$(row).find('.ResBatch_Id').attr("value"),
+        resourceBatchAmount:$(row).find('.ResBatch_Ammount').attr("value"),
+        supplierName:$(row).find('.ResBatch_supplier').attr("value"),
+        isLeftover:$(row).find('.ResBatch_isLeftover').attr("value"),
+        resourceId:$(row).find('.ResBatch_resourceId').attr("value")
     };
-    Delete( JSON.stringify(ResourceDTO), "rest/resources/delete" , function (data) {
+alert("resourceBatchId : " + ResourceBatch.resourceBatchId);
+    Delete( JSON.stringify(ResourceBatch), "rest/resourcebatch/delete/" +ResourceBatch.resourceBatchId , function (data) {
 
     });
+
 }
 function ResourceBatchTable_commitTable(){
     //$(row).attr("data-editState")

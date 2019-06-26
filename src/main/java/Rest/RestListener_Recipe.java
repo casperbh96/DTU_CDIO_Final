@@ -1,10 +1,7 @@
 package main.java.Rest;
 
 import main.java.BusinessLogic.*;
-import main.java.Core.REL_RecipeResourceDTO;
-import main.java.Core.RecipeDTO;
-import main.java.Core.ResourceDTO;
-import main.java.Core.StringToSqlDateConverter;
+import main.java.Core.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,6 +9,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -182,4 +180,13 @@ public class RestListener_Recipe implements I_RestListener_Recipe{
 
         return Response.ok(recipe).build();
     }
+
+    @Path("test")
+    @PUT
+    public Response TestRecipe ( REST_DTO_Recipe_withRelResources restTest ) {
+
+        return Response.ok( restTest ).build();
+
+    }
+
 }

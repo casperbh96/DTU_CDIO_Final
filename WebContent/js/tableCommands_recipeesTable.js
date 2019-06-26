@@ -225,7 +225,7 @@ function pop_recipeForm_update(container, rowId){
             authorUserId: $(exactRow).find('p.authorUserId').data('value'),
         };
 
-        var html = HTML_CreateRecipePop_filled(RecipeDTO);
+        var html = HTML_CreateRecipePop_Update(RecipeDTO);
         $('#overlay').append(html);
 
         var SelectContainer = $('.RecipeForm_ResourceContainer');
@@ -278,7 +278,7 @@ function pop_recipeForm_create(self){
 // popup commit
 function commitRecipeTable(container, dateValue) {
     var switchStatement = $(container).attr("data-editstate");
-    alert(switchStatement);
+
     switch(switchStatement){
         case POPUP_STATE_update:
             commitUpdateRecipeTable(container, dateValue);
@@ -290,7 +290,6 @@ function commitRecipeTable(container, dateValue) {
 }
 function commitUpdateRecipeTable(container) {
 
-
     var RecipeDTO = {
         recipeId: $(container).find('.Creation_subPartContainer').data('id'),
         recipeEndDate: $(container).find('.Creation_subPartContainer').data('date'),
@@ -299,17 +298,36 @@ function commitUpdateRecipeTable(container) {
         authorUserId: $(container).find('.Recipe_Author').val(),
     };
 
-    put( JSON.stringify(RecipeDTO), "rest/recipe/update" , function (data) {
-        alert('success!!');
+    var ListOfRelations = [];
+    $(container).find('.RecipeForm_ResourceRelContainer table').children(' tr').each(function () {
+        var row = $(this);
 
 
+        var RelationRecipeResource = {
+            resourceId: row.find('.resourceDataHolder').attr("data-R_ID"),
+            recipeId: "",
+            recipeEndDate: "",
+            resourceAmount: row.find('.Ammount').val(),
+            tolerance: row.find('.Tolerance').val()
+        };
 
-
+        ListOfRelations.push(RelationRecipeResource);
+      //  console.log( ListOfRelations );
 
     });
+
+    var REST_DTO_Recipe_withRelResources ={
+        recipeDTO: RecipeDTO,
+        relationsResource: ListOfRelations
+    };
+
+    put( JSON.stringify( REST_DTO_Recipe_withRelResources ) , "rest/recipe/test" , function (data) {
+            alert("Connection Established, yet feature isent implemented");
+    });
+
 }
 function commitCreateRecipe(container){
-    alert("committing");
+
     get("rest/recipe/get/newid", function (newIdRecipe) {
         var d = new Date();
         var month = d.getMonth() + 1;
@@ -343,7 +361,7 @@ function commitCreateRecipe(container){
                 });
             });
         });
-        alert("Created Recipe");
+
     });
 }
 
@@ -384,7 +402,7 @@ function HTML_CreateRecipeBach_Form(editState){
         '    <button type="button" onclick="commitRecipeTable(this.parentElement.parentElement)" > commit </button>\n' +
         '</form>';
 }
-function HTML_CreateRecipePop_filled(DTO){
+function HTML_CreateRecipePop_Update(DTO){
     return '' +
         '<form class="Create_FormContainer"  data-editstate="'+POPUP_STATE_update+'">\n' +
         '    <h1> OPSKRIFTER </h1>\n' +
