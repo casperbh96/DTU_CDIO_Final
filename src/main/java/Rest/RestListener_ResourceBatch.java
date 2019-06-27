@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -36,13 +37,19 @@ public class RestListener_ResourceBatch implements I_RestListener_ResourceBatch 
     @GET
     public Response getAllResourceBatches() {
         List<ResourceBatchDTO> resourceBatchList = null;
+        List<ResourceBatchDTO> resourceReturn = new ArrayList<>();
         try{
             resourceBatchList = resourceBatchBLL.readAllResourceBatchs();
+            for(ResourceBatchDTO r : resourceBatchList){
+                if(r.getIsLeftover() == false){
+                    resourceReturn.add(r);
+                }
+            }
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(resourceBatchList).build();
+        return Response.ok(resourceReturn).build();
     }
 
     @Path("get/{resourceid}")

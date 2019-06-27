@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -36,13 +37,20 @@ public class RestListener_Resource implements I_RestListener_Resource {
     @GET
     public Response getAllResources() {
         List<ResourceDTO> res = null;
+        List<ResourceDTO> returnRes = new ArrayList<>();
         try{
             res = resourceBLL.readAllResources();
+            for(ResourceDTO r : res){
+                if(r.getInactive() == false){
+                    returnRes.add(r);
+                }
+            }
+
         } catch (SQLException ex){
             return Response.status(400).entity("SQLException: " + ex.getMessage()).build();
         }
 
-        return Response.ok(res).build();
+        return Response.ok(returnRes).build();
     }
 
     @Path("get/{id}")
