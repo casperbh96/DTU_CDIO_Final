@@ -332,12 +332,13 @@ function commitCreateRecipe(container){
         // var d = new Date();
         // var month = d.getMonth() + 1;
         // var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
+        var dateString = "9999-12-30";
 
         var newID = newIdRecipe.recipeId;
         var RecipeDTO = {
             recipeId: newID,
-            // recipeEndDate: dateString,
-            recipeEndDate: "9999-12-30",
+            recipeEndDate: dateString,
+            // recipeEndDate: "9999-12-30",
             recipeName: $(container).find('.Recipe_name').val(),
             productAmount: $(container).find('.Recipe_Ammount').val(),
             authorUserId: $(container).find('.Recipe_Author').val(),
