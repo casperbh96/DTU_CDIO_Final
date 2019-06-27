@@ -26,6 +26,24 @@ public class DAO_ProductBatchResourceBatchTest {
 
     // region CREATE
 
+
+    // region READ
+//    @org.junit.Test
+//    public void test() throws SQLException {
+//        try {
+//
+//            DAO_REL_ProductBatchResourceBatch dao = new DAO_REL_ProductBatchResourceBatch();
+//
+//            dao.deleteSingleProductBatchResourceBatch(3,1);
+//
+//
+//
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+
+
     @org.junit.Test
     public void createMultipleProductBatchesResourceBatchesTest() {
         try {

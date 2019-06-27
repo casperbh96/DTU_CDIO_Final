@@ -329,14 +329,15 @@ function commitUpdateRecipeTable(container) {
 function commitCreateRecipe(container){
 
     get("rest/recipe/get/newid", function (newIdRecipe) {
-        var d = new Date();
-        var month = d.getMonth() + 1;
-        var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
+        // var d = new Date();
+        // var month = d.getMonth() + 1;
+        // var dateString = d.getFullYear() +"-" + month +"-"+d.getUTCDate();
 
         var newID = newIdRecipe.recipeId;
         var RecipeDTO = {
             recipeId: newID,
-            recipeEndDate: dateString,
+            // recipeEndDate: dateString,
+            recipeEndDate: "9999-12-30",
             recipeName: $(container).find('.Recipe_name').val(),
             productAmount: $(container).find('.Recipe_Ammount').val(),
             authorUserId: $(container).find('.Recipe_Author').val(),
