@@ -1,11 +1,13 @@
 package main.java.DataAccess.test;
 
 import main.java.Core.ProductBatchDTO;
+import main.java.Core.StringToSqlDateConverter;
 import main.java.DataAccess.dao.DAO_ProductBatch;
 
 import java.sql.BatchUpdateException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class DAO_ProductBatchTest {
     @org.junit.Test
     public void readSingleProductBatchByIdTest() {
         try {
-            ProductBatchDTO dto = dao.readSingleProductBatchById(70);
+            ProductBatchDTO dto = dao.readSingleProductBatchById(1);
             assertNotNull(dto);
 
             System.out.println(dto);
@@ -110,12 +112,14 @@ public class DAO_ProductBatchTest {
         @org.junit.Test
         public void updateSingleProductBatchTest(){
             try{
-                ProductBatchDTO dto = dao.updateSingleProductBatch(new ProductBatchDTO(70, Date.valueOf("2000-12-31"), "under produktion", Date.valueOf("2000-12-31"), true, 60, Date.valueOf("9999-12-31"), 61));
+                ProductBatchDTO dto = dao.updateSingleProductBatch(new ProductBatchDTO(2, Date.valueOf("9999-12-30"), "afsluttet", Date.valueOf("9999-12-30"), false, 2, new StringToSqlDateConverter().convertStringToDate("2019-09-29"), 1));
                 assertNotNull(dto);
 
                 System.out.println(dto);
             } catch (SQLException ex){
                 ex.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
 

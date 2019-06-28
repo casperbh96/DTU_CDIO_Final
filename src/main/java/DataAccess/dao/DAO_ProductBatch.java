@@ -185,9 +185,9 @@ public class DAO_ProductBatch implements I_DAL_ProductBatch {
     @Override
     public ProductBatchDTO updateSingleProductBatch(ProductBatchDTO productBatch) throws SQLException {
         try (Connection conn = static_createConnection()) {
-            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, production_status = ?, production_end_date = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
+            PreparedStatement pStmt = conn.prepareStatement("UPDATE product_batches SET creation_date = ?, order_status = ?, production_EndDate = ?, inactive = ?, recipe_id = ?, recipe_end_date = ?, productionleader_id_user_id = ? WHERE product_batch_id = ?");
 
-            setUpdatePreparedStatement(pStmt, productBatch);
+            pStmt = setUpdatePreparedStatement(pStmt, productBatch);
 
             pStmt.executeUpdate();
         } catch (SQLException ex) {

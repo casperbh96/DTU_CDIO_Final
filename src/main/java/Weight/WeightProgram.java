@@ -265,7 +265,7 @@ public class WeightProgram {
                     dao_productBatch.updateSingleProductBatch(productBatchDTO);
                 }
 
-                // resourceBatchDTO mmed resourceBatchnummer hentes som objekt, det samme med rel_productBatchResourceBatchDTO
+                // resourceBatchDTO med resourceBatchnummer hentes som objekt, det samme med rel_productBatchResourceBatchDTO
                 ResourceBatchDTO resourceBatchDTO = dao_resourceBatch.readSingleResourceBatchById(resourceBatchId);
                 REL_ProductBatchResourceBatchDTO rel_productBatchResourceBatchDTO = productBatchResourceBatch.readSingleProductBatchResourceBatchbyId(resourceBatchId, productbatchId);
 
@@ -293,6 +293,7 @@ public class WeightProgram {
                     //programmet slutter
                     System.exit(0);
                 }
+
 
             }
 
